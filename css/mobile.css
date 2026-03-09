@@ -1,0 +1,222 @@
+/*
+ * mobile.css — Responsividade
+ *
+ * Tablet  ≤ 1024px
+ * Mobile  ≤ 768px
+ * Pequeno ≤ 480px
+ *
+ * No mobile, a divisão instrumento/caderno se mantém —
+ * apenas o layout muda para coluna única.
+ */
+
+/* ── Tablet ─────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .lab-view {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "canvas"
+      "controls"
+      "info";
+  }
+
+  .lab-view__controls .panel__body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4) var(--space-8);
+  }
+
+  .app-main {
+    padding: var(--space-6);
+  }
+
+  .home-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+/* ── Mobile ─────────────────────────────────────── */
+
+@media (max-width: 768px) {
+
+  /* Header */
+  .header-menu-btn { display: flex; }
+
+  .app-header__logo .logo-text { display: none; }
+
+  .header-breadcrumb {
+    font-size: var(--text-xs);
+  }
+
+  .header-btn--teacher { display: none; }
+
+  /* Sidebar: drawer lateral */
+  .app-sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    bottom: 0;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+    box-shadow: var(--shadow-panel);
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Overlay escurece o conteúdo quando o drawer está aberto */
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 199;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+  }
+
+  .sidebar-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Main */
+  .app-main {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  /* Page header */
+  .page-header__title {
+    font-size: var(--text-2xl);
+  }
+
+  .page-header__subtitle {
+    font-size: var(--text-base);
+  }
+
+  /* Grids em coluna única */
+  .home-grid,
+  .experiment-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Lab view: controles em linha */
+  .lab-view {
+    gap: var(--space-4);
+  }
+
+  .lab-view__controls .panel__body {
+    grid-template-columns: 1fr;
+  }
+
+  /* Info grid: coluna única */
+  .lab-view__info {
+    grid-template-columns: 1fr;
+  }
+
+  /* Módulo header */
+  .module-header {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .module-header__color-bar {
+    width: 40px;
+    min-height: 3px;
+    height: 3px;
+  }
+}
+
+/* ── Pequeno ────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 48px;
+  }
+
+  .app-main {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-5);
+  }
+
+  .page-header__title {
+    font-size: var(--text-xl);
+  }
+
+  .module-card,
+  .exp-card {
+    padding: var(--space-4);
+  }
+
+  /* Slider thumb maior para toque */
+  input[type="range"]::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Botões de sim maiores */
+  .sim-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Notebook panels */
+  .notebook-panel,
+  .phenomenon-block,
+  .exercise-block {
+    border-radius: var(--radius-base);
+  }
+}
+
+/* ── Landscape phone ────────────────────────────── */
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .lab-view {
+    grid-template-columns: 1fr 200px;
+    grid-template-areas:
+      "canvas controls"
+      "info   info";
+  }
+
+  .lab-view__controls .panel__body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Impressão ──────────────────────────────────── */
+
+@media print {
+  .app-header,
+  .app-sidebar,
+  .sim-btn,
+  .btn-group,
+  .toast-container { display: none; }
+
+  .app-main { padding: 0; }
+
+  .notebook-panel,
+  .phenomenon-block,
+  .question-block,
+  .eq-panel,
+  .exercise-block {
+    border: 1px solid #999;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  /* Inverte caderno para impressão: papel branco */
+  .phenomenon-block,
+  .question-block,
+  .eq-panel,
+  .notebook-panel,
+  .exercise-block {
+    background: white;
+    color: black;
+  }
+}

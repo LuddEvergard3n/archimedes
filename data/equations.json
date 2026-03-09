@@ -1,0 +1,184 @@
+{
+  "equations": [
+    {
+      "id": "eq-mru",
+      "module": "motion",
+      "experiment_ids": ["mru-01"],
+      "latex": "x(t) = x_0 + v \\cdot t",
+      "display": "x(t) = x₀ + v·t",
+      "variables": {
+        "x": { "name": "posição", "unit": "m" },
+        "x₀": { "name": "posição inicial", "unit": "m" },
+        "v": { "name": "velocidade", "unit": "m/s" },
+        "t": { "name": "tempo", "unit": "s" }
+      },
+      "when_to_use": "Corpo com velocidade constante (aceleração zero)",
+      "restriction": "Válida apenas para a = 0"
+    },
+    {
+      "id": "eq-mruv-vel",
+      "module": "motion",
+      "experiment_ids": ["mruv-01"],
+      "display": "v(t) = v₀ + a·t",
+      "variables": {
+        "v": { "name": "velocidade", "unit": "m/s" },
+        "v₀": { "name": "velocidade inicial", "unit": "m/s" },
+        "a": { "name": "aceleração", "unit": "m/s²" },
+        "t": { "name": "tempo", "unit": "s" }
+      },
+      "when_to_use": "Corpo com aceleração constante",
+      "restriction": "Válida apenas para a = constante"
+    },
+    {
+      "id": "eq-mruv-pos",
+      "module": "motion",
+      "experiment_ids": ["mruv-01"],
+      "display": "x(t) = x₀ + v₀·t + ½·a·t²",
+      "variables": {
+        "x": { "name": "posição", "unit": "m" },
+        "x₀": { "name": "posição inicial", "unit": "m" },
+        "v₀": { "name": "velocidade inicial", "unit": "m/s" },
+        "a": { "name": "aceleração", "unit": "m/s²" },
+        "t": { "name": "tempo", "unit": "s" }
+      },
+      "when_to_use": "Posição em MRUV",
+      "restriction": "Válida apenas para a = constante"
+    },
+    {
+      "id": "eq-torricelli",
+      "module": "motion",
+      "experiment_ids": ["mruv-01", "free-fall-01"],
+      "display": "v² = v₀² + 2·a·Δx",
+      "variables": {
+        "v": { "name": "velocidade final", "unit": "m/s" },
+        "v₀": { "name": "velocidade inicial", "unit": "m/s" },
+        "a": { "name": "aceleração", "unit": "m/s²" },
+        "Δx": { "name": "deslocamento", "unit": "m" }
+      },
+      "when_to_use": "Quando o tempo não é necessário",
+      "restriction": "Válida apenas para a = constante"
+    },
+    {
+      "id": "eq-newton2",
+      "module": "forces",
+      "experiment_ids": ["newton2-01", "friction-01", "resultant-01"],
+      "display": "F = m·a",
+      "variables": {
+        "F": { "name": "força resultante", "unit": "N" },
+        "m": { "name": "massa", "unit": "kg" },
+        "a": { "name": "aceleração", "unit": "m/s²" }
+      },
+      "when_to_use": "Sempre que há força resultante não nula",
+      "restriction": "F e a são vetoriais. Esta é a magnitude."
+    },
+    {
+      "id": "eq-friction",
+      "module": "forces",
+      "experiment_ids": ["friction-01"],
+      "display": "f = μk·N",
+      "variables": {
+        "f": { "name": "força de atrito cinético", "unit": "N" },
+        "μk": { "name": "coeficiente de atrito cinético", "unit": "adimensional" },
+        "N": { "name": "força normal", "unit": "N" }
+      },
+      "when_to_use": "Corpo em movimento sobre superfície",
+      "restriction": "Atrito cinético. O estático usa μe > μk."
+    },
+    {
+      "id": "eq-weight",
+      "module": "forces",
+      "experiment_ids": ["newton2-01", "inertia-01", "free-fall-01"],
+      "display": "P = m·g",
+      "variables": {
+        "P": { "name": "peso", "unit": "N" },
+        "m": { "name": "massa", "unit": "kg" },
+        "g": { "name": "aceleração gravitacional", "unit": "m/s²", "value": 9.8 }
+      },
+      "when_to_use": "Força gravitacional na superfície da Terra",
+      "restriction": "g varia com a altitude e o astro"
+    },
+    {
+      "id": "eq-kinetic-energy",
+      "module": "energy",
+      "experiment_ids": ["kinetic-01", "ramp-energy-01", "conservation-01"],
+      "display": "Ec = ½·m·v²",
+      "variables": {
+        "Ec": { "name": "energia cinética", "unit": "J" },
+        "m": { "name": "massa", "unit": "kg" },
+        "v": { "name": "velocidade", "unit": "m/s" }
+      },
+      "when_to_use": "Corpo em movimento",
+      "restriction": "Ec ≥ 0 sempre"
+    },
+    {
+      "id": "eq-potential-energy",
+      "module": "energy",
+      "experiment_ids": ["ramp-energy-01", "conservation-01"],
+      "display": "Ep = m·g·h",
+      "variables": {
+        "Ep": { "name": "energia potencial gravitacional", "unit": "J" },
+        "m": { "name": "massa", "unit": "kg" },
+        "g": { "name": "aceleração gravitacional", "unit": "m/s²" },
+        "h": { "name": "altura", "unit": "m" }
+      },
+      "when_to_use": "Corpo em campo gravitacional uniforme",
+      "restriction": "Relativa a um referencial (h = 0)"
+    },
+    {
+      "id": "eq-work",
+      "module": "energy",
+      "experiment_ids": ["kinetic-01"],
+      "display": "W = F·d·cos(θ)",
+      "variables": {
+        "W": { "name": "trabalho", "unit": "J" },
+        "F": { "name": "força", "unit": "N" },
+        "d": { "name": "deslocamento", "unit": "m" },
+        "θ": { "name": "ângulo entre F e d", "unit": "rad" }
+      },
+      "when_to_use": "Cálculo de trabalho realizado por uma força",
+      "restriction": "W < 0 quando θ > 90°"
+    },
+    {
+      "id": "eq-density",
+      "module": "fluids",
+      "experiment_ids": ["density-01", "buoyancy-01"],
+      "display": "ρ = m/V",
+      "variables": {
+        "ρ": { "name": "densidade", "unit": "kg/m³" },
+        "m": { "name": "massa", "unit": "kg" },
+        "V": { "name": "volume", "unit": "m³" }
+      },
+      "when_to_use": "Relação massa-volume de qualquer material",
+      "restriction": "Densidade uniforme assumida"
+    },
+    {
+      "id": "eq-buoyancy",
+      "module": "fluids",
+      "experiment_ids": ["buoyancy-01", "density-01"],
+      "display": "E = ρf·g·Vsub",
+      "variables": {
+        "E": { "name": "empuxo", "unit": "N" },
+        "ρf": { "name": "densidade do fluido", "unit": "kg/m³" },
+        "g": { "name": "aceleração gravitacional", "unit": "m/s²" },
+        "Vsub": { "name": "volume submerso", "unit": "m³" }
+      },
+      "when_to_use": "Objeto total ou parcialmente submerso em fluido",
+      "restriction": "Fluido de densidade uniforme"
+    },
+    {
+      "id": "eq-pressure",
+      "module": "fluids",
+      "experiment_ids": ["pressure-01"],
+      "display": "P = P₀ + ρ·g·h",
+      "variables": {
+        "P": { "name": "pressão", "unit": "Pa" },
+        "P₀": { "name": "pressão superficial", "unit": "Pa" },
+        "ρ": { "name": "densidade do fluido", "unit": "kg/m³" },
+        "g": { "name": "aceleração gravitacional", "unit": "m/s²" },
+        "h": { "name": "profundidade", "unit": "m" }
+      },
+      "when_to_use": "Pressão a uma profundidade h em fluido estático",
+      "restriction": "Fluido incompressível, g uniforme"
+    }
+  ]
+}

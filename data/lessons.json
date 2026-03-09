@@ -1,0 +1,289 @@
+{
+  "lessons": [
+    {
+      "id": "intro-fisica-01",
+      "module": "intro",
+      "title": "O que é Física",
+      "concepts": ["fenômeno", "observação", "medida", "modelo", "explicação"],
+      "experiment_ids": ["obs-measure-01", "grandezas-01"],
+      "exercise_ids": [],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Olhe ao redor. Um pêndulo oscila. Uma pedra cai. A água ferve. A Física é a linguagem que usamos para descrever, medir e explicar esses fenômenos."
+        },
+        {
+          "id": "observation",
+          "title": "Observação",
+          "content": "Observar não é apenas ver. É registrar com precisão o que acontece, identificar variáveis e padrões."
+        },
+        {
+          "id": "formalization",
+          "title": "Modelo Físico",
+          "content": "Um modelo físico é uma representação simplificada da realidade que captura as relações essenciais entre as grandezas."
+        }
+      ]
+    },
+    {
+      "id": "motion-mru-01",
+      "module": "motion",
+      "title": "Movimento com Velocidade Constante",
+      "concepts": ["posição", "deslocamento", "velocidade", "tempo", "referencial"],
+      "experiment_ids": ["mru-01"],
+      "exercise_ids": ["motion-ex-01", "motion-ex-02"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Imagine um carro na estrada a velocidade constante. A cada segundo, ele percorre a mesma distância. Isso é Movimento Retilíneo Uniforme."
+        },
+        {
+          "id": "experiment",
+          "title": "Experimento",
+          "content": "Manipule a velocidade e observe como a posição muda ao longo do tempo. Observe o gráfico x×t."
+        },
+        {
+          "id": "observation",
+          "title": "O que observar",
+          "content": "O gráfico posição×tempo é uma reta. A inclinação dessa reta é a velocidade. Velocidade maior = reta mais inclinada."
+        },
+        {
+          "id": "formalization",
+          "title": "A Equação",
+          "content": "Depois de ver o padrão, podemos escrever: x(t) = x₀ + v·t. Onde x₀ é a posição inicial, v é a velocidade e t é o tempo."
+        }
+      ]
+    },
+    {
+      "id": "motion-mruv-01",
+      "module": "motion",
+      "title": "Movimento com Aceleração Constante",
+      "concepts": ["aceleração", "variação de velocidade", "gráfico v×t", "equação horária"],
+      "experiment_ids": ["mruv-01"],
+      "exercise_ids": ["motion-ex-03", "motion-ex-04"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Quando uma força constante age sobre um corpo, sua velocidade muda uniformemente. A velocidade aumenta (ou diminui) de forma regular."
+        },
+        {
+          "id": "experiment",
+          "title": "Experimento",
+          "content": "Observe o corpo acelerando. Veja como o gráfico de velocidade é uma reta — isso indica aceleração constante."
+        },
+        {
+          "id": "formalization",
+          "title": "As Equações",
+          "content": "v(t) = v₀ + a·t — a velocidade cresce linearmente com o tempo. x(t) = x₀ + v₀t + ½at² — a posição segue uma parábola."
+        }
+      ]
+    },
+    {
+      "id": "motion-freefall-01",
+      "module": "motion",
+      "title": "Queda Livre",
+      "concepts": ["gravidade", "aceleração constante", "vácuo", "independência da massa"],
+      "experiment_ids": ["free-fall-01"],
+      "exercise_ids": ["motion-ex-05"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Galileu mostrou que, na ausência de ar, todos os objetos caem com a mesma aceleração, independente de sua massa."
+        },
+        {
+          "id": "formalization",
+          "title": "A Aceleração Gravitacional",
+          "content": "a = g ≈ 9,8 m/s² (na superfície da Terra). Isso é uma constante local — não depende do objeto."
+        }
+      ]
+    },
+    {
+      "id": "forces-newton1-01",
+      "module": "forces",
+      "title": "Primeira Lei de Newton",
+      "concepts": ["inércia", "força nula", "equilíbrio", "estado de movimento"],
+      "experiment_ids": ["inertia-01"],
+      "exercise_ids": ["forces-ex-01"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Um objeto em repouso não começa a se mover sozinho. Um objeto em movimento não para sozinho. Algo precisa mudar o estado de movimento."
+        },
+        {
+          "id": "formalization",
+          "title": "Lei da Inércia",
+          "content": "Se a força resultante sobre um corpo é zero, seu estado de movimento não muda: ΣF = 0 → a = 0."
+        }
+      ]
+    },
+    {
+      "id": "forces-newton2-01",
+      "module": "forces",
+      "title": "Segunda Lei de Newton",
+      "concepts": ["força resultante", "massa", "aceleração", "proporcionalidade"],
+      "experiment_ids": ["newton2-01"],
+      "exercise_ids": ["forces-ex-02", "forces-ex-03"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Empurre um objeto com mais força — ele acelera mais. Empurre um objeto mais pesado — ele acelera menos. Há uma relação clara entre força, massa e aceleração."
+        },
+        {
+          "id": "experiment",
+          "title": "Experimento",
+          "content": "Varie a força aplicada com a massa fixa. Veja como a aceleração muda. Depois, varie a massa com a força fixa."
+        },
+        {
+          "id": "formalization",
+          "title": "F = m·a",
+          "content": "A aceleração é proporcional à força e inversamente proporcional à massa. F = m·a é a síntese dessa relação."
+        }
+      ]
+    },
+    {
+      "id": "forces-friction-01",
+      "module": "forces",
+      "title": "Força de Atrito",
+      "concepts": ["atrito", "força normal", "coeficiente de atrito", "superfície"],
+      "experiment_ids": ["friction-01"],
+      "exercise_ids": ["forces-ex-04"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Por que um bloco empurrado desacelera quando paramos de empurrá-lo? Uma força está se opondo ao movimento."
+        },
+        {
+          "id": "formalization",
+          "title": "f = μ·N",
+          "content": "O atrito cinético é proporcional à força normal: f = μk·N. O coeficiente μk depende das superfícies em contato."
+        }
+      ]
+    },
+    {
+      "id": "energy-kinetic-01",
+      "module": "energy",
+      "title": "Energia Cinética",
+      "concepts": ["energia cinética", "massa", "velocidade", "trabalho"],
+      "experiment_ids": ["kinetic-01"],
+      "exercise_ids": ["energy-ex-01"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Um corpo em movimento pode realizar trabalho. Quanto mais rápido ou mais pesado, mais trabalho pode realizar. Chamamos isso de energia cinética."
+        },
+        {
+          "id": "formalization",
+          "title": "Ec = ½·m·v²",
+          "content": "A energia cinética cresce com o quadrado da velocidade. Dobrar a velocidade quadruplica a energia cinética."
+        }
+      ]
+    },
+    {
+      "id": "energy-potential-01",
+      "module": "energy",
+      "title": "Energia Potencial Gravitacional",
+      "concepts": ["energia potencial", "altura", "campo gravitacional", "trabalho da gravidade"],
+      "experiment_ids": ["ramp-energy-01"],
+      "exercise_ids": ["energy-ex-02"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Um objeto em altura possui energia armazenada — energia que se converte em movimento quando o objeto cai."
+        },
+        {
+          "id": "formalization",
+          "title": "Ep = m·g·h",
+          "content": "A energia potencial gravitacional depende da massa, da aceleração gravitacional e da altura em relação a um referencial."
+        }
+      ]
+    },
+    {
+      "id": "energy-conservation-01",
+      "module": "energy",
+      "title": "Conservação de Energia Mecânica",
+      "concepts": ["conservação", "energia mecânica total", "transformação energética", "dissipação"],
+      "experiment_ids": ["conservation-01"],
+      "exercise_ids": ["energy-ex-03"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Em um pêndulo sem atrito, a energia se converte continuamente entre cinética e potencial. A soma permanece constante."
+        },
+        {
+          "id": "formalization",
+          "title": "E_mec = Ep + Ec = constante",
+          "content": "Sem forças dissipativas, a energia mecânica total se conserva. Com atrito, parte da energia se transforma em calor."
+        }
+      ]
+    },
+    {
+      "id": "fluids-density-01",
+      "module": "fluids",
+      "title": "Densidade",
+      "concepts": ["densidade", "massa", "volume", "comparação entre materiais"],
+      "experiment_ids": ["density-01"],
+      "exercise_ids": ["fluids-ex-01"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Ferro afunda. Madeira flutua. Iceberg flutua. O que determina se algo flutua ou afunda não é o peso, mas a densidade."
+        },
+        {
+          "id": "formalization",
+          "title": "ρ = m/V",
+          "content": "Densidade é massa por unidade de volume. Um objeto flutua quando sua densidade média é menor que a do fluido."
+        }
+      ]
+    },
+    {
+      "id": "fluids-buoyancy-01",
+      "module": "fluids",
+      "title": "Princípio de Arquimedes",
+      "concepts": ["empuxo", "peso do fluido deslocado", "flutuação", "equilíbrio"],
+      "experiment_ids": ["buoyancy-01"],
+      "exercise_ids": ["fluids-ex-02", "fluids-ex-03"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Quando você mergulha um objeto em água, ele parece mais leve. Uma força para cima age sobre ele. Essa força é o empuxo."
+        },
+        {
+          "id": "formalization",
+          "title": "E = ρ_f · g · V_sub",
+          "content": "O empuxo é igual ao peso do fluido deslocado pelo objeto. Arquimedes descobriu isso no século III a.C."
+        }
+      ]
+    },
+    {
+      "id": "fluids-pressure-01",
+      "module": "fluids",
+      "title": "Pressão em Fluidos",
+      "concepts": ["pressão", "profundidade", "isotropia da pressão"],
+      "experiment_ids": ["pressure-01"],
+      "exercise_ids": ["fluids-ex-04"],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Fenômeno",
+          "content": "Quanto mais fundo você mergulha, mais pressão sente. A coluna de fluido acima exerce uma força."
+        },
+        {
+          "id": "formalization",
+          "title": "P = P₀ + ρ·g·h",
+          "content": "A pressão aumenta linearmente com a profundidade. A pressão age em todas as direções igualmente."
+        }
+      ]
+    }
+  ]
+}

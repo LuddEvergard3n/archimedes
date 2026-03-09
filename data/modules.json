@@ -1,0 +1,59 @@
+{
+  "modules": [
+    {
+      "id": "intro",
+      "title": "Introdução à Física",
+      "subtitle": "O que é ler o mundo",
+      "description": "Física como leitura dos fenômenos naturais. Observar, medir, modelar e explicar.",
+      "color": "#00d4ff",
+      "icon": "atom",
+      "order": 0,
+      "experiments": ["obs-measure-01", "grandezas-01"],
+      "lessons": ["intro-fisica-01"]
+    },
+    {
+      "id": "motion",
+      "title": "Movimento",
+      "subtitle": "Posição, velocidade e aceleração",
+      "description": "Como os corpos mudam de posição ao longo do tempo. MRU, MRUV e queda livre.",
+      "color": "#00c878",
+      "icon": "arrow-right",
+      "order": 1,
+      "experiments": ["mru-01", "mruv-01", "free-fall-01"],
+      "lessons": ["motion-mru-01", "motion-mruv-01", "motion-freefall-01"]
+    },
+    {
+      "id": "forces",
+      "title": "Forças",
+      "subtitle": "Causas do movimento",
+      "description": "O que causa mudanças no estado de movimento. As leis de Newton.",
+      "color": "#f0a500",
+      "icon": "force",
+      "order": 2,
+      "experiments": ["inertia-01", "newton2-01", "friction-01", "resultant-01"],
+      "lessons": ["forces-newton1-01", "forces-newton2-01", "forces-friction-01"]
+    },
+    {
+      "id": "energy",
+      "title": "Energia",
+      "subtitle": "Trabalho e conservação",
+      "description": "Energia cinética, potencial e sua conservação. Transformações energéticas.",
+      "color": "#e84040",
+      "icon": "bolt",
+      "order": 3,
+      "experiments": ["ramp-energy-01", "kinetic-01", "conservation-01"],
+      "lessons": ["energy-kinetic-01", "energy-potential-01", "energy-conservation-01"]
+    },
+    {
+      "id": "fluids",
+      "title": "Fluidos",
+      "subtitle": "Densidade, pressão e empuxo",
+      "description": "O princípio de Arquimedes. Por que alguns objetos flutuam e outros afundam.",
+      "color": "#7b61ff",
+      "icon": "droplet",
+      "order": 4,
+      "experiments": ["buoyancy-01", "density-01", "pressure-01"],
+      "lessons": ["fluids-density-01", "fluids-buoyancy-01", "fluids-pressure-01"]
+    }
+  ]
+}

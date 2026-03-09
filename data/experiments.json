@@ -1,0 +1,214 @@
+{
+  "experiments": [
+    {
+      "id": "obs-measure-01",
+      "module": "intro",
+      "title": "Observar e Medir",
+      "phenomenon": "Antes de qualquer equação, há um fenômeno. A Física começa com a observação rigorosa do que acontece no mundo.",
+      "variables": ["tempo", "posição", "velocidade"],
+      "equations": [],
+      "question": "Qual é a diferença entre observar e medir?",
+      "simulation": "pendulum-observe",
+      "phase": "phenomenon",
+      "difficulty": 1,
+      "duration_min": 10
+    },
+    {
+      "id": "grandezas-01",
+      "module": "intro",
+      "title": "Grandezas e Unidades",
+      "phenomenon": "Toda medida física tem uma unidade. Sem unidade, um número não representa nada físico.",
+      "variables": ["comprimento", "massa", "tempo"],
+      "equations": ["[v] = m/s", "[a] = m/s²", "[F] = kg·m/s² = N"],
+      "question": "Por que 10 não é uma grandeza física completa?",
+      "simulation": "units-demo",
+      "phase": "phenomenon",
+      "difficulty": 1,
+      "duration_min": 10
+    },
+    {
+      "id": "mru-01",
+      "module": "motion",
+      "title": "Velocidade Constante",
+      "phenomenon": "Um corpo que se move sem aceleração percorre distâncias iguais em tempos iguais.",
+      "variables": ["posição", "velocidade", "tempo"],
+      "equations": ["x(t) = x₀ + v·t"],
+      "question": "O que acontece com a posição quando dobramos a velocidade?",
+      "simulation": "mru",
+      "phase": "phenomenon",
+      "difficulty": 1,
+      "duration_min": 15
+    },
+    {
+      "id": "mruv-01",
+      "module": "motion",
+      "title": "Aceleração Constante",
+      "phenomenon": "Quando uma força constante age sobre um corpo, sua velocidade muda uniformemente ao longo do tempo.",
+      "variables": ["posição", "velocidade", "aceleração", "tempo"],
+      "equations": [
+        "v(t) = v₀ + a·t",
+        "x(t) = x₀ + v₀·t + ½·a·t²",
+        "v² = v₀² + 2·a·Δx"
+      ],
+      "question": "Como o gráfico v×t muda quando aumentamos a aceleração?",
+      "simulation": "mruv",
+      "phase": "phenomenon",
+      "difficulty": 2,
+      "duration_min": 20
+    },
+    {
+      "id": "free-fall-01",
+      "module": "motion",
+      "title": "Queda Livre",
+      "phenomenon": "Na ausência de ar, todos os objetos caem com a mesma aceleração, independente de sua massa.",
+      "variables": ["altura", "velocidade", "tempo", "aceleração gravitacional"],
+      "equations": [
+        "a = g ≈ 9,8 m/s²",
+        "v(t) = g·t",
+        "h(t) = ½·g·t²"
+      ],
+      "question": "Uma pena e uma pedra caem ao mesmo tempo no vácuo. Por quê?",
+      "simulation": "free-fall",
+      "phase": "phenomenon",
+      "difficulty": 2,
+      "duration_min": 15
+    },
+    {
+      "id": "inertia-01",
+      "module": "forces",
+      "title": "Inércia e Primeira Lei de Newton",
+      "phenomenon": "Um corpo em repouso permanece em repouso; um corpo em movimento continua em movimento retilíneo uniforme — a menos que uma força resultante atue sobre ele.",
+      "variables": ["velocidade", "força", "massa"],
+      "equations": ["ΣF = 0 ↔ Δv = 0"],
+      "question": "O que mantém um corpo parado quando nenhuma força age sobre ele?",
+      "simulation": "inertia",
+      "phase": "phenomenon",
+      "difficulty": 1,
+      "duration_min": 10
+    },
+    {
+      "id": "newton2-01",
+      "module": "forces",
+      "title": "Força, Massa e Aceleração",
+      "phenomenon": "A aceleração de um corpo é diretamente proporcional à força resultante que age sobre ele e inversamente proporcional à sua massa.",
+      "variables": ["força", "massa", "aceleração"],
+      "equations": ["F = m·a", "a = F/m"],
+      "question": "O que acontece com a aceleração quando a massa dobra e a força permanece igual?",
+      "simulation": "newton2",
+      "phase": "phenomenon",
+      "difficulty": 2,
+      "duration_min": 20
+    },
+    {
+      "id": "friction-01",
+      "module": "forces",
+      "title": "Força de Atrito",
+      "phenomenon": "O atrito é uma força que se opõe ao movimento relativo entre superfícies em contato.",
+      "variables": ["atrito", "normal", "coeficiente de atrito", "força aplicada"],
+      "equations": ["f = μ·N"],
+      "question": "Como o atrito afeta o movimento quando a força aplicada é constante?",
+      "simulation": "friction",
+      "phase": "phenomenon",
+      "difficulty": 2,
+      "duration_min": 15
+    },
+    {
+      "id": "resultant-01",
+      "module": "forces",
+      "title": "Força Resultante",
+      "phenomenon": "Várias forças agindo sobre um mesmo corpo podem ser substituídas por uma única força equivalente: a resultante.",
+      "variables": ["força resultante", "força aplicada", "peso", "normal", "atrito"],
+      "equations": ["F_R = ΣFᵢ"],
+      "question": "Quando a força resultante é zero, o que acontece com o corpo?",
+      "simulation": "resultant",
+      "phase": "phenomenon",
+      "difficulty": 2,
+      "duration_min": 15
+    },
+    {
+      "id": "ramp-energy-01",
+      "module": "energy",
+      "title": "Energia na Rampa",
+      "phenomenon": "Um corpo no alto de uma rampa possui energia potencial. Ao deslizar, essa energia se converte em energia cinética.",
+      "variables": ["altura", "velocidade", "energia potencial", "energia cinética", "massa"],
+      "equations": [
+        "Ep = m·g·h",
+        "Ec = ½·m·v²",
+        "Ep + Ec = constante (sem atrito)"
+      ],
+      "question": "Se dobrarmos a altura, o que acontece com a velocidade no ponto mais baixo?",
+      "simulation": "ramp-energy",
+      "phase": "phenomenon",
+      "difficulty": 2,
+      "duration_min": 20
+    },
+    {
+      "id": "kinetic-01",
+      "module": "energy",
+      "title": "Energia Cinética",
+      "phenomenon": "A energia cinética de um corpo em movimento depende de sua massa e do quadrado de sua velocidade.",
+      "variables": ["massa", "velocidade", "energia cinética"],
+      "equations": ["Ec = ½·m·v²"],
+      "question": "Se dobrarmos a velocidade, por que a energia cinética quadruplica?",
+      "simulation": "kinetic",
+      "phase": "phenomenon",
+      "difficulty": 2,
+      "duration_min": 15
+    },
+    {
+      "id": "conservation-01",
+      "module": "energy",
+      "title": "Conservação de Energia",
+      "phenomenon": "Em um sistema sem forças dissipativas, a energia mecânica total se conserva.",
+      "variables": ["energia total", "energia potencial", "energia cinética", "trabalho do atrito"],
+      "equations": [
+        "E_mec = Ep + Ec = constante",
+        "ΔE_mec = W_atrito"
+      ],
+      "question": "O que acontece com a energia total quando adicionamos atrito?",
+      "simulation": "conservation",
+      "phase": "phenomenon",
+      "difficulty": 3,
+      "duration_min": 20
+    },
+    {
+      "id": "buoyancy-01",
+      "module": "fluids",
+      "title": "Empuxo",
+      "phenomenon": "Um objeto submerso em um fluido sofre uma força para cima igual ao peso do fluido deslocado.",
+      "variables": ["empuxo", "peso", "densidade do fluido", "volume submerso"],
+      "equations": ["E = ρ_f · g · V_sub"],
+      "question": "Por que um navio de aço flutua enquanto um cubo de aço afunda?",
+      "simulation": "buoyancy",
+      "phase": "phenomenon",
+      "difficulty": 2,
+      "duration_min": 20
+    },
+    {
+      "id": "density-01",
+      "module": "fluids",
+      "title": "Densidade e Flutuação",
+      "phenomenon": "Um objeto flutua quando sua densidade média é menor que a do fluido. Afunda quando é maior.",
+      "variables": ["densidade do objeto", "densidade do fluido", "volume", "massa"],
+      "equations": ["ρ = m/V", "flutua se ρ_obj < ρ_fluido"],
+      "question": "O que determina se um objeto flutua ou afunda?",
+      "simulation": "density",
+      "phase": "phenomenon",
+      "difficulty": 1,
+      "duration_min": 15
+    },
+    {
+      "id": "pressure-01",
+      "module": "fluids",
+      "title": "Pressão em Fluidos",
+      "phenomenon": "A pressão em um fluido aumenta com a profundidade e age em todas as direções.",
+      "variables": ["pressão", "profundidade", "densidade do fluido", "pressão atmosférica"],
+      "equations": ["P = P₀ + ρ·g·h"],
+      "question": "Por que a pressão aumenta quanto mais fundo mergulhamos?",
+      "simulation": "pressure",
+      "phase": "phenomenon",
+      "difficulty": 2,
+      "duration_min": 15
+    }
+  ]
+}

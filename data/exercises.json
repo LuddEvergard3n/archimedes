@@ -1,0 +1,205 @@
+{
+  "exercises": [
+    {
+      "id": "motion-ex-01",
+      "module": "motion",
+      "experiment_id": "mru-01",
+      "type": "prediction",
+      "title": "Preveja a posição",
+      "question": "Um corpo parte da posição x₀ = 5 m com velocidade v = 3 m/s. Onde ele estará após 4 segundos?",
+      "hint": "Use x(t) = x₀ + v·t. Substitua os valores.",
+      "answer": { "value": 17, "unit": "m" },
+      "explanation": "x(4) = 5 + 3·4 = 5 + 12 = 17 m"
+    },
+    {
+      "id": "motion-ex-02",
+      "module": "motion",
+      "experiment_id": "mru-01",
+      "type": "interpretation",
+      "title": "Leia o gráfico",
+      "question": "No gráfico x×t que você observou, o que indica a inclinação da reta?",
+      "options": [
+        "A posição do corpo",
+        "A velocidade do corpo",
+        "A aceleração do corpo",
+        "O tempo de percurso"
+      ],
+      "answer": "A velocidade do corpo",
+      "explanation": "A inclinação (tangente) de um gráfico x×t é Δx/Δt = velocidade."
+    },
+    {
+      "id": "motion-ex-03",
+      "module": "motion",
+      "experiment_id": "mruv-01",
+      "type": "prediction",
+      "title": "Velocidade após aceleração",
+      "question": "Um corpo parte do repouso (v₀ = 0) com aceleração a = 2 m/s². Qual é sua velocidade após 5 segundos?",
+      "hint": "Use v(t) = v₀ + a·t.",
+      "answer": { "value": 10, "unit": "m/s" },
+      "explanation": "v(5) = 0 + 2·5 = 10 m/s"
+    },
+    {
+      "id": "motion-ex-04",
+      "module": "motion",
+      "experiment_id": "mruv-01",
+      "type": "comparison",
+      "title": "Compare dois movimentos",
+      "question": "Corpo A: v₀ = 0, a = 4 m/s². Corpo B: v₀ = 8 m/s, a = 0. Qual chega primeiro ao ponto x = 32 m, partindo de x = 0?",
+      "hint": "Calcule o tempo para cada corpo chegar a x = 32 m.",
+      "answer": "Corpo B",
+      "explanation": "B: t = 32/8 = 4 s. A: 32 = ½·4·t² → t = 4 s. Chegam ao mesmo tempo!"
+    },
+    {
+      "id": "motion-ex-05",
+      "module": "motion",
+      "experiment_id": "free-fall-01",
+      "type": "prediction",
+      "title": "Tempo de queda",
+      "question": "Um objeto é largado do repouso de uma altura h = 20 m. Quanto tempo leva para atingir o solo? (g = 10 m/s²)",
+      "hint": "Use h = ½·g·t². Isole t.",
+      "answer": { "value": 2, "unit": "s" },
+      "explanation": "20 = ½·10·t² → t² = 4 → t = 2 s"
+    },
+    {
+      "id": "forces-ex-01",
+      "module": "forces",
+      "experiment_id": "inertia-01",
+      "type": "interpretation",
+      "title": "Identifique o estado",
+      "question": "Um corpo se move a 10 m/s em linha reta. A força resultante sobre ele é zero. O que acontece com seu movimento?",
+      "options": [
+        "Ele para imediatamente",
+        "Ele desacelera gradualmente",
+        "Ele continua a 10 m/s",
+        "Ele acelera"
+      ],
+      "answer": "Ele continua a 10 m/s",
+      "explanation": "Pela 1ª lei de Newton, ausência de força resultante mantém o estado de movimento inalterado."
+    },
+    {
+      "id": "forces-ex-02",
+      "module": "forces",
+      "experiment_id": "newton2-01",
+      "type": "prediction",
+      "title": "Calcule a aceleração",
+      "question": "Uma força de F = 30 N age sobre um corpo de massa m = 5 kg. Qual é a aceleração resultante?",
+      "hint": "Use a = F/m.",
+      "answer": { "value": 6, "unit": "m/s²" },
+      "explanation": "a = F/m = 30/5 = 6 m/s²"
+    },
+    {
+      "id": "forces-ex-03",
+      "module": "forces",
+      "experiment_id": "newton2-01",
+      "type": "comparison",
+      "title": "Dobrar a massa",
+      "question": "Se a massa do experimento anterior dobrar para 10 kg com a mesma força (30 N), o que acontece com a aceleração?",
+      "options": [
+        "Dobra para 12 m/s²",
+        "Permanece 6 m/s²",
+        "Cai para metade: 3 m/s²",
+        "Zera"
+      ],
+      "answer": "Cai para metade: 3 m/s²",
+      "explanation": "a = 30/10 = 3 m/s². Dobrar a massa reduz a aceleração à metade (relação inversamente proporcional)."
+    },
+    {
+      "id": "forces-ex-04",
+      "module": "forces",
+      "experiment_id": "friction-01",
+      "type": "prediction",
+      "title": "Força de atrito",
+      "question": "Um bloco de 4 kg está sobre uma superfície com μk = 0,3. Qual é a força de atrito cinético? (g = 10 m/s²)",
+      "hint": "Calcule primeiro a normal: N = m·g. Depois: f = μk·N.",
+      "answer": { "value": 12, "unit": "N" },
+      "explanation": "N = 4·10 = 40 N. f = 0,3·40 = 12 N"
+    },
+    {
+      "id": "energy-ex-01",
+      "module": "energy",
+      "experiment_id": "kinetic-01",
+      "type": "prediction",
+      "title": "Energia cinética",
+      "question": "Um carro de 1000 kg se move a 20 m/s. Qual é sua energia cinética?",
+      "hint": "Ec = ½·m·v²",
+      "answer": { "value": 200000, "unit": "J" },
+      "explanation": "Ec = ½·1000·20² = ½·1000·400 = 200.000 J = 200 kJ"
+    },
+    {
+      "id": "energy-ex-02",
+      "module": "energy",
+      "experiment_id": "ramp-energy-01",
+      "type": "prediction",
+      "title": "Velocidade no pé da rampa",
+      "question": "Um objeto de 2 kg parte do repouso do alto de uma rampa de 5 m. Qual é sua velocidade no pé da rampa? (g = 10 m/s², sem atrito)",
+      "hint": "Ep = Ec → m·g·h = ½·m·v². A massa cancela.",
+      "answer": { "value": 10, "unit": "m/s" },
+      "explanation": "v = √(2·g·h) = √(2·10·5) = √100 = 10 m/s"
+    },
+    {
+      "id": "energy-ex-03",
+      "module": "energy",
+      "experiment_id": "conservation-01",
+      "type": "interpretation",
+      "title": "Energia com atrito",
+      "question": "No experimento com atrito, a energia mecânica total diminuiu. Para onde foi essa energia?",
+      "options": [
+        "Desapareceu",
+        "Voltou para o objeto como potencial",
+        "Transformou-se em calor",
+        "Ficou armazenada no fluido"
+      ],
+      "answer": "Transformou-se em calor",
+      "explanation": "O atrito dissipa energia mecânica como energia térmica. A energia total do universo se conserva, mas a mecânica, não."
+    },
+    {
+      "id": "fluids-ex-01",
+      "module": "fluids",
+      "experiment_id": "density-01",
+      "type": "prediction",
+      "title": "Calculo de densidade",
+      "question": "Um objeto tem massa 300 g e volume 150 cm³. Qual é sua densidade? Ele flutua em água (ρ_água = 1 g/cm³)?",
+      "hint": "ρ = m/V. Compare com a densidade da água.",
+      "answer": "ρ = 2 g/cm³. Afunda, pois ρ_obj > ρ_água.",
+      "explanation": "ρ = 300/150 = 2 g/cm³. Como 2 > 1, o objeto é mais denso que a água e afunda."
+    },
+    {
+      "id": "fluids-ex-02",
+      "module": "fluids",
+      "experiment_id": "buoyancy-01",
+      "type": "prediction",
+      "title": "Calcule o empuxo",
+      "question": "Um cubo de 0,1 m de lado está totalmente submerso em água (ρ = 1000 kg/m³). Qual é o empuxo? (g = 10 m/s²)",
+      "hint": "E = ρ_f · g · V_sub. Calcule V = 0,1³.",
+      "answer": { "value": 10, "unit": "N" },
+      "explanation": "V = 0,001 m³. E = 1000·10·0,001 = 10 N"
+    },
+    {
+      "id": "fluids-ex-03",
+      "module": "fluids",
+      "experiment_id": "buoyancy-01",
+      "type": "interpretation",
+      "title": "Condição de flutuação",
+      "question": "Para um objeto flutuar em equilíbrio (nem sobe, nem afunda), qual deve ser a relação entre empuxo e peso?",
+      "options": [
+        "Empuxo > Peso",
+        "Empuxo < Peso",
+        "Empuxo = Peso",
+        "Não há relação"
+      ],
+      "answer": "Empuxo = Peso",
+      "explanation": "Para equilíbrio: ΣF = 0, portanto E = P. O objeto fica suspenso no fluido."
+    },
+    {
+      "id": "fluids-ex-04",
+      "module": "fluids",
+      "experiment_id": "pressure-01",
+      "type": "prediction",
+      "title": "Pressão na profundidade",
+      "question": "Qual é a pressão a 10 m de profundidade na água do mar? (ρ = 1025 kg/m³, g = 10 m/s², P₀ = 101325 Pa)",
+      "hint": "P = P₀ + ρ·g·h",
+      "answer": { "value": 203825, "unit": "Pa" },
+      "explanation": "P = 101325 + 1025·10·10 = 101325 + 102500 = 203825 Pa ≈ 2 atm"
+    }
+  ]
+}

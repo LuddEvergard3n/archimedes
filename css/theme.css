@@ -1,0 +1,138 @@
+/*
+ * theme.css — Archimedes Design System
+ *
+ * Dois sub-sistemas visuais:
+ *   INSTRUMENTO — canvas, header, sidebar, gráficos, HUD
+ *   CADERNO     — texto de fenômeno, equações, exercícios
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Share+Tech+Mono&display=swap');
+
+:root {
+  /* ── Instrumento: fundos ───────────────────────── */
+  --inst-bg-deep:      #161410;
+  --inst-bg-primary:   #1c1a14;
+  --inst-bg-secondary: #232018;
+  --inst-bg-panel:     #2a2720;
+  --inst-bg-card:      #2d2a1e;
+  --inst-bg-hover:     #333020;
+  --inst-bg-active:    #3a3624;
+
+  /* ── Instrumento: bordas ───────────────────────── */
+  --inst-border-dim:   rgba(180, 140, 60, 0.05);
+  --inst-border-base:  #3d3828;
+  --inst-border-mid:   #4a4530;
+  --inst-border-amber: rgba(200, 146, 10, 0.30);
+
+  /* ── Instrumento: grid do canvas ───────────────── */
+  --inst-grid-fine:  rgba(180, 140, 60, 0.06);
+  --inst-grid-major: rgba(180, 140, 60, 0.13);
+  --inst-axis:       rgba(200, 146, 10, 0.30);
+
+  /* ── Instrumento: texto ────────────────────────── */
+  --inst-text-primary:   #e8e0c8;
+  --inst-text-secondary: #b0a888;
+  --inst-text-muted:     #7a7060;
+  --inst-text-disabled:  #4a4535;
+
+  /* ── Âmbar — cor do instrumento ────────────────── */
+  --amber:        #c8920a;
+  --amber-bright: #e0a80e;
+  --amber-dim:    rgba(200, 146, 10, 0.14);
+  --amber-glow:   rgba(200, 146, 10, 0.25);
+
+  /* ── Caderno: fundos papel ─────────────────────── */
+  --nb-bg:        #f5f0e8;
+  --nb-bg-card:   #ede8df;
+  --nb-bg-inset:  #e8e2d6;
+
+  /* ── Caderno: bordas ───────────────────────────── */
+  --nb-border:     #c8bfad;
+  --nb-border-dim: rgba(100, 80, 50, 0.18);
+
+  /* ── Caderno: texto ────────────────────────────── */
+  --nb-text-primary:   #1a1612;
+  --nb-text-secondary: #4a4035;
+  --nb-text-muted:     #8a7a68;
+
+  /* ── Azul acadêmico ─────────────────────────────── */
+  --nb-blue:     #2c4a7c;
+  --nb-blue-dim: rgba(44, 74, 124, 0.10);
+
+  /* ── Cores dos módulos ─────────────────────────── */
+  --color-intro:  #4472b0;
+  --color-motion: #3d7a55;
+  --color-forces: #b54a28;
+  --color-energy: #7a4a96;
+  --color-fluids: #2a6080;
+
+  /* ── Cores de vetores — convenção de livros ─────── */
+  --vec-velocity:  #4472b0;
+  --vec-accel:     #c07828;
+  --vec-force:     #c44040;
+  --vec-normal:    #6a7a6a;
+  --vec-weight:    #4a4040;
+  --vec-friction:  #8a4040;
+  --vec-buoyancy:  #2a6080;
+  --vec-kinetic:   #3d7a55;
+  --vec-potential: #c07828;
+
+  /* ── Tipografia ────────────────────────────────── */
+  --font-body: 'EB Garamond', 'Garamond', Georgia, serif;
+  --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+
+  /* ── Escala de texto ───────────────────────────── */
+  --text-xs:   0.72rem;
+  --text-sm:   0.85rem;
+  --text-base: 1.00rem;
+  --text-md:   1.10rem;
+  --text-lg:   1.30rem;
+  --text-xl:   1.60rem;
+  --text-2xl:  2.00rem;
+  --text-3xl:  2.60rem;
+
+  /* ── Espaçamento ───────────────────────────────── */
+  --space-1:  0.25rem;
+  --space-2:  0.50rem;
+  --space-3:  0.75rem;
+  --space-4:  1.00rem;
+  --space-5:  1.25rem;
+  --space-6:  1.50rem;
+  --space-8:  2.00rem;
+  --space-10: 2.50rem;
+  --space-12: 3.00rem;
+  --space-16: 4.00rem;
+
+  /* ── Geometria ─────────────────────────────────── */
+  --radius-sm:   2px;
+  --radius-base: 4px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --sidebar-width:  260px;
+  --header-height:  52px;
+
+  /* ── Sombras ───────────────────────────────────── */
+  --shadow-panel:      0 2px 20px rgba(0, 0, 0, 0.50);
+  --shadow-card:       0 1px 8px  rgba(0, 0, 0, 0.35);
+  --shadow-nb-card:    0 1px 6px  rgba(0, 0, 0, 0.12);
+  --shadow-amber-glow: 0 0 18px   rgba(200, 146, 10, 0.18);
+
+  /* ── Transições ────────────────────────────────── */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 350ms ease;
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --inst-border-base:  #5a5440;
+    --inst-text-primary: #f5f0e0;
+    --nb-text-primary:   #0a0806;
+    --nb-border:         #9a8a78;
+  }
+}
+
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--inst-bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--inst-border-mid); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--inst-text-muted); }

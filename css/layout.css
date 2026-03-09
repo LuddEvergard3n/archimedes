@@ -1,0 +1,773 @@
+/*
+ * layout.css — Shell da aplicação
+ *
+ * Instrumento: header, sidebar, body, canvas area
+ * Caderno: painéis de conteúdo textual (classe .notebook-panel)
+ */
+
+/* ── Reset de app ──────────────────────────────── */
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════ *
+ * Header — instrumento
+ * ═══════════════════════════════════════════════ */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: var(--header-height);
+  padding: 0 var(--space-5);
+  background: var(--inst-bg-secondary);
+  border-bottom: 1px solid var(--inst-border-base);
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+/* Linha de âmbar decorativa no topo */
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--amber) 20%,
+    var(--amber) 80%,
+    transparent 100%
+  );
+  opacity: 0.45;
+}
+
+/* Logo */
+.app-header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* Anel concêntrico — marca de instrumento óptico */
+.logo-ring {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--amber);
+  opacity: 0.50;
+}
+
+.logo-text {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--inst-text-primary);
+  text-transform: uppercase;
+}
+
+.logo-text span {
+  color: var(--amber);
+}
+
+.header-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--inst-border-base);
+  flex-shrink: 0;
+}
+
+/* Breadcrumb */
+.header-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.header-breadcrumb__item {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--inst-text-muted);
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+.header-breadcrumb__item.active {
+  color: var(--inst-text-secondary);
+}
+
+.header-breadcrumb__sep {
+  color: var(--inst-border-mid);
+  font-size: var(--text-xs);
+}
+
+/* Ações do header */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.header-btn {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  color: var(--inst-text-muted);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-base);
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.header-btn--teacher {
+  color: var(--inst-text-secondary);
+  border-color: var(--inst-border-base);
+}
+
+.header-btn--teacher:hover {
+  color: var(--amber);
+  border-color: var(--inst-border-amber);
+  background: var(--amber-dim);
+}
+
+.header-menu-btn {
+  display: none;
+  color: var(--inst-text-muted);
+  padding: var(--space-2);
+  border-radius: var(--radius-base);
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.header-menu-btn:hover {
+  color: var(--inst-text-primary);
+  background: var(--inst-bg-hover);
+}
+
+/* ═══════════════════════════════════════════════ *
+ * App body — sidebar + main
+ * ═══════════════════════════════════════════════ */
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════ *
+ * Sidebar — instrumento
+ * ═══════════════════════════════════════════════ */
+
+.app-sidebar {
+  width: var(--sidebar-width);
+  background: var(--inst-bg-secondary);
+  border-right: 1px solid var(--inst-border-base);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: var(--space-5) 0 var(--space-4);
+}
+
+.sidebar-section-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--inst-text-muted);
+  padding: 0 var(--space-5) var(--space-3);
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-5);
+  text-decoration: none;
+  color: var(--inst-text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  letter-spacing: 0.01em;
+  transition: all var(--transition-fast);
+  position: relative;
+  border-left: 2px solid transparent;
+}
+
+.sidebar-item:hover {
+  color: var(--inst-text-primary);
+  background: var(--inst-bg-hover);
+}
+
+.sidebar-item.active {
+  color: var(--amber);
+  background: var(--amber-dim);
+  border-left-color: var(--amber);
+}
+
+.sidebar-item__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--inst-border-mid);
+  flex-shrink: 0;
+  transition: border-color var(--transition-fast);
+}
+
+.sidebar-item.active .sidebar-item__dot,
+.sidebar-item:hover  .sidebar-item__dot {
+  border-color: var(--item-color, var(--amber));
+  background: var(--item-color, transparent);
+  opacity: 0.85;
+}
+
+.sidebar-item__label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-item__badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--inst-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.sidebar-footer {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--inst-border-base);
+}
+
+.sidebar-version {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--inst-text-disabled);
+  letter-spacing: 0.05em;
+}
+
+/* Overlay para mobile */
+.sidebar-overlay {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════ *
+ * Main content
+ * ═══════════════════════════════════════════════ */
+
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-8) var(--space-8);
+  background: var(--inst-bg-primary);
+}
+
+/* ── Page header — instrumento ─────────────────── */
+
+.page-header {
+  margin-bottom: var(--space-8);
+}
+
+.page-header__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: var(--space-2);
+  opacity: 0.80;
+}
+
+.page-header__title {
+  font-family: var(--font-body);
+  font-size: var(--text-3xl);
+  font-weight: 300;
+  color: var(--inst-text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+}
+
+.page-header__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--inst-text-secondary);
+  max-width: 56ch;
+  line-height: 1.70;
+  margin-bottom: 0;
+}
+
+.page-header__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--inst-text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── Module header ─────────────────────────────── */
+
+.module-header {
+  display: flex;
+  gap: var(--space-5);
+  align-items: flex-start;
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--inst-border-base);
+}
+
+.module-header__color-bar {
+  width: 3px;
+  min-height: 60px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.module-header__label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--inst-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.module-header__title {
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  color: var(--inst-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.module-header__desc {
+  font-size: var(--text-md);
+  color: var(--inst-text-secondary);
+  max-width: 60ch;
+  margin-bottom: 0;
+  line-height: 1.70;
+}
+
+/* ═══════════════════════════════════════════════ *
+ * Home grid — módulos
+ * ═══════════════════════════════════════════════ */
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.module-card {
+  display: block;
+  background: var(--inst-bg-panel);
+  border: 1px solid var(--inst-border-base);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linha de cor do módulo no topo */
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--card-color, var(--amber));
+  opacity: 0.70;
+  transition: opacity var(--transition-base);
+}
+
+.module-card:hover {
+  border-color: var(--inst-border-mid);
+  background: var(--inst-bg-card);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card);
+}
+
+.module-card:hover::before {
+  opacity: 1.0;
+}
+
+.module-card__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.10em;
+  color: var(--inst-text-muted);
+  margin-bottom: var(--space-3);
+  text-transform: uppercase;
+}
+
+.module-card__title {
+  font-size: var(--text-xl);
+  font-weight: 400;
+  color: var(--inst-text-primary);
+  margin-bottom: var(--space-3);
+  line-height: 1.25;
+}
+
+.module-card__desc {
+  font-size: var(--text-base);
+  color: var(--inst-text-secondary);
+  line-height: 1.65;
+  margin-bottom: var(--space-4);
+}
+
+.module-card__count {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--card-color, var(--amber));
+  letter-spacing: 0.06em;
+  opacity: 0.75;
+}
+
+/* ═══════════════════════════════════════════════ *
+ * Experiment grid
+ * ═══════════════════════════════════════════════ */
+
+.experiment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+}
+
+.exp-card {
+  display: block;
+  background: var(--inst-bg-panel);
+  border: 1px solid var(--inst-border-base);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-6);
+  text-decoration: none;
+  transition: all var(--transition-base);
+}
+
+.exp-card:hover {
+  border-color: var(--inst-border-amber);
+  background: var(--inst-bg-card);
+  box-shadow: 0 0 0 1px var(--amber-dim);
+}
+
+.exp-card__tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--inst-text-muted);
+  margin-bottom: var(--space-3);
+  text-transform: uppercase;
+}
+
+.exp-card__title {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--inst-text-primary);
+  margin-bottom: var(--space-2);
+  line-height: 1.30;
+}
+
+.exp-card__desc {
+  font-size: var(--text-base);
+  color: var(--inst-text-secondary);
+  line-height: 1.65;
+  margin-bottom: var(--space-4);
+}
+
+.exp-card__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.var-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--amber);
+  background: var(--amber-dim);
+  border: 1px solid rgba(200, 146, 10, 0.20);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+  letter-spacing: 0.04em;
+}
+
+/* ═══════════════════════════════════════════════ *
+ * Lab view — layout do experimento
+ * ═══════════════════════════════════════════════ */
+
+.lab-view {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "canvas   controls"
+    "info     info";
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.lab-view__canvas-area { grid-area: canvas; }
+.lab-view__controls    { grid-area: controls; }
+.lab-view__info        { grid-area: info; }
+
+/* ── Painel instrumento ─────────────────────────── */
+
+.panel {
+  background: var(--inst-bg-panel);
+  border: 1px solid var(--inst-border-base);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--inst-border-base);
+  background: var(--inst-bg-secondary);
+}
+
+.panel__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--inst-text-muted);
+}
+
+.panel__title-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  opacity: 0.65;
+}
+
+.panel__body {
+  padding: var(--space-4);
+}
+
+/* Canvas wrapper */
+.canvas-wrapper {
+  width: 100%;
+  position: relative;
+  background: var(--inst-bg-deep);
+}
+
+.canvas-wrapper canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ═══════════════════════════════════════════════ *
+ * Notebook panel — caderno
+ *
+ * Fundo papel, serifa, texto escuro.
+ * Usado em: fenômeno, equações, exercícios, lições.
+ * ═══════════════════════════════════════════════ */
+
+.notebook-panel {
+  background: var(--nb-bg);
+  border: 1px solid var(--nb-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  color: var(--nb-text-primary);
+  box-shadow: var(--shadow-nb-card);
+}
+
+.notebook-panel p {
+  color: var(--nb-text-secondary);
+  font-size: var(--text-md);
+  line-height: 1.80;
+  margin-bottom: var(--space-4);
+}
+
+.notebook-panel h3,
+.notebook-panel h4 {
+  color: var(--nb-text-primary);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-3);
+}
+
+/* ── Bloco de fenômeno ─────────────────────────── */
+
+.phenomenon-block {
+  background: var(--nb-bg);
+  border: 1px solid var(--nb-border);
+  border-left: 3px solid var(--nb-blue);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-5);
+  box-shadow: var(--shadow-nb-card);
+}
+
+.phenomenon-block__label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nb-blue);
+  margin-bottom: var(--space-2);
+  font-weight: 500;
+}
+
+.phenomenon-block__text {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-style: italic;
+  color: var(--nb-text-secondary);
+  line-height: 1.80;
+  margin-bottom: 0;
+}
+
+/* ── Bloco de pergunta ─────────────────────────── */
+
+.question-block {
+  background: var(--nb-bg);
+  border: 1px solid var(--nb-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-nb-card);
+}
+
+.question-block__label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nb-text-muted);
+  margin-bottom: var(--space-2);
+  font-weight: 500;
+}
+
+.question-block__text {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--nb-text-primary);
+  line-height: 1.75;
+  margin-bottom: 0;
+}
+
+/* ── Painel de equações ────────────────────────── */
+
+.eq-panel {
+  background: var(--nb-bg);
+  border: 1px solid var(--nb-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-nb-card);
+}
+
+.eq-panel__title {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nb-text-muted);
+  margin-bottom: var(--space-4);
+  font-weight: 500;
+}
+
+.eq-panel__vars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.eq-var {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.eq-var__sym {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--amber);
+  min-width: 24px;
+}
+
+.eq-var__name {
+  color: var(--nb-text-secondary);
+  flex: 1;
+}
+
+.eq-var__unit {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--nb-text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── Info grid (área inferior do lab) ──────────── */
+
+.lab-view__info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+/* ── Loading ────────────────────────────────────── */
+
+.loading-ring {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--inst-border-mid);
+  border-top-color: var(--amber);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Archimedes — Laboratório interativo de Física. Aprenda Física através do fenômeno.">
+  <meta name="theme-color" content="#04060a">
+
+  <title>Archimedes — Laboratório de Física</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/mobile.css">
+
+  <!-- Preload fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+<!-- Skip link for screen readers -->
+<a href="#main-content" id="skip-to-main" class="sr-only" tabindex="1">
+  Pular para o conteúdo principal
+</a>
+
+<!-- App shell -->
+<div id="app">
+
+  <!-- ── Header ──────────────────────────────────────── -->
+  <header class="app-header" role="banner">
+    <button class="header-menu-btn" id="btn-menu"
+      aria-label="Abrir menu de navegação"
+      aria-expanded="false"
+      aria-controls="app-sidebar">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <rect y="2"  width="16" height="1.5" rx="0.75"/>
+        <rect y="7"  width="16" height="1.5" rx="0.75"/>
+        <rect y="12" width="16" height="1.5" rx="0.75"/>
+      </svg>
+    </button>
+
+    <a class="app-header__logo" href="#/" aria-label="Archimedes — Início">
+      <div class="logo-mark" aria-hidden="true">
+        <span class="logo-ring"></span>
+      </div>
+      <span class="logo-text">Archi<span>medes</span></span>
+    </a>
+
+    <div class="header-divider" aria-hidden="true"></div>
+
+    <nav class="header-breadcrumb" id="breadcrumb" aria-label="Localização atual">
+      <span class="header-breadcrumb__item active">Início</span>
+    </nav>
+
+    <div class="header-actions" role="toolbar" aria-label="Ações">
+      <span id="wasm-status"
+        class="header-btn"
+        title="Status do motor físico"
+        aria-label="Status do motor físico"
+        style="cursor:default">
+        JS
+      </span>
+      <button class="header-btn header-btn--teacher"
+        id="btn-teacher-mode"
+        aria-pressed="false">
+        Modo Professor
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Sidebar overlay (mobile) ──────────────────── -->
+  <div id="sidebar-overlay" class="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ── App body ──────────────────────────────────── -->
+  <div class="app-body">
+
+    <!-- Sidebar -->
+    <nav id="app-sidebar" class="app-sidebar"
+      aria-label="Navegação de módulos">
+      <div class="sidebar-nav" id="sidebar-nav">
+        <!-- populated by main.js after data loads -->
+        <span class="sidebar-section-label">Carregando...</span>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-version" id="wasm-status-full" aria-live="polite">
+          v1.0.0 — Motor: <span style="color:var(--text-muted)">JS</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main id="main-content" class="app-main"
+      role="main"
+      aria-label="Conteúdo principal"
+      tabindex="-1">
+      <!-- Populated by router → ui.js -->
+      <div style="display:flex;align-items:center;gap:12px;padding:40px 0;color:var(--text-muted)">
+        <span class="loading-ring"></span>
+        <span style="font-family:var(--font-mono);font-size:var(--text-sm)">
+          Iniciando laboratório...
+        </span>
+      </div>
+    </main>
+
+  </div><!-- .app-body -->
+
+</div><!-- #app -->
+
+<!-- Toast container (for notifications) -->
+<div class="toast-container" id="toast-container" aria-live="assertive" role="alert"></div>
+
+<!-- Script — ES module entry -->
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>
