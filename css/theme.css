@@ -123,7 +123,7 @@
   --transition-slow: 350ms ease;
 }
 
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
   :root {
     --inst-border-base:  #5a5440;
     --inst-text-primary: #f5f0e0;
@@ -132,6 +132,13 @@
   }
 }
 
+/* Scrollbar — Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--inst-border-mid) var(--inst-bg-primary);
+}
+
+/* Scrollbar — Chromium/Safari (ignorado silenciosamente pelo Firefox) */
 ::-webkit-scrollbar       { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--inst-bg-primary); }
 ::-webkit-scrollbar-thumb { background: var(--inst-border-mid); border-radius: 3px; }

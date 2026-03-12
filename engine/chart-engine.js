@@ -32,7 +32,7 @@ class ChartEngine {
     this.label    = opts.label   ?? '';
     this.xUnit    = opts.xUnit   ?? '';
     this.yUnit    = opts.yUnit   ?? '';
-    this.color    = opts.color   ?? '#00d4ff';
+    this.color    = opts.color   ?? '#c8920a';
     this.fillArea = opts.fillArea ?? false;
     this.yMinFixed = opts.yMin;
     this.yMaxFixed = opts.yMax;

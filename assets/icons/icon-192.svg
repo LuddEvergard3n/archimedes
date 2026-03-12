@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="32" fill="#1c1a14"/>
+  <!-- Linha de âmbar no topo -->
+  <rect x="24" y="8" width="144" height="2" rx="1" fill="#c8920a" opacity="0.6"/>
+  <!-- Círculo externo -->
+  <circle cx="96" cy="96" r="58" fill="none" stroke="#c8920a" stroke-width="2.5" opacity="0.85"/>
+  <!-- Círculo médio -->
+  <circle cx="96" cy="96" r="36" fill="none" stroke="#c8920a" stroke-width="1.5" opacity="0.50"/>
+  <!-- Círculo interno -->
+  <circle cx="96" cy="96" r="16" fill="none" stroke="#c8920a" stroke-width="1" opacity="0.30"/>
+  <!-- Cruz de mira horizontal -->
+  <line x1="30" y1="96" x2="66" y2="96" stroke="#c8920a" stroke-width="1" opacity="0.45"/>
+  <line x1="126" y1="96" x2="162" y2="96" stroke="#c8920a" stroke-width="1" opacity="0.45"/>
+  <!-- Cruz de mira vertical -->
+  <line x1="96" y1="30" x2="96" y2="70" stroke="#c8920a" stroke-width="1" opacity="0.45"/>
+  <line x1="96" y1="122" x2="96" y2="162" stroke="#c8920a" stroke-width="1" opacity="0.45"/>
+  <!-- Ponto central -->
+  <circle cx="96" cy="96" r="4" fill="#c8920a" opacity="0.9"/>
+  <!-- Texto ARCHIMEDES abaixo -->
+  <text x="96" y="168" font-family="Georgia, serif" font-size="12"
+        fill="#e8e0c8" text-anchor="middle" letter-spacing="3" opacity="0.65">ARCHIMEDES</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="80" fill="#1c1a14"/>
+  <rect x="60" y="18" width="392" height="4" rx="2" fill="#c8920a" opacity="0.55"/>
+  <circle cx="256" cy="248" r="152" fill="none" stroke="#c8920a" stroke-width="6" opacity="0.85"/>
+  <circle cx="256" cy="248" r="96"  fill="none" stroke="#c8920a" stroke-width="3" opacity="0.50"/>
+  <circle cx="256" cy="248" r="42"  fill="none" stroke="#c8920a" stroke-width="2" opacity="0.30"/>
+  <line x1="80"  y1="248" x2="176" y2="248" stroke="#c8920a" stroke-width="2" opacity="0.45"/>
+  <line x1="336" y1="248" x2="432" y2="248" stroke="#c8920a" stroke-width="2" opacity="0.45"/>
+  <line x1="256" y1="80"  x2="256" y2="186" stroke="#c8920a" stroke-width="2" opacity="0.45"/>
+  <line x1="256" y1="310" x2="256" y2="420" stroke="#c8920a" stroke-width="2" opacity="0.45"/>
+  <circle cx="256" cy="248" r="10" fill="#c8920a" opacity="0.90"/>
+  <text x="256" y="460" font-family="Georgia, serif" font-size="30"
+        fill="#e8e0c8" text-anchor="middle" letter-spacing="8" opacity="0.60">ARCHIMEDES</text>
+</svg>

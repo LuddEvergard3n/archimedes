@@ -1,184 +1,766 @@
 {
   "equations": [
     {
-      "id": "eq-mru",
+      "id": "mru-eq",
       "module": "motion",
-      "experiment_ids": ["mru-01"],
+      "experiment_ids": [
+        "mru-01"
+      ],
       "latex": "x(t) = x_0 + v \\cdot t",
       "display": "x(t) = x₀ + v·t",
       "variables": {
-        "x": { "name": "posição", "unit": "m" },
-        "x₀": { "name": "posição inicial", "unit": "m" },
-        "v": { "name": "velocidade", "unit": "m/s" },
-        "t": { "name": "tempo", "unit": "s" }
+        "x": {
+          "name": "posição",
+          "unit": "m"
+        },
+        "x₀": {
+          "name": "posição inicial",
+          "unit": "m"
+        },
+        "v": {
+          "name": "velocidade",
+          "unit": "m/s"
+        },
+        "t": {
+          "name": "tempo",
+          "unit": "s"
+        }
       },
-      "when_to_use": "Corpo com velocidade constante (aceleração zero)",
+      "when_to_use": "Corpo em movimento com velocidade constante",
       "restriction": "Válida apenas para a = 0"
     },
     {
-      "id": "eq-mruv-vel",
+      "id": "mruv-v",
       "module": "motion",
-      "experiment_ids": ["mruv-01"],
+      "experiment_ids": [
+        "mruv-01"
+      ],
+      "latex": "v(t) = v_0 + a \\cdot t",
       "display": "v(t) = v₀ + a·t",
       "variables": {
-        "v": { "name": "velocidade", "unit": "m/s" },
-        "v₀": { "name": "velocidade inicial", "unit": "m/s" },
-        "a": { "name": "aceleração", "unit": "m/s²" },
-        "t": { "name": "tempo", "unit": "s" }
+        "v": {
+          "name": "velocidade final",
+          "unit": "m/s"
+        },
+        "v₀": {
+          "name": "velocidade inicial",
+          "unit": "m/s"
+        },
+        "a": {
+          "name": "aceleração",
+          "unit": "m/s²"
+        },
+        "t": {
+          "name": "tempo",
+          "unit": "s"
+        }
       },
-      "when_to_use": "Corpo com aceleração constante",
-      "restriction": "Válida apenas para a = constante"
+      "when_to_use": "Corpo com aceleração constante — velocidade em função do tempo",
+      "restriction": "Válida apenas para a = cte"
     },
     {
-      "id": "eq-mruv-pos",
+      "id": "mruv-x",
       "module": "motion",
-      "experiment_ids": ["mruv-01"],
-      "display": "x(t) = x₀ + v₀·t + ½·a·t²",
+      "experiment_ids": [
+        "mruv-01"
+      ],
+      "latex": "x(t) = x_0 + v_0 t + \\frac{1}{2} a t^2",
+      "display": "x(t) = x₀ + v₀t + ½·a·t²",
       "variables": {
-        "x": { "name": "posição", "unit": "m" },
-        "x₀": { "name": "posição inicial", "unit": "m" },
-        "v₀": { "name": "velocidade inicial", "unit": "m/s" },
-        "a": { "name": "aceleração", "unit": "m/s²" },
-        "t": { "name": "tempo", "unit": "s" }
+        "x": {
+          "name": "posição",
+          "unit": "m"
+        },
+        "x₀": {
+          "name": "posição inicial",
+          "unit": "m"
+        },
+        "v₀": {
+          "name": "velocidade inicial",
+          "unit": "m/s"
+        },
+        "a": {
+          "name": "aceleração",
+          "unit": "m/s²"
+        },
+        "t": {
+          "name": "tempo",
+          "unit": "s"
+        }
       },
-      "when_to_use": "Posição em MRUV",
-      "restriction": "Válida apenas para a = constante"
+      "when_to_use": "Corpo com aceleração constante — posição em função do tempo",
+      "restriction": "Válida apenas para a = cte"
     },
     {
-      "id": "eq-torricelli",
+      "id": "free-fall-eq",
       "module": "motion",
-      "experiment_ids": ["mruv-01", "free-fall-01"],
-      "display": "v² = v₀² + 2·a·Δx",
+      "experiment_ids": [
+        "free-fall-01"
+      ],
+      "latex": "h = \\frac{1}{2} g t^2 \\qquad v = g \\cdot t",
+      "display": "h = ½·g·t²     v = g·t",
       "variables": {
-        "v": { "name": "velocidade final", "unit": "m/s" },
-        "v₀": { "name": "velocidade inicial", "unit": "m/s" },
-        "a": { "name": "aceleração", "unit": "m/s²" },
-        "Δx": { "name": "deslocamento", "unit": "m" }
+        "h": {
+          "name": "altura percorrida",
+          "unit": "m"
+        },
+        "g": {
+          "name": "aceleração gravitacional",
+          "unit": "m/s²"
+        },
+        "t": {
+          "name": "tempo de queda",
+          "unit": "s"
+        },
+        "v": {
+          "name": "velocidade de impacto",
+          "unit": "m/s"
+        }
       },
-      "when_to_use": "Quando o tempo não é necessário",
-      "restriction": "Válida apenas para a = constante"
+      "when_to_use": "Objeto em queda livre a partir do repouso, sem resistência do ar",
+      "restriction": "v₀ = 0; sem resistência do ar; g constante (h << R_Terra)"
     },
     {
-      "id": "eq-newton2",
+      "id": "newton1-eq",
       "module": "forces",
-      "experiment_ids": ["newton2-01", "friction-01", "resultant-01"],
+      "experiment_ids": [
+        "inertia-01"
+      ],
+      "latex": "\\sum F = 0 \\implies a = 0",
+      "display": "ΣF = 0  ⟹  a = 0",
+      "variables": {
+        "ΣF": {
+          "name": "força resultante",
+          "unit": "N"
+        },
+        "a": {
+          "name": "aceleração",
+          "unit": "m/s²"
+        }
+      },
+      "when_to_use": "Verificar se um objeto está em equilíbrio ou em MRU",
+      "restriction": "Referencial inercial"
+    },
+    {
+      "id": "newton2-eq",
+      "module": "forces",
+      "experiment_ids": [
+        "newton2-01"
+      ],
+      "latex": "\\vec{F} = m \\cdot \\vec{a}",
       "display": "F = m·a",
       "variables": {
-        "F": { "name": "força resultante", "unit": "N" },
-        "m": { "name": "massa", "unit": "kg" },
-        "a": { "name": "aceleração", "unit": "m/s²" }
+        "F": {
+          "name": "força resultante",
+          "unit": "N"
+        },
+        "m": {
+          "name": "massa",
+          "unit": "kg"
+        },
+        "a": {
+          "name": "aceleração",
+          "unit": "m/s²"
+        }
       },
-      "when_to_use": "Sempre que há força resultante não nula",
-      "restriction": "F e a são vetoriais. Esta é a magnitude."
+      "when_to_use": "Calcular aceleração dada força e massa, ou força necessária para uma aceleração",
+      "restriction": "Referencial inercial; F = força resultante, não uma força isolada"
     },
     {
-      "id": "eq-friction",
+      "id": "friction-eq",
       "module": "forces",
-      "experiment_ids": ["friction-01"],
-      "display": "f = μk·N",
+      "experiment_ids": [
+        "friction-01"
+      ],
+      "latex": "f_k = \\mu_k \\cdot N",
+      "display": "fₖ = μₖ · N",
       "variables": {
-        "f": { "name": "força de atrito cinético", "unit": "N" },
-        "μk": { "name": "coeficiente de atrito cinético", "unit": "adimensional" },
-        "N": { "name": "força normal", "unit": "N" }
+        "fₖ": {
+          "name": "força de atrito cinético",
+          "unit": "N"
+        },
+        "μₖ": {
+          "name": "coeficiente de atrito cinético",
+          "unit": ""
+        },
+        "N": {
+          "name": "força normal",
+          "unit": "N"
+        }
       },
-      "when_to_use": "Corpo em movimento sobre superfície",
-      "restriction": "Atrito cinético. O estático usa μe > μk."
+      "when_to_use": "Objeto já em movimento sobre superfície",
+      "restriction": "Atrito cinético (movimento). Para estático: f_s ≤ μ_s · N"
     },
     {
-      "id": "eq-weight",
+      "id": "resultant-eq",
       "module": "forces",
-      "experiment_ids": ["newton2-01", "inertia-01", "free-fall-01"],
-      "display": "P = m·g",
+      "experiment_ids": [
+        "resultant-01"
+      ],
+      "latex": "\\vec{F}_R = \\vec{F}_1 + \\vec{F}_2",
+      "display": "F_R = √(F₁² + F₂² + 2·F₁·F₂·cos θ)",
       "variables": {
-        "P": { "name": "peso", "unit": "N" },
-        "m": { "name": "massa", "unit": "kg" },
-        "g": { "name": "aceleração gravitacional", "unit": "m/s²", "value": 9.8 }
+        "F_R": {
+          "name": "força resultante",
+          "unit": "N"
+        },
+        "F₁": {
+          "name": "força 1",
+          "unit": "N"
+        },
+        "F₂": {
+          "name": "força 2",
+          "unit": "N"
+        },
+        "θ": {
+          "name": "ângulo entre as forças",
+          "unit": "rad"
+        }
       },
-      "when_to_use": "Força gravitacional na superfície da Terra",
-      "restriction": "g varia com a altitude e o astro"
+      "when_to_use": "Composição de duas forças com ângulo qualquer entre elas",
+      "restriction": "Para N forças, somar componentes x e y separadamente"
     },
     {
-      "id": "eq-kinetic-energy",
+      "id": "energy-kinetic-eq",
       "module": "energy",
-      "experiment_ids": ["kinetic-01", "ramp-energy-01", "conservation-01"],
+      "experiment_ids": [
+        "kinetic-01",
+        "conservation-01"
+      ],
+      "latex": "E_c = \\frac{1}{2} m v^2",
       "display": "Ec = ½·m·v²",
       "variables": {
-        "Ec": { "name": "energia cinética", "unit": "J" },
-        "m": { "name": "massa", "unit": "kg" },
-        "v": { "name": "velocidade", "unit": "m/s" }
+        "Ec": {
+          "name": "energia cinética",
+          "unit": "J"
+        },
+        "m": {
+          "name": "massa",
+          "unit": "kg"
+        },
+        "v": {
+          "name": "velocidade",
+          "unit": "m/s"
+        }
       },
-      "when_to_use": "Corpo em movimento",
-      "restriction": "Ec ≥ 0 sempre"
+      "when_to_use": "Qualquer corpo em movimento",
+      "restriction": "Velocidades não relativísticas (v << c)"
     },
     {
-      "id": "eq-potential-energy",
+      "id": "energy-potential-eq",
       "module": "energy",
-      "experiment_ids": ["ramp-energy-01", "conservation-01"],
+      "experiment_ids": [
+        "ramp-energy-01",
+        "conservation-01"
+      ],
+      "latex": "E_p = m \\cdot g \\cdot h",
       "display": "Ep = m·g·h",
       "variables": {
-        "Ep": { "name": "energia potencial gravitacional", "unit": "J" },
-        "m": { "name": "massa", "unit": "kg" },
-        "g": { "name": "aceleração gravitacional", "unit": "m/s²" },
-        "h": { "name": "altura", "unit": "m" }
+        "Ep": {
+          "name": "energia potencial gravitacional",
+          "unit": "J"
+        },
+        "m": {
+          "name": "massa",
+          "unit": "kg"
+        },
+        "g": {
+          "name": "aceleração gravitacional",
+          "unit": "m/s²"
+        },
+        "h": {
+          "name": "altura",
+          "unit": "m"
+        }
       },
       "when_to_use": "Corpo em campo gravitacional uniforme",
-      "restriction": "Relativa a um referencial (h = 0)"
+      "restriction": "h medido em relação ao referencial escolhido; g ≈ 9,8 m/s² na superfície"
     },
     {
-      "id": "eq-work",
+      "id": "energy-conservation-eq",
       "module": "energy",
-      "experiment_ids": ["kinetic-01"],
-      "display": "W = F·d·cos(θ)",
+      "experiment_ids": [
+        "ramp-energy-01",
+        "conservation-01"
+      ],
+      "latex": "E_p + E_c = \\text{cte}",
+      "display": "Ep + Ec = cte   (sem dissipação)",
       "variables": {
-        "W": { "name": "trabalho", "unit": "J" },
-        "F": { "name": "força", "unit": "N" },
-        "d": { "name": "deslocamento", "unit": "m" },
-        "θ": { "name": "ângulo entre F e d", "unit": "rad" }
+        "Ep": {
+          "name": "energia potencial",
+          "unit": "J"
+        },
+        "Ec": {
+          "name": "energia cinética",
+          "unit": "J"
+        }
       },
-      "when_to_use": "Cálculo de trabalho realizado por uma força",
-      "restriction": "W < 0 quando θ > 90°"
+      "when_to_use": "Sistema sem forças dissipativas (atrito, resistência do ar)",
+      "restriction": "Com atrito: ΔE_mec = −W_atrito"
     },
     {
-      "id": "eq-density",
+      "id": "density-eq",
       "module": "fluids",
-      "experiment_ids": ["density-01", "buoyancy-01"],
-      "display": "ρ = m/V",
+      "experiment_ids": [
+        "density-01",
+        "buoyancy-01"
+      ],
+      "latex": "\\rho = \\frac{m}{V}",
+      "display": "ρ = m / V",
       "variables": {
-        "ρ": { "name": "densidade", "unit": "kg/m³" },
-        "m": { "name": "massa", "unit": "kg" },
-        "V": { "name": "volume", "unit": "m³" }
+        "ρ": {
+          "name": "densidade",
+          "unit": "kg/m³"
+        },
+        "m": {
+          "name": "massa",
+          "unit": "kg"
+        },
+        "V": {
+          "name": "volume",
+          "unit": "m³"
+        }
       },
-      "when_to_use": "Relação massa-volume de qualquer material",
-      "restriction": "Densidade uniforme assumida"
+      "when_to_use": "Calcular densidade de qualquer material ou mistura",
+      "restriction": "Densidade média para objetos não homogêneos"
     },
     {
-      "id": "eq-buoyancy",
+      "id": "buoyancy-eq",
       "module": "fluids",
-      "experiment_ids": ["buoyancy-01", "density-01"],
-      "display": "E = ρf·g·Vsub",
+      "experiment_ids": [
+        "buoyancy-01",
+        "density-01"
+      ],
+      "latex": "E = \\rho_f \\cdot g \\cdot V_{sub}",
+      "display": "E = ρ_f · g · V_sub",
       "variables": {
-        "E": { "name": "empuxo", "unit": "N" },
-        "ρf": { "name": "densidade do fluido", "unit": "kg/m³" },
-        "g": { "name": "aceleração gravitacional", "unit": "m/s²" },
-        "Vsub": { "name": "volume submerso", "unit": "m³" }
+        "E": {
+          "name": "empuxo",
+          "unit": "N"
+        },
+        "ρ_f": {
+          "name": "densidade do fluido",
+          "unit": "kg/m³"
+        },
+        "g": {
+          "name": "aceleração gravitacional",
+          "unit": "m/s²"
+        },
+        "V_sub": {
+          "name": "volume submerso",
+          "unit": "m³"
+        }
       },
-      "when_to_use": "Objeto total ou parcialmente submerso em fluido",
-      "restriction": "Fluido de densidade uniforme"
+      "when_to_use": "Objeto parcial ou totalmente submerso em fluido",
+      "restriction": "Fluido em repouso; gravidade uniforme"
     },
     {
-      "id": "eq-pressure",
+      "id": "pressure-eq",
       "module": "fluids",
-      "experiment_ids": ["pressure-01"],
+      "experiment_ids": [
+        "pressure-01"
+      ],
+      "latex": "P = P_0 + \\rho \\cdot g \\cdot h",
       "display": "P = P₀ + ρ·g·h",
       "variables": {
-        "P": { "name": "pressão", "unit": "Pa" },
-        "P₀": { "name": "pressão superficial", "unit": "Pa" },
-        "ρ": { "name": "densidade do fluido", "unit": "kg/m³" },
-        "g": { "name": "aceleração gravitacional", "unit": "m/s²" },
-        "h": { "name": "profundidade", "unit": "m" }
+        "P": {
+          "name": "pressão na profundidade h",
+          "unit": "Pa"
+        },
+        "P₀": {
+          "name": "pressão na superfície",
+          "unit": "Pa"
+        },
+        "ρ": {
+          "name": "densidade do fluido",
+          "unit": "kg/m³"
+        },
+        "g": {
+          "name": "aceleração gravitacional",
+          "unit": "m/s²"
+        },
+        "h": {
+          "name": "profundidade",
+          "unit": "m"
+        }
       },
-      "when_to_use": "Pressão a uma profundidade h em fluido estático",
-      "restriction": "Fluido incompressível, g uniforme"
+      "when_to_use": "Pressão em qualquer ponto de um fluido em repouso",
+      "restriction": "Fluido incompressível e em repouso; g constante"
+    },
+    {
+      "id": "mhs-period",
+      "module": "ondas",
+      "experiment_ids": [
+        "mhs-01"
+      ],
+      "latex": "T = 2\\pi \\sqrt{\\frac{m}{k}}",
+      "display": "T = 2π · √(m/k)",
+      "variables": {
+        "T": {
+          "name": "período",
+          "unit": "s"
+        },
+        "m": {
+          "name": "massa",
+          "unit": "kg"
+        },
+        "k": {
+          "name": "constante da mola",
+          "unit": "N/m"
+        }
+      },
+      "when_to_use": "Oscilador massa-mola em MHS",
+      "restriction": "Mola ideal (sem massa); sem amortecimento"
+    },
+    {
+      "id": "mhs-omega",
+      "module": "ondas",
+      "experiment_ids": [
+        "mhs-01"
+      ],
+      "latex": "\\omega = \\sqrt{\\frac{k}{m}} \\qquad f = \\frac{1}{T}",
+      "display": "ω = √(k/m)     f = 1/T",
+      "variables": {
+        "ω": {
+          "name": "frequência angular",
+          "unit": "rad/s"
+        },
+        "f": {
+          "name": "frequência",
+          "unit": "Hz"
+        },
+        "T": {
+          "name": "período",
+          "unit": "s"
+        }
+      },
+      "when_to_use": "Relacionar frequência e período em qualquer oscilador",
+      "restriction": "Sistema harmônico simples"
+    },
+    {
+      "id": "wave-speed",
+      "module": "ondas",
+      "experiment_ids": [
+        "wave-01",
+        "superposition-01"
+      ],
+      "latex": "v = f \\cdot \\lambda",
+      "display": "v = f · λ",
+      "variables": {
+        "v": {
+          "name": "velocidade de propagação",
+          "unit": "m/s"
+        },
+        "f": {
+          "name": "frequência",
+          "unit": "Hz"
+        },
+        "λ": {
+          "name": "comprimento de onda",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Qualquer onda mecânica ou eletromagnética",
+      "restriction": "v é propriedade do meio, não da fonte"
+    },
+    {
+      "id": "wave-period",
+      "module": "ondas",
+      "experiment_ids": [
+        "wave-01"
+      ],
+      "latex": "T = \\frac{1}{f} \\qquad \\omega = 2\\pi f \\qquad k = \\frac{2\\pi}{\\lambda}",
+      "display": "T = 1/f     ω = 2πf     k = 2π/λ",
+      "variables": {
+        "T": {
+          "name": "período",
+          "unit": "s"
+        },
+        "f": {
+          "name": "frequência",
+          "unit": "Hz"
+        },
+        "ω": {
+          "name": "frequência angular",
+          "unit": "rad/s"
+        },
+        "k": {
+          "name": "número de onda",
+          "unit": "rad/m"
+        },
+        "λ": {
+          "name": "comprimento de onda",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Converter entre as diferentes formas de descrever uma onda",
+      "restriction": "Onda harmônica"
+    },
+    {
+      "id": "superposition-eq",
+      "module": "ondas",
+      "experiment_ids": [
+        "superposition-01"
+      ],
+      "latex": "y = A_1 \\sin(k_1 x - \\omega_1 t) + A_2 \\sin(k_2 x - \\omega_2 t + \\phi)",
+      "display": "y = A₁·sin(k₁x − ω₁t) + A₂·sin(k₂x − ω₂t + φ)",
+      "variables": {
+        "A₁, A₂": {
+          "name": "amplitudes",
+          "unit": "m"
+        },
+        "k₁, k₂": {
+          "name": "números de onda",
+          "unit": "rad/m"
+        },
+        "ω₁, ω₂": {
+          "name": "frequências angulares",
+          "unit": "rad/s"
+        },
+        "φ": {
+          "name": "diferença de fase",
+          "unit": "rad"
+        }
+      },
+      "when_to_use": "Superposição de duas ondas harmônicas no mesmo meio",
+      "restriction": "Princípio da superposição válido para meios lineares"
+    },
+    {
+      "id": "pendulum-period",
+      "module": "ondas",
+      "experiment_ids": [
+        "pendulum-wave-01"
+      ],
+      "latex": "T = 2\\pi \\sqrt{\\frac{L}{g}}",
+      "display": "T = 2π · √(L/g)",
+      "variables": {
+        "T": {
+          "name": "período",
+          "unit": "s"
+        },
+        "L": {
+          "name": "comprimento do pêndulo",
+          "unit": "m"
+        },
+        "g": {
+          "name": "aceleração gravitacional",
+          "unit": "m/s²"
+        }
+      },
+      "when_to_use": "Pêndulo simples com ângulo pequeno (θ < 15°)",
+      "restriction": "Aproximação de ângulo pequeno: sin(θ) ≈ θ. Para ângulos maiores, o período real é ligeiramente maior."
+    },
+    {
+      "id": "ideal-gas-law",
+      "module": "termodinamica",
+      "experiment_ids": [
+        "gas-ideal-01",
+        "processos-01"
+      ],
+      "latex": "PV = nRT",
+      "display": "P · V = n · R · T",
+      "variables": {
+        "P": {
+          "name": "pressão",
+          "unit": "Pa"
+        },
+        "V": {
+          "name": "volume",
+          "unit": "m³"
+        },
+        "n": {
+          "name": "quantidade de substância",
+          "unit": "mol"
+        },
+        "R": {
+          "name": "constante dos gases (8,314)",
+          "unit": "J/(mol·K)"
+        },
+        "T": {
+          "name": "temperatura absoluta",
+          "unit": "K"
+        }
+      },
+      "when_to_use": "Gás a pressões e temperaturas moderadas (longe da liquefação)",
+      "restriction": "Gás ideal: sem interações intermoleculares, volume molecular desprezível"
+    },
+    {
+      "id": "boyle-law",
+      "module": "termodinamica",
+      "experiment_ids": [
+        "processos-01",
+        "gas-ideal-01"
+      ],
+      "latex": "P_1 V_1 = P_2 V_2 \\quad (T = \\text{cte})",
+      "display": "P₁V₁ = P₂V₂   (T constante)",
+      "variables": {
+        "P₁, P₂": {
+          "name": "pressões inicial e final",
+          "unit": "Pa"
+        },
+        "V₁, V₂": {
+          "name": "volumes inicial e final",
+          "unit": "m³"
+        }
+      },
+      "when_to_use": "Processo isotérmico — temperatura constante",
+      "restriction": "T = cte; gás ideal"
+    },
+    {
+      "id": "charles-law",
+      "module": "termodinamica",
+      "experiment_ids": [
+        "processos-01"
+      ],
+      "latex": "\\frac{V_1}{T_1} = \\frac{V_2}{T_2} \\quad (P = \\text{cte})",
+      "display": "V₁/T₁ = V₂/T₂   (P constante)",
+      "variables": {
+        "V₁, V₂": {
+          "name": "volumes inicial e final",
+          "unit": "m³"
+        },
+        "T₁, T₂": {
+          "name": "temperaturas inicial e final (Kelvin)",
+          "unit": "K"
+        }
+      },
+      "when_to_use": "Processo isobárico — pressão constante",
+      "restriction": "P = cte; temperatura em Kelvin obrigatório"
+    },
+    {
+      "id": "gay-lussac-law",
+      "module": "termodinamica",
+      "experiment_ids": [
+        "processos-01",
+        "gas-ideal-01"
+      ],
+      "latex": "\\frac{P_1}{T_1} = \\frac{P_2}{T_2} \\quad (V = \\text{cte})",
+      "display": "P₁/T₁ = P₂/T₂   (V constante)",
+      "variables": {
+        "P₁, P₂": {
+          "name": "pressões inicial e final",
+          "unit": "Pa"
+        },
+        "T₁, T₂": {
+          "name": "temperaturas inicial e final (Kelvin)",
+          "unit": "K"
+        }
+      },
+      "when_to_use": "Processo isocórico — volume constante (ex: panela de pressão)",
+      "restriction": "V = cte; temperatura em Kelvin obrigatório"
+    },
+    {
+      "id": "heat-transfer",
+      "module": "termodinamica",
+      "experiment_ids": [
+        "calor-01"
+      ],
+      "latex": "Q = m \\cdot c \\cdot \\Delta T",
+      "display": "Q = m · c · ΔT",
+      "variables": {
+        "Q": {
+          "name": "calor trocado",
+          "unit": "J"
+        },
+        "m": {
+          "name": "massa",
+          "unit": "kg"
+        },
+        "c": {
+          "name": "calor específico",
+          "unit": "J/(kg·K)"
+        },
+        "ΔT": {
+          "name": "variação de temperatura",
+          "unit": "K ou °C"
+        }
+      },
+      "when_to_use": "Aquecimento ou resfriamento sem mudança de fase",
+      "restriction": "Sem mudança de estado; c constante na faixa de temperatura"
+    },
+    {
+      "id": "eq-si-base",
+      "module": "intro",
+      "experiment_ids": [
+        "obs-measure-01",
+        "grandezas-01"
+      ],
+      "latex": "\\text{SI: } \\{ \\text{m},\\ \\text{kg},\\ \\text{s},\\ \\text{A},\\ \\text{K},\\ \\text{mol},\\ \\text{cd} \\}",
+      "display": "SI: { m, kg, s, A, K, mol, cd }",
+      "variables": {
+        "m": {
+          "name": "metro — comprimento",
+          "unit": "m"
+        },
+        "kg": {
+          "name": "quilograma — massa",
+          "unit": "kg"
+        },
+        "s": {
+          "name": "segundo — tempo",
+          "unit": "s"
+        },
+        "A": {
+          "name": "ampère — corrente elétrica",
+          "unit": "A"
+        },
+        "K": {
+          "name": "kelvin — temperatura",
+          "unit": "K"
+        },
+        "mol": {
+          "name": "mol — quantidade de substância",
+          "unit": "mol"
+        },
+        "cd": {
+          "name": "candela — intensidade luminosa",
+          "unit": "cd"
+        }
+      },
+      "when_to_use": "Identificar a unidade base de qualquer grandeza física",
+      "restriction": "Todas as demais unidades (N, J, Pa, W...) são derivadas dessas sete"
+    },
+    {
+      "id": "eq-conversion",
+      "module": "intro",
+      "experiment_ids": [
+        "grandezas-01"
+      ],
+      "latex": "[x]_{\\text{novo}} = [x]_{\\text{original}} \\times \\frac{\\text{unidade original}}{\\text{unidade nova}}",
+      "display": "valor_novo = valor_original × (fator de conversão)",
+      "variables": {
+        "fator": {
+          "name": "razão entre unidades equivalentes",
+          "unit": ""
+        }
+      },
+      "when_to_use": "Converter qualquer grandeza entre unidades",
+      "restriction": "Multiplique pelo fator escrito como fração — as unidades que você quer eliminar devem cancelar algebricamente"
+    },
+    {
+      "id": "eq-pendulum-obs",
+      "module": "intro",
+      "experiment_ids": [
+        "pendulum-intro-01"
+      ],
+      "latex": "T \\approx 2\\pi\\sqrt{\\frac{L}{g}} \\quad \\text{(observação: T não depende de } m \\text{ nem de } \\theta_0\\text{)}",
+      "display": "T ≈ 2π·√(L/g)   — independe de m e de θ₀ (ângulos pequenos)",
+      "variables": {
+        "T": {
+          "name": "período de oscilação",
+          "unit": "s"
+        },
+        "L": {
+          "name": "comprimento do pêndulo",
+          "unit": "m"
+        },
+        "g": {
+          "name": "aceleração gravitacional (9,8 m/s²)",
+          "unit": "m/s²"
+        }
+      },
+      "when_to_use": "Estimar o período de qualquer pêndulo simples de comprimento L",
+      "restriction": "Aproximação válida para ângulos < 15°. Para ângulos maiores, o período real é ligeiramente maior que a fórmula prevê."
     }
   ]
 }

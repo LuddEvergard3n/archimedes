@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Guia do Professor — Archimedes. Como usar o laboratório em sala de aula: atividades práticas, sequências didáticas e orientações por módulo.">
+  <meta name="theme-color" content="#1c1a14">
+  <title>Guia do Professor — Archimedes</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon-192.svg">
+
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/mobile.css">
+
+  <style>
+    body   { overflow-y: auto; }
+    #app   { height: auto; overflow: visible; }
+
+    /* Header sticky — mesmo padrão do SPA */
+    .app-header { position: sticky; top: 0; }
+
+    .static-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-left: auto;
+    }
+
+    .static-nav a {
+      font-size: var(--text-sm);
+      letter-spacing: 0.04em;
+      color: var(--inst-text-muted);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-base);
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .static-nav a:hover {
+      color: var(--inst-text-primary);
+      background: var(--inst-bg-hover);
+      opacity: 1;
+    }
+
+    .static-nav a.ativo {
+      color: var(--amber);
+      border-color: var(--inst-border-amber);
+      background: var(--amber-dim);
+    }
+
+    /* ── Layout de duas colunas: sidebar + conteúdo ── */
+    .guia-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-6) var(--space-16);
+      display: flex;
+      gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    /* Sidebar de navegação */
+    .guia-sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-5));
+    }
+
+    .guia-sidebar__panel {
+      background: var(--inst-bg-secondary);
+      border: 1px solid var(--inst-border-base);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .guia-sidebar__header {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--inst-border-base);
+      font-size: var(--text-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--inst-text-muted);
+    }
+
+    .sidebar-group {
+      padding: var(--space-2) var(--space-3) var(--space-1);
+      font-size: var(--text-xs);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-weight: 500;
+    }
+
+    .sidebar-group:not(:first-of-type) {
+      border-top: 1px solid var(--inst-border-base);
+      margin-top: var(--space-1);
+    }
+
+    .guia-sidebar a {
+      display: block;
+      font-size: var(--text-sm);
+      color: var(--inst-text-secondary);
+      text-decoration: none;
+      padding: var(--space-2) var(--space-4);
+      border-left: 2px solid transparent;
+      transition: all var(--transition-fast);
+      line-height: 1.40;
+    }
+
+    .guia-sidebar a:hover {
+      color: var(--inst-text-primary);
+      border-left-color: var(--inst-border-mid);
+      background: var(--inst-bg-hover);
+      opacity: 1;
+    }
+
+    .guia-sidebar__footer {
+      padding: var(--space-4);
+      border-top: 1px solid var(--inst-border-base);
+    }
+
+    .guia-sidebar__footer a {
+      display: block;
+      font-size: var(--text-xs);
+      color: var(--amber);
+      text-decoration: none;
+      text-align: center;
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--inst-border-amber);
+      border-radius: var(--radius-base);
+      background: var(--amber-dim);
+      transition: all var(--transition-fast);
+    }
+
+    .guia-sidebar__footer a:hover {
+      background: var(--amber-glow);
+      opacity: 1;
+    }
+
+    /* ── Área de conteúdo ────────────────────────── */
+    .guia-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    /* Page header */
+    .guia-page-header {
+      padding-bottom: var(--space-5);
+      border-bottom: 1px solid var(--inst-border-base);
+    }
+
+    .guia-page-header__eyebrow {
+      display: block;
+      font-size: var(--text-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: var(--space-2);
+    }
+
+    .guia-page-header h1 {
+      font-size: var(--text-2xl);
+      font-weight: 300;
+      color: var(--inst-text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .guia-page-header p {
+      margin-top: var(--space-2);
+      font-size: var(--text-md);
+      color: var(--inst-text-secondary);
+    }
+
+    /* Headings dentro do notebook-panel */
+    .notebook-panel h2 {
+      font-size: 1.05rem;
+      font-weight: 500;
+      font-variant: small-caps;
+      letter-spacing: 0.08em;
+      color: var(--nb-blue);
+      border-bottom: 1px solid var(--nb-border);
+      padding-bottom: var(--space-2);
+      margin-bottom: var(--space-5);
+      scroll-margin-top: calc(var(--header-height) + var(--space-4));
+    }
+
+    .notebook-panel h3 {
+      font-size: var(--text-base);
+      font-weight: 500;
+      color: var(--nb-text-primary);
+      margin: var(--space-5) 0 var(--space-3);
+    }
+
+    .notebook-panel p { margin-bottom: var(--space-4); }
+    .notebook-panel p:last-child { margin-bottom: 0; }
+    .notebook-panel strong { color: var(--nb-text-primary); font-weight: 600; }
+
+    /* Cards de atividade — instrumento */
+    .atividade {
+      background: var(--inst-bg-panel);
+      border: 1px solid var(--inst-border-base);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin: var(--space-5) 0;
+    }
+
+    .atividade__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-5);
+      background: var(--inst-bg-secondary);
+      border-bottom: 1px solid var(--inst-border-base);
+    }
+
+    .atividade__num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--inst-border-amber);
+      background: var(--amber-dim);
+      font-size: var(--text-xs);
+      color: var(--amber);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .atividade__titulo {
+      font-size: var(--text-sm);
+      letter-spacing: 0.04em;
+      color: var(--inst-text-primary);
+      font-weight: 500;
+    }
+
+    .atividade__body {
+      padding: var(--space-5);
+    }
+
+    /* Meta-tags das atividades */
+    .atividade__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+    }
+
+    .meta-tag {
+      display: inline-block;
+      font-size: var(--text-xs);
+      color: var(--inst-text-secondary);
+      background: var(--inst-bg-hover);
+      border: 1px solid var(--inst-border-base);
+      border-radius: var(--radius-sm);
+      padding: 0.15rem 0.55rem;
+      letter-spacing: 0.03em;
+    }
+
+    .atividade__body p {
+      font-size: var(--text-sm);
+      color: var(--inst-text-secondary);
+      line-height: 1.70;
+      margin-bottom: var(--space-3);
+    }
+
+    .atividade__body p:last-child { margin-bottom: 0; }
+
+    .atividade__body ol,
+    .atividade__body ul {
+      padding-left: var(--space-5);
+      margin-bottom: var(--space-3);
+    }
+
+    .atividade__body li {
+      font-size: var(--text-sm);
+      color: var(--inst-text-secondary);
+      line-height: 1.65;
+      margin-bottom: var(--space-1);
+    }
+
+    .atividade__variante {
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--inst-border-base);
+      font-size: var(--text-sm);
+      color: var(--inst-text-muted);
+      font-style: italic;
+    }
+
+    /* Aviso e nota no notebook */
+    .aviso {
+      background: rgba(200,146,10,0.07);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-3) var(--space-5);
+      margin: var(--space-4) 0;
+      font-size: 0.95rem;
+      color: var(--nb-text-secondary);
+      line-height: 1.65;
+    }
+
+    .nota-info {
+      background: var(--nb-blue-dim);
+      border-left: 3px solid var(--nb-blue);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-3) var(--space-5);
+      margin: var(--space-4) 0;
+      font-size: 0.95rem;
+      color: var(--nb-text-secondary);
+      line-height: 1.65;
+    }
+
+    /* Tabela de módulos */
+    .modulos-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+      margin: var(--space-4) 0;
+    }
+
+    .modulos-table th {
+      text-align: left;
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--nb-text-muted);
+      border-bottom: 1px solid var(--nb-border);
+      padding: var(--space-2) var(--space-3) var(--space-2) 0;
+      font-weight: 500;
+    }
+
+    .modulos-table td {
+      padding: var(--space-2) var(--space-3) var(--space-2) 0;
+      color: var(--nb-text-secondary);
+      border-bottom: 1px solid var(--nb-border-dim);
+      vertical-align: top;
+    }
+
+    .modulos-table td:first-child { color: var(--nb-text-primary); font-weight: 500; }
+
+    /* Badge de nível escolar */
+    .nivel {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.04em;
+      vertical-align: middle;
+    }
+
+    .nivel--ef {
+      background: rgba(44,74,124,0.10);
+      border: 1px solid rgba(44,74,124,0.25);
+      color: var(--nb-blue);
+    }
+
+    .nivel--em {
+      background: rgba(61,122,85,0.10);
+      border: 1px solid rgba(61,122,85,0.25);
+      color: #3d7a55;
+    }
+
+    @media (max-width: 900px) {
+      .guia-body { flex-direction: column; }
+      .guia-sidebar { width: 100%; position: static; }
+      .guia-sidebar__panel { display: flex; flex-wrap: wrap; }
+      .guia-sidebar__header { width: 100%; }
+    }
+
+    @media print {
+      .app-header, .guia-sidebar { display: none; }
+      .guia-body { display: block; padding: 0; }
+      .notebook-panel { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+<div id="app" style="display:flex; flex-direction:column; min-height:100vh;">
+
+  <header class="app-header" role="banner" style="position:sticky; top:0;">
+    <a class="app-header__logo" href="index.html" aria-label="Archimedes — Início">
+      <div class="logo-mark" aria-hidden="true"><span class="logo-ring"></span></div>
+      <span class="logo-text">Archi<span>medes</span></span>
+    </a>
+    <div class="header-divider" aria-hidden="true"></div>
+    <nav class="static-nav" aria-label="Páginas">
+      <a href="index.html">Laboratório</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="guia-professor.html" class="ativo" aria-current="page">Guia do Professor</a>
+      <a href="plano-de-aula.html">Plano de Aula</a>
+    </nav>
+  </header>
+
+  <div class="guia-body">
+
+    <!-- Sidebar -->
+    <aside class="guia-sidebar" aria-label="Índice">
+      <div class="guia-sidebar__panel">
+        <div class="guia-sidebar__header">Índice</div>
+
+        <div class="sidebar-group">Contexto</div>
+        <a href="#o-que-e">O que é o Archimedes</a>
+        <a href="#como-usar">Como usar em aula</a>
+
+        <div class="sidebar-group">Módulos</div>
+        <a href="#modulos">Visão geral</a>
+
+        <div class="sidebar-group">Atividades</div>
+        <a href="#ativ-1">1 — Fenômeno primeiro</a>
+        <a href="#ativ-2">2 — Parâmetro e previsão</a>
+        <a href="#ativ-3">3 — Investigação guiada</a>
+        <a href="#ativ-4">4 — Conflito cognitivo</a>
+        <a href="#ativ-5">5 — Aula invertida</a>
+
+        <div class="sidebar-group">Orientações</div>
+        <a href="#modo-professor">Modo Professor</a>
+        <a href="#limitacoes">Limitações</a>
+
+        <div class="guia-sidebar__footer">
+          <a href="plano-de-aula.html">Gerar plano de aula →</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="guia-content" role="main">
+
+      <!-- Page header -->
+      <div class="guia-page-header">
+        <span class="guia-page-header__eyebrow">Archimedes · Material Pedagógico</span>
+        <h1>Guia do Professor</h1>
+        <p>Orientações práticas para usar o laboratório em sala de aula,
+           atividades estruturadas e sequências didáticas por módulo.</p>
+      </div>
+
+      <!-- O que é -->
+      <div class="notebook-panel">
+        <h2 id="o-que-e">O que é o Archimedes</h2>
+        <p>
+          O Archimedes é um laboratório virtual de Física para Ensino Fundamental II e Médio.
+          Cada experimento segue a sequência
+          <strong>fenômeno → observação → hipótese → formalização → exercício</strong>,
+          com simulações interativas que respondem em tempo real aos parâmetros controlados
+          pelo aluno.
+        </p>
+        <p>
+          O laboratório não substitui experimentos reais — complementa-os.
+          Permite que o aluno veja acontecer o que seria difícil ou impossível de montar
+          em sala: queda livre sem atrito, fluidos de densidades exatas,
+          ondas em sobreposição perfeita.
+        </p>
+        <div class="nota-info">
+          Funciona em qualquer dispositivo com navegador moderno, sem instalação.
+          Após a primeira visita, funciona offline — útil para laboratórios de informática
+          com conexão instável.
+        </div>
+      </div>
+
+      <!-- Como usar em aula -->
+      <div class="notebook-panel">
+        <h2 id="como-usar">Como usar em aula</h2>
+
+        <h3>Com projetor</h3>
+        <p>
+          O professor controla a simulação projetada. Os alunos observam,
+          fazem previsões em voz alta antes de cada mudança de parâmetro,
+          e discutem o resultado. A pergunta orientadora está sempre visível
+          na tela (bloco "Pergunta investigativa") — use-a para estruturar a discussão.
+        </p>
+
+        <h3>Em laboratório de informática</h3>
+        <p>
+          Cada aluno ou dupla acessa o laboratório individualmente.
+          Atribua um experimento específico e oriente o aluno a registrar no caderno:
+          a previsão antes de rodar, o resultado observado, e a explicação tentativa.
+          A ficha de exercícios gerada pela ferramenta pode ser impressa ou respondida
+          diretamente no computador.
+        </p>
+
+        <h3>Como tarefa ou estudo individual</h3>
+        <p>
+          O aluno percorre a lição pelas quatro fases (Fenômeno, Conceito, Aplicação, Síntese)
+          no próprio ritmo. O progresso é salvo localmente — ao reabrir, continua de onde parou.
+        </p>
+      </div>
+
+      <!-- Módulos -->
+      <div class="notebook-panel">
+        <h2 id="modulos">Módulos e alinhamento curricular</h2>
+
+        <table class="modulos-table">
+          <thead>
+            <tr>
+              <th>Módulo</th>
+              <th>Experimentos</th>
+              <th>Nível</th>
+              <th>Conceitos centrais</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Introdução à Física</td>
+              <td>3</td>
+              <td><span class="nivel nivel--ef">EF 8º</span></td>
+              <td>Medição, unidades, fenômeno periódico</td>
+            </tr>
+            <tr>
+              <td>Movimento</td>
+              <td>3</td>
+              <td><span class="nivel nivel--ef">EF 9º</span></td>
+              <td>MRU, MRUV, queda livre</td>
+            </tr>
+            <tr>
+              <td>Forças</td>
+              <td>4</td>
+              <td><span class="nivel nivel--ef">EF 9º</span> <span class="nivel nivel--em">EM 1º</span></td>
+              <td>Inércia, 2ª Lei de Newton, atrito, resultante</td>
+            </tr>
+            <tr>
+              <td>Energia</td>
+              <td>3</td>
+              <td><span class="nivel nivel--em">EM 1º</span></td>
+              <td>Energia cinética, potencial, conservação</td>
+            </tr>
+            <tr>
+              <td>Fluidos</td>
+              <td>3</td>
+              <td><span class="nivel nivel--ef">EF 8º</span> <span class="nivel nivel--em">EM 1º</span></td>
+              <td>Empuxo, densidade, pressão hidrostática</td>
+            </tr>
+            <tr>
+              <td>Ondas</td>
+              <td>4</td>
+              <td><span class="nivel nivel--em">EM 2º</span></td>
+              <td>MHS, ondas transversais, superposição, pêndulo</td>
+            </tr>
+            <tr>
+              <td>Termodinâmica</td>
+              <td>3</td>
+              <td><span class="nivel nivel--em">EM 2º</span></td>
+              <td>Gás ideal, processos termodinâmicos, calor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Atividade 1 -->
+      <div class="notebook-panel">
+        <h2 id="ativ-1">Atividades em sala</h2>
+
+        <div class="atividade">
+          <div class="atividade__header">
+            <span class="atividade__num">1</span>
+            <span class="atividade__titulo">Fenômeno primeiro — observação sem equação</span>
+          </div>
+          <div class="atividade__body">
+            <div class="atividade__meta">
+              <span class="meta-tag">Qualquer nível</span>
+              <span class="meta-tag">15–20 min</span>
+              <span class="meta-tag">Projetor ou individual</span>
+            </div>
+            <p>
+              Abra um experimento e rode a simulação <em>antes</em> de qualquer explicação.
+              Peça aos alunos que descrevam em palavras o que estão vendo —
+              sem usar termos técnicos. "O objeto afundou mais quando ficou mais pesado."
+            </p>
+            <p>
+              Depois, faça uma previsão coletiva: "O que acontece se eu dobrar a massa?
+              Todos que acham A levantam a mão." Rode. Discuta o resultado.
+              A formalização (equação) só entra depois desse ciclo.
+            </p>
+            <p class="atividade__variante">
+              <strong>Variante:</strong> Deixe os alunos explorarem livremente por 5 minutos
+              antes de qualquer instrução. A curiosidade gerada vale mais que qualquer introdução.
+            </p>
+          </div>
+        </div>
+
+        <!-- Atividade 2 -->
+        <div class="atividade" id="ativ-2">
+          <div class="atividade__header">
+            <span class="atividade__num">2</span>
+            <span class="atividade__titulo">Parâmetro e previsão — controle de variáveis</span>
+          </div>
+          <div class="atividade__body">
+            <div class="atividade__meta">
+              <span class="meta-tag">Qualquer nível</span>
+              <span class="meta-tag">25–35 min</span>
+              <span class="meta-tag">Individual ou dupla</span>
+            </div>
+            <p>
+              Escolha um experimento com múltiplos parâmetros (ex.: Segunda Lei de Newton).
+              Oriente o aluno a variar um parâmetro por vez, mantendo os outros fixos,
+              e registrar no caderno: valor do parâmetro, previsão do resultado, resultado real.
+            </p>
+            <ol>
+              <li>Fixe a massa em 5 kg. Varie a força de 10 N a 50 N. Anote a aceleração.</li>
+              <li>Fixe a força em 20 N. Varie a massa de 2 kg a 10 kg. Anote a aceleração.</li>
+              <li>Com os dados, tente descobrir a relação matemática antes de ver a equação.</li>
+            </ol>
+            <p class="atividade__variante">
+              <strong>Variante avançada:</strong> Peça ao aluno para prever o valor exato
+              da aceleração antes de cada rodada. Calcule o erro percentual.
+              A precisão melhora ao longo da atividade — isso é modelagem científica.
+            </p>
+          </div>
+        </div>
+
+        <!-- Atividade 3 -->
+        <div class="atividade" id="ativ-3">
+          <div class="atividade__header">
+            <span class="atividade__num">3</span>
+            <span class="atividade__titulo">Investigação guiada — do dado à lei</span>
+          </div>
+          <div class="atividade__body">
+            <div class="atividade__meta">
+              <span class="meta-tag">EM 1º–2º</span>
+              <span class="meta-tag">40–50 min</span>
+              <span class="meta-tag">Individual ou dupla</span>
+            </div>
+            <p>
+              Use o módulo de Ondas (MHS ou Pêndulo). O objetivo é que o aluno
+              descubra a fórmula do período por dados, não por explicação.
+            </p>
+            <ol>
+              <li>Meça o período para 5 valores diferentes de comprimento/massa.</li>
+              <li>Registre na tabela. Plote o gráfico à mão.</li>
+              <li>Que tipo de curva é? Tente linearizar (T² × L ou T × √L).</li>
+              <li>O que a inclinação da reta representa?</li>
+            </ol>
+            <p>
+              Só depois de o aluno ter chegado à relação por si, apresente a derivação formal.
+              O momento de "ah, é isso!" é o ponto de ancoragem da memorização.
+            </p>
+          </div>
+        </div>
+
+        <!-- Atividade 4 -->
+        <div class="atividade" id="ativ-4">
+          <div class="atividade__header">
+            <span class="atividade__num">4</span>
+            <span class="atividade__titulo">Conflito cognitivo — intuição contra física</span>
+          </div>
+          <div class="atividade__body">
+            <div class="atividade__meta">
+              <span class="meta-tag">Qualquer nível</span>
+              <span class="meta-tag">20–30 min</span>
+              <span class="meta-tag">Projetor</span>
+            </div>
+            <p>
+              Alguns experimentos produzem resultados contraintuitivos.
+              Use-os deliberadamente para quebrar concepções prévias equivocadas:
+            </p>
+            <ul>
+              <li><strong>Queda livre:</strong> "Um objeto pesado cai mais rápido?" — rode. Confronte.</li>
+              <li><strong>Flutuação:</strong> "Por que um porta-aviões de aço flutua e um prego não?" — rode com ρ alto e baixo.</li>
+              <li><strong>Inércia:</strong> "Por que não caímos quando o ônibus freia?" — rode e pause nos instantes certos.</li>
+            </ul>
+            <p>
+              Permita o erro coletivo antes de corrigir. A resistência do aluno ao resultado
+              correto é onde o aprendizado real acontece.
+            </p>
+          </div>
+        </div>
+
+        <!-- Atividade 5 -->
+        <div class="atividade" id="ativ-5">
+          <div class="atividade__header">
+            <span class="atividade__num">5</span>
+            <span class="atividade__titulo">Aula invertida — laboratório como preparação</span>
+          </div>
+          <div class="atividade__body">
+            <div class="atividade__meta">
+              <span class="meta-tag">EF 9º / EM</span>
+              <span class="meta-tag">Casa + 20 min de aula</span>
+              <span class="meta-tag">Individual</span>
+            </div>
+            <p>
+              Atribua como tarefa domiciliar: o aluno percorre a lição de um experimento
+              (fenômeno, conceito, aplicação) e responde as perguntas do caderno virtual.
+              Na aula seguinte, a discussão começa de onde a lição terminou — com os conceitos
+              já introduzidos, o tempo de aula serve para aprofundamento e exercícios complexos.
+            </p>
+            <p class="atividade__variante">
+              <strong>Variante:</strong> Peça ao aluno para criar um "exemplo do cotidiano"
+              para cada equação apresentada. Compartilhe os exemplos em aula —
+              os melhores virão de contextos que o professor não anteciparia.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modo Professor -->
+      <div class="notebook-panel">
+        <h2 id="modo-professor">Modo Professor</h2>
+        <p>
+          O botão "Modo Professor" no canto superior direito do laboratório
+          ativa um painel adicional em cada experimento com:
+        </p>
+        <ul>
+          <li>Concepções prévias comuns para aquele tema e como abordá-las</li>
+          <li>Sugestão de perguntas investigativas</li>
+          <li>Conexões com outros experimentos do laboratório</li>
+          <li>Aproximações e limitações do modelo físico usado</li>
+        </ul>
+        <p>
+          O modo Professor é pensado para uso discreto — o painel aparece
+          abaixo do experimento, sem interferir na visualização dos alunos.
+        </p>
+      </div>
+
+      <!-- Limitações -->
+      <div class="notebook-panel">
+        <h2 id="limitacoes">Limitações — comunicar é parte do aprendizado</h2>
+        <div class="aviso">
+          Comunicar as limitações da ferramenta explicitamente é parte da formação científica.
+          Um modelo que ignora atrito de ar não é "errado" — é uma aproximação deliberada.
+          Nomear a aproximação ensina mais que escondê-la.
+        </div>
+        <p>
+          Os modelos físicos do Archimedes adotam simplificações pedagógicas:
+          corpos rígidos sem rotação na maioria dos casos, fluidos incompressíveis,
+          atrito constante, paredes ideais. As equações mostradas correspondem às
+          aproximações implementadas — não ao fenômeno completo.
+        </p>
+        <p>
+          Para o ensino básico, essas simplificações são corretas dentro do currículo.
+          Em casos onde a aproximação é relevante (pêndulo de grande ângulo, por exemplo),
+          o texto do experimento menciona explicitamente.
+        </p>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>

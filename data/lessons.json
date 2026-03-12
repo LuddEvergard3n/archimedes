@@ -4,24 +4,40 @@
       "id": "intro-fisica-01",
       "module": "intro",
       "title": "O que é Física",
-      "concepts": ["fenômeno", "observação", "medida", "modelo", "explicação"],
-      "experiment_ids": ["obs-measure-01", "grandezas-01"],
-      "exercise_ids": [],
+      "concepts": [
+        "fenômeno",
+        "observação",
+        "medida",
+        "modelo",
+        "precisão"
+      ],
+      "experiment_ids": [
+        "obs-measure-01"
+      ],
+      "exercise_ids": [
+        "intro-ex-01",
+        "intro-ex-02"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Olhe ao redor. Um pêndulo oscila. Uma pedra cai. A água ferve. A Física é a linguagem que usamos para descrever, medir e explicar esses fenômenos."
+          "title": "A sonda que foi ao fundo",
+          "content": "Em setembro de 1999, a sonda Mars Climate Orbiter chegou a Marte após 9 meses de viagem e US$ 327 milhões gastos. Entrou na atmosfera 170 km mais baixo que o planejado — e foi destruída em segundos. A investigação revelou a causa: um time usava unidades do Sistema Internacional (metros, newtons); outro, unidades imperiais americanas (pés, libras-força). Nenhum cálculo estava individualmente errado. A interface entre os dois sistemas nunca converteu as unidades."
         },
         {
           "id": "observation",
-          "title": "Observação",
-          "content": "Observar não é apenas ver. É registrar com precisão o que acontece, identificar variáveis e padrões."
+          "title": "Ver é diferente de medir",
+          "content": "Você consegue estimar 10 segundos com os olhos fechados? Tente. A maioria das pessoas erra por 30% a 50%. Um cronômetro não erra. A diferença não é que a máquina seja 'mais inteligente' — é que ela aplica uma definição precisa e reproduzível. Física começa onde a impressão subjetiva termina e a medida começa."
+        },
+        {
+          "id": "experiment",
+          "title": "Explore as grandezas",
+          "content": "Na simulação, observe as três grandezas fundamentais animadas: comprimento (em metros), massa (em quilogramas) e tempo (em segundos). São as três bases de quase toda a mecânica clássica. Observe como cada uma tem uma unidade específica — e como o número muda de significado completamente dependendo da unidade."
         },
         {
           "id": "formalization",
-          "title": "Modelo Físico",
-          "content": "Um modelo físico é uma representação simplificada da realidade que captura as relações essenciais entre as grandezas."
+          "title": "O Sistema Internacional",
+          "content": "O SI define sete unidades base independentes: metro, quilograma, segundo, ampère, kelvin, mol, candela. Todas as demais unidades da Física — newton, joule, pascal, watt — são derivadas dessas sete por multiplicação e divisão. Um número físico sem unidade não é um dado incompleto: é um dado inválido."
         }
       ]
     },
@@ -29,29 +45,39 @@
       "id": "motion-mru-01",
       "module": "motion",
       "title": "Movimento com Velocidade Constante",
-      "concepts": ["posição", "deslocamento", "velocidade", "tempo", "referencial"],
-      "experiment_ids": ["mru-01"],
-      "exercise_ids": ["motion-ex-01", "motion-ex-02"],
+      "concepts": [
+        "posição",
+        "velocidade",
+        "gráfico x×t",
+        "MRU"
+      ],
+      "experiment_ids": [
+        "mru-01"
+      ],
+      "exercise_ids": [
+        "motion-ex-01",
+        "motion-ex-02"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Imagine um carro na estrada a velocidade constante. A cada segundo, ele percorre a mesma distância. Isso é Movimento Retilíneo Uniforme."
+          "title": "O avião que cruza o Brasil",
+          "content": "Um avião saindo de Recife rumo a Porto Alegre percorre ~3.800 km em velocidade de cruzeiro de 850 km/h. O piloto não está acelerando nem freando — é MRU. Cada hora, o mesmo trecho. Cada segundo, os mesmos metros. Mas quanto tempo até chegar?"
         },
         {
           "id": "experiment",
-          "title": "Experimento",
-          "content": "Manipule a velocidade e observe como a posição muda ao longo do tempo. Observe o gráfico x×t."
+          "title": "Explore a simulação",
+          "content": "Use o slider de velocidade. Observe o gráfico x×t se formando. O que acontece com a inclinação da reta quando você aumenta a velocidade? E quando a velocidade é negativa — o que o gráfico mostra?"
         },
         {
           "id": "observation",
-          "title": "O que observar",
-          "content": "O gráfico posição×tempo é uma reta. A inclinação dessa reta é a velocidade. Velocidade maior = reta mais inclinada."
+          "title": "O que o gráfico revela",
+          "content": "A reta mais inclinada corresponde ao movimento mais rápido. Uma reta horizontal — sem inclinação — significa velocidade zero: o objeto está parado. Uma reta descendo para a direita: o objeto se move no sentido negativo. A inclinação é a velocidade."
         },
         {
           "id": "formalization",
-          "title": "A Equação",
-          "content": "Depois de ver o padrão, podemos escrever: x(t) = x₀ + v·t. Onde x₀ é a posição inicial, v é a velocidade e t é o tempo."
+          "title": "A equação como síntese",
+          "content": "Depois de observar o padrão no gráfico, a equação é uma consequência natural: x(t) = x₀ + v·t. Não é uma fórmula para decorar — é a descrição matemática exata do que você já viu na tela."
         }
       ]
     },
@@ -59,24 +85,38 @@
       "id": "motion-mruv-01",
       "module": "motion",
       "title": "Movimento com Aceleração Constante",
-      "concepts": ["aceleração", "variação de velocidade", "gráfico v×t", "equação horária"],
-      "experiment_ids": ["mruv-01"],
-      "exercise_ids": ["motion-ex-03", "motion-ex-04"],
+      "concepts": [
+        "aceleração",
+        "gráfico v×t",
+        "MRUV"
+      ],
+      "experiment_ids": [
+        "mruv-01"
+      ],
+      "exercise_ids": [
+        "motion-ex-03",
+        "motion-ex-04"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Quando uma força constante age sobre um corpo, sua velocidade muda uniformemente. A velocidade aumenta (ou diminui) de forma regular."
+          "title": "Do zero a 100 em 3,5 segundos",
+          "content": "Fabricantes de carros esportivos anunciam o tempo de 0 a 100 km/h como medida de desempenho. Um Porsche 911 faz isso em 3,5 s. Um caminhão carregado leva 40 s. A diferença não é só de potência — é de relação entre força e massa. Mas qual é a aceleração, em m/s², do Porsche?"
         },
         {
           "id": "experiment",
-          "title": "Experimento",
-          "content": "Observe o corpo acelerando. Veja como o gráfico de velocidade é uma reta — isso indica aceleração constante."
+          "title": "Explore a simulação",
+          "content": "Defina uma aceleração positiva e observe o gráfico de velocidade. É uma reta crescente — a aceleração é constante. Agora observe o gráfico de posição: é uma parábola. O que acontece com a parábola quando você dobra a aceleração?"
+        },
+        {
+          "id": "observation",
+          "title": "Velocidade crescendo, posição acelerando",
+          "content": "No gráfico v×t, a aceleração constante aparece como reta com inclinação. No gráfico x×t, a posição cresce cada vez mais rápido — uma parábola. Dobrar a aceleração não dobra a posição em tempo fixo: a relação é quadrática."
         },
         {
           "id": "formalization",
-          "title": "As Equações",
-          "content": "v(t) = v₀ + a·t — a velocidade cresce linearmente com o tempo. x(t) = x₀ + v₀t + ½at² — a posição segue uma parábola."
+          "title": "As duas equações do MRUV",
+          "content": "v(t) = v₀ + a·t — a velocidade cresce linearmente. x(t) = x₀ + v₀t + ½at² — a posição segue parábola. Elas não são definições arbitrárias: são a integração matemática do que você observou no gráfico."
         }
       ]
     },
@@ -84,39 +124,75 @@
       "id": "motion-freefall-01",
       "module": "motion",
       "title": "Queda Livre",
-      "concepts": ["gravidade", "aceleração constante", "vácuo", "independência da massa"],
-      "experiment_ids": ["free-fall-01"],
-      "exercise_ids": ["motion-ex-05"],
+      "concepts": [
+        "aceleração gravitacional",
+        "independência de massa",
+        "queda livre"
+      ],
+      "experiment_ids": [
+        "free-fall-01"
+      ],
+      "exercise_ids": [
+        "motion-ex-05"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Galileu mostrou que, na ausência de ar, todos os objetos caem com a mesma aceleração, independente de sua massa."
+          "title": "O experimento da Lua — 1971",
+          "content": "David Scott, da Apollo 15, parou em plena transmissão ao vivo e soltou simultaneamente uma pena de falcão e um martelo geológico de 1,3 kg. Na ausência de atmosfera lunar, caíram juntos. Aristóteles dizia que o mais pesado cai mais rápido. Galileu discordou no séc. XVII. Scott provou experimentalmente no séc. XX."
+        },
+        {
+          "id": "experiment",
+          "title": "Teste com massas diferentes",
+          "content": "Na simulação, mude a massa do objeto e observe o tempo de queda. Depois, mude a altura. A massa altera o tempo? A altura altera a velocidade de impacto? Formule suas previsões antes de mudar os sliders."
+        },
+        {
+          "id": "observation",
+          "title": "A aceleração é a mesma",
+          "content": "Independente da massa, o tempo de queda é idêntico para a mesma altura. A velocidade no impacto depende da altura — não da massa. Isso é contraintuitivo porque, na Terra, o ar interfere: uma pena cai devagar por causa da resistência do ar, não da massa."
         },
         {
           "id": "formalization",
-          "title": "A Aceleração Gravitacional",
-          "content": "a = g ≈ 9,8 m/s² (na superfície da Terra). Isso é uma constante local — não depende do objeto."
+          "title": "g = 9,8 m/s² — uma constante local",
+          "content": "Na superfície da Terra, todos os corpos em queda livre têm aceleração a = g ≈ 9,8 m/s². Na Lua, g = 1,62 m/s² — por isso Scott viu a pena e o martelo caírem mais devagar que na Terra, mas ao mesmo tempo um do outro."
         }
       ]
     },
     {
       "id": "forces-newton1-01",
       "module": "forces",
-      "title": "Primeira Lei de Newton",
-      "concepts": ["inércia", "força nula", "equilíbrio", "estado de movimento"],
-      "experiment_ids": ["inertia-01"],
-      "exercise_ids": ["forces-ex-01"],
+      "title": "Lei da Inércia",
+      "concepts": [
+        "inércia",
+        "força resultante",
+        "estado de movimento"
+      ],
+      "experiment_ids": [
+        "inertia-01"
+      ],
+      "exercise_ids": [
+        "forces-ex-01"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Um objeto em repouso não começa a se mover sozinho. Um objeto em movimento não para sozinho. Algo precisa mudar o estado de movimento."
+          "title": "O ônibus que freia",
+          "content": "Você está em pé num ônibus. O motorista freia de repente. Você vai para a frente. Mas ninguém te empurrou — o ônibus freou, você não. Seu corpo queria continuar no movimento que tinha. O chão do ônibus parou; você, por um instante, não. Isso é inércia."
+        },
+        {
+          "id": "experiment",
+          "title": "Remova a força e observe",
+          "content": "Na simulação, dê uma velocidade inicial ao objeto e remova qualquer força. O que acontece? O objeto para? Desacelera? Em um sistema sem atrito, observe o que ocorre indefinidamente."
+        },
+        {
+          "id": "observation",
+          "title": "Movimento sem força",
+          "content": "Sem força resultante, o objeto não para — continua exatamente como estava. Se estava em repouso, permanece em repouso. Se estava em movimento, continua em movimento retilíneo uniforme. Isso não é 'o que acontece em condições ideais' — é o que a natureza realmente faz."
         },
         {
           "id": "formalization",
-          "title": "Lei da Inércia",
-          "content": "Se a força resultante sobre um corpo é zero, seu estado de movimento não muda: ΣF = 0 → a = 0."
+          "title": "ΣF = 0 → a = 0",
+          "content": "A Primeira Lei diz: se a força resultante é zero, a aceleração é zero. O estado não muda. O difícil histórico foi aceitar que movimento uniforme não precisa de força para se manter — o que precisa de força é a mudança de movimento."
         }
       ]
     },
@@ -124,24 +200,39 @@
       "id": "forces-newton2-01",
       "module": "forces",
       "title": "Segunda Lei de Newton",
-      "concepts": ["força resultante", "massa", "aceleração", "proporcionalidade"],
-      "experiment_ids": ["newton2-01"],
-      "exercise_ids": ["forces-ex-02", "forces-ex-03"],
+      "concepts": [
+        "força",
+        "massa",
+        "aceleração",
+        "F = m·a"
+      ],
+      "experiment_ids": [
+        "newton2-01"
+      ],
+      "exercise_ids": [
+        "forces-ex-02",
+        "forces-ex-03"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Empurre um objeto com mais força — ele acelera mais. Empurre um objeto mais pesado — ele acelera menos. Há uma relação clara entre força, massa e aceleração."
+          "title": "O carrinho de supermercado",
+          "content": "Você empurra um carrinho vazio — ele acelera facilmente. O mesmo carrinho cheio de compras — mesma força nos braços, mas ele resiste muito mais. Não é fraqueza sua: é física. A massa resiste à mudança de movimento. Essa resistência tem um nome: inércia."
         },
         {
           "id": "experiment",
-          "title": "Experimento",
-          "content": "Varie a força aplicada com a massa fixa. Veja como a aceleração muda. Depois, varie a massa com a força fixa."
+          "title": "Varie força e massa separadamente",
+          "content": "Primeiro, fixe a massa e aumente a força. Como a aceleração muda? É proporcional? Depois, fixe a força e aumente a massa. Agora faça uma previsão: se dobrar a força e dobrar a massa ao mesmo tempo, a aceleração muda?"
+        },
+        {
+          "id": "observation",
+          "title": "Duas relações opostas",
+          "content": "Dobrar a força → dobra a aceleração (proporcional). Dobrar a massa → aceleração cai à metade (inversamente proporcional). Dobrar ambas → aceleração inalterada. A relação entre as três grandezas é exata e verificável com qualquer objeto."
         },
         {
           "id": "formalization",
           "title": "F = m·a",
-          "content": "A aceleração é proporcional à força e inversamente proporcional à massa. F = m·a é a síntese dessa relação."
+          "content": "A equação é a síntese das duas observações: a ∝ F e a ∝ 1/m, portanto a = F/m, ou F = m·a. É a lei mais usada da mecânica clássica — de engenharia civil a projéteis balísticos, de satélites a freios de carro."
         }
       ]
     },
@@ -149,19 +240,37 @@
       "id": "forces-friction-01",
       "module": "forces",
       "title": "Força de Atrito",
-      "concepts": ["atrito", "força normal", "coeficiente de atrito", "superfície"],
-      "experiment_ids": ["friction-01"],
-      "exercise_ids": ["forces-ex-04"],
+      "concepts": [
+        "atrito cinético",
+        "coeficiente de atrito",
+        "força normal"
+      ],
+      "experiment_ids": [
+        "friction-01"
+      ],
+      "exercise_ids": [
+        "forces-ex-04"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Por que um bloco empurrado desacelera quando paramos de empurrá-lo? Uma força está se opondo ao movimento."
+          "title": "Por que escaladores usam magnésio",
+          "content": "Escaladores de pedra aplicam pó de magnésio nas mãos antes de cada movimento difícil. O magnésio absorve o suor — superfície seca tem coeficiente de atrito maior que superfície úmida. Em rocha molhada, o coeficiente pode cair de 0,9 para 0,4. Essa diferença é a diferença entre segurar e cair."
+        },
+        {
+          "id": "experiment",
+          "title": "Mude a superfície, não a força",
+          "content": "Na simulação, mantendo a mesma força aplicada, mude o coeficiente de atrito. O objeto que estava parado pode começar a se mover — ou o que estava se movendo pode parar. Observe: dobrar o peso (massa) dobra o atrito?"
+        },
+        {
+          "id": "observation",
+          "title": "Proporcional ao peso, independente da área",
+          "content": "Dobrar a massa dobra a força normal e portanto dobra o atrito. Mas uma caixa larga ou estreita — mesma massa, mesma normal — tem o mesmo atrito. A área de contato não aparece na equação. Contraintuitivo, mas verificável."
         },
         {
           "id": "formalization",
-          "title": "f = μ·N",
-          "content": "O atrito cinético é proporcional à força normal: f = μk·N. O coeficiente μk depende das superfícies em contato."
+          "title": "f = μₖ · N",
+          "content": "O atrito cinético é proporcional à força normal com constante de proporcionalidade μₖ — o coeficiente de atrito cinético. Ele depende apenas dos materiais em contato, não da velocidade nem da área. μₖ do aço sobre aço: 0,4. Teflon sobre aço: 0,04."
         }
       ]
     },
@@ -169,19 +278,37 @@
       "id": "energy-kinetic-01",
       "module": "energy",
       "title": "Energia Cinética",
-      "concepts": ["energia cinética", "massa", "velocidade", "trabalho"],
-      "experiment_ids": ["kinetic-01"],
-      "exercise_ids": ["energy-ex-01"],
+      "concepts": [
+        "energia cinética",
+        "relação v²",
+        "trabalho"
+      ],
+      "experiment_ids": [
+        "kinetic-01"
+      ],
+      "exercise_ids": [
+        "energy-ex-01"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Um corpo em movimento pode realizar trabalho. Quanto mais rápido ou mais pesado, mais trabalho pode realizar. Chamamos isso de energia cinética."
+          "title": "Por que 60 km/h é mais que o dobro de 30 km/h",
+          "content": "Um carro a 30 km/h freia em 12 metros. O mesmo carro a 60 km/h — velocidade dobrada — freia em 48 metros. Não o dobro: quatro vezes mais. A energia cinética cresce com o quadrado da velocidade. Por isso acidentes a 80 km/h são muito mais letais que a 60 km/h: não é 33% mais perigoso, é mais que o dobro."
+        },
+        {
+          "id": "experiment",
+          "title": "Dobre a velocidade e observe",
+          "content": "Na simulação, calcule a energia cinética para v = 10 m/s. Depois, dobre para v = 20 m/s. A energia quadruplicou? Agora tente: massa dobrada com mesma velocidade — a energia dobra ou quadruplica?"
+        },
+        {
+          "id": "observation",
+          "title": "v² é a chave",
+          "content": "Dobrar a massa → energia cinética dobra (relação linear). Dobrar a velocidade → energia cinética quadruplica (relação quadrática). A velocidade aparece ao quadrado porque é a relação entre trabalho e deslocamento no espaço, não no tempo."
         },
         {
           "id": "formalization",
           "title": "Ec = ½·m·v²",
-          "content": "A energia cinética cresce com o quadrado da velocidade. Dobrar a velocidade quadruplica a energia cinética."
+          "content": "A energia cinética é proporcional à massa e ao quadrado da velocidade. O coeficiente ½ vem da integração de F·ds = m·a·ds. Dobrar a velocidade exige quadruplicar a energia fornecida — isso define tanto projéteis quanto colisões de trânsito."
         }
       ]
     },
@@ -189,19 +316,37 @@
       "id": "energy-potential-01",
       "module": "energy",
       "title": "Energia Potencial Gravitacional",
-      "concepts": ["energia potencial", "altura", "campo gravitacional", "trabalho da gravidade"],
-      "experiment_ids": ["ramp-energy-01"],
-      "exercise_ids": ["energy-ex-02"],
+      "concepts": [
+        "energia potencial",
+        "altura",
+        "referencial"
+      ],
+      "experiment_ids": [
+        "ramp-energy-01"
+      ],
+      "exercise_ids": [
+        "energy-ex-02"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Um objeto em altura possui energia armazenada — energia que se converte em movimento quando o objeto cai."
+          "title": "O skate e a rampa",
+          "content": "Skatistas sabem: quanto maior a rampa, mais rápido na saída. Não precisam de equações para isso — é experiência física acumulada. Mas engenheiros de parques aquáticos precisam calcular a altura exata para que o usuário chegue rápido o suficiente para entrar na curva, mas não tão rápido que voe pela borda."
+        },
+        {
+          "id": "experiment",
+          "title": "Varie a altura, observe a velocidade",
+          "content": "Na simulação com rampa, aumente a altura e anote a velocidade no pé. Quando a altura dobra, a velocidade dobra também? Ou muda de outra forma? Ligue o atrito — o que acontece com a velocidade final?"
+        },
+        {
+          "id": "observation",
+          "title": "Altura ao quadrado, velocidade linear",
+          "content": "Se a altura dobra, a energia potencial dobra — mas a velocidade cresce com a raiz quadrada da energia. Dobrar a altura multiplica a velocidade por √2 ≈ 1,41. Com atrito, parte da energia vai para o calor e a velocidade final é menor."
         },
         {
           "id": "formalization",
           "title": "Ep = m·g·h",
-          "content": "A energia potencial gravitacional depende da massa, da aceleração gravitacional e da altura em relação a um referencial."
+          "content": "A energia potencial gravitacional é proporcional à massa, à gravidade local e à altura em relação a um referencial escolhido. O referencial é arbitrário — o que importa é a diferença de altura, não o valor absoluto."
         }
       ]
     },
@@ -209,19 +354,37 @@
       "id": "energy-conservation-01",
       "module": "energy",
       "title": "Conservação de Energia Mecânica",
-      "concepts": ["conservação", "energia mecânica total", "transformação energética", "dissipação"],
-      "experiment_ids": ["conservation-01"],
-      "exercise_ids": ["energy-ex-03"],
+      "concepts": [
+        "conservação",
+        "dissipação",
+        "energia mecânica total"
+      ],
+      "experiment_ids": [
+        "conservation-01"
+      ],
+      "exercise_ids": [
+        "energy-ex-03"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Em um pêndulo sem atrito, a energia se converte continuamente entre cinética e potencial. A soma permanece constante."
+          "title": "O pêndulo de Newton",
+          "content": "No pêndulo de Newton — aquelas esferas metálicas de mesa — a última bola sempre volta à mesma altura de onde a primeira saiu. Não mais alta, não mais baixa: exatamente igual. É a conservação de energia em ação. E se você observar por horas, vai notar que elas vão perdendo altura, muito lentamente. Onde vai essa energia?"
+        },
+        {
+          "id": "experiment",
+          "title": "Com e sem atrito",
+          "content": "Na simulação, primeiro rode sem atrito. A energia mecânica total (barra somada) permanece constante? Agora ligue o atrito. Observe como a energia mecânica total diminui com o tempo. A energia desaparece ou vai para algum lugar?"
+        },
+        {
+          "id": "observation",
+          "title": "A energia não some — se transforma",
+          "content": "Com atrito, a energia mecânica (cinética + potencial) diminui. Mas a energia total do sistema não muda — ela virou calor nas superfícies. O pêndulo de Newton perde altura porque o ar e o ponto de suspensão absorvem pequenas quantidades de energia a cada ciclo."
         },
         {
           "id": "formalization",
-          "title": "E_mec = Ep + Ec = constante",
-          "content": "Sem forças dissipativas, a energia mecânica total se conserva. Com atrito, parte da energia se transforma em calor."
+          "title": "E_mec = Ep + Ec = constante (sem dissipação)",
+          "content": "Sem forças dissipativas, Ep + Ec = cte. Com atrito, E_mec diminui pela quantidade de calor gerado: ΔE_mec = −W_atrito. A energia total do universo se conserva — a equação local é uma aproximação prática do princípio global."
         }
       ]
     },
@@ -229,19 +392,38 @@
       "id": "fluids-density-01",
       "module": "fluids",
       "title": "Densidade",
-      "concepts": ["densidade", "massa", "volume", "comparação entre materiais"],
-      "experiment_ids": ["density-01"],
-      "exercise_ids": ["fluids-ex-01"],
+      "concepts": [
+        "densidade",
+        "massa",
+        "volume",
+        "flutuação"
+      ],
+      "experiment_ids": [
+        "density-01"
+      ],
+      "exercise_ids": [
+        "fluids-ex-01"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Ferro afunda. Madeira flutua. Iceberg flutua. O que determina se algo flutua ou afunda não é o peso, mas a densidade."
+          "title": "O Mar Morto e a piscina",
+          "content": "No Mar Morto (Israel/Jordânia), qualquer pessoa flutua sem esforço — impossível afundar mesmo tentando. Numa piscina comum, é preciso nadar para ficar na superfície. A diferença: o Mar Morto tem 30% de sal dissolvido (ρ ≈ 1240 kg/m³) contra 1000 kg/m³ da água doce. A densidade humana média é ~985 kg/m³."
+        },
+        {
+          "id": "experiment",
+          "title": "Mude as densidades",
+          "content": "Na simulação, ajuste a densidade do objeto e do fluido. Encontre o ponto exato onde o objeto fica suspenso no meio — nem sobe, nem desce. O que acontece quando as densidades são iguais? É diferente do que você esperava?"
+        },
+        {
+          "id": "observation",
+          "title": "A regra das densidades",
+          "content": "ρ_objeto < ρ_fluido → flutua. ρ_objeto > ρ_fluido → afunda. ρ_objeto = ρ_fluido → equilíbrio neutro (fica suspenso onde for colocado). Peixe-bexiga nada usando esse princípio: controla sua densidade média inflando ou desinflando a bexiga natatória."
         },
         {
           "id": "formalization",
           "title": "ρ = m/V",
-          "content": "Densidade é massa por unidade de volume. Um objeto flutua quando sua densidade média é menor que a do fluido."
+          "content": "Densidade é massa dividida por volume. Um navio de aço flutua porque seu volume total (incluindo o interior oco) cria uma densidade média menor que a da água. A densidade da água salgada do Mar Morto é 24% maior que a água doce — suficiente para sustentar qualquer ser humano na superfície."
         }
       ]
     },
@@ -249,39 +431,440 @@
       "id": "fluids-buoyancy-01",
       "module": "fluids",
       "title": "Princípio de Arquimedes",
-      "concepts": ["empuxo", "peso do fluido deslocado", "flutuação", "equilíbrio"],
-      "experiment_ids": ["buoyancy-01"],
-      "exercise_ids": ["fluids-ex-02", "fluids-ex-03"],
+      "concepts": [
+        "empuxo",
+        "fluido deslocado",
+        "força resultante"
+      ],
+      "experiment_ids": [
+        "buoyancy-01"
+      ],
+      "exercise_ids": [
+        "fluids-ex-02",
+        "fluids-ex-03"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Quando você mergulha um objeto em água, ele parece mais leve. Uma força para cima age sobre ele. Essa força é o empuxo."
+          "title": "100.000 toneladas de aço flutuando",
+          "content": "O porta-aviões USS Gerald R. Ford tem deslocamento de 100.000 toneladas. É a mesma tonelagem em aço que afundaria num segundo se formasse um bloco sólido. A diferença: o navio é oco. Seu volume total desloca 100.000 toneladas de água — e essa água deslocada 'empurra de volta' exatamente com essa força."
+        },
+        {
+          "id": "experiment",
+          "title": "O peso do fluido deslocado",
+          "content": "Na simulação, observe a força de empuxo para diferentes densidades de objeto. Agora mantenha o objeto idêntico e mude apenas o fluido. O empuxo muda? Por quê? O empuxo depende do objeto ou do fluido — ou de ambos?"
+        },
+        {
+          "id": "observation",
+          "title": "É o fluido deslocado, não o objeto",
+          "content": "O empuxo depende do volume submerso e da densidade do fluido — não do material do objeto. Um cubo de madeira e um cubo de chumbo do mesmo tamanho, totalmente submersos no mesmo fluido, recebem exatamente o mesmo empuxo. O que difere é o peso."
         },
         {
           "id": "formalization",
           "title": "E = ρ_f · g · V_sub",
-          "content": "O empuxo é igual ao peso do fluido deslocado pelo objeto. Arquimedes descobriu isso no século III a.C."
+          "content": "O empuxo é o peso do fluido deslocado. Arquimedes descobriu isso no século III a.C. — supostamente ao entrar na banheira e ver o nível subir. A lenda do 'Eureka!' pode ser apócrifa, mas o princípio foi confirmado incontáveis vezes desde então."
         }
       ]
     },
     {
       "id": "fluids-pressure-01",
       "module": "fluids",
-      "title": "Pressão em Fluidos",
-      "concepts": ["pressão", "profundidade", "isotropia da pressão"],
-      "experiment_ids": ["pressure-01"],
-      "exercise_ids": ["fluids-ex-04"],
+      "title": "Pressão Hidrostática",
+      "concepts": [
+        "pressão",
+        "profundidade",
+        "coluna de fluido"
+      ],
+      "experiment_ids": [
+        "pressure-01"
+      ],
+      "exercise_ids": [
+        "fluids-ex-04"
+      ],
       "phases": [
         {
           "id": "phenomenon",
-          "title": "Fenômeno",
-          "content": "Quanto mais fundo você mergulha, mais pressão sente. A coluna de fluido acima exerce uma força."
+          "title": "O casco do submarino",
+          "content": "Submarinos militares classe Los Angeles operam rotineiramente a 300 m de profundidade, onde a pressão é 30 atm — 30 vezes a pressão atmosférica. O casco de aço tem 33 mm de espessura para resistir a isso. A 600 m, a pressão esmagaria o casco como uma lata de alumínio. Os seus ouvidos já reclamam a 2 metros."
+        },
+        {
+          "id": "experiment",
+          "title": "Meça em diferentes profundidades",
+          "content": "Na simulação, mova a sonda de profundidade. A pressão cresce linearmente? Dobre a profundidade — a pressão dobra? Agora mude o fluido de água para algo mais denso. O que acontece com a pressão à mesma profundidade?"
+        },
+        {
+          "id": "observation",
+          "title": "Linear com a profundidade, proporcional à densidade",
+          "content": "A pressão cresce exatamente em proporção à profundidade — relação linear. E cresce em proporção à densidade do fluido. Em mercúrio (ρ = 13.600 kg/m³), 10 cm de coluna têm a mesma pressão que 1,36 m de água. Por isso barômetros usam mercúrio: são 13× mais compactos."
         },
         {
           "id": "formalization",
           "title": "P = P₀ + ρ·g·h",
-          "content": "A pressão aumenta linearmente com a profundidade. A pressão age em todas as direções igualmente."
+          "content": "A pressão é a pressão na superfície mais o peso da coluna de fluido acima. Ela age em todas as direções igualmente — esse é o princípio de Pascal, base do freio hidráulico, da prensa hidráulica e do sistema de suspensão dos ônibus."
+        }
+      ]
+    },
+    {
+      "id": "ondas-mhs-01",
+      "module": "ondas",
+      "title": "Oscilador Massa-Mola",
+      "concepts": [
+        "MHS",
+        "período",
+        "frequência",
+        "amplitude",
+        "isocronia"
+      ],
+      "experiment_ids": [
+        "mhs-01"
+      ],
+      "exercise_ids": [
+        "mhs-ex-01",
+        "mhs-ex-02"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O metrônomo não mente",
+          "content": "Um metrônomo é calibrado para bater 60 vezes por minuto — um Andante. Você pode puxar o braço mais ou menos: o intervalo entre as batidas não muda. Isso é surpreendente. A distância que o braço percorre muda, mas o tempo entre batidas é sempre o mesmo. Por quê a amplitude não afeta o período?"
+        },
+        {
+          "id": "experiment",
+          "title": "Varie amplitude e massa separadamente",
+          "content": "Primeiro: aumente a amplitude ao máximo, depois ao mínimo. O período mudou? Depois: mantenha amplitude fixa e aumente a massa. Agora sim: o período muda. Anote a relação. Por último: aumente a constante k da mola. O período aumenta ou diminui?"
+        },
+        {
+          "id": "observation",
+          "title": "Três variáveis, dois efeitos",
+          "content": "Amplitude → nenhum efeito no período (isocronia). Massa maior → período maior (mais inércia, oscila mais devagar). Mola mais rígida (k maior) → período menor (força de restauração mais forte, puxa de volta mais rápido). A relação não é linear: dobrar a massa não dobra o período — aumenta por fator √2."
+        },
+        {
+          "id": "formalization",
+          "title": "T = 2π·√(m/k)",
+          "content": "O período depende de m e k, mas nunca de A. Isso é a isocronia — a mesma propriedade que torna relógios de pêndulo e de mola confiáveis: pequenas variações de amplitude não afetam a precisão. Huygens descobriu isso experimentalmente no século XVII; a dedução analítica veio de Newton."
+        }
+      ]
+    },
+    {
+      "id": "ondas-wave-01",
+      "module": "ondas",
+      "title": "Onda Transversal Progressiva",
+      "concepts": [
+        "onda transversal",
+        "comprimento de onda",
+        "frequência",
+        "velocidade de propagação",
+        "v = fλ"
+      ],
+      "experiment_ids": [
+        "wave-01"
+      ],
+      "exercise_ids": [
+        "wave-ex-01",
+        "wave-ex-02"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "As cordas do violão",
+          "content": "Um violão tem seis cordas de comprimento praticamente igual — mas produzem notas diferentes. A diferença está na espessura e na tensão: cordas mais grossas (mais massa por metro) vibram mais devagar e produzem sons mais graves. Afinando (aumentando a tensão), você aumenta a velocidade de propagação da onda na corda e, com ela, a frequência."
+        },
+        {
+          "id": "experiment",
+          "title": "Observe o que viaja e o que fica",
+          "content": "Na simulação, aumente a frequência mantendo o comprimento de onda fixo. O que acontece com a velocidade? Depois, mantenha a frequência e aumente o comprimento de onda. Repare: a velocidade da onda não depende de quem gerou — ela é propriedade do meio. Uma partícula da corda apenas oscila para cima e para baixo: não viaja com a onda."
+        },
+        {
+          "id": "observation",
+          "title": "Velocidade fixa, f e λ se ajustam",
+          "content": "A velocidade v = f · λ é determinada pelo meio (tensão e densidade linear da corda). Dobrar f obriga λ a cair pela metade para manter v constante. É por isso que rádio AM (frequências de centenas de kHz) tem comprimentos de onda de centenas de metros, enquanto rádio FM (centenas de MHz) tem comprimentos de onda de poucos metros — mesma velocidade (c), frequências muito diferentes."
+        },
+        {
+          "id": "formalization",
+          "title": "v = f·λ",
+          "content": "A relação entre velocidade, frequência e comprimento de onda é universal: vale para ondas em cordas, som no ar, luz no vácuo, ondas no mar. O que muda de meio para meio é v — que pode variar de alguns m/s (ondas na água rasa) a 3×10⁸ m/s (luz no vácuo)."
+        }
+      ]
+    },
+    {
+      "id": "ondas-superposition-01",
+      "module": "ondas",
+      "title": "Superposição e Interferência",
+      "concepts": [
+        "superposição",
+        "interferência construtiva",
+        "interferência destrutiva",
+        "batimentos"
+      ],
+      "experiment_ids": [
+        "superposition-01"
+      ],
+      "exercise_ids": [
+        "sup-ex-01"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O afinador sem eletrônica",
+          "content": "Antes de afinadores eletrônicos, técnicos de som afinavam instrumentos pelo ouvido — usando batimentos. Dois oboés tocando Lá: um em 440 Hz, o outro levemente desafinado em 443 Hz. O som resultante pulsa 3 vezes por segundo, ficando mais forte e mais fraco. Quando os batimentos desaparecem, os instrumentos estão afinados. A frequência de batimento é simplesmente |f₁ − f₂|."
+        },
+        {
+          "id": "experiment",
+          "title": "Aproxime e afaste as frequências",
+          "content": "Na simulação, deixe f₁ = 1,0 Hz e f₂ = 1,2 Hz. Observe os batimentos na onda resultante. Agora aproxime f₂ de f₁ — o que acontece com a velocidade dos batimentos? Depois, tente φ = π (fase oposta) com f₁ = f₂ e mesmas amplitudes. O que ocorre com a onda resultante?"
+        },
+        {
+          "id": "observation",
+          "title": "Construtiva, destrutiva, batimentos",
+          "content": "φ = 0, f₁ = f₂: interferência construtiva — amplitude dobra. φ = π, f₁ = f₂: interferência destrutiva — ondas se cancelam completamente. f₁ ≈ f₂: batimentos — amplitude pulsa com frequência |f₁ − f₂|. Batimentos mais rápidos = frequências mais distantes. Batimentos mais lentos = frequências convergindo."
+        },
+        {
+          "id": "formalization",
+          "title": "Princípio da superposição",
+          "content": "Em meios lineares, ondas se somam ponto a ponto: y_total = y₁ + y₂. Não há colisão, não há destruição de energia — apenas soma algébrica. Fones de ouvido com cancelamento de ruído usam interferência destrutiva: o microfone capta o ruído externo, o circuito gera uma onda de fase oposta, e as duas se cancelam no ouvido."
+        }
+      ]
+    },
+    {
+      "id": "ondas-pendulum-01",
+      "module": "ondas",
+      "title": "Pêndulo Simples",
+      "concepts": [
+        "pêndulo",
+        "período",
+        "comprimento",
+        "isocronia de massa",
+        "aproximação de pequeno ângulo"
+      ],
+      "experiment_ids": [
+        "pendulum-wave-01"
+      ],
+      "exercise_ids": [
+        "pendulum-ex-01"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "270 anos de precisão",
+          "content": "O relógio de pêndulo inventado por Huygens em 1656 foi o instrumento de medição de tempo mais preciso do mundo por 270 anos — até os relógios de quartzo. O segredo: o período depende apenas do comprimento do fio. Não importa se o pêndulo é pesado ou leve, não importa se você o solta de alto ou baixo (dentro de certos limites). Só o comprimento determina o período."
+        },
+        {
+          "id": "experiment",
+          "title": "Três variáveis — qual afeta o período?",
+          "content": "Teste um a um: (1) Mude o comprimento L. O período muda? (2) Mantenha L fixo e mude o ângulo θ₀ entre 5° e 30°. O período muda significativamente? (3) Imagine dobrar a massa — na simulação, o período mudaria? A resposta a (3) é não — tente entender por quê antes de ver a formalização."
+        },
+        {
+          "id": "observation",
+          "title": "L é tudo — com uma ressalva",
+          "content": "Comprimento maior → período maior (T ∝ √L). Dobrar L aumenta T por √2 ≈ 1,41, não por 2. Massa → sem efeito (como na queda livre: a gravidade acelera todos igualmente). Ângulo pequeno → sem efeito mensurável. Ângulo grande (> 20°) → período levemente maior que a fórmula prevê. A fórmula T = 2π√(L/g) é uma aproximação válida para ângulos pequenos."
+        },
+        {
+          "id": "formalization",
+          "title": "T = 2π·√(L/g)",
+          "content": "A fórmula usa a aproximação sin(θ) ≈ θ, válida para θ < 15°. O pêndulo de Foucault no Panteão de Paris (L = 67 m) tem T ≈ 16,4 s. Ele oscila por horas, tempo suficiente para o plano de oscilação girar visivelmente — demonstrando a rotação da Terra. O comprimento longo foi escolhido por Foucault justamente para maximizar o tempo de oscilação sem amortecimento."
+        }
+      ]
+    },
+    {
+      "id": "thermo-gas-01",
+      "module": "termodinamica",
+      "title": "Gás Ideal — Lei dos Gases",
+      "concepts": [
+        "gás ideal",
+        "pressão",
+        "volume",
+        "temperatura",
+        "PV = nRT"
+      ],
+      "experiment_ids": [
+        "gas-ideal-01"
+      ],
+      "exercise_ids": [
+        "gas-ex-01",
+        "gas-ex-02"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O pneu que endurece no verão",
+          "content": "Fabricantes de pneus recomendam calibrar com o pneu frio — antes de rodar. A razão: após 30 km de estrada, o pneu aquece de 20 °C para 50 °C. Com o volume praticamente constante (borracha rígida), a pressão aumenta automaticamente. Verificar a pressão a quente dá leitura falsa — você inflaria um pneu já no limite."
+        },
+        {
+          "id": "experiment",
+          "title": "Três variáveis, uma lei",
+          "content": "Na simulação, mantenha T constante e comprima o volume pela metade. A pressão dobrou? (Lei de Boyle.) Agora mantenha V constante e dobre a temperatura (em Kelvin). A pressão dobrou? (Lei de Gay-Lussac.) Por último, mantenha P constante e dobre T. O volume dobrou? (Lei de Charles.) Todas as três são casos especiais de uma única lei."
+        },
+        {
+          "id": "observation",
+          "title": "P, V e T são interdependentes",
+          "content": "Você nunca muda apenas uma variável sem consequências: se fixar duas, a terceira fica determinada. Por isso uma bomba de ar fica quente: você comprime V, P aumenta, e por conservação de energia T também sobe. Por isso a garrafa PET da geladeira amassa ao ser tirada para o ambiente quente: V queria aumentar com T, mas a garrafa é rígida, então a pressão interna cai abaixo da externa."
+        },
+        {
+          "id": "formalization",
+          "title": "PV = nRT",
+          "content": "A lei dos gases ideais unifica Boyle, Charles e Gay-Lussac em uma equação com R = 8,314 J/(mol·K). 'Ideal' significa sem interações entre moléculas e volume molecular desprezível — boa aproximação para gases a temperaturas e pressões moderadas, longe da liquefação. Para gases reais a alta pressão, a equação de Van der Waals adiciona correções."
+        }
+      ]
+    },
+    {
+      "id": "thermo-processos-01",
+      "module": "termodinamica",
+      "title": "Processos Termodinâmicos",
+      "concepts": [
+        "isocórico",
+        "isobárico",
+        "isotérmico",
+        "diagrama P×V",
+        "trabalho termodinâmico"
+      ],
+      "experiment_ids": [
+        "processos-01"
+      ],
+      "exercise_ids": [
+        "proc-ex-01"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Panela de pressão vs. bexiga",
+          "content": "Uma panela de pressão aquece com a tampa travada: volume constante, pressão sobe, temperatura sobe — frango em 20 minutos. Uma bexiga aquecida expande livremente: pressão constante (atmosférica), volume cresce com a temperatura — processo muito diferente. O mesmo gás, aquecendo da mesma temperatura inicial, mas com resultados completamente distintos dependendo de como o sistema pode evoluir."
+        },
+        {
+          "id": "experiment",
+          "title": "Três caminhos no diagrama P×V",
+          "content": "Na simulação, observe as três curvas no diagrama P×V partindo do mesmo estado. A curva isocórica (V=cte) é uma linha vertical — sobe apenas em P. A isobárica (P=cte) é uma linha horizontal — só em V. A isotérmica (T=cte) é uma hipérbole (PV = cte). A área sob a curva é o trabalho realizado pelo gás. Qual processo realiza mais trabalho ao expandir?"
+        },
+        {
+          "id": "observation",
+          "title": "O caminho importa",
+          "content": "Isocórico: sem expansão → sem trabalho (W = 0). Todo o calor vai para aumentar a temperatura. Isobárico: expansão a P constante → W = P·ΔV. O gás faz trabalho empurrando o ambiente. Isotérmico: temperatura constante → toda a energia de aquecimento se converte em trabalho. O mesmo ponto inicial e final podem ser atingidos por infinitos caminhos — com trabalhos diferentes."
+        },
+        {
+          "id": "formalization",
+          "title": "W = ∫P dV — a área é o trabalho",
+          "content": "O trabalho termodinâmico é a área sob a curva no diagrama P×V. Isocórico: área zero (linha vertical). Isobárico: W = P·ΔV (retângulo). Isotérmico: W = nRT·ln(V₂/V₁) (área sob a hipérbole). Este princípio é a base do motor a vapor, do motor de combustão interna e de qualquer máquina que converte calor em trabalho."
+        }
+      ]
+    },
+    {
+      "id": "thermo-calor-01",
+      "module": "termodinamica",
+      "title": "Capacidade Calorífica",
+      "concepts": [
+        "calor específico",
+        "capacidade calorífica",
+        "Q = mcΔT",
+        "equilíbrio térmico"
+      ],
+      "experiment_ids": [
+        "calor-01"
+      ],
+      "exercise_ids": [
+        "calor-ex-01"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "A areia e o mar",
+          "content": "Na praia ao meio-dia, a areia queima os pés. O mar, a dois metros, está agradável. Ambos receberam exatamente o mesmo sol pela mesma quantidade de horas. A diferença está no calor específico: areia (c ≈ 840 J/(kg·K)) vs. água (c = 4186 J/(kg·K)). A água precisa de quase 5× mais energia para aquecer a mesma quantidade. Por isso o oceano regula o clima das cidades costeiras — aquece e esfria muito mais devagar que a terra."
+        },
+        {
+          "id": "experiment",
+          "title": "Mesmo calor, temperaturas diferentes",
+          "content": "Na simulação, selecione água para o Material 1 e ferro para o Material 2. Aplique a mesma potência aos dois. Observe o gráfico T×Q. Após receber a mesma energia, qual temperatura cada um atingiu? Agora troque o ferro por alumínio (c = 900 J/(kg·K)) — a diferença diminui. Compare com cobre (c = 385 J/(kg·K)) — agora aquece ainda mais rápido que o ferro."
+        },
+        {
+          "id": "observation",
+          "title": "Menor c → aquece mais rápido",
+          "content": "Água: c = 4186 — aquece muito devagar, esfria devagar. Ferro: c = 449 — aquece 9× mais rápido que a água. Cobre: c = 385 — ainda mais rápido. Por isso panelas são feitas de ferro, alumínio ou cobre — baixo c significa que a energia do fogão vai rapidamente para o alimento, não para aquecer a panela. Uma panela de água exigiria um fogão industrial para qualquer cozinha."
+        },
+        {
+          "id": "formalization",
+          "title": "Q = m·c·ΔT",
+          "content": "O calor necessário para mudar a temperatura de um corpo é proporcional à massa, ao calor específico do material, e à variação de temperatura desejada. c é uma propriedade do material — tabelada para cada substância. A equação vale apenas sem mudança de fase: para derreter gelo ou ferver água, há calor latente adicional (Q = m·L) que não muda a temperatura."
+        }
+      ]
+    },
+    {
+      "id": "intro-grandezas-01",
+      "module": "intro",
+      "title": "Grandezas e Unidades",
+      "concepts": [
+        "grandeza física",
+        "unidade",
+        "Sistema Internacional",
+        "conversão de unidades",
+        "análise dimensional"
+      ],
+      "experiment_ids": [
+        "grandezas-01"
+      ],
+      "exercise_ids": [
+        "grandezas-ex-01",
+        "grandezas-ex-02"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "A receita sem unidade",
+          "content": "Uma receita diz '200 de açúcar'. Duzentos o quê? Gramas? Colheres? Xícaras? Mililitros? Um cozinheiro experiente pode adivinhar pelo contexto — mas não pode ter certeza. Em Física, não existe 'adivinhar pelo contexto'. Uma grandeza física é sempre um número e uma unidade inseparáveis. '80' não é uma velocidade. '80 km/h' é."
+        },
+        {
+          "id": "observation",
+          "title": "Mesma grandeza, unidades diferentes",
+          "content": "Um metro e cem centímetros descrevem exatamente o mesmo comprimento físico — mas com unidades diferentes. A conversão é uma operação algébrica: multiplique pelo fator de conversão escrito como fração. '1 m / 100 cm' é igual a 1 — multiplicar por isso não muda o valor físico, só a representação. As unidades que você não quer se cancelam como variáveis algébricas."
+        },
+        {
+          "id": "experiment",
+          "title": "Observe as unidades na tela",
+          "content": "Na simulação, cada grandeza animada mostra o número e a unidade juntos. O número sozinho — sem a etiqueta de unidade — não representa nada físico. Isso não é convenção arbitrária: é a estrutura formal da Física. Grandezas físicas são elementos de espaços vetoriais dimensionais, e unidades são as bases escolhidas para representá-las."
+        },
+        {
+          "id": "formalization",
+          "title": "Análise dimensional",
+          "content": "Toda equação física deve ser dimensionalmente consistente: as unidades dos dois lados devem ser iguais. Se você calcular F = m·a e obtiver 'kg·m/s²', isso é a definição do newton — a equação é dimensionalmente consistente. Se obtiver 'kg/m', algo está errado antes mesmo de calcular qualquer número. Análise dimensional é a primeira verificação de qualquer resultado."
+        }
+      ]
+    },
+    {
+      "id": "intro-pendulum-01",
+      "module": "intro",
+      "title": "Observação antes da Explicação",
+      "concepts": [
+        "fenômeno periódico",
+        "período",
+        "variáveis",
+        "previsão experimental",
+        "método científico"
+      ],
+      "experiment_ids": [
+        "pendulum-intro-01"
+      ],
+      "exercise_ids": [
+        "pendulum-intro-ex-01",
+        "pendulum-intro-ex-02",
+        "pendulum-intro-ex-03"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Galileu e o lustre",
+          "content": "Pisa, 1583. Galileu tem 19 anos e está na catedral. Um lustre oscila após ser acidentalmente deslocado. Ele usa o único 'instrumento' disponível — seu próprio pulso — para cronometrar as oscilações. Percebe algo inesperado: independente de quão alto o lustre foi empurrado, o intervalo entre as oscilações parece constante. Ele não tem equações. Tem apenas uma observação cuidadosa e a disciplina de registrá-la."
+        },
+        {
+          "id": "experiment",
+          "title": "Faça sua previsão primeiro",
+          "content": "Antes de manipular a simulação, escreva suas previsões: (1) Se você dobrar o comprimento do fio, o pêndulo fica mais lento, mais rápido, ou igual? (2) Se você soltar de um ângulo maior, o período muda? (3) Se a massa fosse o dobro, o período mudaria? Agora manipule cada variável separadamente e compare com sua previsão. A diferença entre o que você esperava e o que observou é o início do aprendizado."
+        },
+        {
+          "id": "observation",
+          "title": "O que o experimento revela",
+          "content": "Comprimento maior → período maior. Dobrar L não dobra T — a relação é de raiz quadrada. Ângulo maior → período praticamente igual (para ângulos pequenos). Surpreendente: nossa intuição diz que balançar mais alto deveria mudar o tempo. Massa → nenhum efeito. Exatamente como na queda livre: a gravidade acelera todos os objetos igualmente, independente da massa."
+        },
+        {
+          "id": "formalization",
+          "title": "Da observação ao modelo",
+          "content": "T ≈ 2π·√(L/g) — mas você não precisava saber isso para observar o fenômeno. Galileu chegou à isocronia de amplitude décadas antes de Newton formalizar o que é força. O modelo matemático veio depois da observação, não antes. Esta é a sequência correta da Física: fenômeno → observação → padrão → modelo. Em todo experimento do Archimedes, você seguirá essa mesma sequência."
         }
       ]
     }

@@ -5,201 +5,543 @@
       "module": "motion",
       "experiment_id": "mru-01",
       "type": "prediction",
-      "title": "Preveja a posição",
-      "question": "Um corpo parte da posição x₀ = 5 m com velocidade v = 3 m/s. Onde ele estará após 4 segundos?",
-      "hint": "Use x(t) = x₀ + v·t. Substitua os valores.",
-      "answer": { "value": 17, "unit": "m" },
-      "explanation": "x(4) = 5 + 3·4 = 5 + 12 = 17 m"
+      "title": "O avião e a distância",
+      "question": "Um avião de carreira voa de Recife a Porto Alegre — 3.800 km — a velocidade constante de 950 km/h. Quanto tempo leva o voo? Expresse em horas e minutos.",
+      "hint": "Use t = d/v. Converta o resultado: multiplique a parte decimal por 60 para obter os minutos.",
+      "answer": {
+        "value": "4h 0min",
+        "unit": ""
+      },
+      "explanation": "t = 3800 / 950 = 4,0 horas exatas. Em voos reais, ventos e rotas adicionam variação — mas a conta de MRU dá a estimativa base."
     },
     {
       "id": "motion-ex-02",
       "module": "motion",
       "experiment_id": "mru-01",
       "type": "interpretation",
-      "title": "Leia o gráfico",
-      "question": "No gráfico x×t que você observou, o que indica a inclinação da reta?",
-      "options": [
-        "A posição do corpo",
-        "A velocidade do corpo",
-        "A aceleração do corpo",
-        "O tempo de percurso"
-      ],
-      "answer": "A velocidade do corpo",
-      "explanation": "A inclinação (tangente) de um gráfico x×t é Δx/Δt = velocidade."
+      "title": "Lendo o gráfico do tráfego",
+      "question": "Em um radar de trânsito, o gráfico posição×tempo de dois carros mostra duas retas — uma mais inclinada que a outra. O carro A está acima do B no gráfico após 3 segundos. O que isso indica sobre as velocidades?",
+      "hint": "No gráfico x×t, a inclinação da reta é a velocidade. Reta mais inclinada = maior velocidade.",
+      "answer": "O carro A tem maior velocidade que o B",
+      "explanation": "A posição maior indica que o carro A percorreu mais distância no mesmo tempo — portanto tem velocidade maior. Em radares fixos, esse princípio é usado para calcular a velocidade média entre dois pontos."
     },
     {
       "id": "motion-ex-03",
       "module": "motion",
       "experiment_id": "mruv-01",
       "type": "prediction",
-      "title": "Velocidade após aceleração",
-      "question": "Um corpo parte do repouso (v₀ = 0) com aceleração a = 2 m/s². Qual é sua velocidade após 5 segundos?",
-      "hint": "Use v(t) = v₀ + a·t.",
-      "answer": { "value": 10, "unit": "m/s" },
-      "explanation": "v(5) = 0 + 2·5 = 10 m/s"
+      "title": "Aceleração do carro esportivo",
+      "question": "Um carro esportivo vai de 0 a 100 km/h em 4 segundos. Qual é sua aceleração média em m/s²? (Dica: converta 100 km/h para m/s primeiro.)",
+      "hint": "100 km/h = 100 × (1000/3600) ≈ 27,8 m/s. Depois use a = Δv/Δt.",
+      "answer": {
+        "value": 6.9,
+        "unit": "m/s²"
+      },
+      "explanation": "v = 100 km/h = 27,8 m/s. a = 27,8 / 4 ≈ 6,9 m/s². Para comparação: g = 9,8 m/s². Esse carro acelera com 70% da gravidade — você sente o banco te empurrando fortemente."
     },
     {
       "id": "motion-ex-04",
       "module": "motion",
       "experiment_id": "mruv-01",
       "type": "comparison",
-      "title": "Compare dois movimentos",
-      "question": "Corpo A: v₀ = 0, a = 4 m/s². Corpo B: v₀ = 8 m/s, a = 0. Qual chega primeiro ao ponto x = 32 m, partindo de x = 0?",
-      "hint": "Calcule o tempo para cada corpo chegar a x = 32 m.",
-      "answer": "Corpo B",
-      "explanation": "B: t = 32/8 = 4 s. A: 32 = ½·4·t² → t = 4 s. Chegam ao mesmo tempo!"
+      "title": "Carro vs. ciclista na largada",
+      "question": "Um ciclista parte com v₀ = 5 m/s (constante, sem aceleração). Um carro parte do repouso com a = 2 m/s². Qual alcança x = 50 m primeiro?",
+      "hint": "Para o ciclista: t = 50/5 = 10 s. Para o carro: 50 = ½·2·t² → t² = 50 → t ≈ 7,07 s.",
+      "answer": "O carro, em aproximadamente 7 segundos",
+      "explanation": "O ciclista tem velocidade inicial maior, mas o carro acelera continuamente. O carro passa o ciclista antes dos 50 m e chega primeiro. Em corridas de largada parada vs. lançada, esse é o princípio — aceleração compensa desvantagem inicial de velocidade."
     },
     {
       "id": "motion-ex-05",
       "module": "motion",
       "experiment_id": "free-fall-01",
       "type": "prediction",
-      "title": "Tempo de queda",
-      "question": "Um objeto é largado do repouso de uma altura h = 20 m. Quanto tempo leva para atingir o solo? (g = 10 m/s²)",
-      "hint": "Use h = ½·g·t². Isole t.",
-      "answer": { "value": 2, "unit": "s" },
-      "explanation": "20 = ½·10·t² → t² = 4 → t = 2 s"
+      "title": "A ponte e a pedra",
+      "question": "Um engenheiro solta uma pedra de uma ponte e conta 3 segundos até ouvi-la bater na água. (Ignore o tempo do som.) Qual é a altura da ponte? (g = 10 m/s²)",
+      "hint": "h = ½·g·t². Substitua g=10 e t=3.",
+      "answer": {
+        "value": 45,
+        "unit": "m"
+      },
+      "explanation": "h = ½ × 10 × 9 = 45 m. Esse é um método real de estimativa de altura antes de equipamentos eletrônicos — o som do impacto chega depois (≈ 0,13 s para 45 m de ar), introduzindo um pequeno erro que engenheiros sabem corrigir."
     },
     {
       "id": "forces-ex-01",
       "module": "forces",
       "experiment_id": "inertia-01",
       "type": "interpretation",
-      "title": "Identifique o estado",
-      "question": "Um corpo se move a 10 m/s em linha reta. A força resultante sobre ele é zero. O que acontece com seu movimento?",
-      "options": [
-        "Ele para imediatamente",
-        "Ele desacelera gradualmente",
-        "Ele continua a 10 m/s",
-        "Ele acelera"
-      ],
-      "answer": "Ele continua a 10 m/s",
-      "explanation": "Pela 1ª lei de Newton, ausência de força resultante mantém o estado de movimento inalterado."
+      "title": "O passageiro no metrô",
+      "question": "Um passageiro está parado no vagão do metrô, sem se apoiar. O trem acelera bruscamente. O passageiro cai para trás — em relação ao trem. Em relação ao chão da estação, o passageiro se moveu para trás, ficou parado, ou foi ligeiramente para frente?",
+      "hint": "Nenhuma força horizontal age sobre o passageiro no instante da aceleração — o piso ainda não o puxou. Qual era seu estado de movimento antes?",
+      "answer": "Ficou (quase) parado em relação ao chão — o trem foi para frente",
+      "explanation": "O passageiro estava parado. Sem força aplicada (o piso ainda escorregou sob ele), ele permaneceu parado enquanto o trem foi para frente. Relativo ao trem, isso parece 'ir para trás'. Relativo à estação, ele ficou parado — inércia."
     },
     {
       "id": "forces-ex-02",
       "module": "forces",
       "experiment_id": "newton2-01",
       "type": "prediction",
-      "title": "Calcule a aceleração",
-      "question": "Uma força de F = 30 N age sobre um corpo de massa m = 5 kg. Qual é a aceleração resultante?",
-      "hint": "Use a = F/m.",
-      "answer": { "value": 6, "unit": "m/s²" },
-      "explanation": "a = F/m = 30/5 = 6 m/s²"
+      "title": "O carrinho cheio",
+      "question": "Você empurra um carrinho de 15 kg com força horizontal de 45 N. (Ignore atrito.) Qual é a aceleração do carrinho?",
+      "hint": "F = m·a → a = F/m.",
+      "answer": {
+        "value": 3,
+        "unit": "m/s²"
+      },
+      "explanation": "a = 45/15 = 3 m/s². Se o carrinho estivesse vazio (3 kg), a mesma força daria a = 15 m/s² — cinco vezes mais. Essa diferença é exatamente o que você sente nos músculos ao empurrar carrinhos de diferentes massas."
     },
     {
       "id": "forces-ex-03",
       "module": "forces",
       "experiment_id": "newton2-01",
       "type": "comparison",
-      "title": "Dobrar a massa",
-      "question": "Se a massa do experimento anterior dobrar para 10 kg com a mesma força (30 N), o que acontece com a aceleração?",
-      "options": [
-        "Dobra para 12 m/s²",
-        "Permanece 6 m/s²",
-        "Cai para metade: 3 m/s²",
-        "Zera"
-      ],
-      "answer": "Cai para metade: 3 m/s²",
-      "explanation": "a = 30/10 = 3 m/s². Dobrar a massa reduz a aceleração à metade (relação inversamente proporcional)."
+      "title": "Força dobrada, massa dobrada",
+      "question": "O carrinho de 15 kg recebe força de 45 N (a = 3 m/s²). Agora o carrinho é carregado para 30 kg e você força mais, aplicando 90 N. Qual é a nova aceleração?",
+      "hint": "Calcule separadamente: a = F/m = 90/30.",
+      "answer": {
+        "value": 3,
+        "unit": "m/s²"
+      },
+      "explanation": "a = 90/30 = 3 m/s² — idêntica. Dobrar a força e dobrar a massa se cancelam. Isso explica por que veículos maiores (mais massa) precisam de motores mais potentes (mais força) para ter a mesma aceleração que carros menores."
     },
     {
       "id": "forces-ex-04",
       "module": "forces",
       "experiment_id": "friction-01",
       "type": "prediction",
-      "title": "Força de atrito",
-      "question": "Um bloco de 4 kg está sobre uma superfície com μk = 0,3. Qual é a força de atrito cinético? (g = 10 m/s²)",
-      "hint": "Calcule primeiro a normal: N = m·g. Depois: f = μk·N.",
-      "answer": { "value": 12, "unit": "N" },
-      "explanation": "N = 4·10 = 40 N. f = 0,3·40 = 12 N"
+      "title": "O bloco difícil de mover",
+      "question": "Uma caixa de 20 kg está sobre piso de concreto (μₖ = 0,4). Qual força mínima é necessária para mantê-la em movimento uniforme? (g = 10 m/s²)",
+      "hint": "Para velocidade constante, a força aplicada deve igualar o atrito. Primeiro calcule N = m·g, depois f = μₖ·N.",
+      "answer": {
+        "value": 80,
+        "unit": "N"
+      },
+      "explanation": "N = 20×10 = 200 N. f = 0,4×200 = 80 N. Um adulto médio consegue aplicar ±600 N empurrando — então é possível. Mas para iniciar o movimento, o atrito estático (maior que cinético) exige ainda mais força."
     },
     {
       "id": "energy-ex-01",
       "module": "energy",
       "experiment_id": "kinetic-01",
       "type": "prediction",
-      "title": "Energia cinética",
-      "question": "Um carro de 1000 kg se move a 20 m/s. Qual é sua energia cinética?",
-      "hint": "Ec = ½·m·v²",
-      "answer": { "value": 200000, "unit": "J" },
-      "explanation": "Ec = ½·1000·20² = ½·1000·400 = 200.000 J = 200 kJ"
+      "title": "O carro na rodovia",
+      "question": "Um carro de 1.200 kg trafega a 120 km/h (33,3 m/s). Qual é sua energia cinética em joules? Para comparar: uma granada tem ~1 MJ de energia.",
+      "hint": "Ec = ½·m·v². Use v em m/s.",
+      "answer": {
+        "value": 666540,
+        "unit": "J"
+      },
+      "explanation": "Ec = ½ × 1200 × 33,3² ≈ 666.500 J ≈ 0,67 MJ. O carro tem mais de meia granada de energia cinética — toda essa energia precisa ser absorvida pelos freios (convertida em calor) em uma frenagem de emergência."
     },
     {
       "id": "energy-ex-02",
       "module": "energy",
       "experiment_id": "ramp-energy-01",
       "type": "prediction",
-      "title": "Velocidade no pé da rampa",
-      "question": "Um objeto de 2 kg parte do repouso do alto de uma rampa de 5 m. Qual é sua velocidade no pé da rampa? (g = 10 m/s², sem atrito)",
-      "hint": "Ep = Ec → m·g·h = ½·m·v². A massa cancela.",
-      "answer": { "value": 10, "unit": "m/s" },
-      "explanation": "v = √(2·g·h) = √(2·10·5) = √100 = 10 m/s"
+      "title": "O skatista na rampa",
+      "question": "Um skatista de 60 kg parte do topo de uma rampa de 4 m de altura. Qual é sua velocidade máxima ao chegar na base? (g = 10 m/s², ignore atrito)",
+      "hint": "Conservação de energia: m·g·h = ½·m·v² → v = √(2·g·h). A massa cancela.",
+      "answer": {
+        "value": "≈ 8,9",
+        "unit": "m/s (≈ 32 km/h)"
+      },
+      "explanation": "v = √(2×10×4) = √80 ≈ 8,9 m/s ≈ 32 km/h. Notável: a massa não aparece no resultado — um skatista de 40 kg e um de 90 kg chegam com a mesma velocidade da mesma altura. Isso é a conservação de energia."
     },
     {
       "id": "energy-ex-03",
       "module": "energy",
       "experiment_id": "conservation-01",
       "type": "interpretation",
-      "title": "Energia com atrito",
-      "question": "No experimento com atrito, a energia mecânica total diminuiu. Para onde foi essa energia?",
-      "options": [
-        "Desapareceu",
-        "Voltou para o objeto como potencial",
-        "Transformou-se em calor",
-        "Ficou armazenada no fluido"
-      ],
-      "answer": "Transformou-se em calor",
-      "explanation": "O atrito dissipa energia mecânica como energia térmica. A energia total do universo se conserva, mas a mecânica, não."
+      "title": "O pêndulo que para",
+      "question": "Um pêndulo é solto de 30 cm de altura. Após 10 oscilações, ele só sobe a 25 cm. A energia mecânica diminuiu. Isso viola a conservação de energia?",
+      "hint": "A conservação de energia é válida para o sistema todo — não apenas para a energia mecânica.",
+      "answer": "Não viola — a energia mecânica perdida virou calor no ar e na suspensão",
+      "explanation": "A energia mecânica do pêndulo diminuiu, mas a energia total (incluindo calor gerado pelo atrito do ar e do ponto de suspensão) permaneceu constante. A conservação de energia é uma lei absoluta — nunca foi violada em nenhum experimento."
     },
     {
       "id": "fluids-ex-01",
       "module": "fluids",
       "experiment_id": "density-01",
       "type": "prediction",
-      "title": "Calculo de densidade",
-      "question": "Um objeto tem massa 300 g e volume 150 cm³. Qual é sua densidade? Ele flutua em água (ρ_água = 1 g/cm³)?",
-      "hint": "ρ = m/V. Compare com a densidade da água.",
-      "answer": "ρ = 2 g/cm³. Afunda, pois ρ_obj > ρ_água.",
-      "explanation": "ρ = 300/150 = 2 g/cm³. Como 2 > 1, o objeto é mais denso que a água e afunda."
+      "title": "A pedra no aquário",
+      "question": "Uma pedra tem massa de 450 g e volume de 150 cm³. Ela flutua na água (ρ = 1 g/cm³)? E no mercúrio (ρ = 13,6 g/cm³)?",
+      "hint": "Calcule ρ_pedra = m/V. Compare com a densidade de cada fluido.",
+      "answer": "Afunda na água; flutua no mercúrio",
+      "explanation": "ρ_pedra = 450/150 = 3 g/cm³. Como 3 > 1 (água), afunda na água. Como 3 < 13,6 (mercúrio), flutua no mercúrio — com cerca de 22% do volume submerso. O termômetro clínico antigo usa mercúrio exatamente porque metais e vidros flutuam nele."
     },
     {
       "id": "fluids-ex-02",
       "module": "fluids",
       "experiment_id": "buoyancy-01",
       "type": "prediction",
-      "title": "Calcule o empuxo",
-      "question": "Um cubo de 0,1 m de lado está totalmente submerso em água (ρ = 1000 kg/m³). Qual é o empuxo? (g = 10 m/s²)",
-      "hint": "E = ρ_f · g · V_sub. Calcule V = 0,1³.",
-      "answer": { "value": 10, "unit": "N" },
-      "explanation": "V = 0,001 m³. E = 1000·10·0,001 = 10 N"
+      "title": "O cubo de alumínio submerso",
+      "question": "Um cubo de alumínio de 10 cm de lado está completamente submerso em água (ρ = 1000 kg/m³). Qual é o empuxo que ele recebe? (g = 10 m/s²)",
+      "hint": "E = ρ_fluido · g · V_submerso. O volume submerso é o volume total do cubo.",
+      "answer": {
+        "value": 10,
+        "unit": "N"
+      },
+      "explanation": "V = (0,1)³ = 0,001 m³. E = 1000 × 10 × 0,001 = 10 N. O peso do cubo de alumínio (ρ_Al = 2700 kg/m³): P = 2700 × 0,001 × 10 = 27 N. Como P > E, o cubo afunda. Mas 'pesa' apenas 17 N dentro da água — por isso objetos parecem mais leves submersos."
     },
     {
       "id": "fluids-ex-03",
       "module": "fluids",
-      "experiment_id": "buoyancy-01",
+      "experiment_id": "density-01",
       "type": "interpretation",
-      "title": "Condição de flutuação",
-      "question": "Para um objeto flutuar em equilíbrio (nem sobe, nem afunda), qual deve ser a relação entre empuxo e peso?",
-      "options": [
-        "Empuxo > Peso",
-        "Empuxo < Peso",
-        "Empuxo = Peso",
-        "Não há relação"
-      ],
-      "answer": "Empuxo = Peso",
-      "explanation": "Para equilíbrio: ΣF = 0, portanto E = P. O objeto fica suspenso no fluido."
+      "title": "O peixe-bexiga",
+      "question": "Um peixe usa sua bexiga natatória para ficar suspenso em qualquer profundidade sem nadar. Para isso, qual condição deve ser mantida entre o peso do peixe e o empuxo?",
+      "hint": "Pense na condição de equilíbrio vertical — sem movimento para cima nem para baixo.",
+      "answer": "Empuxo = Peso (equilíbrio neutro)",
+      "explanation": "Para flutuar sem esforço, ΣF = 0 → E = P. O peixe infla ou desinfla a bexiga natatória para ajustar seu volume (e portanto sua densidade média) até que E = P exatamente. Submarinos usam o mesmo princípio com tanques de lastro."
     },
     {
       "id": "fluids-ex-04",
       "module": "fluids",
       "experiment_id": "pressure-01",
       "type": "prediction",
-      "title": "Pressão na profundidade",
-      "question": "Qual é a pressão a 10 m de profundidade na água do mar? (ρ = 1025 kg/m³, g = 10 m/s², P₀ = 101325 Pa)",
-      "hint": "P = P₀ + ρ·g·h",
-      "answer": { "value": 203825, "unit": "Pa" },
-      "explanation": "P = 101325 + 1025·10·10 = 101325 + 102500 = 203825 Pa ≈ 2 atm"
+      "title": "A pressão no ouvido do mergulhador",
+      "question": "Um mergulhador desce a 15 m de profundidade no mar (ρ = 1025 kg/m³, g = 10 m/s², P₀ = 101.325 Pa). Qual é a pressão total nessa profundidade? Em quantas atmosferas?",
+      "hint": "P = P₀ + ρ·g·h. Uma atmosfera = 101.325 Pa.",
+      "answer": {
+        "value": "≈ 254.700 Pa ≈ 2,5 atm",
+        "unit": ""
+      },
+      "explanation": "P = 101.325 + 1025×10×15 = 101.325 + 153.750 = 255.075 Pa ≈ 2,5 atm. A cada 10 m, a pressão aumenta ≈ 1 atm. A 15 m você respira ar a 2,5 vezes a pressão normal — por isso mergulhadores precisam de treinamento especial para descomprimir ao subir."
+    },
+    {
+      "id": "mhs-ex-01",
+      "module": "ondas",
+      "experiment_id": "mhs-01",
+      "type": "prediction",
+      "title": "O metrônomo do músico",
+      "question": "Um metrônomo tem constante de mola efetiva k = 2,5 N/m e massa m = 0,1 kg. Qual é o seu período de oscilação? Esse é um andamento musical Andante (≈ 76 bpm)?",
+      "hint": "T = 2π·√(m/k). Depois calcule bpm = 60/T.",
+      "answer": {
+        "value": "T ≈ 1,26 s (≈ 48 bpm — Grave)",
+        "unit": ""
+      },
+      "explanation": "T = 2π·√(0,1/2,5) = 2π·√0,04 = 2π·0,2 ≈ 1,26 s. Isso dá 60/1,26 ≈ 48 batidas por minuto — andamento Grave, muito lento. Para Andante (76 bpm), T = 60/76 ≈ 0,79 s, requereria k = m·(2π/T)² ≈ 6,3 N/m."
+    },
+    {
+      "id": "mhs-ex-02",
+      "module": "ondas",
+      "experiment_id": "mhs-01",
+      "type": "comparison",
+      "title": "Massa dobrada — período como muda?",
+      "question": "Na simulação, você observou que dobrar a amplitude não muda o período. Mas dobrar a massa muda sim. Se m passa de 1 kg para 4 kg (com k = 10 N/m fixo), o período dobra ou aumenta de outra forma?",
+      "hint": "T = 2π·√(m/k). Compare T para m=1 e m=4.",
+      "answer": "O período dobra",
+      "explanation": "T₁ = 2π·√(1/10) ≈ 1,99 s. T₂ = 2π·√(4/10) ≈ 3,97 s ≈ 2×T₁. Como a massa aparece sob raiz quadrada, para dobrar o período é preciso quadruplicar a massa. Raiz(4) = 2."
+    },
+    {
+      "id": "wave-ex-01",
+      "module": "ondas",
+      "experiment_id": "wave-01",
+      "type": "prediction",
+      "title": "A corda do violão",
+      "question": "A corda Sol de um violão vibra em 196 Hz. O comprimento da corda entre fixações é 65 cm. Qual é a velocidade da onda na corda?",
+      "hint": "A frequência fundamental tem λ = 2L (corda presa nos dois extremos). Use v = f·λ.",
+      "answer": {
+        "value": 254.8,
+        "unit": "m/s"
+      },
+      "explanation": "λ = 2 × 0,65 = 1,30 m. v = 196 × 1,30 ≈ 254,8 m/s. Essa velocidade depende da tensão e da massa linear da corda — afinando (mudando tensão), o violinista ajusta a frequência porque muda v e portanto f = v/λ."
+    },
+    {
+      "id": "wave-ex-02",
+      "module": "ondas",
+      "experiment_id": "wave-01",
+      "type": "interpretation",
+      "title": "Dobrando a frequência",
+      "question": "Uma onda tem f = 2 Hz e λ = 0,5 m, logo v = 1 m/s. Se dobrarmos a frequência para 4 Hz mantendo a mesma velocidade de propagação, qual é o novo comprimento de onda?",
+      "hint": "v = f·λ → λ = v/f. A velocidade não muda — é propriedade do meio.",
+      "answer": {
+        "value": 0.25,
+        "unit": "m"
+      },
+      "explanation": "λ = 1/4 = 0,25 m — caiu pela metade. A velocidade de propagação é uma propriedade do meio (tensão, densidade), não da frequência. Dobrar f obriga λ a cair pela metade. Rádio AM (540 kHz) tem λ ≈ 550 m; FM (100 MHz) tem λ ≈ 3 m."
+    },
+    {
+      "id": "sup-ex-01",
+      "module": "ondas",
+      "experiment_id": "superposition-01",
+      "type": "interpretation",
+      "title": "Os batimentos dos músicos",
+      "question": "Dois oboés tocam a nota Lá: um em 440 Hz, outro em 443 Hz. Quantos batimentos por segundo o ouvinte percebe? O que acontece se o segundo oboísta afinar para 441 Hz?",
+      "hint": "A frequência de batimento é |f₁ - f₂|.",
+      "answer": "3 batimentos/s; cai para 1 batimento/s",
+      "explanation": "f_bat = |440 - 443| = 3 Hz (3 pulsações por segundo). Com 441 Hz: f_bat = |440 - 441| = 1 Hz. Técnicos de afinação usam esse efeito: quando os batimentos desaparecem (f_bat → 0), os instrumentos estão perfeitamente afinados entre si."
+    },
+    {
+      "id": "pendulum-ex-01",
+      "module": "ondas",
+      "experiment_id": "pendulum-wave-01",
+      "type": "prediction",
+      "title": "O pêndulo de Foucault",
+      "question": "O pêndulo de Foucault original no Panteão de Paris tem comprimento de 67 m. Qual é seu período? (g = 9,81 m/s²) Por que Foucault precisava de um pêndulo tão comprido?",
+      "hint": "T = 2π·√(L/g). Pense: período longo → oscilações lentas → mais tempo para observar a rotação do plano.",
+      "answer": {
+        "value": "≈ 16,4 s",
+        "unit": ""
+      },
+      "explanation": "T = 2π·√(67/9,81) ≈ 2π·2,61 ≈ 16,4 s por oscilação. Foucault queria demonstrar a rotação da Terra: o plano de oscilação gira ~11°/hora em Paris. Com pêndulo longo e pesado, o amortecimento é lento — o pêndulo oscila por horas sem parar, tempo suficiente para o plano girar visivelmente."
+    },
+    {
+      "id": "gas-ex-01",
+      "module": "termodinamica",
+      "experiment_id": "gas-ideal-01",
+      "type": "prediction",
+      "title": "O pneu da bicicleta",
+      "question": "Um pneu de bicicleta contém ar a 3 atm e 20 °C (293 K). No sol de verão, aquece a 50 °C (323 K) com volume praticamente constante (pneu rígido). Qual é a nova pressão? (Use Gay-Lussac: P₁/T₁ = P₂/T₂)",
+      "hint": "P₂ = P₁ × T₂/T₁. Use temperaturas em Kelvin.",
+      "answer": {
+        "value": "≈ 3,31 atm",
+        "unit": ""
+      },
+      "explanation": "P₂ = 3 × 323/293 ≈ 3,31 atm. Aumento de 10%. Por isso calibradores de pneu recomendam medir a pressão com pneu frio — pneu aquecido dá leitura maior. E pneus superaquecidos por freagem excessiva podem estourar."
+    },
+    {
+      "id": "gas-ex-02",
+      "module": "termodinamica",
+      "experiment_id": "gas-ideal-01",
+      "type": "prediction",
+      "title": "A garrafa comprimida",
+      "question": "Uma seringa com êmbolo contém 60 mL de ar a 1 atm (T constante). O êmbolo é empurrado até 20 mL. Qual é a nova pressão? (Lei de Boyle: P₁V₁ = P₂V₂)",
+      "hint": "P₂ = P₁·V₁/V₂.",
+      "answer": {
+        "value": 3,
+        "unit": "atm"
+      },
+      "explanation": "P₂ = 1 × 60/20 = 3 atm. O volume caiu para um terço → a pressão triplicou. É exatamente o que acontece numa bomba de ar manual: ao comprimir o êmbolo, a pressão aumenta até superar a do pneu, forçando ar para dentro."
+    },
+    {
+      "id": "proc-ex-01",
+      "module": "termodinamica",
+      "experiment_id": "processos-01",
+      "type": "interpretation",
+      "title": "A panela de pressão vs. a bexiga",
+      "question": "Uma panela de pressão aquece com tampa trancada (volume constante). Uma bexiga aquecida expande livremente (pressão constante). No diagrama P×V, como são as trajetórias de cada processo? Qual realiza trabalho sobre o ambiente?",
+      "hint": "Trabalho W = ∫P dV. Quando o volume não muda, o que é o trabalho?",
+      "answer": "Panela: linha vertical (isocórico, W = 0). Bexiga: linha horizontal (isobárico, W > 0).",
+      "explanation": "Isocórico (V = cte): trajetória vertical no diagrama P×V. O gás não expande — não realiza trabalho externo. Toda a energia vira temperatura e pressão. Isobárico (P = cte): trajetória horizontal. O gás expande → W = P·ΔV > 0. A bexiga faz trabalho empurrando o ar ao redor."
+    },
+    {
+      "id": "calor-ex-01",
+      "module": "termodinamica",
+      "experiment_id": "calor-01",
+      "type": "prediction",
+      "title": "A areia e o mar",
+      "question": "Areia (c = 840 J/(kg·K)) e água (c = 4186 J/(kg·K)) recebem 84.000 J de calor solar por kg. Quanto cada um aquece? Por que isso explica o clima costeiro ser mais ameno que o do interior?",
+      "hint": "ΔT = Q / (m·c). Use m = 1 kg para cada.",
+      "answer": "Areia: ΔT = 100 °C. Água: ΔT ≈ 20 °C.",
+      "explanation": "Areia: ΔT = 84000/(1×840) = 100 °C. Água: ΔT = 84000/(1×4186) ≈ 20 °C. O oceano aquece e esfria 5× mais lentamente que a terra. Por isso cidades costeiras têm variação de temperatura muito menor entre verão e inverno — o mar funciona como um enorme regulador térmico."
+    },
+    {
+      "id": "intro-ex-01",
+      "module": "intro",
+      "experiment_id": "obs-measure-01",
+      "type": "interpretation",
+      "title": "Impressão vs. medida",
+      "question": "Um corredor estima que correu 'uns 40 minutos' e 'uns 8 km'. Seu relógio GPS registrou 37min22s e 7,83 km. Qual das duas informações é mais útil para calcular sua velocidade média? Por quê?",
+      "hint": "Velocidade média = distância / tempo. Qual conjunto de dados permite calcular isso de forma reproduzível?",
+      "answer": "Os dados do GPS — com unidade e precisão definida",
+      "explanation": "v = 7830 m / 2242 s ≈ 3,49 m/s ≈ 12,6 km/h. A estimativa sem instrumento não permite cálculo reproducível nem comparação. A medida com precisão definida é o que torna a Física possível — a diferença entre 'uns 40 minutos' e '37min22s' importa quando você quer melhorar o desempenho."
+    },
+    {
+      "id": "intro-ex-02",
+      "module": "intro",
+      "experiment_id": "obs-measure-01",
+      "type": "interpretation",
+      "title": "A sonda que foi ao fundo",
+      "question": "Em 1999, a sonda Mars Climate Orbiter foi destruída porque uma equipe usava unidades SI (metros) e outra usava unidades imperiais (pés). Sem nenhum erro de cálculo isolado, o sistema entrou na atmosfera em ângulo errado. Qual princípio fundamental foi violado — e como teria sido evitado?",
+      "hint": "Pense no que diferencia um número físico de um número puro.",
+      "answer": "Todo número físico precisa de unidade explícita — sem ela, o dado é ambíguo",
+      "explanation": "O erro custou US$ 125 milhões e 4 anos de trabalho. A correção é simples: toda interface entre sistemas deve especificar explicitamente a unidade — não apenas o valor. Em Física e engenharia, um número sem unidade não é um dado incompleto: é um dado inválido."
+    },
+    {
+      "id": "grandezas-ex-01",
+      "module": "intro",
+      "experiment_id": "grandezas-01",
+      "type": "prediction",
+      "title": "Convertendo para SI",
+      "question": "Um carro anuncia consumo de 14 km/L. (a) Converta para m/m³ (unidade SI). (b) Se o tanque tem 50 L, qual o alcance em km? (c) A 120 km/h, quanto tempo até esgotar o tanque?",
+      "hint": "1 km = 1000 m. 1 L = 0,001 m³. Para (b): alcance = consumo × volume. Para (c): t = d/v.",
+      "answer": "14.000.000 m/m³ ; 700 km ; ≈ 5h 50min",
+      "explanation": "14 km/L = 14×10³ m / 10⁻³ m³ = 14×10⁶ m/m³. Alcance = 14 × 50 = 700 km. Tempo = 700 km / 120 km/h = 5,83 h ≈ 5h 50min. Conversões de unidades são operações algébricas — multiplicar pelo fator de conversão escrito como fração (1 km/1000 m) cancela as unidades que você quer eliminar."
+    },
+    {
+      "id": "resultant-ex-01",
+      "module": "forces",
+      "experiment_id": "resultant-01",
+      "type": "prediction",
+      "title": "O barco e a correnteza",
+      "question": "Um barco rema perpendicularmente à margem com força de 400 N. A correnteza empurra paralela à margem com 300 N. Qual é a força resultante? Em que ângulo em relação à direção original do remador?",
+      "hint": "F_R = √(F₁² + F₂²) para forças perpendiculares. θ = arctan(F_correnteza / F_remo).",
+      "answer": "500 N a 36,9° da direção original",
+      "explanation": "F_R = √(400² + 300²) = √250000 = 500 N. θ = arctan(300/400) = arctan(0,75) ≈ 36,9°. O barco não chega onde o remador mirava — deriva rio abaixo. Pilotos de avião fazem esse cálculo para compensar ventos laterais: precisam apontar o nariz levemente contra o vento para seguir em linha reta."
+    },
+    {
+      "id": "resultant-ex-02",
+      "module": "forces",
+      "experiment_id": "resultant-01",
+      "type": "interpretation",
+      "title": "Forças opostas",
+      "question": "Dois times de cabo de guerra puxam uma corda: time A com 800 N para a direita, time B com 800 N para a esquerda. A corda não se move. O que a Segunda Lei de Newton diz sobre a força resultante e a aceleração do sistema?",
+      "hint": "Se a corda não acelera, qual é a força resultante?",
+      "answer": "F_R = 0 N; a = 0 — equilíbrio estático",
+      "explanation": "ΣF = 800 − 800 = 0 N. Por F = ma, a = 0. A corda está em equilíbrio estático — nem o Time A nem o Time B se move. Para mover, um time precisa gerar força maior que o outro. O cabo de guerra é uma demonstração direta de que 'fazer força' não é suficiente: o que importa é a força resultante."
+    },
+    {
+      "id": "energy-ex-04",
+      "module": "energy",
+      "experiment_id": "kinetic-01",
+      "type": "comparison",
+      "title": "40 km/h vs. 60 km/h — a matemática do risco",
+      "question": "Um carro de 1.400 kg trafega a 40 km/h (11,1 m/s) e outro a 60 km/h (16,7 m/s). (a) Calcule a energia cinética de cada um. (b) Qual é a razão entre as energias? (c) Por que isso explica a diferença de gravidade em acidentes?",
+      "hint": "Ec = ½mv². Calcule para cada velocidade. A razão é (v₂/v₁)².",
+      "answer": "Ec₁ ≈ 86.000 J; Ec₂ ≈ 195.000 J; razão ≈ 2,25",
+      "explanation": "Ec₁ = ½×1400×11,1² ≈ 86.200 J. Ec₂ = ½×1400×16,7² ≈ 195.300 J. Razão = (60/40)² = 2,25. Um carro a 60 km/h tem 2,25× mais energia a dissipar nos freios — e na estrutura de um pedestre. A distância de frenagem cresce na mesma proporção. Uma diferença de 20 km/h que 'parece pouca' representa 125% mais energia de impacto."
+    },
+    {
+      "id": "energy-ex-05",
+      "module": "energy",
+      "experiment_id": "ramp-energy-01",
+      "type": "prediction",
+      "title": "A montanha-russa — altura mínima",
+      "question": "Uma montanha-russa precisa manter velocidade mínima de 10 m/s no topo de um loop de raio 8 m (altura 16 m do solo). De que altura mínima h deve partir o carro? (g = 10 m/s², ignore atrito)",
+      "hint": "Conservação de energia: m·g·h = ½·m·v² + m·g·h_loop. A massa cancela.",
+      "answer": "24 m",
+      "explanation": "g·h = ½v² + g·h_loop → h = v²/(2g) + h_loop = 100/20 + 16 = 5 + 16 = 21 m mínimo teórico. Com margem de segurança para atrito (coeficiente típico ≈ 0,05), projetos reais usam h ≈ 24 m. Parques temáticos calculam isso com precisão milimétrica — pouco alto demais gasta energia, pouco baixo é perigoso."
+    },
+    {
+      "id": "fluids-ex-05",
+      "module": "fluids",
+      "experiment_id": "buoyancy-01",
+      "type": "prediction",
+      "title": "O ovo no sal",
+      "question": "Um ovo tem massa de 60 g e volume de 55 cm³. (a) Qual é sua densidade? (b) Ele flutua em água doce (ρ = 1,00 g/cm³)? (c) Em água salgada (ρ = 1,15 g/cm³)? (d) Qual concentração de sal faz o ovo flutuar exatamente?",
+      "hint": "ρ_ovo = m/V. Compara com ρ_fluido. Para equilíbrio: ρ_ovo = ρ_fluido.",
+      "answer": "ρ ≈ 1,09 g/cm³ ; afunda na doce ; flutua na salgada ; ρ_fluido = 1,09 g/cm³",
+      "explanation": "ρ_ovo = 60/55 ≈ 1,09 g/cm³. Em água doce (1,00): afunda. Em água salgada (1,15): flutua. Para equilíbrio neutro, o fluido precisa ter exatamente ρ = 1,09 g/cm³. Esse teste caseiro (ovo flutua = solução supersaturada de sal = ovo possivelmente velho) usa exatamente esse princípio — a densidade do ovo muda com o tempo à medida que perde água."
+    },
+    {
+      "id": "fluids-ex-06",
+      "module": "fluids",
+      "experiment_id": "pressure-01",
+      "type": "prediction",
+      "title": "O vaso comunicante da hidráulica",
+      "question": "Um macaco hidráulico tem pistão pequeno de área A₁ = 5 cm² e pistão grande de A₂ = 200 cm². Uma força de 50 N é aplicada no pistão pequeno. Qual força o pistão grande exerce? (Princípio de Pascal: pressão transmitida igualmente.)",
+      "hint": "P = F/A é igual nos dois pistões. F₂ = P × A₂ = (F₁/A₁) × A₂.",
+      "answer": "2.000 N",
+      "explanation": "P = 50/5 = 10 N/cm². F₂ = 10 × 200 = 2.000 N. A razão de forças é igual à razão de áreas (2000/50 = 40 = A₂/A₁). É por isso que um mecânico consegue levantar um carro de 1,5 tonelada com uma bomba manual — Pascal descobriu em 1647 que pressão se transmite integralmente em fluidos."
+    },
+    {
+      "id": "mhs-ex-03",
+      "module": "ondas",
+      "experiment_id": "mhs-01",
+      "type": "prediction",
+      "title": "Projeto de mola para amortecedor",
+      "question": "Um engenheiro precisa de um amortecedor que oscile com T = 0,5 s para uma massa de 2 kg. Qual constante k deve ter a mola?",
+      "hint": "T = 2π√(m/k) → k = m·(2π/T)².",
+      "answer": "≈ 316 N/m",
+      "explanation": "k = 2 × (2π/0,5)² = 2 × (4π)² ≈ 2 × 157,9 ≈ 315,8 N/m. Amortecedores de veículos usam molas com k entre 15.000 e 30.000 N/m para massas de 300–500 kg por eixo, resultando em períodos de ≈ 1–2 s — confortável para passageiros. Mola muito rígida: tranco. Mola muito fraca: balança demais."
+    },
+    {
+      "id": "wave-ex-03",
+      "module": "ondas",
+      "experiment_id": "wave-01",
+      "type": "interpretation",
+      "title": "Ondas de rádio AM vs. FM",
+      "question": "Rádio AM transmite em f = 1 MHz; rádio FM em f = 100 MHz. Ambas viajam à velocidade da luz (c = 3×10⁸ m/s). Calcule λ para cada uma. Por que antenas AM são torres enormes e antenas FM são hastes pequenas?",
+      "hint": "λ = v/f para cada frequência.",
+      "answer": "AM: λ = 300 m ; FM: λ = 3 m",
+      "explanation": "AM: λ = 3×10⁸/10⁶ = 300 m. FM: λ = 3×10⁸/10⁸ = 3 m. Antenas eficientes têm comprimento proporcional ao comprimento de onda (tipicamente λ/4 ou λ/2). Uma antena AM de λ/4 = 75 m — por isso são torres. Uma antena FM de λ/4 = 0,75 m cabe num carro. Ondas AM, por seu λ grande, contornam montanhas e chegam a maiores distâncias que FM."
+    },
+    {
+      "id": "gas-ex-03",
+      "module": "termodinamica",
+      "experiment_id": "gas-ideal-01",
+      "type": "prediction",
+      "title": "Altitude e pressão — o alpinista",
+      "question": "Um alpinista leva um saco plástico fechado com ar (1 L a 20 °C, P = 1 atm) do nível do mar até 5.000 m, onde a pressão externa é 0,54 atm e a temperatura é −20 °C (253 K). Assumindo que o saco pode expandir livremente (P_interna = P_externa), qual o novo volume?",
+      "hint": "PV/T = cte. V₂ = V₁ × (P₁/P₂) × (T₂/T₁). Use T em Kelvin.",
+      "answer": "≈ 1,71 L",
+      "explanation": "V₂ = 1 × (1/0,54) × (253/293) ≈ 1,852 × 0,863 ≈ 1,60 L. (Nota: resultado sensível às temperaturas exatas — estimativas de campo.) O saco incha significativamente. Por isso embalagens lacradas em fábrica no nível do mar chegam 'estufadas' em cidades de altitude como Bogotá (2.600 m) ou La Paz (3.600 m)."
+    },
+    {
+      "id": "calor-ex-02",
+      "module": "termodinamica",
+      "experiment_id": "calor-01",
+      "type": "prediction",
+      "title": "Quanto tempo para ferver?",
+      "question": "Uma chaleira elétrica de 1.500 W aquece 1 kg de água de 20 °C até 100 °C. (c_água = 4186 J/(kg·K)). Quanto tempo leva? Na prática, chaleiras levam ≈ 4 minutos — por quê a diferença?",
+      "hint": "Q = m·c·ΔT. Tempo = Q / Potência.",
+      "answer": "≈ 223 s ≈ 3,7 min teórico; perdas para o ambiente explicam a diferença",
+      "explanation": "Q = 1 × 4186 × 80 = 334.880 J. t = 334880/1500 ≈ 223 s ≈ 3,7 min. Chaleiras reais têm eficiência de ~90% — parte da energia aquece o próprio corpo metálico e o ambiente. Com eficiência de 90%: t_real ≈ 248 s ≈ 4,1 min. Bons projetos de chaleira minimizam a massa do próprio recipiente (menor c_metal × m_metal = menos energia 'perdida')."
+    },
+    {
+      "id": "grandezas-ex-02",
+      "module": "intro",
+      "experiment_id": "grandezas-01",
+      "type": "prediction",
+      "title": "Análise dimensional como verificação",
+      "question": "Um estudante calcula a velocidade de um carro e obtém o resultado '120 kg·m/s'. (a) O resultado está dimensionalmente correto para velocidade? (b) Qual seria a unidade correta? (c) O que provavelmente foi calculado por engano?",
+      "hint": "Velocidade = distância / tempo. Quais são as unidades de cada grandeza no SI?",
+      "answer": "(a) Não. (b) m/s. (c) Provavelmente momento linear (p = m·v), que tem unidade kg·m/s.",
+      "explanation": "Velocidade = [m] / [s] = m/s. O resultado '120 kg·m/s' tem a dimensão de momento linear (massa × velocidade), não de velocidade. Análise dimensional detecta esse tipo de erro antes mesmo de checar os números — se a unidade está errada, o cálculo está errado, independente do valor."
+    },
+    {
+      "id": "grandezas-ex-03",
+      "module": "intro",
+      "experiment_id": "grandezas-01",
+      "type": "prediction",
+      "title": "Convertendo velocidades",
+      "question": "Um carro a 110 km/h: (a) Converta para m/s. (b) Converta para cm/s. (c) Em milhas por hora (1 milha = 1,609 km).",
+      "hint": "Use fração de conversão: 1 km/h × (1000 m / 1 km) × (1 h / 3600 s). Multiplique unidade por unidade.",
+      "answer": "≈ 30,6 m/s ; ≈ 3.056 cm/s ; ≈ 68,4 mph",
+      "explanation": "110 km/h × (1000/3600) = 30,56 m/s. × 100 = 3.056 cm/s. 110/1,609 = 68,4 mph. A conversão é sempre multiplicação por '1' escrito de forma diferente. Nunca divida ou multiplique por um fator sem escrever as unidades — elas devem cancelar algebricamente para confirmar que a conversão está correta."
+    },
+    {
+      "id": "pendulum-intro-ex-01",
+      "module": "intro",
+      "experiment_id": "pendulum-intro-01",
+      "type": "prediction",
+      "title": "Previsão antes do experimento",
+      "question": "Antes de manipular a simulação: um pêndulo de 1 m oscila com período T ≈ 2 s. Se você dobrar o comprimento para 2 m, qual será o novo período? Escolha: (a) 4 s  (b) 2√2 ≈ 2,83 s  (c) 2 s  (d) √2 ≈ 1,41 s",
+      "hint": "Observe na simulação o que acontece com T ao dobrar L. A relação é linear, quadrática, ou de raiz quadrada?",
+      "answer": "(b) 2√2 ≈ 2,83 s",
+      "explanation": "T = 2π√(L/g). Dobrar L multiplica T por √2 ≈ 1,41. Para dobrar T, seria necessário quadruplicar L. Esta relação — quadrática inversa — é contraintuitiva e só fica clara ao manipular o experimento. Quem respondeu (a) assumiu relação linear; quem respondeu (c) assumiu independência. Ambos os erros são muito comuns antes da observação."
+    },
+    {
+      "id": "pendulum-intro-ex-02",
+      "module": "intro",
+      "experiment_id": "pendulum-intro-01",
+      "type": "interpretation",
+      "title": "A surpresa do ângulo",
+      "question": "Na simulação, você variou o ângulo inicial de 5° para 45°. O período mudou significativamente? O que isso revela sobre a relação entre amplitude e período — e por que isso é surpreendente para a maioria das pessoas?",
+      "hint": "Compare T exibido na tela para θ = 0,1 rad e θ = 0,7 rad com o mesmo L.",
+      "answer": "O período praticamente não muda para ângulos pequenos — a isocronia de amplitude é contraintuitiva",
+      "explanation": "Para θ < 15°, T ≈ 2π√(L/g) com erro menor que 1%. A intuição diz que balançar mais alto deveria demorar mais — e está errada. Esta é a isocronia que Galileu observou no lustre. É justamente essa propriedade que tornou o pêndulo útil como instrumento de medição de tempo: pequenas variações de amplitude (por atrito do ar, por exemplo) não afetam significativamente o período."
+    },
+    {
+      "id": "pendulum-intro-ex-03",
+      "module": "intro",
+      "experiment_id": "pendulum-intro-01",
+      "type": "comparison",
+      "title": "Pêndulo para medir g",
+      "question": "Um físico quer medir a aceleração gravitacional local usando um pêndulo. Ele mede L = 1,00 m e cronometra 10 oscilações em 20,1 s. (a) Qual é o período T? (b) Qual é o valor calculado de g? (c) O valor oficial é 9,80 m/s². Qual é o erro percentual?",
+      "hint": "T = total / n°oscilações. De T = 2π√(L/g), isole g: g = 4π²·L/T².",
+      "answer": "T = 2,01 s ; g ≈ 9,76 m/s² ; erro ≈ 0,4%",
+      "explanation": "T = 20,1/10 = 2,01 s. g = 4π²×1,00/2,01² = 39,48/4,040 ≈ 9,77 m/s². Erro = |9,77−9,80|/9,80 × 100 ≈ 0,3%. Este experimento simples — régua e cronômetro — mede g com menos de 1% de erro. Foi o estado da arte por séculos. A precisão vem de cronometrar múltiplas oscilações (10 ou mais) em vez de apenas uma — erros de reação humana de ±0,2 s se tornam ±0,02 s por oscilação."
+    },
+    {
+      "id": "intro-ex-03",
+      "module": "intro",
+      "experiment_id": "obs-measure-01",
+      "type": "interpretation",
+      "title": "Precisão vs. exatidão",
+      "question": "Três balanças medem uma peça de 100,00 g: Balança A: 99,98 g, 99,97 g, 99,99 g. Balança B: 100,45 g, 100,44 g, 100,46 g. Balança C: 99,50 g, 100,80 g, 98,90 g. Qual é precisa mas não exata? Qual é exata mas não precisa? Qual é ambas?",
+      "hint": "Precisão = repetibilidade (os valores concordam entre si). Exatidão = proximidade do valor real.",
+      "answer": "A: exata e precisa. B: precisa mas não exata. C: nem precisa nem exata.",
+      "explanation": "Balança A: resultados consistentes e próximos de 100,00 g — precisa e exata. Balança B: resultados muito consistentes entre si (±0,01 g) mas sistematicamente deslocados (+0,45 g) — precisa mas com erro sistemático. Balança C: resultados inconsistentes e distantes — nem precisa nem exata. Em Física experimental, erros sistemáticos (B) são muitas vezes piores que erros aleatórios (C) porque são mais difíceis de detectar."
     }
   ]
 }

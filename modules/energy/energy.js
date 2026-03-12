@@ -128,14 +128,14 @@ class KineticSimulation extends SimBase {
     const barFill = Math.min(ec / barMax, 1);
 
     ctx.save();
-    ctx.fillStyle = '#0a1520';
+    ctx.fillStyle = '#1c1a14';
     ctx.strokeStyle = COLORS.textMuted;
     ctx.lineWidth = 1;
     ctx.fillRect(barX, barY, barW, barH);
     ctx.strokeRect(barX, barY, barW, barH);
     ctx.fillStyle = COLORS.red;
     ctx.fillRect(barX, barY, barW * barFill, barH);
-    ctx.font      = '9px "JetBrains Mono", monospace';
+    ctx.font      = '9px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.textMuted;
     ctx.textAlign = 'right';
     ctx.fillText('Ec (J)', barX - 4, barY + 9);
@@ -178,7 +178,7 @@ class RampEnergySimulation extends SimBase {
       ? new ChartEngine(chartCanvas, {
           label: 'Energia vs tempo',
           xUnit: 't (s)', yUnit: 'E (J)',
-          color: '#e84040',
+          color: '#7a4a96',
         })
       : null;
 
@@ -279,7 +279,7 @@ class RampEnergySimulation extends SimBase {
       ctx.lineTo(bodyX, baseY);
       ctx.stroke();
       ctx.setLineDash([]);
-      ctx.font      = '10px "JetBrains Mono", monospace';
+      ctx.font      = '10px "Share Tech Mono", monospace';
       ctx.fillStyle = COLORS.textMuted;
       ctx.textAlign = 'left';
       ctx.fillText(`h=${h.toFixed(2)}m`, bodyX + 6, (bodyY + baseY) / 2);
@@ -320,7 +320,7 @@ class RampEnergySimulation extends SimBase {
       const fill = Math.min(b.val / maxE, 1);
       const fillH = barH * fill;
 
-      ctx.fillStyle   = '#0a1520';
+      ctx.fillStyle   = '#1c1a14';
       ctx.strokeStyle = COLORS.textMuted;
       ctx.lineWidth   = 0.5;
       ctx.fillRect(x, barsY, barW, barH);
@@ -329,7 +329,7 @@ class RampEnergySimulation extends SimBase {
       ctx.fillStyle = b.color + '99';
       ctx.fillRect(x, barsY + barH - fillH, barW, fillH);
 
-      ctx.font      = '9px "JetBrains Mono", monospace';
+      ctx.font      = '9px "Share Tech Mono", monospace';
       ctx.fillStyle = b.color;
       ctx.textAlign = 'center';
       ctx.fillText(b.label, x + barW / 2, barsY + barH + 10);
@@ -427,7 +427,7 @@ class ConservationSimulation extends SimBase {
 
     const rampPxLen = w * 0.85;
     const bX        = rampPxLen;
-    const topX      = 0;
+    const topX      = bX - rampPxLen * Math.cos(rad);  /* correct ramp top X */
     const topY      = baseY - rampPxLen * Math.sin(rad);
 
     drawRamp(ctx, bX, baseY, rampPxLen, rad);
@@ -436,13 +436,13 @@ class ConservationSimulation extends SimBase {
     const bodyPxS = s * pxPerM;
     const bodyX   = topX + bodyPxS * Math.cos(rad);
     const bodyY   = topY + bodyPxS * Math.sin(rad);
-    drawCircle(ctx, bodyX, bodyY, 12, '#0a1520', color);
+    drawCircle(ctx, bodyX, bodyY, 12, '#1c1a14', color);
 
     /* Energy bar */
     const maxE = Math.max(totalE0, 1);
     const barH = 50;
     const barX = w - 24;
-    ctx.fillStyle = '#0a1520';
+    ctx.fillStyle = '#1c1a14';
     ctx.fillRect(barX, baseY - barH, 14, barH);
 
     const epFill = (ep / maxE) * barH;
@@ -452,7 +452,7 @@ class ConservationSimulation extends SimBase {
     ctx.fillStyle = COLORS.cyan + '88';
     ctx.fillRect(barX, baseY - epFill - ecFill, 14, ecFill);
 
-    ctx.font      = '9px "JetBrains Mono", monospace';
+    ctx.font      = '9px "Share Tech Mono", monospace';
     ctx.fillStyle = color;
     ctx.textAlign = 'center';
     ctx.fillText(tag, rampPxLen / 2, baseY + 14);

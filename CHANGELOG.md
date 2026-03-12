@@ -3,6 +3,161 @@
 Todas as alterações relevantes ao projeto são registradas aqui.  
 Formato: [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [1.2.0] — 2026-03-11
+
+### Corrigido — Auditoria completa de simulações
+
+Auditoria sistemática de todos os 22 simuladores: lifecycle completo
+(construct → reset → start → 30 frames → setParam → 30 frames → dispose),
+verificação de NaN/Infinity no estado físico, e testes de correctude
+quantitativa por simulação. Suite final: **28/28 PASS**.
+
+#### `BuoyancySimulation` — três bugs corrigidos
+
+**Bug 1 — inversão do sinal de velocidade na conversão de coordenadas:**  
+`_update` convertia `y_canvas` para `yM` (coordenada física, `yM > 0` = acima
+da superfície) e passava `vy / pxPerM` ao `Physics.fluids_object_step`. A
+relação correta é `vy_physics = −vy_canvas / pxPerM` porque y aumenta para
+baixo no canvas. Com o sinal errado, a empuxo empurrava o objeto para longe
+do equilíbrio em vez de em direção a ele — o objeto flutuante subia
+indefinidamente fora do container.
+
+**Solução:** eliminada a transformação yM por completo. O `_update` agora
+opera diretamente em coordenadas canvas, calculando `submergedPx` como a
+sobreposição entre a borda inferior do objeto e a superfície do fluido.
+Física: `a_canvas = (weight − buoyancy) / mass` (positivo = descida no
+canvas). Resultado: erro de posicionamento em equilíbrio < 0.2 px após
+300 frames.
+
+**Bug 2 — posição inicial errada em `_onReset` e `_onParamChange`:**  
+Reset usava `containerY − 30` (acima do container) e paramChange usava
+`containerY − 20`. Ambos colocavam o objeto fora da área visível antes do
+layout ser inicializado. Corrigido: posição inicial agora calcula
+`fluidTopPx − objHeightPx × 0.8` (imediatamente acima da superfície do
+fluido), consistente entre reset e paramChange.
+
+**Bug 3 — convergência lenta (afundador levava > 80s):**  
+Com escala de tempo 1×, um objeto de `ρ = 2000 kg/m³` levava > 5000 frames
+(83 s) para atingir o fundo, porque o terminal velocity com damping `0.985`
+por frame era alto mas a distância pequena. Aplicado fator `3×` no `simDt`
+interno: flutuador converge em ~0.5 s real; afundador atinge o fundo em
+~5 s real — ambos pedagogicamente satisfatórios.
+
+**Bug 4 — `pxSide = objSideM × pxPerM × 1.5` dessincronizava renderização da física:**  
+O fator `1.5` fazia o objeto parecer maior do que a física considerava,
+causando sobreposição visual com a superfície do fluido mesmo quando a física
+calculava objeto ainda acima dela. Removido: `pxSide = objSideM × pxPerM`.
+
+#### `ConservationSimulation._drawHalf` — geometria da rampa
+
+`topX` estava hardcoded como `0` em vez de `bX − rampPxLen × cos(rad)`.
+Com ângulos > 0°, o topo da rampa ficava na borda esquerda da metade, não
+no topo correto da inclinação. O corpo desenhado no início da corrida (`s=0`)
+aparecia no canto esquerdo em vez do topo da rampa. Corrigido: `topX =
+bX − rampPxLen × Math.cos(rad)`, alinhado com o que `drawRamp` desenha.
+
+#### `FreeFallSimulation._update` — chamada morta removida
+
+Linha `const result = Physics.motion_step(this.h, −this.v, −this.g, dt)`
+calculava um resultado jamais usado — a integração manual logo abaixo é
+correta (semi-implícita: `v += g·dt; h −= v·dt`). A chamada morta foi
+removida para evitar confusão sobre qual integração está em uso.
+
+#### `waves_mhs_step` — Euler explícito substituído por Velocity Verlet
+
+O integrador Euler explícito (`x += v·dt; v += a·dt`) é **não conservativo**
+para osciladores harmônicos: a amplitude cresce geometricamente, atingindo
+14.000 % de erro em 60 s com `dt = 1/60`. Isso causava divergência visível
+do MHS após poucos minutos de uso.
+
+Substituído por **Velocity Verlet** (simpleticamente estável):
+```
+a₀ = −ω²·x
+v½ = v + a₀·dt/2
+x' = x + v½·dt
+a₁ = −ω²·x'
+v' = v½ + a₁·dt/2
+```
+Drift medido após 300 s: < 0.0001 %. Mesma correção aplicada em
+`PhysicsFallback` (JS) e `physics_engine_wasm.c` (C). WASM recompilado:
+3186 bytes.
+
+#### `waves_pendulum_step` — Euler substituído por Velocity Verlet
+
+Mesma instabilidade. O pêndulo com ângulo real (`θ'' = −(g/L)·sin θ`) também
+divergia com Euler explícito em sessões longas. Velocity Verlet aplicado:
+`alpha₀ = −(g/L)·sin(θ)`, half-step, novo ângulo, `alpha₁`, step completo.
+Corrigido em `PhysicsFallback` e `physics_engine_wasm.c`.
+
+### Adicionado — Suite de testes de correctude
+
+Suite automatizada cobrindo todos os 22 simuladores:
+- Lifecycle: construct, reset, start, N frames, setParam, mais frames, dispose
+- Verificação de estado físico: posição, velocidade, energia, temperatura
+- Testes quantitativos: `F = ma`, `Ec = ½mv²`, `P = ρgh + P₀`,
+  `PV = nRT`, período de pêndulo, estabilidade de amplitude do MHS
+- Detecção de NaN/Infinity no estado após 200 frames
+
+## [1.1.1] — 2026-03-10
+
+### Alterado — Conteúdo pedagógico
+
+Reescrita completa dos três arquivos de conteúdo e dois documentos principais
+com foco em ancoragem no mundo real.
+
+**experiments.json** — todos os 22 experimentos reescritos:
+- `phenomenon`: substituído de descrições físicas genéricas por situações
+  concretas que o aluno já viveu (ônibus freando, pneu no calor, areia na
+  praia, Mar Morto, porta-aviões, violinistas desafinados, bomba de ar)
+- `guidingQuestion`: reescrita para provocar curiosidade antes do experimento,
+  não recapitular após
+
+**lessons.json** — todas as 13 lições reescritas:
+- Fase `phenomenon` de cada lição: substituída por situação identificável
+  (sonda Mars Climate Orbiter por erro de unidades; pena e martelo na Lua;
+  escaladores e magnésio; pêndulo de Foucault; panela de pressão)
+- Linguagem: menos "observe que", mais "por que isso acontece?"
+
+**exercises.json** — todos os 26 exercícios reescritos:
+- Contexto real em todos: avião Recife→Porto Alegre (MRU); Porsche 0–100 km/h
+  (MRUV); ponte e pedra (queda livre); carrinho de supermercado (F=ma);
+  colisão de trânsito a 60 vs. 40 km/h (Ec); Mar Morto e mercúrio (fluidos);
+  violinistas desafinados (batimentos); pneu no calor (Gay-Lussac); areia vs.
+  mar (capacidade calorífica)
+- Explicações das respostas incluem o contexto real (não só o resultado)
+
+**docs/pedagogy.md** — reescrito com:
+- Fundamentação explícita para o uso de situações reais
+- Critérios de seleção de fenômenos (reconhecimento, surpresa, parametrizável)
+- Tabela de fenômenos âncora por módulo
+- Referências pedagógicas (Ausubel, Carvalho, Física do Cotidiano)
+
+**docs/simulation-model.md** — reescrito completamente:
+- Fenômeno âncora documentado para cada experimento
+- Conexão entre o fenômeno real e o modelo físico adotado
+- Aproximações explicitadas (o que o modelo ignora e por quê)
+
+**README.md** — atualizado:
+- Tabela de módulos inclui o fenômeno âncora de cada um
+- Total de experimentos, lições e exercícios atualizado
+- Instrução de compilação WASM atualizada (clang nativo, sem Emscripten)
+
+## [1.1.0] — 2026-03-10
+
+### Adicionado
+- **Módulo Ondas** — MHS (massa-mola), onda transversal progressiva, superposição de ondas e pêndulo simples com ângulo real; usa `waves_mhs_step` e `waves_pendulum_step` do motor C.
+- **Módulo Termodinâmica** — gás ideal com pistão animado, diagrama P×V comparativo dos três processos (Boyle, Charles, Gay-Lussac), calor específico comparativo entre materiais.
+- **WebAssembly compilado** — `wasm/physics_engine.wasm` compilado com `clang --target=wasm32`, sem Emscripten; 3 KB, 31 exports; funções matemáticas importadas do host JS via `env.*`.
+- **PWA** — `manifest.json` + `sw.js` (Cache First / Network First); registro automático no `index.html`; ícones SVG 192×512; funciona offline após primeira visita.
+- **Redesign estético completo** — sistema visual dual instrumento (dark warm) + caderno (off-white paper); tipografia migrada integralmente de JetBrains Mono → Share Tech Mono (somente valores numéricos) e EB Garamond (todo o resto); paleta de módulos e vetores alinhada a convenções de livros de Física.
+
+### Alterado
+- `wasm-loader.js` — importObject agora fornece `sin/cos/sqrt/fabs` via `env.*` (clang wasm32, sem WASI); adicionadas `waves_mhs_step` e `waves_pendulum_step` ao wrapper WASM e ao `PhysicsFallback`.
+- `ui.js` — despachadores de simulação para `ondas` e `termodinamica`; `MODULE_COLORS` atualizado.
+- `renderer.js` — cores dos novos módulos adicionadas ao `COLORS`.
+- `data/modules.json` — dois módulos novos; cores de todos os módulos corrigidas para o novo sistema visual.
+- `data/experiments.json` — 7 novos experimentos (mhs-01, wave-01, superposition-01, pendulum-wave-01, gas-ideal-01, processos-01, calor-01); total: 22 experimentos.
+
 ---
 
 ## [1.0.0] — 2026-03-09

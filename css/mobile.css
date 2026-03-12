@@ -154,7 +154,7 @@
     padding: var(--space-4);
   }
 
-  /* Slider thumb maior para toque */
+  /* Slider thumb maior para toque — Chromium/Safari */
   input[type="range"]::-webkit-slider-thumb {
     width: 20px;
     height: 20px;

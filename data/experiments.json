@@ -4,211 +4,948 @@
       "id": "obs-measure-01",
       "module": "intro",
       "title": "Observar e Medir",
-      "phenomenon": "Antes de qualquer equação, há um fenômeno. A Física começa com a observação rigorosa do que acontece no mundo.",
-      "variables": ["tempo", "posição", "velocidade"],
-      "equations": [],
-      "question": "Qual é a diferença entre observar e medir?",
-      "simulation": "pendulum-observe",
-      "phase": "phenomenon",
-      "difficulty": 1,
-      "duration_min": 10
+      "description": "A diferença entre impressão subjetiva e medida física. Por que instrumentos existem.",
+      "phenomenon": "Em 1999, a sonda Mars Climate Orbiter foi destruída ao entrar na atmosfera de Marte. Não por falha mecânica — por erro de unidades. Uma equipe calculava em metros; outra, em pés. Sem nenhum cálculo errado individualmente, o sistema todo foi ao fundo. US$ 125 milhões e quatro anos perdidos por uma linha de código sem conversão de unidades.",
+      "guidingQuestion": "O que diferencia \"uns 40 minutos\" de \"37min22s\"? Por que só o segundo permite fazer Física?",
+      "simulation": "units-demo",
+      "variables": [],
+      "equations": [
+        "eq-si-base"
+      ],
+      "exercises": [
+        "intro-ex-01",
+        "intro-ex-02",
+        "intro-ex-03"
+      ],
+      "duration_min": 15
     },
     {
       "id": "grandezas-01",
       "module": "intro",
-      "title": "Grandezas e Unidades",
-      "phenomenon": "Toda medida física tem uma unidade. Sem unidade, um número não representa nada físico.",
-      "variables": ["comprimento", "massa", "tempo"],
-      "equations": ["[v] = m/s", "[a] = m/s²", "[F] = kg·m/s² = N"],
-      "question": "Por que 10 não é uma grandeza física completa?",
+      "title": "Grandezas, Unidades e Dimensões",
+      "description": "O Sistema Internacional de Unidades — por que existe e como funciona.",
+      "phenomenon": "Uma receita diz \"200 de açúcar\". Duzentos o quê? Gramas? Colheres? Xícaras? Sem unidade, o número não representa nada físico. Em Física, um número sem unidade não é um dado incompleto — é um dado inválido. O SI existe para que cientistas de todos os países falem a mesma língua quantitativa.",
+      "guidingQuestion": "Qual a diferença entre \"3 metros\" e \"3 quilômetros\"? São a mesma grandeza física? O que muda?",
       "simulation": "units-demo",
-      "phase": "phenomenon",
-      "difficulty": 1,
-      "duration_min": 10
+      "variables": [],
+      "equations": [
+        "eq-si-base",
+        "eq-conversion"
+      ],
+      "exercises": [
+        "grandezas-ex-01",
+        "grandezas-ex-02",
+        "grandezas-ex-03"
+      ],
+      "duration_min": 15
     },
     {
       "id": "mru-01",
       "module": "motion",
-      "title": "Velocidade Constante",
-      "phenomenon": "Um corpo que se move sem aceleração percorre distâncias iguais em tempos iguais.",
-      "variables": ["posição", "velocidade", "tempo"],
-      "equations": ["x(t) = x₀ + v·t"],
-      "question": "O que acontece com a posição quando dobramos a velocidade?",
+      "title": "Movimento Retilíneo Uniforme",
+      "description": "Velocidade constante: distâncias iguais em tempos iguais.",
+      "phenomenon": "Um avião de carreira cruza o Brasil de leste a oeste — cerca de 4.300 km — em velocidade constante de aproximadamente 900 km/h. Não acelera, não freia durante o percurso. Em quanto tempo chega? Você consegue calcular antes de ver a simulação?",
+      "guidingQuestion": "No gráfico de posição × tempo de um MRU, o que a inclinação da reta representa fisicamente?",
       "simulation": "mru",
-      "phase": "phenomenon",
-      "difficulty": 1,
-      "duration_min": 15
+      "variables": [
+        {
+          "key": "velocity",
+          "label": "Velocidade (v)",
+          "unit": "m/s",
+          "min": -20,
+          "max": 20,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "key": "x0",
+          "label": "Posição inicial (x₀)",
+          "unit": "m",
+          "min": -50,
+          "max": 50,
+          "step": 5,
+          "default": 0
+        }
+      ],
+      "equations": [
+        "mru-eq"
+      ],
+      "exercises": [
+        "motion-ex-01",
+        "motion-ex-02"
+      ],
+      "duration_min": 20
     },
     {
       "id": "mruv-01",
       "module": "motion",
-      "title": "Aceleração Constante",
-      "phenomenon": "Quando uma força constante age sobre um corpo, sua velocidade muda uniformemente ao longo do tempo.",
-      "variables": ["posição", "velocidade", "aceleração", "tempo"],
-      "equations": [
-        "v(t) = v₀ + a·t",
-        "x(t) = x₀ + v₀·t + ½·a·t²",
-        "v² = v₀² + 2·a·Δx"
-      ],
-      "question": "Como o gráfico v×t muda quando aumentamos a aceleração?",
+      "title": "Movimento Retilíneo Uniformemente Variado",
+      "description": "Força constante → aceleração constante → velocidade que cresce linearmente.",
+      "phenomenon": "Carros esportivos anunciam '0 a 100 km/h em 3,5 segundos'. Mas o que isso significa fisicamente? Qual é a aceleração? Você sente essa aceleração no seu corpo — é a mesma sensação de ser empurrado para o encosto do banco.",
+      "guidingQuestion": "Se uma aceleração de 2 m/s² dobra para 4 m/s², a que distância o carro chega em 5 segundos?",
       "simulation": "mruv",
-      "phase": "phenomenon",
-      "difficulty": 2,
+      "variables": [
+        {
+          "key": "acceleration",
+          "label": "Aceleração (a)",
+          "unit": "m/s²",
+          "min": -10,
+          "max": 10,
+          "step": 0.5,
+          "default": 2
+        },
+        {
+          "key": "v0",
+          "label": "Velocidade inicial (v₀)",
+          "unit": "m/s",
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "default": 0
+        }
+      ],
+      "equations": [
+        "mruv-v",
+        "mruv-x"
+      ],
+      "exercises": [
+        "motion-ex-03",
+        "motion-ex-04"
+      ],
       "duration_min": 20
     },
     {
       "id": "free-fall-01",
       "module": "motion",
       "title": "Queda Livre",
-      "phenomenon": "Na ausência de ar, todos os objetos caem com a mesma aceleração, independente de sua massa.",
-      "variables": ["altura", "velocidade", "tempo", "aceleração gravitacional"],
-      "equations": [
-        "a = g ≈ 9,8 m/s²",
-        "v(t) = g·t",
-        "h(t) = ½·g·t²"
-      ],
-      "question": "Uma pena e uma pedra caem ao mesmo tempo no vácuo. Por quê?",
+      "description": "Na ausência de ar, todos os objetos caem com a mesma aceleração — independente da massa.",
+      "phenomenon": "Em 1971, o astronauta David Scott, na superfície da Lua (sem atmosfera), soltou simultaneamente uma pena e um martelo do mesmo ponto. Eles tocaram o solo juntos. Galileu tinha razão — e demorou 362 anos para alguém provar experimentalmente fora da Terra.",
+      "guidingQuestion": "Se dobrarmos a altura inicial, a velocidade de impacto dobra? Ou muda de outra forma?",
       "simulation": "free-fall",
-      "phase": "phenomenon",
-      "difficulty": 2,
+      "variables": [
+        {
+          "key": "height",
+          "label": "Altura inicial (h)",
+          "unit": "m",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 20
+        },
+        {
+          "key": "mass",
+          "label": "Massa (m)",
+          "unit": "kg",
+          "min": 0.1,
+          "max": 10,
+          "step": 0.1,
+          "default": 1
+        }
+      ],
+      "equations": [
+        "free-fall-eq"
+      ],
+      "exercises": [
+        "motion-ex-05"
+      ],
       "duration_min": 15
     },
     {
       "id": "inertia-01",
       "module": "forces",
-      "title": "Inércia e Primeira Lei de Newton",
-      "phenomenon": "Um corpo em repouso permanece em repouso; um corpo em movimento continua em movimento retilíneo uniforme — a menos que uma força resultante atue sobre ele.",
-      "variables": ["velocidade", "força", "massa"],
-      "equations": ["ΣF = 0 ↔ Δv = 0"],
-      "question": "O que mantém um corpo parado quando nenhuma força age sobre ele?",
+      "title": "Inércia — Primeira Lei de Newton",
+      "description": "Corpos resistem a mudanças no seu estado de movimento.",
+      "phenomenon": "Quando o ônibus freia bruscamente, você vai para a frente. Quando arranca, você vai para trás. Você não foi empurrado — ninguém tocou em você. O que está acontecendo? Por que seu corpo se comporta assim se nenhuma força agiu sobre ele?",
+      "guidingQuestion": "Se a força resultante sobre um objeto é zero, o que acontece com um objeto que já está em movimento?",
       "simulation": "inertia",
-      "phase": "phenomenon",
-      "difficulty": 1,
-      "duration_min": 10
+      "variables": [
+        {
+          "key": "mass",
+          "label": "Massa (m)",
+          "unit": "kg",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "key": "velocity",
+          "label": "Velocidade (v)",
+          "unit": "m/s",
+          "min": 0,
+          "max": 15,
+          "step": 0.5,
+          "default": 5
+        }
+      ],
+      "equations": [
+        "newton1-eq"
+      ],
+      "exercises": [
+        "forces-ex-01"
+      ],
+      "duration_min": 15
     },
     {
       "id": "newton2-01",
       "module": "forces",
-      "title": "Força, Massa e Aceleração",
-      "phenomenon": "A aceleração de um corpo é diretamente proporcional à força resultante que age sobre ele e inversamente proporcional à sua massa.",
-      "variables": ["força", "massa", "aceleração"],
-      "equations": ["F = m·a", "a = F/m"],
-      "question": "O que acontece com a aceleração quando a massa dobra e a força permanece igual?",
+      "title": "Segunda Lei de Newton",
+      "description": "F = m·a: a aceleração é proporcional à força e inversamente proporcional à massa.",
+      "phenomenon": "Empurrar um carrinho vazio de supermercado é fácil. O mesmo carrinho cheio de compras — mesma força sua, muito mais difícil de acelerar. Não mudou o piso, não mudou sua força. Só a massa mudou.",
+      "guidingQuestion": "Se você manter a mesma força e dobrar a massa, a aceleração cai pela metade ou pelo dobro?",
       "simulation": "newton2",
-      "phase": "phenomenon",
-      "difficulty": 2,
+      "variables": [
+        {
+          "key": "force",
+          "label": "Força aplicada (F)",
+          "unit": "N",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 30
+        },
+        {
+          "key": "mass",
+          "label": "Massa (m)",
+          "unit": "kg",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 5
+        }
+      ],
+      "equations": [
+        "newton2-eq"
+      ],
+      "exercises": [
+        "forces-ex-02",
+        "forces-ex-03"
+      ],
       "duration_min": 20
     },
     {
       "id": "friction-01",
       "module": "forces",
       "title": "Força de Atrito",
-      "phenomenon": "O atrito é uma força que se opõe ao movimento relativo entre superfícies em contato.",
-      "variables": ["atrito", "normal", "coeficiente de atrito", "força aplicada"],
-      "equations": ["f = μ·N"],
-      "question": "Como o atrito afeta o movimento quando a força aplicada é constante?",
+      "description": "O atrito resiste ao movimento relativo entre superfícies — e depende das superfícies, não da velocidade.",
+      "phenomenon": "Escaladores de pedra usam magnésio (pó branco) nas mãos para aumentar o atrito e não escorregar. Pistas de Fórmula 1 são cobertas de borracha dos próprios pneus para criar mais aderência. Engenheiros gastam fortunas controlando algo tão 'simples' quanto o atrito.",
+      "guidingQuestion": "Se dobrarmos o peso do objeto sobre a superfície, o atrito dobra? O que acontece se trocarmos a superfície?",
       "simulation": "friction",
-      "phase": "phenomenon",
-      "difficulty": 2,
-      "duration_min": 15
+      "variables": [
+        {
+          "key": "force",
+          "label": "Força aplicada (F)",
+          "unit": "N",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 40
+        },
+        {
+          "key": "mass",
+          "label": "Massa (m)",
+          "unit": "kg",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "key": "mu_k",
+          "label": "Coef. atrito (μₖ)",
+          "unit": "",
+          "min": 0.05,
+          "max": 0.9,
+          "step": 0.05,
+          "default": 0.3
+        }
+      ],
+      "equations": [
+        "friction-eq"
+      ],
+      "exercises": [
+        "forces-ex-04"
+      ],
+      "duration_min": 20
     },
     {
       "id": "resultant-01",
       "module": "forces",
       "title": "Força Resultante",
-      "phenomenon": "Várias forças agindo sobre um mesmo corpo podem ser substituídas por uma única força equivalente: a resultante.",
-      "variables": ["força resultante", "força aplicada", "peso", "normal", "atrito"],
-      "equations": ["F_R = ΣFᵢ"],
-      "question": "Quando a força resultante é zero, o que acontece com o corpo?",
+      "description": "Várias forças sobre um corpo são equivalentes a uma única força — a resultante.",
+      "phenomenon": "Um barco tenta atravessar um rio em linha reta, remando perpendicular à margem. A correnteza empurra para o lado. O barco não chega onde o barqueiro mirava — ele chega mais abaixo. A trajetória real é a combinação de duas forças.",
+      "guidingQuestion": "Se você empurrar um objeto na diagonal com força F e o vento empurrar perpendicularmente, como prever a trajetória real?",
       "simulation": "resultant",
-      "phase": "phenomenon",
-      "difficulty": 2,
-      "duration_min": 15
+      "variables": [
+        {
+          "key": "f1_angle",
+          "label": "Ângulo da Força 1 (θ₁)",
+          "unit": "°",
+          "min": 0,
+          "max": 360,
+          "step": 5,
+          "default": 0
+        },
+        {
+          "key": "f1_mag",
+          "label": "Magnitude F₁",
+          "unit": "N",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 60
+        },
+        {
+          "key": "f2_angle",
+          "label": "Ângulo da Força 2 (θ₂)",
+          "unit": "°",
+          "min": 0,
+          "max": 360,
+          "step": 5,
+          "default": 90
+        },
+        {
+          "key": "f2_mag",
+          "label": "Magnitude F₂",
+          "unit": "N",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 40
+        }
+      ],
+      "equations": [
+        "resultant-eq"
+      ],
+      "exercises": [
+        "resultant-ex-01",
+        "resultant-ex-02"
+      ],
+      "duration_min": 20
     },
     {
       "id": "ramp-energy-01",
       "module": "energy",
       "title": "Energia na Rampa",
-      "phenomenon": "Um corpo no alto de uma rampa possui energia potencial. Ao deslizar, essa energia se converte em energia cinética.",
-      "variables": ["altura", "velocidade", "energia potencial", "energia cinética", "massa"],
-      "equations": [
-        "Ep = m·g·h",
-        "Ec = ½·m·v²",
-        "Ep + Ec = constante (sem atrito)"
-      ],
-      "question": "Se dobrarmos a altura, o que acontece com a velocidade no ponto mais baixo?",
+      "description": "Energia potencial se converte em cinética — a altura determina a velocidade na saída.",
+      "phenomenon": "Skatistas sabem intuitivamente: quanto mais alto o bordo da rampa, mais rápido na saída. Parques aquáticos constroem escorregadores com curvas calculadas para que você chegue com exatamente a velocidade certa — nem lento demais, nem rápido o suficiente para voar. Ninguém precisa de equações para entender isso. Mas e para projetar?",
+      "guidingQuestion": "Se a altura da rampa dobrar, a velocidade na saída dobra? Ou muda de outra forma?",
       "simulation": "ramp-energy",
-      "phase": "phenomenon",
-      "difficulty": 2,
-      "duration_min": 20
+      "variables": [
+        {
+          "key": "height",
+          "label": "Altura (h)",
+          "unit": "m",
+          "min": 0.5,
+          "max": 10,
+          "step": 0.5,
+          "default": 3
+        },
+        {
+          "key": "mass",
+          "label": "Massa (m)",
+          "unit": "kg",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "key": "angle",
+          "label": "Ângulo (θ)",
+          "unit": "°",
+          "min": 5,
+          "max": 60,
+          "step": 5,
+          "default": 30
+        },
+        {
+          "key": "friction",
+          "label": "Atrito",
+          "unit": "",
+          "min": 0,
+          "max": 1,
+          "step": 1,
+          "default": 0,
+          "type": "toggle"
+        }
+      ],
+      "equations": [
+        "energy-conservation-eq"
+      ],
+      "exercises": [
+        "energy-ex-02",
+        "energy-ex-05"
+      ],
+      "duration_min": 25
     },
     {
       "id": "kinetic-01",
       "module": "energy",
       "title": "Energia Cinética",
-      "phenomenon": "A energia cinética de um corpo em movimento depende de sua massa e do quadrado de sua velocidade.",
-      "variables": ["massa", "velocidade", "energia cinética"],
-      "equations": ["Ec = ½·m·v²"],
-      "question": "Se dobrarmos a velocidade, por que a energia cinética quadruplica?",
+      "description": "Por que dobrar a velocidade é muito mais perigoso do que parece.",
+      "phenomenon": "Em cidades, discute-se muito a diferença entre 40 km/h e 60 km/h em zonas residenciais. A diferença parece pequena — apenas 20 km/h. Mas a energia cinética cresce com o quadrado da velocidade: a 60 km/h um carro tem 2,25× mais energia do que a 40 km/h. A distância de frenagem aumenta na mesma proporção.",
+      "guidingQuestion": "Se um carro dobra sua velocidade de 30 para 60 km/h, sua energia cinética dobra ou quadruplica?",
       "simulation": "kinetic",
-      "phase": "phenomenon",
-      "difficulty": 2,
+      "variables": [
+        {
+          "key": "mass",
+          "label": "Massa (m)",
+          "unit": "kg",
+          "min": 100,
+          "max": 5000,
+          "step": 100,
+          "default": 1000
+        },
+        {
+          "key": "velocity",
+          "label": "Velocidade (v)",
+          "unit": "m/s",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "default": 15
+        }
+      ],
+      "equations": [
+        "energy-kinetic-eq"
+      ],
+      "exercises": [
+        "energy-ex-01",
+        "energy-ex-04"
+      ],
       "duration_min": 15
     },
     {
       "id": "conservation-01",
       "module": "energy",
       "title": "Conservação de Energia",
-      "phenomenon": "Em um sistema sem forças dissipativas, a energia mecânica total se conserva.",
-      "variables": ["energia total", "energia potencial", "energia cinética", "trabalho do atrito"],
-      "equations": [
-        "E_mec = Ep + Ec = constante",
-        "ΔE_mec = W_atrito"
-      ],
-      "question": "O que acontece com a energia total quando adicionamos atrito?",
+      "description": "Sem dissipação, a energia total se conserva — a mesma altura, a mesma velocidade.",
+      "phenomenon": "O pêndulo de Newton — aquelas esferas metálicas penduradas que ficam nas mesas de escritório — mostra algo perturbador: a última esfera volta sempre à mesma altura que a primeira saiu. Sem exceção. Por quê? E por que, na prática, elas vão perdendo altura aos poucos?",
+      "guidingQuestion": "Se ligarmos o atrito na simulação, onde vai a energia que 'desaparece'? A energia se perde ou se transforma?",
       "simulation": "conservation",
-      "phase": "phenomenon",
-      "difficulty": 3,
-      "duration_min": 20
+      "variables": [
+        {
+          "key": "mass",
+          "label": "Massa (m)",
+          "unit": "kg",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "key": "height",
+          "label": "Altura (h)",
+          "unit": "m",
+          "min": 0.5,
+          "max": 5,
+          "step": 0.5,
+          "default": 2
+        },
+        {
+          "key": "friction",
+          "label": "Atrito",
+          "unit": "",
+          "min": 0,
+          "max": 1,
+          "step": 1,
+          "default": 0,
+          "type": "toggle"
+        }
+      ],
+      "equations": [
+        "energy-conservation-eq"
+      ],
+      "exercises": [
+        "energy-ex-03"
+      ],
+      "duration_min": 25
     },
     {
       "id": "buoyancy-01",
       "module": "fluids",
-      "title": "Empuxo",
-      "phenomenon": "Um objeto submerso em um fluido sofre uma força para cima igual ao peso do fluido deslocado.",
-      "variables": ["empuxo", "peso", "densidade do fluido", "volume submerso"],
-      "equations": ["E = ρ_f · g · V_sub"],
-      "question": "Por que um navio de aço flutua enquanto um cubo de aço afunda?",
+      "title": "Princípio de Arquimedes",
+      "description": "O empuxo é igual ao peso do fluido deslocado — independente do material do objeto.",
+      "phenomenon": "Um porta-aviões USS Gerald R. Ford pesa 100.000 toneladas e flutua. Um prego de 5 gramas afunda. Ambos são feitos de aço. A diferença não está no material — está na forma. O porta-aviões é oco: sua densidade média (incluindo o ar interno) é menor que a da água.",
+      "guidingQuestion": "Se pegarmos um cubo maciço de aço e o transformarmos numa caixa oca do mesmo peso, o que acontece com o empuxo?",
       "simulation": "buoyancy",
-      "phase": "phenomenon",
-      "difficulty": 2,
+      "variables": [
+        {
+          "key": "obj_density",
+          "label": "Densidade do objeto (ρ_obj)",
+          "unit": "kg/m³",
+          "min": 200,
+          "max": 8000,
+          "step": 100,
+          "default": 800
+        },
+        {
+          "key": "fluid_density",
+          "label": "Densidade do fluido (ρ_f)",
+          "unit": "kg/m³",
+          "min": 800,
+          "max": 1500,
+          "step": 50,
+          "default": 1000
+        }
+      ],
+      "equations": [
+        "buoyancy-eq"
+      ],
+      "exercises": [
+        "fluids-ex-01",
+        "fluids-ex-02",
+        "fluids-ex-05"
+      ],
       "duration_min": 20
     },
     {
       "id": "density-01",
       "module": "fluids",
       "title": "Densidade e Flutuação",
-      "phenomenon": "Um objeto flutua quando sua densidade média é menor que a do fluido. Afunda quando é maior.",
-      "variables": ["densidade do objeto", "densidade do fluido", "volume", "massa"],
-      "equations": ["ρ = m/V", "flutua se ρ_obj < ρ_fluido"],
-      "question": "O que determina se um objeto flutua ou afunda?",
+      "description": "Flutuar ou afundar depende da relação entre densidades — não do peso absoluto.",
+      "phenomenon": "No Mar Morto, você flutua sem esforço algum — impossível afundar. Na piscina, é preciso nadar para não ir ao fundo. A água do Mar Morto tem 30% de sal dissolvido: ρ ≈ 1240 kg/m³, contra 1000 kg/m³ da água doce. Sua densidade média é de cerca de 985 kg/m³ — você flutua no Mar Morto, afunda na água doce.",
+      "guidingQuestion": "Se a densidade do fluido for igual à do objeto, o que acontece? O objeto fica suspenso no meio do fluido?",
       "simulation": "density",
-      "phase": "phenomenon",
-      "difficulty": 1,
+      "variables": [
+        {
+          "key": "obj_density",
+          "label": "Densidade do objeto (ρ_obj)",
+          "unit": "kg/m³",
+          "min": 200,
+          "max": 2000,
+          "step": 50,
+          "default": 600
+        },
+        {
+          "key": "fluid_density",
+          "label": "Densidade do fluido (ρ_f)",
+          "unit": "kg/m³",
+          "min": 800,
+          "max": 1500,
+          "step": 50,
+          "default": 1000
+        }
+      ],
+      "equations": [
+        "density-eq",
+        "buoyancy-eq"
+      ],
+      "exercises": [
+        "fluids-ex-03"
+      ],
       "duration_min": 15
     },
     {
       "id": "pressure-01",
       "module": "fluids",
-      "title": "Pressão em Fluidos",
-      "phenomenon": "A pressão em um fluido aumenta com a profundidade e age em todas as direções.",
-      "variables": ["pressão", "profundidade", "densidade do fluido", "pressão atmosférica"],
-      "equations": ["P = P₀ + ρ·g·h"],
-      "question": "Por que a pressão aumenta quanto mais fundo mergulhamos?",
+      "title": "Pressão Hidrostática",
+      "description": "A pressão aumenta com a profundidade — e age igualmente em todas as direções.",
+      "phenomenon": "Mergulhadores sentem os ouvidos doer a partir de 2–3 metros. A 10 metros, a pressão é o dobro da atmosférica. Submarinos militares operam a 300–500 m — lá a pressão é 30 a 50 vezes a do ar que respiramos. O casco precisa suportar forças que esmagariam um carro como papel.",
+      "guidingQuestion": "Se a profundidade dobrar, a pressão dobra? O que acontece com uma garrafa plástica fechada quando levada a 10 m de profundidade?",
       "simulation": "pressure",
-      "phase": "phenomenon",
-      "difficulty": 2,
-      "duration_min": 15
+      "variables": [
+        {
+          "key": "depth",
+          "label": "Profundidade (h)",
+          "unit": "m",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "key": "fluid_density",
+          "label": "Densidade do fluido (ρ_f)",
+          "unit": "kg/m³",
+          "min": 800,
+          "max": 1500,
+          "step": 50,
+          "default": 1000
+        }
+      ],
+      "equations": [
+        "pressure-eq"
+      ],
+      "exercises": [
+        "fluids-ex-04",
+        "fluids-ex-06"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "mhs-01",
+      "module": "ondas",
+      "title": "Massa-Mola — MHS",
+      "description": "O período de um oscilador massa-mola depende de m e k, nunca da amplitude.",
+      "phenomenon": "Um metrônomo — aquele pêndulo invertido que músicos usam para marcar o tempo — foi calibrado para uma frequência específica. Se você apertar mais o peso ou usar mais leve, o período muda. Se você apertar mais ou menos a mola, muda também. Mas se você apenas puxar mais ou menos — o período permanece igual.",
+      "guidingQuestion": "Se você pendurar a mesma mola num objeto duas vezes mais pesado, o período dobra? Reduz à metade? Ou muda de outra forma?",
+      "simulation": "mhs",
+      "variables": [
+        {
+          "key": "mass",
+          "label": "Massa (m)",
+          "unit": "kg",
+          "min": 0.1,
+          "max": 5.0,
+          "step": 0.1,
+          "default": 1.0
+        },
+        {
+          "key": "springK",
+          "label": "Constante (k)",
+          "unit": "N/m",
+          "min": 1.0,
+          "max": 50.0,
+          "step": 1.0,
+          "default": 10.0
+        },
+        {
+          "key": "amplitude",
+          "label": "Amplitude (A)",
+          "unit": "m",
+          "min": 0.05,
+          "max": 0.3,
+          "step": 0.01,
+          "default": 0.15
+        }
+      ],
+      "equations": [
+        "mhs-period",
+        "mhs-omega"
+      ],
+      "exercises": [
+        "mhs-ex-01",
+        "mhs-ex-02",
+        "mhs-ex-03"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "wave-01",
+      "module": "ondas",
+      "title": "Onda Transversal Progressiva",
+      "description": "A perturbação viaja — a matéria oscila no lugar.",
+      "phenomenon": "Um violão tem 6 cordas, todas do mesmo comprimento aproximado. Mas produzem notas diferentes. Por quê? Cordas mais grossas (maior densidade linear) vibram mais devagar — frequência menor, som mais grave. A velocidade da onda numa corda depende da tensão e da massa por comprimento.",
+      "guidingQuestion": "Se dobrarmos a frequência de uma onda mantendo a velocidade constante, o comprimento de onda dobra ou cai pela metade?",
+      "simulation": "wave",
+      "variables": [
+        {
+          "key": "amplitude",
+          "label": "Amplitude (A)",
+          "unit": "m",
+          "min": 0.01,
+          "max": 0.2,
+          "step": 0.01,
+          "default": 0.08
+        },
+        {
+          "key": "frequency",
+          "label": "Frequência (f)",
+          "unit": "Hz",
+          "min": 0.2,
+          "max": 4.0,
+          "step": 0.1,
+          "default": 1.0
+        },
+        {
+          "key": "wavelength",
+          "label": "Comprimento (λ)",
+          "unit": "m",
+          "min": 0.1,
+          "max": 1.5,
+          "step": 0.05,
+          "default": 0.5
+        }
+      ],
+      "equations": [
+        "wave-speed",
+        "wave-period"
+      ],
+      "exercises": [
+        "wave-ex-01",
+        "wave-ex-02",
+        "wave-ex-03"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "superposition-01",
+      "module": "ondas",
+      "title": "Superposição de Ondas",
+      "description": "Ondas se somam ponto a ponto — interferência construtiva, destrutiva e batimentos.",
+      "phenomenon": "Dois violinistas tocando a nota Lá — um calibrado em 440 Hz, o outro levemente desafinado em 443 Hz — produzem um som pulsante, que fica mais forte e mais fraco 3 vezes por segundo. São os batimentos. Técnicos de som usam esse efeito para afinar instrumentos sem equipamento eletrônico.",
+      "guidingQuestion": "Se dois violinistas tocarem em frequências cada vez mais próximas, os batimentos ficam mais rápidos ou mais lentos?",
+      "simulation": "superposition",
+      "variables": [
+        {
+          "key": "A1",
+          "label": "Amplitude 1 (A₁)",
+          "unit": "m",
+          "min": 0.01,
+          "max": 0.12,
+          "step": 0.01,
+          "default": 0.06
+        },
+        {
+          "key": "f1",
+          "label": "Frequência 1 (f₁)",
+          "unit": "Hz",
+          "min": 0.5,
+          "max": 5.0,
+          "step": 0.1,
+          "default": 1.0
+        },
+        {
+          "key": "A2",
+          "label": "Amplitude 2 (A₂)",
+          "unit": "m",
+          "min": 0.01,
+          "max": 0.12,
+          "step": 0.01,
+          "default": 0.06
+        },
+        {
+          "key": "f2",
+          "label": "Frequência 2 (f₂)",
+          "unit": "Hz",
+          "min": 0.5,
+          "max": 5.0,
+          "step": 0.1,
+          "default": 1.2
+        },
+        {
+          "key": "phi",
+          "label": "Fase (φ)",
+          "unit": "rad",
+          "min": 0,
+          "max": 6.28,
+          "step": 0.1,
+          "default": 0
+        }
+      ],
+      "equations": [
+        "superposition-eq"
+      ],
+      "exercises": [
+        "sup-ex-01"
+      ],
+      "duration_min": 25
+    },
+    {
+      "id": "pendulum-wave-01",
+      "module": "ondas",
+      "title": "Pêndulo Simples",
+      "description": "O período depende apenas do comprimento — não da massa nem da amplitude.",
+      "phenomenon": "O relógio de pêndulo — inventado por Huygens em 1656 — foi o instrumento de medição de tempo mais preciso do mundo por 270 anos. O truque: o período não depende de quão pesado é o pêndulo nem de quão alto você levanta. Depende apenas do comprimento do fio. Isso o torna estável mesmo que o pêndulo perca massa com o tempo.",
+      "guidingQuestion": "Um pêndulo de 1 m tem período T ≈ 2 s. Para ter T ≈ 4 s, precisamos de um pêndulo de 2 m ou de 4 m?",
+      "simulation": "pendulum-wave",
+      "variables": [
+        {
+          "key": "length",
+          "label": "Comprimento (L)",
+          "unit": "m",
+          "min": 0.1,
+          "max": 2.5,
+          "step": 0.1,
+          "default": 1.0
+        },
+        {
+          "key": "theta0",
+          "label": "Ângulo inicial (θ₀)",
+          "unit": "rad",
+          "min": 0.05,
+          "max": 0.6,
+          "step": 0.05,
+          "default": 0.3
+        }
+      ],
+      "equations": [
+        "pendulum-period"
+      ],
+      "exercises": [
+        "pendulum-ex-01"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "gas-ideal-01",
+      "module": "termodinamica",
+      "title": "Gás Ideal — Lei de Boyle",
+      "description": "Comprimir um gás a temperatura constante aumenta sua pressão proporcionalmente.",
+      "phenomenon": "Pneus de bicicleta ficam mais rígidos em dias quentes e murcham levemente no frio. Uma garrafa PET fechada vinda da geladeira amassa sozinha ao aquecer no ambiente — o gás interno contrai com o frio. Uma bomba de ar manual fica quente quando você bombeia rápido: você está comprimindo o ar e convertendo trabalho em temperatura.",
+      "guidingQuestion": "Se reduzirmos o volume do gás à metade mantendo a temperatura, a pressão dobra ou quadruplica?",
+      "simulation": "gas-ideal",
+      "variables": [
+        {
+          "key": "n",
+          "label": "Quantidade (n)",
+          "unit": "mol",
+          "min": 0.1,
+          "max": 5.0,
+          "step": 0.1,
+          "default": 1.0
+        },
+        {
+          "key": "V",
+          "label": "Volume (V)",
+          "unit": "L",
+          "min": 0.2,
+          "max": 3.0,
+          "step": 0.1,
+          "default": 1.0
+        },
+        {
+          "key": "T",
+          "label": "Temperatura (T)",
+          "unit": "K",
+          "min": 200,
+          "max": 800,
+          "step": 10,
+          "default": 300
+        }
+      ],
+      "equations": [
+        "ideal-gas-law"
+      ],
+      "exercises": [
+        "gas-ex-01",
+        "gas-ex-02",
+        "gas-ex-03"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "processos-01",
+      "module": "termodinamica",
+      "title": "Processos Termodinâmicos",
+      "description": "Três maneiras diferentes de transformar o mesmo gás — três trajetórias no diagrama P×V.",
+      "phenomenon": "Uma panela de pressão funciona a volume constante: o vapor não pode escapar, então a pressão aumenta com a temperatura (Gay-Lussac). Por isso o frango cozinha em 20 minutos em vez de 1 hora — temperatura mais alta, reações mais rápidas. Uma bexiga aquecida dilata a volume constante de pressão (Charles). Um êmbolo de seringa puxado rápido resfria o gás dentro — é o processo inverso.",
+      "guidingQuestion": "No diagrama P×V, qual processo realiza mais trabalho sobre o gás ao expandir do mesmo volume inicial ao mesmo volume final?",
+      "simulation": "processos",
+      "variables": [
+        {
+          "key": "n",
+          "label": "Quantidade (n)",
+          "unit": "mol",
+          "min": 0.1,
+          "max": 3.0,
+          "step": 0.1,
+          "default": 1.0
+        },
+        {
+          "key": "T0",
+          "label": "Temperatura (T₀)",
+          "unit": "K",
+          "min": 200,
+          "max": 600,
+          "step": 10,
+          "default": 300
+        },
+        {
+          "key": "V0",
+          "label": "Volume inicial (V₀)",
+          "unit": "L",
+          "min": 0.2,
+          "max": 2.0,
+          "step": 0.1,
+          "default": 1.0
+        }
+      ],
+      "equations": [
+        "boyle-law",
+        "charles-law",
+        "gay-lussac-law"
+      ],
+      "exercises": [
+        "proc-ex-01"
+      ],
+      "duration_min": 25
+    },
+    {
+      "id": "calor-01",
+      "module": "termodinamica",
+      "title": "Capacidade Calorífica",
+      "description": "Materiais diferentes precisam de quantidades diferentes de calor para a mesma variação de temperatura.",
+      "phenomenon": "Na praia, a areia queima os pés ao meio-dia — o mar continua agradável. Ambos receberam o mesmo sol pelo mesmo tempo. A areia tem capacidade calorífica específica de 840 J/(kg·K); a água, de 4186 J/(kg·K) — quase 5× maior. Por isso o oceano regula o clima costeiro: aquece e esfria muito mais devagar que a terra.",
+      "guidingQuestion": "Por que panelas são feitas de ferro ou alumínio (baixo c) e não de água? O que aconteceria com uma panela de água?",
+      "simulation": "calor",
+      "variables": [
+        {
+          "key": "mass",
+          "label": "Massa (m)",
+          "unit": "kg",
+          "min": 0.1,
+          "max": 2.0,
+          "step": 0.1,
+          "default": 0.5
+        },
+        {
+          "key": "dQdt",
+          "label": "Potência (P)",
+          "unit": "W",
+          "min": 10,
+          "max": 500,
+          "step": 10,
+          "default": 100
+        },
+        {
+          "key": "T0",
+          "label": "T inicial (T₀)",
+          "unit": "°C",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "default": 20
+        }
+      ],
+      "equations": [
+        "heat-transfer"
+      ],
+      "exercises": [
+        "calor-ex-01",
+        "calor-ex-02"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "pendulum-intro-01",
+      "module": "intro",
+      "title": "Fenômeno Periódico — O Pêndulo",
+      "description": "Observar um fenômeno sem saber por quê. A curiosidade antes da explicação.",
+      "phenomenon": "Galileu tinha 17 anos quando observou um lustre oscilando na catedral de Pisa. Usou seu próprio pulso como cronômetro. Percebeu algo inesperado: independente de quão alto o lustre era empurrado, o tempo de cada oscilação parecia sempre o mesmo. Ele não tinha equações — tinha apenas observação cuidadosa. Isso foi suficiente para mudar a história da ciência.",
+      "guidingQuestion": "Antes de qualquer equação: o que você acha que afeta o período de um pêndulo? A massa? O comprimento? O ângulo? Faça sua previsão antes de manipular.",
+      "simulation": "pendulum-observe",
+      "variables": [
+        {
+          "key": "length",
+          "label": "Comprimento (L)",
+          "unit": "m",
+          "min": 0.2,
+          "max": 2.0,
+          "step": 0.1,
+          "default": 1.0
+        },
+        {
+          "key": "angle",
+          "label": "Ângulo inicial",
+          "unit": "rad",
+          "min": 0.1,
+          "max": 0.8,
+          "step": 0.05,
+          "default": 0.6
+        }
+      ],
+      "equations": [
+        "eq-pendulum-obs"
+      ],
+      "exercises": [
+        "pendulum-intro-ex-01",
+        "pendulum-intro-ex-02",
+        "pendulum-intro-ex-03"
+      ],
+      "duration_min": 20
     }
   ]
 }

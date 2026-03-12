@@ -126,7 +126,7 @@ class InertiaSimulation extends SimBase {
 
     /* Show zero resultant above body */
     ctx.save();
-    ctx.font      = '12px "JetBrains Mono", monospace';
+    ctx.font      = '12px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.cyan;
     ctx.textAlign = 'center';
     ctx.fillText('ΣF = 0', bx, cy - 32);
@@ -168,7 +168,7 @@ class Newton2Simulation extends SimBase {
       ? new ChartEngine(chartCanvas, {
           label: 'aceleração vs tempo',
           xUnit: 't (s)', yUnit: 'a (m/s²)',
-          color: '#f0a500',
+          color: '#c07828',
         })
       : null;
   }
@@ -225,7 +225,7 @@ class Newton2Simulation extends SimBase {
 
     /* Mass label inside body */
     ctx.save();
-    ctx.font      = '10px "JetBrains Mono", monospace';
+    ctx.font      = '10px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.textMuted;
     ctx.textAlign = 'center';
     ctx.fillText(`${this.mass}kg`, bx, cy + 3);
@@ -275,7 +275,7 @@ class FrictionSimulation extends SimBase {
       ? new ChartEngine(chartCanvas, {
           label: 'v vs t',
           xUnit: 't (s)', yUnit: 'v (m/s)',
-          color: '#00c878',
+          color: '#3d7a55',
         })
       : null;
   }
@@ -359,7 +359,7 @@ class FrictionSimulation extends SimBase {
     /* Surface texture changes with friction */
     if (this.hasFriction) {
       ctx.save();
-      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.font = '9px "Share Tech Mono", monospace';
       ctx.fillStyle = COLORS.textMuted;
       ctx.textAlign = 'center';
       ctx.fillText(`μk = ${this.mu_k.toFixed(2)}`, cw / 2, cy + 50);
@@ -455,7 +455,7 @@ class ResultantSimulation extends SimBase {
     } else {
       /* Equilibrium label */
       ctx.save();
-      ctx.font      = '11px "JetBrains Mono", monospace';
+      ctx.font      = '11px "Share Tech Mono", monospace';
       ctx.fillStyle = COLORS.cyan;
       ctx.textAlign = 'center';
       ctx.fillText('Equilíbrio', bx, cy + 50);

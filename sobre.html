@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sobre o Archimedes — Laboratório interativo de Física para Ensino Fundamental e Médio.">
+  <meta name="theme-color" content="#1c1a14">
+  <title>Sobre — Archimedes</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon-192.svg">
+
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/mobile.css">
+
+  <style>
+    /* ── Página estática: body scrollável, sem SPA shell ── */
+    body   { overflow-y: auto; }
+    #app   { height: auto; overflow: visible; }
+
+    /* Header: reutiliza .app-header mas é position:sticky */
+    .app-header { position: sticky; top: 0; }
+
+    /* Nav de páginas estáticas — no lugar do breadcrumb/actions do SPA */
+    .static-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-left: auto;
+    }
+
+    .static-nav a {
+      font-size: var(--text-sm);
+      letter-spacing: 0.04em;
+      color: var(--inst-text-muted);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-base);
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .static-nav a:hover {
+      color: var(--inst-text-primary);
+      background: var(--inst-bg-hover);
+      opacity: 1;
+    }
+
+    .static-nav a.ativo {
+      color: var(--amber);
+      border-color: var(--inst-border-amber);
+      background: var(--amber-dim);
+    }
+
+    /* ── Layout de conteúdo ──────────────────────── */
+    .sobre-main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: var(--space-10) var(--space-6) var(--space-16);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    /* Cabeçalho da página — instrumento */
+    .sobre-header {
+      padding: var(--space-6) 0 var(--space-4);
+      border-bottom: 1px solid var(--inst-border-base);
+      margin-bottom: var(--space-2);
+    }
+
+    .sobre-header__eyebrow {
+      display: block;
+      font-size: var(--text-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: var(--space-2);
+    }
+
+    .sobre-header h1 {
+      font-size: var(--text-3xl);
+      font-weight: 300;
+      color: var(--inst-text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-2);
+    }
+
+    .sobre-header__sub {
+      color: var(--inst-text-muted);
+      font-size: var(--text-md);
+      font-style: italic;
+    }
+
+    /* Seções de texto — notebook-panel com h2 interno */
+    .notebook-panel h2 {
+      font-size: 1.05rem;
+      font-weight: 500;
+      font-variant: small-caps;
+      letter-spacing: 0.08em;
+      color: var(--nb-blue);
+      border-bottom: 1px solid var(--nb-border);
+      padding-bottom: var(--space-2);
+      margin-bottom: var(--space-5);
+    }
+
+    .notebook-panel p {
+      margin-bottom: var(--space-4);
+    }
+
+    .notebook-panel p:last-child { margin-bottom: 0; }
+
+    /* Epígrafe */
+    .epigrafe {
+      font-style: italic;
+      color: var(--nb-text-secondary);
+      border-left: 3px solid var(--nb-border);
+      padding: var(--space-3) var(--space-5);
+      margin: var(--space-4) 0;
+      font-size: var(--text-md);
+      line-height: 1.75;
+    }
+
+    .epigrafe cite {
+      display: block;
+      margin-top: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--nb-text-muted);
+      font-style: normal;
+    }
+
+    /* Grid de métricas */
+    .metricas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--space-3);
+      margin: var(--space-5) 0;
+    }
+
+    .metrica {
+      background: var(--nb-bg-inset);
+      border: 1px solid var(--nb-border);
+      border-radius: var(--radius-base);
+      padding: var(--space-4);
+      text-align: center;
+    }
+
+    .metrica__valor {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--nb-blue);
+      line-height: 1.1;
+      margin-bottom: var(--space-1);
+    }
+
+    .metrica__label {
+      display: block;
+      font-size: var(--text-xs);
+      color: var(--nb-text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Badge de versão inline */
+    .versao-badge {
+      display: inline-block;
+      background: var(--nb-text-primary);
+      color: var(--nb-bg);
+      font-size: 0.72rem;
+      font-variant: small-caps;
+      letter-spacing: 0.06em;
+      padding: 0.1rem 0.5rem;
+      border-radius: var(--radius-sm);
+      vertical-align: middle;
+      margin-left: var(--space-2);
+    }
+
+    /* Nota informativa */
+    .nota-info {
+      background: var(--nb-blue-dim);
+      border-left: 3px solid var(--nb-blue);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-3) var(--space-5);
+      margin: var(--space-4) 0;
+      font-size: 0.95rem;
+      color: var(--nb-text-secondary);
+      line-height: 1.65;
+    }
+
+    /* Seção do ecossistema — fundo instrumento, fora do notebook */
+    .ecossistema {
+      background: var(--inst-bg-secondary);
+      border: 1px solid var(--inst-border-base);
+      border-radius: var(--radius-md);
+      padding: var(--space-8) var(--space-8) var(--space-6);
+    }
+
+    .ecossistema__titulo {
+      font-size: var(--text-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--inst-text-muted);
+      margin-bottom: var(--space-5);
+    }
+
+    .eco-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--space-3);
+    }
+
+    .eco-card {
+      border: 1px solid var(--inst-border-base);
+      border-radius: var(--radius-base);
+      padding: var(--space-4);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      background: transparent;
+    }
+
+    .eco-card:hover {
+      border-color: var(--inst-border-mid);
+      background: var(--inst-bg-hover);
+      opacity: 1;
+    }
+
+    .eco-card--ativo {
+      border-color: var(--inst-border-amber);
+      background: var(--amber-dim);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .eco-card__nome {
+      display: block;
+      font-size: var(--text-sm);
+      letter-spacing: 0.04em;
+      color: var(--inst-text-secondary);
+      margin-bottom: var(--space-1);
+      font-weight: 500;
+    }
+
+    .eco-card--ativo .eco-card__nome { color: var(--amber); }
+
+    .eco-card__area {
+      display: block;
+      font-size: var(--text-xs);
+      color: var(--inst-text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* Rodapé */
+    .sobre-footer {
+      text-align: center;
+      padding: var(--space-4) 0;
+      font-size: var(--text-sm);
+      color: var(--inst-text-muted);
+      border-top: 1px solid var(--inst-border-base);
+    }
+
+    @media (max-width: 700px) {
+      .sobre-main { padding: var(--space-6) var(--space-4) var(--space-10); }
+      .notebook-panel { padding: var(--space-5) var(--space-5); }
+    }
+
+    @media print {
+      .app-header, .ecossistema, .sobre-footer { display: none; }
+      body { background: white; }
+      .notebook-panel { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+<div id="app" style="display:flex; flex-direction:column; min-height:100vh;">
+
+  <!-- Header — mesmo DNA do SPA -->
+  <header class="app-header" role="banner" style="position:sticky; top:0;">
+    <a class="app-header__logo" href="index.html" aria-label="Archimedes — Início">
+      <div class="logo-mark" aria-hidden="true">
+        <span class="logo-ring"></span>
+      </div>
+      <span class="logo-text">Archi<span>medes</span></span>
+    </a>
+
+    <div class="header-divider" aria-hidden="true"></div>
+
+    <nav class="static-nav" aria-label="Páginas">
+      <a href="index.html">Laboratório</a>
+      <a href="sobre.html" class="ativo" aria-current="page">Sobre</a>
+      <a href="guia-professor.html">Guia do Professor</a>
+      <a href="plano-de-aula.html">Plano de Aula</a>
+    </nav>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main class="sobre-main" role="main">
+
+    <!-- Cabeçalho -->
+    <div class="sobre-header">
+      <span class="sobre-header__eyebrow">Laboratório Interativo de Física</span>
+      <h1>Archimedes</h1>
+      <p class="sobre-header__sub">Ensino Fundamental II e Médio · Fenômeno primeiro, formalização depois</p>
+    </div>
+
+    <!-- O nome -->
+    <div class="notebook-panel">
+      <h2>Por que "Archimedes"</h2>
+
+      <blockquote class="epigrafe">
+        «Eureka!»
+        <cite>— Arquimedes de Siracusa, ao descobrir o princípio do empuxo, c. 250 a.C.</cite>
+      </blockquote>
+
+      <p>
+        Arquimedes de Siracusa (287–212 a.C.) é o modelo do cientista que pensa
+        com o fenômeno, não contra ele. Conta a tradição que ele entrou numa banheira,
+        observou a água transbordar, e — antes de qualquer equação — entendeu:
+        o volume deslocado <em>é</em> o segredo da flutuação.
+      </p>
+      <p>
+        O laboratório leva esse nome porque segue a mesma ordem de raciocínio.
+        Cada experimento começa com um fenômeno concreto — um porta-aviões que flutua,
+        um freio de carro, uma corda de violão — e só depois formaliza o que
+        o aluno acabou de observar. A equação vem para explicar o fenômeno,
+        não para precedê-lo.
+      </p>
+    </div>
+
+    <!-- Filosofia -->
+    <div class="notebook-panel">
+      <h2>Filosofia pedagógica</h2>
+      <p>
+        A sequência de toda lição no Archimedes é invariante:
+        <strong>fenômeno → observação → hipótese → formalização → exercício.</strong>
+        Nenhuma etapa é pulada. O aluno que chega ao experimento de queda livre
+        já viu o fenômeno (uma pedra e uma pena caindo) antes de ver <em>g = 9,8 m/s²</em>.
+      </p>
+      <p>
+        Duas convicções guiam o design das simulações. Primeira:
+        o aluno precisa controlar parâmetros reais — massa, força, ângulo, densidade —
+        e ver consequências físicas imediatas, não apenas assistir a uma animação.
+        Segunda: a incerteza é pedagógica. Quando o aluno muda a densidade de um objeto
+        e ele para de flutuar, a surpresa é o início do aprendizado.
+      </p>
+      <div class="nota-info">
+        O motor de física usa WebAssembly (C compilado para WASM) com fallback em JavaScript puro.
+        Todas as simulações produzem o mesmo resultado numérico nos dois modos —
+        qualquer diferença é tratada como bug.
+      </div>
+    </div>
+
+    <!-- Métricas -->
+    <div class="notebook-panel">
+      <h2>O projeto hoje <span class="versao-badge">v1.2</span></h2>
+
+      <div class="metricas">
+        <div class="metrica">
+          <span class="metrica__valor">7</span>
+          <span class="metrica__label">Módulos</span>
+        </div>
+        <div class="metrica">
+          <span class="metrica__valor">23</span>
+          <span class="metrica__label">Experimentos</span>
+        </div>
+        <div class="metrica">
+          <span class="metrica__valor">22</span>
+          <span class="metrica__label">Simulações</span>
+        </div>
+        <div class="metrica">
+          <span class="metrica__valor">45</span>
+          <span class="metrica__label">Exercícios</span>
+        </div>
+        <div class="metrica">
+          <span class="metrica__valor">28</span>
+          <span class="metrica__label">Equações</span>
+        </div>
+        <div class="metrica">
+          <span class="metrica__valor">22</span>
+          <span class="metrica__label">Lições</span>
+        </div>
+      </div>
+
+      <p>
+        Os sete módulos cobrem Introdução à Física, Movimento, Forças, Energia,
+        Fluidos, Ondas e Termodinâmica — do 8º ano do EF ao 1º e 2º anos do EM,
+        com alinhamento à BNCC de Ciências da Natureza.
+      </p>
+    </div>
+
+    <!-- Técnico -->
+    <div class="notebook-panel">
+      <h2>Decisões técnicas</h2>
+      <p>
+        O Archimedes é inteiramente estático: HTML, CSS e JavaScript puros,
+        sem framework, sem backend, sem conta de usuário.
+        Funciona offline como PWA após a primeira visita.
+        O código-fonte está aberto no GitHub.
+      </p>
+      <p>
+        As simulações rodam a 60 fps com canvas 2D.
+        Integradores sensíveis a energia (massa-mola, pêndulo) usam Velocity Verlet
+        em vez de Euler explícito, que diverge em sessões longas.
+        O progresso do aluno é salvo localmente via
+        <code>localStorage</code>, sem servidor.
+      </p>
+    </div>
+
+    <!-- Ecossistema -->
+    <div class="ecossistema">
+      <p class="ecossistema__titulo">Ecossistema educacional</p>
+      <div class="eco-grid">
+        <div class="eco-card eco-card--ativo" aria-current="true">
+          <span class="eco-card__nome">Archimedes</span>
+          <span class="eco-card__area">Física</span>
+        </div>
+        <a class="eco-card" href="https://luddevergard3n.github.io/euclides/">
+          <span class="eco-card__nome">Euclides</span>
+          <span class="eco-card__area">Matemática</span>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/lavoisier/">
+          <span class="eco-card__nome">Lavoisier</span>
+          <span class="eco-card__area">Química</span>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/Herodoto/">
+          <span class="eco-card__nome">Heródoto</span>
+          <span class="eco-card__area">História</span>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/humboldt/">
+          <span class="eco-card__nome">Humboldt</span>
+          <span class="eco-card__area">Geografia</span>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/quintiliano/">
+          <span class="eco-card__nome">Quintiliano</span>
+          <span class="eco-card__area">Português e Literatura</span>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/johnson-english/">
+          <span class="eco-card__nome">Johnson</span>
+          <span class="eco-card__area">Inglês</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="sobre-footer">
+      Archimedes v1.2 · Código aberto · Domínio público
+    </footer>
+
+  </main>
+</div>
+</body>
+</html>

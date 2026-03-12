@@ -4,9 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Archimedes — Laboratório interativo de Física. Aprenda Física através do fenômeno.">
-  <meta name="theme-color" content="#04060a">
+  <meta name="theme-color" content="#1c1a14">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Archimedes">
 
   <title>Archimedes — Laboratório de Física</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Ícones -->
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon-192.svg">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.svg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/theme.css">
@@ -56,6 +67,9 @@
     </nav>
 
     <div class="header-actions" role="toolbar" aria-label="Ações">
+      <a class="header-btn" href="sobre.html" title="Sobre o Archimedes">Sobre</a>
+      <a class="header-btn" href="guia-professor.html" title="Guia do Professor">Guia</a>
+      <a class="header-btn" href="plano-de-aula.html" title="Plano de Aula">Plano</a>
       <span id="wasm-status"
         class="header-btn"
         title="Status do motor físico"
@@ -115,6 +129,17 @@
 
 <!-- Script — ES module entry -->
 <script type="module" src="js/main.js"></script>
+
+<!-- Service Worker — PWA offline support -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js', { scope: './' })
+        .then(reg => console.info('[pwa] SW registrado:', reg.scope))
+        .catch(err => console.warn('[pwa] SW falhou:', err.message));
+    });
+  }
+</script>
 
 </body>
 </html>

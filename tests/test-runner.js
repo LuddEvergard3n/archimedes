@@ -255,21 +255,21 @@ function renderReport(container) {
   const pct   = total > 0 ? (((_passed / total) * 100).toFixed(1)) : '—';
 
   container.innerHTML = `
-    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;padding:24px;color:#dce8f4;background:#07090d;min-height:100vh">
-      <h1 style="font-size:18px;font-weight:500;margin-bottom:4px">Archimedes — Test Report</h1>
-      <p style="color:#6e90b0;margin-bottom:24px">
+    <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:13px;padding:24px;color:#e8e0c8;background:#1c1a14;min-height:100vh">
+      <h1 style="font-size:18px;font-weight:500;margin-bottom:4px;font-family:'EB Garamond',Georgia,serif;letter-spacing:0.04em">Archimedes — Test Report</h1>
+      <p style="color:#7a7060;margin-bottom:24px">
         ${_passed}/${total} passaram (${pct}%) —
-        <span style="color:${_failed > 0 ? '#e84040' : '#00c878'}">${_failed} falhas</span>
+        <span style="color:${_failed > 0 ? '#b54a28' : '#3d7a55'}">${_failed} falhas</span>
       </p>
       <div>
         ${_results.map(r => `
           <div style="display:flex;gap:10px;align-items:baseline;padding:4px 0;
                       border-bottom:1px solid rgba(255,255,255,0.04)">
-            <span style="color:${r.ok ? '#00c878' : '#e84040'};flex-shrink:0">
+            <span style="color:${r.ok ? '#3d7a55' : '#b54a28'};flex-shrink:0">
               ${r.ok ? 'PASS' : 'FAIL'}
             </span>
             <span style="flex:1">${r.label}</span>
-            ${!r.ok ? `<span style="color:#6e90b0;font-size:11px">${r.note}</span>` : ''}
+            ${!r.ok ? `<span style="color:#7a7060;font-size:11px">${r.note}</span>` : ''}
           </div>
         `).join('')}
       </div>

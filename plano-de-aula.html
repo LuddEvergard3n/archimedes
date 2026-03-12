@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gerador de Plano de Aula — Archimedes. Crie planos com habilidades BNCC de Ciências da Natureza e imprima em PDF.">
+  <meta name="theme-color" content="#1c1a14">
+  <title>Plano de Aula — Archimedes</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon-192.svg">
+
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/mobile.css">
+
+  <style>
+    body   { overflow-y: auto; }
+    #app   { height: auto; overflow: visible; }
+    .app-header { position: sticky; top: 0; }
+
+    .static-nav {
+      display: flex; align-items: center; gap: var(--space-1); margin-left: auto;
+    }
+    .static-nav a {
+      font-size: var(--text-sm); letter-spacing: 0.04em;
+      color: var(--inst-text-muted);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-base);
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: all var(--transition-fast); white-space: nowrap;
+    }
+    .static-nav a:hover { color: var(--inst-text-primary); background: var(--inst-bg-hover); opacity: 1; }
+    .static-nav a.ativo { color: var(--amber); border-color: var(--inst-border-amber); background: var(--amber-dim); }
+
+    /* ── Toolbar de ação ─────────────────────────── */
+    .plano-toolbar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-6);
+      background: var(--inst-bg-secondary);
+      border-bottom: 1px solid var(--inst-border-base);
+    }
+
+    .plano-toolbar p {
+      font-size: var(--text-sm);
+      color: var(--inst-text-muted);
+      margin: 0;
+      flex: 1;
+    }
+
+    /* ── Layout de dois painéis ──────────────────── */
+    .plano-body {
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      gap: 0;
+      height: calc(100vh - var(--header-height) - 48px); /* 48px = toolbar */
+      overflow: hidden;
+    }
+
+    /* Painel formulário — instrumento */
+    .form-panel {
+      background: var(--inst-bg-secondary);
+      border-right: 1px solid var(--inst-border-base);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-section {
+      border-bottom: 1px solid var(--inst-border-base);
+    }
+
+    .form-section__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .form-section__header:hover { background: var(--inst-bg-hover); }
+
+    .form-section__title {
+      font-size: var(--text-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--inst-text-muted);
+      flex: 1;
+    }
+
+    .form-section__dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      opacity: 0.55;
+      flex-shrink: 0;
+    }
+
+    .form-section__body {
+      padding: var(--space-4) var(--space-4) var(--space-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    /* Grid de campos */
+    .fr2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+    .fr3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); }
+
+    /* Campo de formulário */
+    .fg {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .fg label {
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--inst-text-muted);
+      /* Garante alinhamento vertical entre colunas mesmo com labels longos */
+      min-height: 2em;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .fg input,
+    .fg select,
+    .fg textarea {
+      background: var(--inst-bg-panel);
+      border: 1px solid var(--inst-border-base);
+      border-radius: var(--radius-base);
+      color: var(--inst-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      padding: var(--space-2) var(--space-3);
+      transition: border-color var(--transition-fast);
+      width: 100%;
+    }
+
+    .fg input:focus,
+    .fg select:focus,
+    .fg textarea:focus {
+      border-color: var(--inst-border-amber);
+      outline: none;
+    }
+
+    .fg input[readonly] {
+      background: var(--inst-bg-deep);
+      color: var(--inst-text-muted);
+      cursor: default;
+    }
+
+    .fg textarea {
+      resize: vertical;
+      min-height: 60px;
+      line-height: 1.55;
+    }
+
+    /* Painel de checkboxes — BNCC e presets */
+    .check-box {
+      background: var(--inst-bg-deep);
+      border: 1px solid var(--inst-border-base);
+      border-radius: var(--radius-base);
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .check-empty {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--inst-text-disabled);
+      font-style: italic;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--inst-border-dim);
+    }
+
+    .check-item:last-child { border-bottom: none; }
+
+    .check-item input[type="checkbox"] {
+      width: auto;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--amber);
+    }
+
+    .check-item label {
+      font-size: var(--text-xs);
+      color: var(--inst-text-secondary);
+      line-height: 1.55;
+      cursor: pointer;
+      min-height: auto;
+      text-transform: none;
+      letter-spacing: 0;
+      align-items: flex-start;
+      display: block;
+    }
+
+    .check-id {
+      font-family: var(--font-mono);
+      color: var(--amber);
+      font-size: 0.72rem;
+      margin-right: var(--space-1);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Painel preview — notebook ───────────────── */
+    .preview-panel {
+      background: var(--inst-bg-primary);
+      overflow-y: auto;
+      padding: var(--space-6);
+    }
+
+    /* O documento imprimível */
+    #doc {
+      background: white;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem;
+      border: 1px solid var(--nb-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-nb-card);
+      font-family: 'EB Garamond', Georgia, serif;
+      color: #1a1612;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      min-height: 400px;
+    }
+
+    #doc .doc-vazio {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      gap: var(--space-3);
+      color: #9a9080;
+      font-style: italic;
+    }
+
+    #doc .doc-titulo {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #1a1612;
+      border-bottom: 2px solid #1a1612;
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
+    }
+
+    #doc .doc-subtitulo {
+      font-size: 0.85rem;
+      color: #5a4a3a;
+      margin-bottom: 1.5rem;
+    }
+
+    #doc .doc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      font-size: 0.88rem;
+    }
+
+    #doc .doc-campo { display: flex; gap: 0.4rem; }
+    #doc .doc-campo-label { color: #5a4a3a; font-weight: 500; flex-shrink: 0; }
+    #doc .doc-campo-val { color: #1a1612; }
+
+    #doc .ds {
+      margin-bottom: 0.9rem;
+    }
+
+    #doc .dst {
+      display: inline-block;
+      background: #1a1612;
+      color: white;
+      font-size: 0.72rem;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.55rem;
+      border-radius: 2px;
+      margin-bottom: 0.4rem;
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+
+    #doc .ds p {
+      margin: 0.2rem 0 0;
+      font-size: 0.9rem;
+      color: #2a2018;
+      line-height: 1.60;
+    }
+
+    #doc .ds ul {
+      margin: 0.2rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    #doc .ds li {
+      font-size: 0.88rem;
+      color: #2a2018;
+      margin-bottom: 0.15rem;
+      line-height: 1.50;
+    }
+
+    #doc .doc-bncc-id {
+      font-family: 'EB Garamond', Georgia, serif;
+      color: #2c4a7c;
+      font-size: 0.80rem;
+      font-weight: 600;
+      margin-right: 0.3rem;
+    }
+
+    #doc .doc-rodape {
+      margin-top: 1.5rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid #c8bfad;
+      font-size: 0.75rem;
+      color: #9a8a78;
+      text-align: right;
+    }
+
+    /* ── Responsivo mobile ───────────────────────── */
+    @media (max-width: 960px) {
+      .plano-body {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+      }
+      .form-panel { overflow: visible; }
+      .preview-panel { padding: var(--space-4); }
+    }
+
+    /* ── Print ───────────────────────────────────── */
+    @media print {
+      .app-header,
+      .plano-toolbar,
+      .form-panel { display: none !important; }
+
+      body { background: white !important; }
+
+      .plano-body {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      .preview-panel {
+        padding: 0 !important;
+        background: white !important;
+        overflow: visible !important;
+      }
+
+      #doc {
+        max-width: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 1.5cm 2cm !important;
+        font-size: 10pt !important;
+        margin: 0 !important;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="app" style="display:flex; flex-direction:column; height:100vh; overflow:hidden;">
+
+  <!-- Header -->
+  <header class="app-header" role="banner" style="position:relative; flex-shrink:0;">
+    <a class="app-header__logo" href="index.html" aria-label="Archimedes — Início">
+      <div class="logo-mark" aria-hidden="true"><span class="logo-ring"></span></div>
+      <span class="logo-text">Archi<span>medes</span></span>
+    </a>
+    <div class="header-divider" aria-hidden="true"></div>
+    <nav class="static-nav" aria-label="Páginas">
+      <a href="index.html">Laboratório</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="guia-professor.html">Guia do Professor</a>
+      <a href="plano-de-aula.html" class="ativo" aria-current="page">Plano de Aula</a>
+    </nav>
+  </header>
+
+  <!-- Toolbar -->
+  <div class="plano-toolbar" role="toolbar" aria-label="Ações">
+    <p>Preencha os campos à esquerda — o documento é gerado automaticamente à direita.</p>
+    <button class="btn btn--secondary btn--sm" onclick="limpar()">Limpar</button>
+    <button class="btn btn--primary btn--sm" onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <!-- Dois painéis -->
+  <div class="plano-body">
+
+    <!-- Formulário -->
+    <div class="form-panel" id="form-panel">
+
+      <!-- Identificação -->
+      <div class="form-section">
+        <div class="form-section__header" onclick="toggleSection(this)">
+          <span class="form-section__dot"></span>
+          <span class="form-section__title">Identificação</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" style="color:var(--inst-text-muted); transition:transform .2s;" class="section-arrow">
+            <path d="M6 8L1 3h10z"/>
+          </svg>
+        </div>
+        <div class="form-section__body">
+          <div class="fr2">
+            <div class="fg">
+              <label for="f-prof">Professor(a)</label>
+              <input type="text" id="f-prof" placeholder="Nome completo" oninput="gerar()">
+            </div>
+            <div class="fg">
+              <label for="f-data">Data</label>
+              <input type="date" id="f-data" oninput="gerar()">
+            </div>
+          </div>
+          <div class="fg">
+            <label for="f-escola">Escola / Instituição</label>
+            <input type="text" id="f-escola" placeholder="Nome da escola" oninput="gerar()">
+          </div>
+          <div class="fr3">
+            <div class="fg">
+              <label for="f-disc">Disciplina</label>
+              <input type="text" id="f-disc" value="Física" oninput="gerar()">
+            </div>
+            <div class="fg">
+              <label for="f-turma">Turma</label>
+              <input type="text" id="f-turma" placeholder="Ex.: 9º A" oninput="gerar()">
+            </div>
+            <div class="fg">
+              <label for="f-ano">Ano / Série</label>
+              <select id="f-ano" onchange="onAno(); gerar()">
+                <option value="">— Selecione —</option>
+                <optgroup label="Ensino Fundamental">
+                  <option value="8">8º ano</option>
+                  <option value="9">9º ano</option>
+                </optgroup>
+                <optgroup label="Ensino Médio">
+                  <option value="EM1">1ª série</option>
+                  <option value="EM2">2ª série</option>
+                  <option value="EM3">3ª série</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+          <div class="fr3">
+            <div class="fg">
+              <label for="f-naulas">Nº de aulas</label>
+              <input type="number" id="f-naulas" min="1" max="20" value="2" oninput="calcCarga(); gerar()">
+            </div>
+            <div class="fg">
+              <label for="f-dur">Duração da aula</label>
+              <select id="f-dur" onchange="calcCarga(); gerar()">
+                <option value="45">45 min</option>
+                <option value="50" selected>50 min</option>
+                <option value="60">60 min</option>
+                <option value="1h30">1h30</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label for="f-carga">Carga horária total</label>
+              <input type="text" id="f-carga" readonly tabindex="-1">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tema -->
+      <div class="form-section">
+        <div class="form-section__header" onclick="toggleSection(this)">
+          <span class="form-section__dot"></span>
+          <span class="form-section__title">Tema e Objetivos</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" style="color:var(--inst-text-muted); transition:transform .2s;" class="section-arrow">
+            <path d="M6 8L1 3h10z"/>
+          </svg>
+        </div>
+        <div class="form-section__body">
+          <div class="fg">
+            <label for="f-tema">Tema da aula</label>
+            <input type="text" id="f-tema" placeholder="Ex.: Queda livre e aceleração gravitacional" oninput="gerar()">
+          </div>
+          <div class="fg">
+            <label>Objetivos de aprendizagem</label>
+            <div class="check-box" id="box-obj">
+              <div class="check-empty">Selecione o ano/série para carregar objetivos.</div>
+            </div>
+            <textarea id="xa-obj" placeholder="Objetivos adicionais (opcional)..." rows="2" oninput="gerar()"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- BNCC -->
+      <div class="form-section">
+        <div class="form-section__header" onclick="toggleSection(this)">
+          <span class="form-section__dot"></span>
+          <span class="form-section__title">Habilidades BNCC</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" style="color:var(--inst-text-muted); transition:transform .2s;" class="section-arrow">
+            <path d="M6 8L1 3h10z"/>
+          </svg>
+        </div>
+        <div class="form-section__body">
+          <div class="fg">
+            <label>Habilidades (Ciências da Natureza)</label>
+            <div class="check-box" id="box-bncc">
+              <div class="check-empty">Selecione o ano/série acima.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metodologia -->
+      <div class="form-section">
+        <div class="form-section__header" onclick="toggleSection(this)">
+          <span class="form-section__dot"></span>
+          <span class="form-section__title">Metodologia e Recursos</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" style="color:var(--inst-text-muted); transition:transform .2s;" class="section-arrow">
+            <path d="M6 8L1 3h10z"/>
+          </svg>
+        </div>
+        <div class="form-section__body">
+          <div class="fg">
+            <label>Metodologias</label>
+            <div class="check-box" id="box-met"><!-- preenchido pelo JS --></div>
+            <textarea id="xa-met" placeholder="Metodologias adicionais..." rows="2" oninput="gerar()"></textarea>
+          </div>
+          <div class="fg">
+            <label>Recursos</label>
+            <div class="check-box" id="box-rec"><!-- preenchido pelo JS --></div>
+            <textarea id="xa-rec" placeholder="Recursos adicionais..." rows="2" oninput="gerar()"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Avaliação -->
+      <div class="form-section">
+        <div class="form-section__header" onclick="toggleSection(this)">
+          <span class="form-section__dot"></span>
+          <span class="form-section__title">Avaliação e Referências</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" style="color:var(--inst-text-muted); transition:transform .2s;" class="section-arrow">
+            <path d="M6 8L1 3h10z"/>
+          </svg>
+        </div>
+        <div class="form-section__body">
+          <div class="fg">
+            <label>Instrumentos de avaliação</label>
+            <div class="check-box" id="box-ava"><!-- preenchido pelo JS --></div>
+            <textarea id="xa-ava" placeholder="Critérios adicionais..." rows="2" oninput="gerar()"></textarea>
+          </div>
+          <div class="fg">
+            <label for="f-ref">Referências e materiais</label>
+            <textarea id="f-ref" placeholder="Livros, sites, materiais de apoio..." rows="3" oninput="gerar()"></textarea>
+          </div>
+          <div class="fg">
+            <label for="f-obs">Observações gerais</label>
+            <textarea id="f-obs" placeholder="Adaptações, necessidades especiais, contexto da turma..." rows="3" oninput="gerar()"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- .form-panel -->
+
+    <!-- Preview -->
+    <div class="preview-panel" id="preview-panel">
+      <div id="doc">
+        <div class="doc-vazio">
+          <span style="font-size:1.5rem; opacity:0.3">◎</span>
+          <span>Preencha os campos para gerar o plano de aula.</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- .plano-body -->
+</div>
+
+<script>
+/* ── Dados ───────────────────────────────────────────── */
+
+/* Objetivos de aprendizagem por ano */
+const OBJ = {
+  8: [
+    'Identificar e descrever fontes e transformações de energia no cotidiano',
+    'Investigar fenômenos relacionados à pressão e flutuação',
+    'Analisar a relação entre densidade e flutuação de objetos',
+    'Reconhecer a pressão hidrostática e sua dependência com a profundidade',
+    'Realizar medições e registrar dados em linguagem científica',
+  ],
+  9: [
+    'Descrever e comparar os tipos de movimento retilíneo (MRU e MRUV)',
+    'Calcular velocidade, aceleração e deslocamento a partir de gráficos e equações',
+    'Analisar a queda livre como caso particular de MRUV',
+    'Aplicar as Leis de Newton para prever e explicar situações de movimento',
+    'Relacionar força de atrito a variáveis como superfície e peso normal',
+    'Identificar e caracterizar fenômenos ondulatórios no cotidiano',
+  ],
+  EM1: [
+    'Aplicar as Leis de Newton a sistemas com forças múltiplas',
+    'Calcular trabalho, energia cinética e potencial em diferentes situações',
+    'Enunciar e aplicar o Princípio de Conservação de Energia',
+    'Analisar o equilíbrio de fluidos com base no Princípio de Arquimedes',
+    'Relacionar fenômenos físicos a modelos matemáticos e gráficos',
+  ],
+  EM2: [
+    'Descrever o movimento harmônico simples e suas grandezas características',
+    'Analisar a propagação de ondas transversais e suas propriedades',
+    'Explicar o fenômeno de superposição e interferência de ondas',
+    'Aplicar as leis dos gases ideais em situações-problema',
+    'Distinguir e comparar processos termodinâmicos isotérmico, isobárico e isocórico',
+    'Relacionar capacidade calorífica à variação de temperatura em trocas de calor',
+  ],
+  EM3: [
+    'Revisar e integrar conceitos de Mecânica, Ondas e Termodinâmica',
+    'Resolver problemas interdisciplinares envolvendo múltiplos conteúdos',
+    'Aplicar princípios físicos na análise de situações tecnológicas e ambientais',
+  ],
+};
+
+/* BNCC — Ciências da Natureza */
+const BNCC8 = [
+  { id: 'EF08CI01', t: 'Identificar e classificar diferentes fontes de energia, comparando processos de transformação de energia elétrica em outros tipos de energia.' },
+  { id: 'EF08CI02', t: 'Comparar diferentes processos de geração de energia elétrica, discutindo vantagens e desvantagens.' },
+  { id: 'EF08CI03', t: 'Classificar equipamentos domésticos quanto ao tipo de transformação de energia, calculando o consumo.' },
+  { id: 'EF08CI06', t: 'Investigar os fenômenos de eletrostática na interação de materiais.' },
+  { id: 'EF08CI07', t: 'Identificar processos de eletrização por atrito, contato e indução.' },
+];
+
+const BNCC9 = [
+  { id: 'EF09CI01', t: 'Investigar os diferentes tipos de movimento dos corpos com base em grandezas cinemáticas.' },
+  { id: 'EF09CI02', t: 'Relacionar a velocidade de um corpo ao deslocamento e ao tempo percorridos, representando graficamente.' },
+  { id: 'EF09CI03', t: 'Analisar e representar graficamente o movimento de corpos em movimento com aceleração constante.' },
+  { id: 'EF09CI04', t: 'Associar a conservação de energia ao movimento de sistemas mecânicos simples.' },
+  { id: 'EF09CI05', t: 'Discutir a utilidade de modelos físicos para representar e prever fenômenos naturais.' },
+  { id: 'EF09CI06', t: 'Identificar diferentes tipos de ondas mecânicas e eletromagnéticas e suas propriedades.' },
+  { id: 'EF09CI07', t: 'Relacionar as propriedades das ondas (frequência, comprimento, velocidade) a fenômenos do cotidiano.' },
+];
+
+const EM_CNT = [
+  { id: 'EM13CNT101', t: 'Analisar e representar as transformações de energia em sistemas físicos, usando modelos matemáticos e gráficos.' },
+  { id: 'EM13CNT102', t: 'Realizar e avaliar investigações científicas com procedimentos como observação, hipótese, experimentação e análise.' },
+  { id: 'EM13CNT103', t: 'Avaliar e prever variações no comportamento de sistemas naturais a partir de modelos teóricos ou computacionais.' },
+  { id: 'EM13CNT201', t: 'Analisar situações-problema com base em princípios de conservação (energia, quantidade de movimento).' },
+  { id: 'EM13CNT202', t: 'Analisar e explicar fenômenos relacionados à transformação, armazenamento e transferência de energia.' },
+  { id: 'EM13CNT204', t: 'Elaborar explicações científicas para fenômenos observados usando modelos físicos.' },
+  { id: 'EM13CNT205', t: 'Desenvolver e comunicar argumentos com base em evidências produzidas em investigações.' },
+  { id: 'EM13CNT301', t: 'Avaliar impactos do desenvolvimento tecnológico na qualidade de vida e no ambiente.' },
+];
+
+const BNCC = {
+  8: BNCC8,
+  9: BNCC9,
+  EM1: EM_CNT,
+  EM2: EM_CNT,
+  EM3: EM_CNT,
+};
+
+/* Presets fixos */
+const PMET = [
+  'Aula expositiva dialogada com questionamentos orientados',
+  'Exploração guiada de simulação computacional (Archimedes)',
+  'Demonstração com fenômeno real seguida de formalização',
+  'Atividade investigativa: parâmetro por parâmetro',
+  'Discussão em grupo sobre resultados e discrepâncias',
+  'Resolução de problemas em duplas com registro no caderno',
+  'Aula invertida: exploração prévia + aprofundamento em sala',
+];
+
+const PREC = [
+  'Laboratório Archimedes (archimedes.github.io)',
+  'Projetor ou lousa interativa',
+  'Computadores ou tablets com navegador atualizado',
+  'Caderno de registro do aluno',
+  'Livro didático adotado pela escola',
+  'Cronômetro ou aplicativo de medição',
+  'Material concreto complementar (molas, massas, recipientes)',
+];
+
+const PAVA = [
+  'Participação ativa nos questionamentos em sala',
+  'Registro escrito das previsões e observações no caderno',
+  'Resolução dos exercícios do laboratório virtual',
+  'Relatório individual descrevendo o fenômeno investigado',
+  'Prova escrita com questões contextualizadas',
+  'Autoavaliação ao final da sequência',
+];
+
+/* ── Inicialização ───────────────────────────────────── */
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('f-data').valueAsDate = new Date();
+  renderPreset('box-met', PMET, 'met');
+  renderPreset('box-rec', PREC, 'rec');
+  renderPreset('box-ava', PAVA, 'ava');
+  calcCarga();
+  gerar();
+});
+
+/* ── Carga horária calculada ─────────────────────────── */
+function calcCarga() {
+  const n   = parseInt(document.getElementById('f-naulas').value) || 0;
+  const dur = document.getElementById('f-dur').value;
+  const m   = dur === '1h30' ? 90 : parseInt(dur);
+  const tot = n * m;
+  let txt = '';
+  if (tot >= 60) {
+    const h = Math.floor(tot / 60), r = tot % 60;
+    txt = r ? `${h}h${String(r).padStart(2, '0')}min` : `${h}h`;
+  } else {
+    txt = `${tot} min`;
+  }
+  document.getElementById('f-carga').value = txt;
+}
+
+/* ── Troca de ano/série ──────────────────────────────── */
+function onAno() {
+  const raw = document.getElementById('f-ano').value;
+  const k   = isNaN(parseInt(raw)) ? raw : parseInt(raw);
+
+  renderPreset('box-obj', OBJ[k] || null, 'obj');
+  renderBNCC('box-bncc', BNCC[k] || null);
+}
+
+/* ── Render de checkboxes de preset ─────────────────── */
+function renderPreset(boxId, items, pfx) {
+  const b = document.getElementById(boxId);
+  if (!items || !items.length) {
+    b.innerHTML = '<div class="check-empty">Selecione o ano/série...</div>';
+    return;
+  }
+  b.innerHTML = items.map((txt, i) =>
+    `<div class="check-item">
+      <input type="checkbox" id="c-${boxId}-${i}" class="${pfx}-ck"
+             data-text="${txt.replace(/"/g, '&quot;')}" onchange="gerar()">
+      <label for="c-${boxId}-${i}">${txt}</label>
+    </div>`
+  ).join('');
+}
+
+/* ── Render de checkboxes BNCC (com código) ──────────── */
+function renderBNCC(boxId, items) {
+  const b = document.getElementById(boxId);
+  if (!items || !items.length) {
+    b.innerHTML = '<div class="check-empty">Selecione o ano/série acima.</div>';
+    return;
+  }
+  b.innerHTML = items.map((item, i) =>
+    `<div class="check-item">
+      <input type="checkbox" id="c-${boxId}-${i}" class="bncc-ck"
+             data-text="${item.t.replace(/"/g, '&quot;')}"
+             data-id="${item.id}" onchange="gerar()">
+      <label for="c-${boxId}-${i}">
+        <span class="check-id">${item.id}</span>${item.t}
+      </label>
+    </div>`
+  ).join('');
+}
+
+/* ── Coleta checkboxes marcados + campo livre ────────── */
+function getChecked(pfx, xaId) {
+  const itens = [...document.querySelectorAll(`.${pfx}-ck:checked`)]
+    .map(c => ({ text: c.dataset.text, id: c.dataset.id || null }));
+  const extra = (document.getElementById(xaId)?.value || '').trim();
+  if (extra) itens.push({ text: extra, id: null });
+  return itens;
+}
+
+function getBNCC() {
+  return [...document.querySelectorAll('.bncc-ck:checked')]
+    .map(c => ({ id: c.dataset.id, text: c.dataset.text }));
+}
+
+/* ── Geração do documento ────────────────────────────── */
+function sec(titulo, corpo) {
+  return `<div class="ds"><span class="dst">${titulo}</span>${corpo}</div>`;
+}
+
+function lista(itens, isBNCC = false) {
+  if (!itens.length) return '';
+  const lis = itens.map(it => {
+    const pref = (isBNCC && it.id)
+      ? `<span class="doc-bncc-id">${it.id}</span>`
+      : '';
+    return `<li>${pref}${it.text}</li>`;
+  }).join('');
+  return `<ul>${lis}</ul>`;
+}
+
+function gerar() {
+  const prof  = document.getElementById('f-prof').value.trim();
+  const data  = document.getElementById('f-data').value;
+  const escola = document.getElementById('f-escola').value.trim();
+  const disc  = document.getElementById('f-disc').value.trim() || 'Física';
+  const turma = document.getElementById('f-turma').value.trim();
+  const anoEl = document.getElementById('f-ano');
+  const anoTxt = anoEl.options[anoEl.selectedIndex]?.text || '';
+  const naulas = document.getElementById('f-naulas').value;
+  const carga  = document.getElementById('f-carga').value;
+  const tema  = document.getElementById('f-tema').value.trim();
+  const ref   = document.getElementById('f-ref').value.trim();
+  const obs   = document.getElementById('f-obs').value.trim();
+
+  const obj  = getChecked('obj',  'xa-obj');
+  const met  = getChecked('met',  'xa-met');
+  const rec  = getChecked('rec',  'xa-rec');
+  const ava  = getChecked('ava',  'xa-ava');
+  const bncc = getBNCC();
+
+  /* Sem nada preenchido — mostrar estado vazio */
+  const vazio = !prof && !escola && !tema && !obj.length && !bncc.length;
+  if (vazio) {
+    document.getElementById('doc').innerHTML =
+      `<div class="doc-vazio">
+        <span style="font-size:1.5rem; opacity:0.3">◎</span>
+        <span>Preencha os campos para gerar o plano de aula.</span>
+      </div>`;
+    return;
+  }
+
+  /* Data formatada */
+  const dataFmt = data
+    ? new Date(data + 'T12:00:00').toLocaleDateString('pt-BR')
+    : '___/___/______';
+
+  let html = '';
+
+  /* Cabeçalho */
+  html += `<div class="doc-titulo">${tema || 'Plano de Aula'}</div>`;
+  html += `<div class="doc-subtitulo">${escola ? escola + ' · ' : ''}${disc}${turma ? ' · ' + turma : ''}${anoTxt ? ' · ' + anoTxt : ''}</div>`;
+
+  html += `<div class="doc-grid">
+    <div class="doc-campo"><span class="doc-campo-label">Professor(a):</span><span class="doc-campo-val">${prof || '—'}</span></div>
+    <div class="doc-campo"><span class="doc-campo-label">Data:</span><span class="doc-campo-val">${dataFmt}</span></div>
+    <div class="doc-campo"><span class="doc-campo-label">Nº de aulas:</span><span class="doc-campo-val">${naulas}</span></div>
+    <div class="doc-campo"><span class="doc-campo-label">Carga horária:</span><span class="doc-campo-val">${carga}</span></div>
+  </div>`;
+
+  /* Objetivos */
+  if (obj.length) html += sec('Objetivos de Aprendizagem', lista(obj));
+
+  /* BNCC */
+  if (bncc.length) html += sec('Habilidades BNCC', lista(bncc, true));
+
+  /* Metodologia */
+  if (met.length) html += sec('Metodologia', lista(met));
+
+  /* Recursos */
+  if (rec.length) html += sec('Recursos', lista(rec));
+
+  /* Avaliação */
+  if (ava.length) html += sec('Avaliação', lista(ava));
+
+  /* Referências */
+  if (ref) html += sec('Referências', `<p>${ref.replace(/\n/g, '<br>')}</p>`);
+
+  /* Observações */
+  if (obs) html += sec('Observações', `<p>${obs.replace(/\n/g, '<br>')}</p>`);
+
+  /* Rodapé */
+  html += `<div class="doc-rodape">
+    Gerado pelo Archimedes — Laboratório de Física · ${new Date().toLocaleDateString('pt-BR')}
+  </div>`;
+
+  document.getElementById('doc').innerHTML = html;
+}
+
+/* ── Limpar formulário ───────────────────────────────── */
+function limpar() {
+  document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+  document.querySelectorAll('textarea').forEach(t => t.value = '');
+  document.getElementById('f-prof').value = '';
+  document.getElementById('f-escola').value = '';
+  document.getElementById('f-tema').value = '';
+  document.getElementById('f-turma').value = '';
+  document.getElementById('f-ano').value = '';
+  document.getElementById('f-disc').value = 'Física';
+  document.getElementById('f-data').valueAsDate = new Date();
+  onAno();
+  calcCarga();
+  gerar();
+}
+
+/* ── Toggle de seção do formulário ──────────────────── */
+function toggleSection(header) {
+  const body  = header.nextElementSibling;
+  const arrow = header.querySelector('.section-arrow');
+  const aberto = body.style.display !== 'none';
+  body.style.display  = aberto ? 'none' : '';
+  arrow.style.transform = aberto ? 'rotate(-90deg)' : '';
+}
+</script>
+</body>
+</html>

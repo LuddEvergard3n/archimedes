@@ -1,381 +1,238 @@
 /**
- * wasm-loader.js — Load C/WASM physics engine with pure-JS fallback
+ * wasm-loader.js — Carrega motor físico C/WASM com fallback JS puro.
  *
- * Architecture:
- *   1. Attempt to load wasm/physics_engine.wasm via WebAssembly.instantiateStreaming
- *   2. If WASM fails (file absent, browser incompatible), use PhysicsFallback
- *   3. Export a single `Physics` interface identical in both cases
+ * Compilado com clang --target=wasm32 (sem libc/WASI).
+ * O módulo importa sin/cos/sqrt/fabs do host JS via env.*.
  *
- * The JS fallback implements the same mathematical functions as the C engine,
- * ensuring identical numerical results for all standard simulations.
+ * Step functions escrevem resultados em ponteiro de saída na memória linear
+ * WASM; JS lê via Float64Array sobre memory.buffer.
  *
- * WASM export conventions (from physics_engine.c):
- *   All exported functions are prefixed by module: motion_, forces_, energy_, fluids_
+ * PhysicsFallback — JS puro, API idêntica ao WASM.
+ * Ativado automaticamente quando WASM falha ou não está disponível.
  */
 
 import { setState } from './state.js';
 
 /* ─────────────────────────────────────────────────────────────────────────── *
- * Pure-JS fallback — mirrors the C WASM exports exactly.
+ * Pure-JS fallback
  * ─────────────────────────────────────────────────────────────────────────── */
 
 const PhysicsFallback = {
-  /* ── Motion ─────────────────────────────────────── */
+  /* Movimento */
+  motion_position(x0, v0, a, t)  { return x0 + v0*t + 0.5*a*t*t; },
+  motion_velocity(v0, a, t)      { return v0 + a*t; },
+  motion_step(x, v, a, dt)       { return { x: x+v*dt, v: v+a*dt }; },
 
-  /**
-   * Position under constant acceleration.
-   * x(t) = x₀ + v₀·t + ½·a·t²
-   */
-  motion_position(x0, v0, a, t) {
-    return x0 + v0 * t + 0.5 * a * t * t;
-  },
-
-  /**
-   * Velocity under constant acceleration.
-   * v(t) = v₀ + a·t
-   */
-  motion_velocity(v0, a, t) {
-    return v0 + a * t;
-  },
-
-  /**
-   * Single integration step (Euler).
-   * Updates x and v in-place via returned object.
-   * @returns {{ x: number, v: number }}
-   */
-  motion_step(x, v, a, dt) {
-    return {
-      x: x + v * dt,
-      v: v + a * dt,
-    };
-  },
-
-  /* ── Forces ─────────────────────────────────────── */
-
-  /**
-   * Acceleration from net force and mass.
-   * a = F / m
-   */
-  forces_acceleration(net_force, mass) {
-    if (mass <= 0) return 0;
-    return net_force / mass;
-  },
-
-  /**
-   * Kinetic friction force magnitude.
-   * f = μk · N
-   */
-  forces_friction(normal_force, mu_k) {
-    return mu_k * Math.abs(normal_force);
-  },
-
-  /**
-   * Weight force.
-   * P = m · g
-   */
-  forces_weight(mass, g) {
-    return mass * g;
-  },
-
-  /**
-   * Single step for a body on a horizontal surface with applied force and friction.
-   * @returns {{ x: number, v: number }}
-   */
-  forces_step(x, v, applied_force, mass, mu_k, normal, has_friction, dt) {
-    /* Friction acts opposite to velocity direction; zero when stationary */
-    let friction = 0;
-    if (has_friction) {
-      const f_mag = mu_k * normal;
+  /* Forças */
+  forces_acceleration(F, m)      { return m<=0 ? 0 : F/m; },
+  forces_friction(N, mu_k)       { return mu_k*Math.abs(N); },
+  forces_weight(m, g)            { return m*g; },
+  forces_step(x, v, F, m, mu_k, N, hasFric, dt) {
+    let f = 0;
+    if (hasFric) {
+      const fmag = mu_k*Math.abs(N);
       if (Math.abs(v) > 1e-4) {
-        friction = -Math.sign(v) * f_mag;
+        f = -Math.sign(v)*fmag;
       } else {
-        /* Static: friction cancels applied force up to static limit */
-        const f_static = mu_k * 1.2 * normal; /* approximate μs ≈ 1.2·μk */
-        if (Math.abs(applied_force) <= f_static) {
-          return { x, v: 0 };
-        }
-        friction = -Math.sign(applied_force) * f_mag;
+        if (Math.abs(F) <= mu_k*1.2*Math.abs(N)) return { x, v:0 };
+        f = -Math.sign(F)*fmag;
       }
     }
-    const net = applied_force + friction;
-    const a   = net / mass;
-    const vn  = v + a * dt;
-    const xn  = x + v * dt;
-    return { x: xn, v: vn };
+    if (m<=0) return { x, v };
+    const a = (F+f)/m;
+    return { x: x+v*dt, v: v+a*dt };
   },
 
-  /* ── Energy ─────────────────────────────────────── */
-
-  /**
-   * Kinetic energy.
-   * Ec = ½·m·v²
-   */
-  energy_kinetic(mass, velocity) {
-    return 0.5 * mass * velocity * velocity;
+  /* Energia */
+  energy_kinetic(m, v)           { return 0.5*m*v*v; },
+  energy_potential(m, g, h)      { return m*g*Math.max(0,h); },
+  energy_work(F, d, cosT)        { return F*d*cosT; },
+  energy_ramp_step(s, v, maxS, ang, m, mu_k, hasFric, g, dt) {
+    const sinA = Math.sin(ang), cosA = Math.cos(ang);
+    const a    = g*sinA - (hasFric ? mu_k*g*cosA : 0);
+    let vn = v+a*dt, sn = s+v*dt;
+    if (sn>=maxS) { sn=maxS; vn=Math.max(0,vn); }
+    if (sn<0)     { sn=0;    vn=0; }
+    return { s:sn, v:vn, height:(maxS-sn)*sinA };
   },
 
-  /**
-   * Gravitational potential energy.
-   * Ep = m·g·h
-   */
-  energy_potential(mass, g, height) {
-    return mass * g * Math.max(0, height);
+  /* Fluidos */
+  fluids_buoyancy(rhoF, g, V)    { return rhoF*g*V; },
+  fluids_net_force(E, P)         { return E-P; },
+  fluids_pressure(P0, rho, g, h) { return P0+rho*g*h; },
+  fluids_equilibrium_fraction(rhoObj, rhoF) {
+    return rhoF<=0 ? 1 : Math.min(rhoObj/rhoF, 1);
+  },
+  fluids_object_step(y, v, rhoObj, h, vol, rhoF, g, dt, fluidTop, cBottom) {
+    const mass = rhoObj*vol;
+    if (mass<=0) return { y, v:0, submerged_fraction:0 };
+    const subFrac = Math.min(Math.max((fluidTop-(y-h/2))/h, 0), 1);
+    const E  = rhoF*g*subFrac*vol;
+    const P  = mass*g;
+    const a  = (E-P)/mass;
+    let vn = (v+a*dt)*0.97;
+    let yn = y+v*dt;
+    if (yn < cBottom+h/2) { yn = cBottom+h/2; vn=0; }
+    return { y:yn, v:vn, submerged_fraction:subFrac };
   },
 
-  /**
-   * Work done by a force.
-   * W = F·d·cos(θ)
-   */
-  energy_work(force, displacement, cos_theta) {
-    return force * displacement * cos_theta;
+  /* Ondas */
+  waves_displacement(A, k, x, w, t, phi) { return A*Math.sin(k*x - w*t + phi); },
+  waves_speed(f, lam)            { return f*lam; },
+  waves_period(f)                { return f>0 ? 1/f : 0; },
+  waves_pendulum_period(L, g)    { return L>0&&g>0 ? 2*Math.PI*Math.sqrt(L/g) : 0; },
+  waves_spring_period(m, k)      { return m>0&&k>0 ? 2*Math.PI*Math.sqrt(m/k) : 0; },
+  waves_superposition(A1,k1,w1,A2,k2,w2,phi,x,t) {
+    return A1*Math.sin(k1*x-w1*t) + A2*Math.sin(k2*x-w2*t+phi);
+  },
+  waves_mhs_step(x, v, omega, dt) {
+    /* Velocity Verlet — symplectically stable, conserves energy exactly.
+     * Euler explícito diverge em ~60s com dt=1/60. */
+    const a0 = -(omega * omega) * x;
+    const v_half = v + a0 * dt * 0.5;
+    const x_new  = x + v_half * dt;
+    const a1 = -(omega * omega) * x_new;
+    const v_new  = v_half + a1 * dt * 0.5;
+    return { x: x_new, v: v_new };
+  },
+  waves_pendulum_step(theta, omegaAng, L, g, dt) {
+    if (L<=0) return { theta, omega: omegaAng };
+    /* Velocity Verlet — symplectically stable for nonlinear pendulum */
+    const alpha0  = -(g/L)*Math.sin(theta);
+    const om_half = omegaAng + alpha0*dt*0.5;
+    const th_new  = theta + om_half*dt;
+    const alpha1  = -(g/L)*Math.sin(th_new);
+    const om_new  = om_half + alpha1*dt*0.5;
+    return { theta: th_new, omega: om_new };
   },
 
-  /**
-   * Ramp simulation step.
-   * Body slides down inclined plane, optionally with kinetic friction.
-   * @param {number} s   — distance along ramp from start (m)
-   * @param {number} v   — speed along ramp (m/s)
-   * @param {number} angle_rad — ramp angle (radians)
-   * @param {number} mass — kg
-   * @param {number} mu_k — kinetic friction coefficient
-   * @param {boolean} has_friction
-   * @param {number} g
-   * @param {number} dt
-   * @returns {{ s: number, v: number, height: number }}
-   */
-  energy_ramp_step(s, v, max_s, angle_rad, mass, mu_k, has_friction, g, dt) {
-    const sin_a = Math.sin(angle_rad);
-    const cos_a = Math.cos(angle_rad);
-
-    /* Gravity component along ramp (positive = downward) */
-    const g_component = g * sin_a;
-
-    /* Friction component along ramp */
-    const friction = has_friction ? mu_k * g * cos_a : 0;
-
-    /* Net acceleration along ramp (positive = downward) */
-    const a = g_component - friction;
-
-    let vn = v + a * dt;
-    let sn = s + v * dt;
-
-    /* Clamp at bottom (s = max_s) */
-    if (sn >= max_s) {
-      sn = max_s;
-      vn = Math.max(0, vn);
-    }
-    /* Clamp at top (s = 0) */
-    if (sn < 0) {
-      sn = 0;
-      vn = 0;
-    }
-
-    const height = (max_s - sn) * sin_a;
-    return { s: sn, v: vn, height };
-  },
-
-  /* ── Fluids ─────────────────────────────────────── */
-
-  /**
-   * Buoyancy (Archimedes' principle).
-   * E = ρf · g · V_sub
-   */
-  fluids_buoyancy(fluid_density, g, volume_submerged) {
-    return fluid_density * g * volume_submerged;
-  },
-
-  /**
-   * Net vertical force on submerged/floating object.
-   * F_net = E - P  (positive = upward)
-   */
-  fluids_net_force(buoyancy, weight) {
-    return buoyancy - weight;
-  },
-
-  /**
-   * Hydrostatic pressure.
-   * P = P0 + ρ·g·h
-   */
-  fluids_pressure(p0, fluid_density, g, depth) {
-    return p0 + fluid_density * g * depth;
-  },
-
-  /**
-   * Equilibrium submersion fraction for a floating object.
-   * If ρ_obj > ρ_fluid → fully submerged (returns 1.0, net force < 0 → sinks)
-   * If ρ_obj < ρ_fluid → partially submerged (returns ρ_obj/ρ_fluid)
-   * If ρ_obj = ρ_fluid → neutrally buoyant (returns 1.0, net force = 0)
-   *
-   * @returns {number} fraction of object submerged at equilibrium [0, 1]
-   */
-  fluids_equilibrium_fraction(obj_density, fluid_density) {
-    if (fluid_density <= 0) return 1.0;
-    const ratio = obj_density / fluid_density;
-    return Math.min(ratio, 1.0);
-  },
-
-  /**
-   * Dynamic step for an object in fluid (vertical motion).
-   * @param {number} y         — y position of object center (m), 0 = fluid surface
-   * @param {number} v         — vertical velocity (m/s, positive = up)
-   * @param {number} obj_density
-   * @param {number} obj_height — object height (m)
-   * @param {number} obj_volume — m³
-   * @param {number} fluid_density
-   * @param {number} g
-   * @param {number} dt
-   * @param {number} fluid_top  — y coordinate of fluid surface
-   * @param {number} container_bottom — y coordinate of container bottom
-   * @returns {{ y: number, v: number, submerged_fraction: number }}
-   */
-  fluids_object_step(y, v, obj_density, obj_height, obj_volume, fluid_density, g, dt, fluid_top, container_bottom) {
-    const obj_mass = obj_density * obj_volume;
-    const weight = obj_mass * g;
-
-    /* Compute submerged volume */
-    const obj_bottom = y - obj_height / 2;
-    const obj_top    = y + obj_height / 2;
-    const sub_bottom = Math.min(obj_bottom, fluid_top);
-    const sub_top    = Math.min(obj_top, fluid_top);
-    const sub_height = Math.max(0, sub_top - sub_bottom);
-    const sub_fraction = sub_height / obj_height;
-    const sub_volume = sub_fraction * obj_volume;
-
-    const buoyancy = fluid_density * g * sub_volume;
-    const f_net    = buoyancy - weight;
-    const a        = f_net / obj_mass;
-
-    let vn = v + a * dt;
-    let yn = y + v * dt;
-
-    /* Clamp: object cannot sink below container floor */
-    const floor = container_bottom + obj_height / 2;
-    if (yn < floor) { yn = floor; vn = 0; }
-
-    /* Damping to prevent infinite oscillation (simulates water resistance) */
-    vn *= 0.97;
-
-    return { y: yn, v: vn, submerged_fraction: sub_fraction };
-  },
+  /* Termodinâmica */
+  thermo_pressure(V, n, T)           { return V>0 ? (n*8.314*T)/V : 0; },
+  thermo_gay_lussac(P1, T1, T2)      { return T1>0 ? P1*T2/T1 : 0; },
+  thermo_boyle(P1, V1, P2)           { return P2>0 ? (P1*V1)/P2 : 0; },
+  thermo_charles(V1, T1, T2)         { return T1>0 ? V1*T2/T1 : 0; },
+  thermo_heat(m, c, dT)              { return m*c*dT; },
+  thermo_celsius_to_kelvin(C)        { return C+273.15; },
 };
 
 /* ─────────────────────────────────────────────────────────────────────────── *
- * WASM wrapper — wraps emscripten-compiled exports in the same API.
+ * Import object para o módulo WASM compilado com clang --allow-undefined
+ *
+ * O módulo C declara extern double sin/cos/sqrt/fabs e recebe-as via env.*.
  * ─────────────────────────────────────────────────────────────────────────── */
 
-/**
- * Build a Physics interface from WASM instance exports.
- * @param {Object} exports — WebAssembly instance exports
- * @returns {Object} Physics interface
- */
-function _buildWasmInterface(exports) {
-  /* Direct passthrough for pure-math functions that match signature */
+function _importObject() {
   return {
-    motion_position:        exports.motion_position,
-    motion_velocity:        exports.motion_velocity,
-    forces_acceleration:    exports.forces_acceleration,
-    forces_friction:        exports.forces_friction,
-    forces_weight:          exports.forces_weight,
-    energy_kinetic:         exports.energy_kinetic,
-    energy_potential:       exports.energy_potential,
-    energy_work:            exports.energy_work,
-    fluids_buoyancy:        exports.fluids_buoyancy,
-    fluids_net_force:       exports.fluids_net_force,
-    fluids_pressure:        exports.fluids_pressure,
-    fluids_equilibrium_fraction: exports.fluids_equilibrium_fraction,
-
-    /* Step functions return objects in JS; C returns via out-pointer.
-     * These wrappers bridge the gap. */
-    motion_step(x, v, a, dt) {
-      /* C: void motion_step(double *x, double *v, double a, double dt)
-       * Encoded as two f64 values in a shared memory buffer */
-      if (exports.motion_step_packed) {
-        const result_f64 = exports.motion_step_packed(x, v, a, dt);
-        /* packed: returns ptr to 2×f64 */
-        const mem = new Float64Array(exports.memory.buffer);
-        const base = result_f64 / 8;
-        return { x: mem[base], v: mem[base + 1] };
-      }
-      return PhysicsFallback.motion_step(x, v, a, dt);
-    },
-
-    forces_step(x, v, applied_force, mass, mu_k, normal, has_friction, dt) {
-      if (exports.forces_step_packed) {
-        const result = exports.forces_step_packed(x, v, applied_force, mass, mu_k, normal, has_friction ? 1 : 0, dt);
-        const mem = new Float64Array(exports.memory.buffer);
-        const base = result / 8;
-        return { x: mem[base], v: mem[base + 1] };
-      }
-      return PhysicsFallback.forces_step(x, v, applied_force, mass, mu_k, normal, has_friction, dt);
-    },
-
-    energy_ramp_step(s, v, max_s, angle_rad, mass, mu_k, has_friction, g, dt) {
-      if (exports.energy_ramp_step_packed) {
-        const result = exports.energy_ramp_step_packed(s, v, max_s, angle_rad, mass, mu_k, has_friction ? 1 : 0, g, dt);
-        const mem = new Float64Array(exports.memory.buffer);
-        const base = result / 8;
-        return { s: mem[base], v: mem[base + 1], height: mem[base + 2] };
-      }
-      return PhysicsFallback.energy_ramp_step(s, v, max_s, angle_rad, mass, mu_k, has_friction, g, dt);
-    },
-
-    fluids_object_step(y, v, obj_density, obj_height, obj_volume, fluid_density, g, dt, fluid_top, container_bottom) {
-      if (exports.fluids_object_step_packed) {
-        const result = exports.fluids_object_step_packed(y, v, obj_density, obj_height, obj_volume, fluid_density, g, dt, fluid_top, container_bottom);
-        const mem = new Float64Array(exports.memory.buffer);
-        const base = result / 8;
-        return { y: mem[base], v: mem[base + 1], submerged_fraction: mem[base + 2] };
-      }
-      return PhysicsFallback.fluids_object_step(y, v, obj_density, obj_height, obj_volume, fluid_density, g, dt, fluid_top, container_bottom);
+    env: {
+      sin:  (x) => Math.sin(x),
+      cos:  (x) => Math.cos(x),
+      sqrt: (x) => Math.sqrt(x),
+      fabs: (x) => Math.abs(x),
     },
   };
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── *
- * Public API
+ * WASM interface builder
  * ─────────────────────────────────────────────────────────────────────────── */
 
-/** @type {Object} — Active physics interface (WASM or fallback) */
+const OUT = 65536; /* offset fixo: acima do stack de 64 KB */
+
+function _buildWasmInterface(e) {
+  const m64 = () => new Float64Array(e.memory.buffer);
+  const i   = OUT / 8;
+
+  return {
+    /* Escalares — passagem direta */
+    motion_position:             e.motion_position,
+    motion_velocity:             e.motion_velocity,
+    forces_acceleration:         e.forces_acceleration,
+    forces_friction:             e.forces_friction,
+    forces_weight:               e.forces_weight,
+    energy_kinetic:              e.energy_kinetic,
+    energy_potential:            e.energy_potential,
+    energy_work:                 e.energy_work,
+    fluids_buoyancy:             e.fluids_buoyancy,
+    fluids_net_force:            e.fluids_net_force,
+    fluids_pressure:             e.fluids_pressure,
+    fluids_equilibrium_fraction: e.fluids_equilibrium_fraction,
+    waves_displacement:          e.waves_displacement,
+    waves_speed:                 e.waves_speed,
+    waves_period:                e.waves_period,
+    waves_pendulum_period:       e.waves_pendulum_period,
+    waves_spring_period:         e.waves_spring_period,
+    waves_superposition:         e.waves_superposition,
+    thermo_pressure:             e.thermo_pressure,
+    thermo_gay_lussac:           e.thermo_gay_lussac,
+    thermo_boyle:                e.thermo_boyle,
+    thermo_charles:              e.thermo_charles,
+    thermo_heat:                 e.thermo_heat,
+    thermo_celsius_to_kelvin:    e.thermo_celsius_to_kelvin,
+
+    /* Step functions — via ponteiro de saída */
+    motion_step(x, v, a, dt) {
+      e.motion_step(x, v, a, dt, OUT);
+      const m = m64(); return { x:m[i], v:m[i+1] };
+    },
+    forces_step(x, v, F, mass, mu_k, N, hasFric, dt) {
+      e.forces_step(x, v, F, mass, mu_k, N, hasFric?1:0, dt, OUT);
+      const m = m64(); return { x:m[i], v:m[i+1] };
+    },
+    energy_ramp_step(s, v, maxS, ang, mass, mu_k, hasFric, g, dt) {
+      e.energy_ramp_step(s, v, maxS, ang, mass, mu_k, hasFric?1:0, g, dt, OUT);
+      const m = m64(); return { s:m[i], v:m[i+1], height:m[i+2] };
+    },
+    fluids_object_step(y, v, rhoObj, h, vol, rhoF, g, dt, fluidTop, cBottom) {
+      e.fluids_object_step(y, v, rhoObj, h, vol, rhoF, g, dt, fluidTop, cBottom, OUT);
+      const m = m64(); return { y:m[i], v:m[i+1], submerged_fraction:m[i+2] };
+    },
+    waves_mhs_step(x, v, omega, dt) {
+      e.waves_mhs_step(x, v, omega, dt, OUT);
+      const m = m64(); return { x:m[i], v:m[i+1] };
+    },
+    waves_pendulum_step(theta, omegaAng, L, g, dt) {
+      e.waves_pendulum_step(theta, omegaAng, L, g, dt, OUT);
+      const m = m64(); return { theta:m[i], omega:m[i+1] };
+    },
+  };
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── *
+ * API pública
+ * ─────────────────────────────────────────────────────────────────────────── */
+
 let Physics = PhysicsFallback;
 
 /**
- * Initialize the physics engine.
- * Tries WASM; falls back to pure-JS silently.
- * @returns {Promise<boolean>} true if WASM loaded, false if using fallback
+ * Inicializa o motor físico.
+ * Tenta carregar physics_engine.wasm; usa PhysicsFallback automaticamente.
+ * @returns {Promise<boolean>} true se WASM carregou com sucesso.
  */
 async function initPhysics() {
-  if (!('WebAssembly' in window)) {
-    console.info('[wasm-loader] WebAssembly not supported. Using JS fallback.');
+  if (typeof WebAssembly === 'undefined') {
     setState('wasmLoaded', false);
-    setState('wasmError', 'WebAssembly not supported');
     return false;
   }
-
   try {
-    const wasmPath = 'wasm/physics_engine.wasm';
-    const response = await fetch(wasmPath);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const url  = new URL('../wasm/physics_engine.wasm', import.meta.url);
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 
-    const { instance } = await WebAssembly.instantiateStreaming(response, {
-      /* env imports for the C runtime */
-      env: {
-        memory: new WebAssembly.Memory({ initial: 4 }), /* 256 KB */
-        abort: (msg, file, line, col) => {
-          console.error(`[wasm] Abort: ${msg} at ${file}:${line}:${col}`);
-        },
-      },
-    });
+    const bytes = await resp.arrayBuffer();
+    const { instance } = await WebAssembly.instantiate(bytes, _importObject());
+
+    /* Inicializar globals do módulo emitidos pelo clang */
+    if (typeof instance.exports.__wasm_call_ctors === 'function') {
+      instance.exports.__wasm_call_ctors();
+    }
 
     Physics = _buildWasmInterface(instance.exports);
     setState('wasmLoaded', true);
-    console.info('[wasm-loader] WASM physics engine loaded.');
+    console.info('[wasm] Motor físico WASM ativo.');
     return true;
-
   } catch (err) {
-    console.info(`[wasm-loader] WASM unavailable (${err.message}). Using JS fallback.`);
-    Physics = PhysicsFallback;
+    console.info(`[wasm] Fallback JS (${err.message}).`);
     setState('wasmLoaded', false);
-    setState('wasmError', err.message);
     return false;
   }
 }

@@ -149,7 +149,7 @@ class PendulumSimulation extends SimBase {
 
     /* Observation prompt */
     ctx.save();
-    ctx.font      = '11px "JetBrains Mono", monospace';
+    ctx.font      = '11px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.textMuted;
     ctx.textAlign = 'center';
     ctx.fillText('Observe: o período depende de L, não da amplitude.', cw / 2, ch - 16);
@@ -197,7 +197,7 @@ class UnitsDemoSimulation extends SimBase {
     ctx.moveTo(rulerX, rulerY - 8); ctx.lineTo(rulerX, rulerY + 8);
     ctx.moveTo(rulerX + rulerW, rulerY - 8); ctx.lineTo(rulerX + rulerW, rulerY + 8);
     ctx.stroke();
-    ctx.font      = '11px "JetBrains Mono", monospace';
+    ctx.font      = '11px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.cyan;
     ctx.textAlign = 'center';
     ctx.fillText(`${(rulerW / 80).toFixed(2)} m`, rulerX + rulerW / 2, rulerY - 14);
@@ -213,7 +213,7 @@ class UnitsDemoSimulation extends SimBase {
     ctx.lineWidth   = 2;
     ctx.fillRect(massX - massSize / 2, massY - massSize / 2, massSize, massSize);
     ctx.strokeRect(massX - massSize / 2, massY - massSize / 2, massSize, massSize);
-    ctx.font      = '10px "JetBrains Mono", monospace';
+    ctx.font      = '10px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.amber;
     ctx.textAlign = 'center';
     ctx.fillText(`${(massSize / 10).toFixed(1)} kg`, massX, massY - massSize / 2 - 8);
@@ -236,7 +236,7 @@ class UnitsDemoSimulation extends SimBase {
     ctx.moveTo(timerX, timerY);
     ctx.lineTo(timerX + 24 * Math.sin(angle), timerY - 24 * Math.cos(angle));
     ctx.stroke();
-    ctx.font      = '10px "JetBrains Mono", monospace';
+    ctx.font      = '10px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.green;
     ctx.textAlign = 'center';
     ctx.fillText(`${this.time.toFixed(1)} s`, timerX, timerY + 44);
@@ -244,7 +244,7 @@ class UnitsDemoSimulation extends SimBase {
 
     /* Bottom labels */
     ctx.save();
-    ctx.font      = '10px "JetBrains Mono", monospace';
+    ctx.font      = '10px "Share Tech Mono", monospace';
     ctx.textAlign = 'center';
     const labels = [
       { x: cw / 2, label: 'Comprimento [m]',   color: COLORS.cyan  },

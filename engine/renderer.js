@@ -63,6 +63,8 @@ const COLORS = {
   forces: '#b54a28',
   energy: '#7a4a96',
   fluids: '#2a6080',
+  ondas:  '#5a7a40',
+  thermo: '#8a4a1a',
 
   /* Fluido */
   fluid:       'rgba(42, 96, 128, 0.28)',
@@ -267,7 +269,7 @@ function drawSurface(ctx, x1, x2, y) {
   ctx.stroke();
 
   /* Hatch marks below the line */
-  ctx.strokeStyle = '#0f1c2d';
+  ctx.strokeStyle = 'rgba(42, 39, 30, 0.90)';
   ctx.lineWidth   = 1;
   const spacing = 12;
   for (let x = x1; x <= x2; x += spacing) {
@@ -411,7 +413,7 @@ function drawTrail(ctx, points, color = COLORS.velocity) {
 
 /**
  * Convert hex color to rgba string with given alpha.
- * @param {string} hex — e.g. '#00d4ff'
+ * @param {string} hex — e.g. '#4472b0'
  * @param {number} alpha — 0..1
  * @returns {string}
  */

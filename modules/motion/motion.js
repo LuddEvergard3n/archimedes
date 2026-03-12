@@ -128,8 +128,8 @@ class MRUSimulation extends SimulationBase {
     this.chart = chartCanvas
       ? new DualChartEngine(
           chartCanvas,
-          { label: 'posição (m)', xUnit: 't (s)', yUnit: 'x (m)', color: '#00d4ff' },
-          { label: 'velocidade (m/s)', xUnit: 't (s)', yUnit: 'v (m/s)', color: '#00c878' }
+          { label: 'posição (m)', xUnit: 't (s)', yUnit: 'x (m)', color: '#4472b0' },
+          { label: 'velocidade (m/s)', xUnit: 't (s)', yUnit: 'v (m/s)', color: '#3d7a55' }
         )
       : null;
   }
@@ -205,7 +205,7 @@ class MRUSimulation extends SimulationBase {
 
     /* Distance markers */
     ctx.save();
-    ctx.font      = '9px "JetBrains Mono", monospace';
+    ctx.font      = '9px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.textMuted;
     ctx.textAlign = 'center';
     for (let m = 0; m <= this.worldW; m += 20) {
@@ -266,8 +266,8 @@ class MRUVSimulation extends SimulationBase {
     this.chart = chartCanvas
       ? new DualChartEngine(
           chartCanvas,
-          { label: 'posição (m)', xUnit: 't (s)', yUnit: 'x (m)', color: '#00d4ff' },
-          { label: 'velocidade (m/s)', xUnit: 't (s)', yUnit: 'v (m/s)', color: '#f0a500' }
+          { label: 'posição (m)', xUnit: 't (s)', yUnit: 'x (m)', color: '#4472b0' },
+          { label: 'velocidade (m/s)', xUnit: 't (s)', yUnit: 'v (m/s)', color: '#c07828' }
         )
       : null;
   }
@@ -322,7 +322,7 @@ class MRUVSimulation extends SimulationBase {
 
     /* Markers */
     ctx.save();
-    ctx.font = '9px "JetBrains Mono", monospace';
+    ctx.font = '9px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.textMuted;
     ctx.textAlign = 'center';
     for (let m = 0; m <= this.worldW; m += 20) {
@@ -382,7 +382,7 @@ class FreeFallSimulation extends SimulationBase {
       ? new ChartEngine(chartCanvas, {
           label: 'h vs t',
           xUnit: 't (s)', yUnit: 'h (m)',
-          color: '#e84040',
+          color: '#7a4a96',
           fillArea: true,
         })
       : null;
@@ -415,8 +415,7 @@ class FreeFallSimulation extends SimulationBase {
   }
 
   _update(dt) {
-    const result = Physics.motion_step(this.h, -this.v, -this.g, dt);
-    /* In free fall: a = -g (downward), h decreases */
+    /* Semi-implicit Euler for free fall: a = -g downward, h decreases */
     this.v = this.v + this.g * dt;
     this.h = this.h - this.v * dt;
     this.time += dt;
@@ -474,7 +473,7 @@ class FreeFallSimulation extends SimulationBase {
 
     /* Height scale markers */
     ctx.save();
-    ctx.font = '9px "JetBrains Mono", monospace';
+    ctx.font = '9px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.textMuted;
     ctx.textAlign = 'left';
     for (let hm = 0; hm <= this.h0; hm += 10) {

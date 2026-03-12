@@ -16,14 +16,21 @@ import {
   getEquationsByExperiment,
 } from './state.js';
 import { navigate } from './router.js';
+import { renderLatex } from './eq-renderer.js';
+import {
+  markExperimentVisited, markExerciseSolved,
+  isExperimentVisited, moduleProgress, experimentExerciseProgress,
+} from './progress.js';
 
-/* ── Module color mapping (matches theme.css) ────── */
+/* ── Module color mapping (matches theme.css --color-* vars) ────── */
 const MODULE_COLORS = {
-  intro:  '#00d4ff',
-  motion: '#00c878',
-  forces: '#f0a500',
-  energy: '#e84040',
-  fluids: '#7b61ff',
+  intro:         '#4472b0',
+  motion:        '#3d7a55',
+  forces:        '#b54a28',
+  energy:        '#7a4a96',
+  fluids:        '#2a6080',
+  ondas:         '#5a7a40',
+  termodinamica: '#8a4a1a',
 };
 
 /* ─────────────────────────────────────────────────────────────────────────── *
@@ -49,18 +56,27 @@ function renderHome(container) {
   const grid = container.querySelector('#module-grid');
 
   for (const mod of modules) {
-    const color = MODULE_COLORS[mod.id] ?? '#00d4ff';
+  const color = MODULE_COLORS[mod.id] ?? '#c8920a';
     const card  = document.createElement('a');
     card.className        = 'module-card';
     card.href             = `#/module/${mod.id}`;
     card.style.setProperty('--card-color', color);
     card.setAttribute('aria-label', `Módulo ${mod.title}`);
 
+    const prog  = moduleProgress(mod.experiments);
+    const pct   = prog.total > 0 ? Math.round((prog.visited / prog.total) * 100) : 0;
+    const progHtml = `
+      <div class="module-card__progress" aria-label="${prog.visited} de ${prog.total} experimentos visitados">
+        <div class="module-card__progress-bar" style="width:${pct}%"></div>
+      </div>
+      <span class="module-card__count">${prog.visited}/${prog.total} experimento${prog.total !== 1 ? 's' : ''}</span>
+    `;
+
     card.innerHTML = `
       <span class="module-card__label">${mod.order + 1}. ${mod.id.toUpperCase()}</span>
       <h2 class="module-card__title">${mod.title}</h2>
       <p class="module-card__desc">${mod.description}</p>
-      <span class="module-card__count">${mod.experiments.length} experimento${mod.experiments.length !== 1 ? 's' : ''}</span>
+      ${progHtml}
     `;
 
     grid.appendChild(card);
@@ -82,7 +98,7 @@ function renderModule(container, moduleId) {
     return () => {};
   }
 
-  const color = MODULE_COLORS[moduleId] ?? '#00d4ff';
+  const color = MODULE_COLORS[moduleId] ?? '#c8920a';
 
   container.innerHTML = `
     <div class="module-header">
@@ -101,20 +117,34 @@ function renderModule(container, moduleId) {
 
   for (const exp of experiments) {
     const card = document.createElement('a');
-    card.className = 'exp-card';
-    card.href      = `#/module/${moduleId}/${exp.id}`;
+    const visited    = isExperimentVisited(exp.id);
+    const exerProg   = experimentExerciseProgress(exp.exercises ?? []);
+    card.className   = 'exp-card' + (visited ? ' exp-card--visited' : '');
+    card.href        = `#/module/${moduleId}/${exp.id}`;
     card.setAttribute('aria-label', `Experimento: ${exp.title}`);
 
-    const varTags = exp.variables
-      .map(v => `<span class="var-tag">${v}</span>`)
+    const varTags = (exp.variables ?? [])
+      .map(v => `<span class="var-tag">${typeof v === 'object' ? (v.label ?? v.key) : v}</span>`)
       .join('');
 
+    const visitedBadge = visited
+      ? `<span class="exp-card__badge exp-card__badge--done" title="Visitado">✓</span>`
+      : `<span class="exp-card__badge exp-card__badge--new" title="Não visitado"></span>`;
+
+    const exerBadge = exerProg.total > 0
+      ? `<span class="exp-card__exer" title="${exerProg.solved}/${exerProg.total} exercícios respondidos">${exerProg.solved}/${exerProg.total}</span>`
+      : '';
+
     card.innerHTML = `
-      <span class="exp-card__tag">${_difficultyLabel(exp.difficulty)} · ${exp.duration_min ?? '?'} min</span>
+      <div class="exp-card__header">
+        <span class="exp-card__tag">${_difficultyLabel(exp.difficulty)} · ${exp.duration_min ?? '?'} min</span>
+        ${visitedBadge}
+      </div>
       <h3 class="exp-card__title">${exp.title}</h3>
       <p class="exp-card__desc">${exp.phenomenon}</p>
       <div class="exp-card__footer">
         <div class="exp-card__variables">${varTags}</div>
+        ${exerBadge}
       </div>
     `;
 
@@ -137,9 +167,12 @@ async function renderExperiment(container, moduleId, experimentId) {
     return () => {};
   }
 
-  const color     = MODULE_COLORS[moduleId] ?? '#00d4ff';
+  const color     = MODULE_COLORS[moduleId] ?? '#c8920a';
   const equations = getEquationsByExperiment(experimentId);
   const exercises = getExercisesByExperiment(experimentId);
+
+  /* Record visit immediately — before async sim load */
+  markExperimentVisited(experimentId);
 
   /* Build HTML */
   container.innerHTML = `
@@ -285,11 +318,13 @@ async function renderExperiment(container, moduleId, experimentId) {
 async function _loadSimulation(simId, moduleId, canvas, chartCanvas) {
   /* Map module IDs to import paths */
   const loaders = {
-    motion: () => import('../modules/motion/motion.js').then(m => m.createMotionSimulation(simId, canvas, chartCanvas)),
-    forces: () => import('../modules/forces/forces.js').then(m => m.createForcesSimulation(simId, canvas, chartCanvas)),
-    energy: () => import('../modules/energy/energy.js').then(m => m.createEnergySimulation(simId, canvas, chartCanvas)),
-    fluids: () => import('../modules/fluids/fluids.js').then(m => m.createFluidsSimulation(simId, canvas, chartCanvas)),
-    intro:  () => import('../modules/intro/intro.js').then(m => m.createIntroSimulation(simId, canvas, chartCanvas)),
+    motion:         () => import('../modules/motion/motion.js').then(m => m.createMotionSimulation(simId, canvas, chartCanvas)),
+    forces:         () => import('../modules/forces/forces.js').then(m => m.createForcesSimulation(simId, canvas, chartCanvas)),
+    energy:         () => import('../modules/energy/energy.js').then(m => m.createEnergySimulation(simId, canvas, chartCanvas)),
+    fluids:         () => import('../modules/fluids/fluids.js').then(m => m.createFluidsSimulation(simId, canvas, chartCanvas)),
+    intro:          () => import('../modules/intro/intro.js').then(m => m.createIntroSimulation(simId, canvas, chartCanvas)),
+    ondas:          () => import('../modules/ondas/ondas.js').then(m => m.createOndasSimulation(simId, canvas)),
+    termodinamica:  () => import('../modules/termodinamica/termodinamica.js').then(m => m.createTermodinamicaSimulation(simId, canvas)),
   };
 
   const loader = loaders[moduleId];
@@ -365,7 +400,48 @@ function _buildControls(container, exp, simulation) {
       { key: 'fluidDensity', label: 'Dens. fluido', unit: 'kg/m³', min: 700, max: 1500, step: 50, default: 1000 },
       { key: 'probeDepth',   label: 'Profundidade', unit: 'm',     min: 0,   max: 3,    step: 0.1, default: 1.5 },
     ],
-    'pendulum-observe': [],
+    /* ── Ondas ──────────────────────────────────── */
+    'mhs': [
+      { key: 'mass',      label: 'Massa (m)',       unit: 'kg',  min: 0.1,  max: 5.0,  step: 0.1,  default: 1.0  },
+      { key: 'springK',   label: 'Constante (k)',   unit: 'N/m', min: 1.0,  max: 50.0, step: 0.5,  default: 10.0 },
+      { key: 'amplitude', label: 'Amplitude (A)',   unit: 'm',   min: 0.05, max: 0.30, step: 0.01, default: 0.15 },
+    ],
+    'wave': [
+      { key: 'amplitude',  label: 'Amplitude (A)', unit: 'm',  min: 0.01, max: 0.20, step: 0.01, default: 0.08 },
+      { key: 'frequency',  label: 'Frequência (f)',unit: 'Hz', min: 0.2,  max: 4.0,  step: 0.1,  default: 1.0  },
+      { key: 'wavelength', label: 'Comprimento (λ)',unit: 'm', min: 0.1,  max: 1.5,  step: 0.05, default: 0.50 },
+    ],
+    'superposition': [
+      { key: 'A1',  label: 'Amplitude 1 (A₁)', unit: 'm',   min: 0.01, max: 0.12, step: 0.01, default: 0.06 },
+      { key: 'f1',  label: 'Frequência 1 (f₁)',unit: 'Hz',  min: 0.5,  max: 5.0,  step: 0.1,  default: 1.0  },
+      { key: 'A2',  label: 'Amplitude 2 (A₂)', unit: 'm',   min: 0.01, max: 0.12, step: 0.01, default: 0.06 },
+      { key: 'f2',  label: 'Frequência 2 (f₂)',unit: 'Hz',  min: 0.5,  max: 5.0,  step: 0.1,  default: 1.2  },
+      { key: 'phi', label: 'Fase (φ)',          unit: 'rad', min: 0,    max: 6.28, step: 0.1,  default: 0    },
+    ],
+    'pendulum-wave': [
+      { key: 'length', label: 'Comprimento (L)',    unit: 'm',   min: 0.1, max: 2.5,  step: 0.1,  default: 1.0  },
+      { key: 'theta0', label: 'Ângulo inicial (θ₀)',unit: 'rad', min: 0.05,max: 0.60, step: 0.05, default: 0.30 },
+    ],
+    /* ── Termodinâmica ──────────────────────────── */
+    'gas-ideal': [
+      { key: 'n', label: 'Quantidade (n)', unit: 'mol', min: 0.1, max: 5.0, step: 0.1, default: 1.0 },
+      { key: 'T', label: 'Temperatura (T)',unit: 'K',   min: 200, max: 800, step: 10,  default: 300 },
+      { key: 'V', label: 'Volume (V)',     unit: 'L',   min: 0.2, max: 3.0, step: 0.1, default: 1.0 },
+    ],
+    'processos': [
+      { key: 'n',  label: 'Quantidade (n)',    unit: 'mol', min: 0.1, max: 3.0, step: 0.1, default: 1.0 },
+      { key: 'T0', label: 'Temperatura (T₀)',  unit: 'K',   min: 200, max: 600, step: 10,  default: 300 },
+      { key: 'V0', label: 'Vol. inicial (V₀)', unit: 'L',   min: 0.2, max: 2.0, step: 0.1, default: 1.0 },
+    ],
+    'calor': [
+      { key: 'mass', label: 'Massa (m)',       unit: 'kg', min: 0.1, max: 2.0, step: 0.1, default: 0.5  },
+      { key: 'dQdt', label: 'Potência (P)',    unit: 'W',  min: 10,  max: 500, step: 10,  default: 100  },
+      { key: 'T0',   label: 'T inicial (T₀)',  unit: '°C', min: 0,   max: 50,  step: 1,   default: 20   },
+    ],
+    'pendulum-observe': [
+      { key: 'length', label: 'Comprimento (L)', unit: 'm',   min: 0.2, max: 2.0, step: 0.1,  default: 1.0 },
+      { key: 'angle',  label: 'Ângulo inicial',  unit: 'rad', min: 0.1, max: 0.8, step: 0.05, default: 0.6 },
+    ],
     'units-demo': [],
   };
 
@@ -453,36 +529,55 @@ function _buildControls(container, exp, simulation) {
  * ─────────────────────────────────────────────────────────────────────────── */
 
 function _buildQuestionHTML(exp) {
-  if (!exp.question) return '';
+  const text = exp.guidingQuestion ?? exp.question;
+  if (!text) return '';
   return `
     <div class="question-block">
       <span class="question-block__label">Pergunta orientadora</span>
-      <p class="question-block__text">${exp.question}</p>
+      <p class="question-block__text">${text}</p>
     </div>
   `;
 }
 
 function _buildEquationsHTML(equations) {
   if (!equations || equations.length === 0) return '';
-  const eqHtml = equations.map(eq => `
-    <div style="margin-bottom:12px">
-      <div class="equation">${eq.display}</div>
-      <div class="eq-panel__vars" style="margin-top:8px">
-        ${Object.entries(eq.variables ?? {}).map(([sym, v]) => `
-          <div class="eq-var">
-            <span class="eq-var__sym">${sym}</span>
-            <span class="eq-var__name">${v.name}</span>
-            <span class="eq-var__unit">${v.unit}</span>
-          </div>
-        `).join('')}
+
+  const itemsHtml = equations.map(eq => {
+    /* Render the equation body — prefer latex, fall back to display */
+    const mathHtml = eq.latex
+      ? renderLatex(eq.latex)
+      : (eq.display ?? '');
+
+    /* Variable legend rows */
+    const varsHtml = Object.entries(eq.variables ?? {}).map(([sym, v]) => `
+      <div class="eq-var">
+        <span class="eq-var__sym">${renderLatex(sym)}</span>
+        <span class="eq-var__name">${v.name}</span>
+        ${v.unit ? `<span class="eq-var__unit">[${v.unit}]</span>` : ''}
       </div>
-    </div>
-  `).join('');
+    `).join('');
+
+    /* Contextual metadata */
+    const metaHtml = (eq.when_to_use || eq.restriction) ? `
+      <div class="eq-meta">
+        ${eq.when_to_use  ? `<span class="eq-meta__when">Usar quando: ${eq.when_to_use}</span>` : ''}
+        ${eq.restriction  ? `<span class="eq-meta__restrict">Restrição: ${eq.restriction}</span>` : ''}
+      </div>
+    ` : '';
+
+    return `
+      <div class="eq-panel__item">
+        <div class="equation">${mathHtml}</div>
+        ${varsHtml ? `<div class="eq-panel__vars">${varsHtml}</div>` : ''}
+        ${metaHtml}
+      </div>
+    `;
+  }).join('');
 
   return `
     <div class="eq-panel">
       <div class="eq-panel__title">Equações</div>
-      ${eqHtml}
+      ${itemsHtml}
     </div>
   `;
 }
@@ -518,16 +613,21 @@ function _buildExerciseHTML(ex) {
 }
 
 function _buildTeacherHTML(exp) {
+  /* variables is an array of objects {key, label, unit, …} */
+  const vars = Array.isArray(exp.variables) ? exp.variables : [];
+  const mainVar  = vars[0]?.label ?? '—';
+  const allVars  = vars.map(v => v.label ?? v.key ?? '?').join(', ') || '—';
+
   return `
     <div class="teacher-panel">
       <div class="teacher-panel__header">Modo Professor</div>
       <div class="teacher-panel__row">
         <span class="teacher-panel__key">Variável principal</span>
-        <span class="teacher-panel__val">${exp.variables[0] ?? '—'}</span>
+        <span class="teacher-panel__val">${mainVar}</span>
       </div>
       <div class="teacher-panel__row">
         <span class="teacher-panel__key">Grandezas</span>
-        <span class="teacher-panel__val">${exp.variables.join(', ')}</span>
+        <span class="teacher-panel__val">${allVars}</span>
       </div>
       <div class="teacher-panel__row">
         <span class="teacher-panel__key">Duração estimada</span>
@@ -560,6 +660,7 @@ function _attachExerciseHandlers(container, ex) {
     const fn = () => {
       explEl.textContent = ex.explanation ?? 'Ver resolução no material.';
       explEl.classList.remove('hidden');
+      markExerciseSolved(ex.id);
     };
     checkBtn.addEventListener('click', fn);
     listeners.push(() => checkBtn.removeEventListener('click', fn));
@@ -571,6 +672,7 @@ function _attachExerciseHandlers(container, ex) {
       const val = btn.dataset.value;
       if (val === ex.answer) {
         btn.classList.add('correct');
+        markExerciseSolved(ex.id);
         if (explEl) {
           explEl.textContent = ex.explanation ?? '';
           explEl.classList.remove('hidden');

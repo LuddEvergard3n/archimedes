@@ -103,9 +103,10 @@ class BuoyancySimulation extends SimBase {
     this.fluidDensity = this.params.fluidDensity ?? 1000;
     this.objMass      = this.objDensity * this.objVolume;
     this.vy = 0;
-    /* Start object above fluid */
-    this.y = this._containerY > 0
-      ? this._containerY - 30
+    /* Start object just above the fluid surface */
+    const fluidTopPx = this._containerY + this._containerH * (1 - this._fluidFrac);
+    this.y = this._containerW > 0
+      ? fluidTopPx - this.objSideM * this._pxPerM * 0.8
       : 50;
   }
 
@@ -116,43 +117,44 @@ class BuoyancySimulation extends SimBase {
     }
     if (key === 'fluidDensity') this.fluidDensity = value;
     this.vy = 0;
-    /* Reset position to top */
-    this.y  = this._containerY > 0 ? this._containerY - 20 : 50;
+    /* Reset position to just above fluid surface */
+    const fluidTopPx = this._containerY + this._containerH * (1 - this._fluidFrac);
+    this.y  = this._containerW > 0
+      ? fluidTopPx - this.objSideM * this._pxPerM * 0.8
+      : 50;
     this.time = 0;
   }
 
   _update(dt) {
-    /* Container geometry in meters */
-    const fluidTopPx = this._containerY + this._containerH * (1 - this._fluidFrac);
-    const fluidTopM  = 0;
-    const objHeightM = this.objSideM;
-    const pxPerM     = this._pxPerM;
+    if (this._containerW === 0) return; /* layout not initialized yet */
 
-    /* Convert y (canvas px) to physical y (m, 0 = fluid surface, + = above) */
-    const yM        = (fluidTopPx - this.y) / pxPerM;
-    const containerBottomM = this._containerH * this._fluidFrac / pxPerM;
+    /* 3× simulation speed — makes both float and sink reach equilibrium
+     * in a few seconds of real time, without changing visual positions. */
+    const simDt = dt * 3.0;
 
-    const result = Physics.fluids_object_step(
-      yM, this.vy / pxPerM,
-      this.objDensity, objHeightM, this.objVolume,
-      this.fluidDensity,
-      this.g, dt,
-      0,                   /* fluid surface at yM = 0 */
-      -containerBottomM    /* container bottom (negative = below surface) */
-    );
+    const fluidTopPx     = this._containerY + this._containerH * (1 - this._fluidFrac);
+    const objHeightPx    = this.objSideM * this._pxPerM;
+    const containerBotPx = this._containerY + this._containerH;
 
-    /* Convert back to canvas coordinates */
-    this.y  = fluidTopPx - result.y * pxPerM;
-    this.vy = result.v * pxPerM;
+    /* Submersion fraction: how much of the object is below the fluid surface */
+    const submergedPx = Math.max(0, Math.min(objHeightPx, this.y + objHeightPx / 2 - fluidTopPx));
+    this._subFrac      = submergedPx / objHeightPx;
+
+    const buoyancy = Physics.fluids_buoyancy(this.fluidDensity, this.g, this._subFrac * this.objVolume);
+    const weight   = Physics.forces_weight(this.objMass, this.g);
+    /* net_canvas: positive = downward (canvas convention) */
+    const a_canvas = (weight - buoyancy) / this.objMass;
+
+    this.vy = (this.vy + a_canvas * simDt) * 0.985;
+    this.y  = this.y + this.vy * simDt;
 
     /* Clamp to container bounds */
-    const maxY = this._containerY + this._containerH - 10;
-    const minY = this._containerY + 10;
-    if (this.y > maxY) { this.y = maxY; this.vy = 0; }
+    const minY = this._containerY + objHeightPx / 2 + 4;
+    const maxY = containerBotPx   - objHeightPx / 2 - 4;
     if (this.y < minY) { this.y = minY; this.vy = 0; }
+    if (this.y > maxY) { this.y = maxY; this.vy = 0; }
 
     this.time += dt;
-    this._subFrac = result.submerged_fraction;
   }
 
   _render() {
@@ -167,8 +169,9 @@ class BuoyancySimulation extends SimBase {
       this._containerW = cw * 0.50;
       this._containerH = ch * 0.78;
       this._pxPerM     = this._containerH * this._fluidFrac / 2.0;
-      /* Start object above fluid */
-      this.y = this._containerY + this._containerH * (1 - this._fluidFrac) - 20;
+      /* Start object just above fluid surface */
+      const fluidTopPx = this._containerY + this._containerH * (1 - this._fluidFrac);
+      this.y = fluidTopPx - this.objSideM * this._pxPerM * 0.8;
     }
 
     clearCanvas(ctx);
@@ -185,7 +188,7 @@ class BuoyancySimulation extends SimBase {
 
     /* Fluid density label */
     ctx.save();
-    ctx.font      = '9px "JetBrains Mono", monospace';
+    ctx.font      = '9px "Share Tech Mono", monospace';
     ctx.fillStyle = 'rgba(0, 150, 255, 0.6)';
     ctx.textAlign = 'center';
     ctx.fillText(
@@ -195,8 +198,8 @@ class BuoyancySimulation extends SimBase {
     );
     ctx.restore();
 
-    /* Object (cube) */
-    const pxSide = this.objSideM * this._pxPerM * 1.5;
+    /* Object (cube) — pxSide matches the physical height used in _update */
+    const pxSide = this.objSideM * this._pxPerM;
     const bx     = this._containerX + this._containerW / 2;
     const by     = this.y;
 
@@ -204,7 +207,7 @@ class BuoyancySimulation extends SimBase {
 
     /* Density label inside object */
     ctx.save();
-    ctx.font      = '9px "JetBrains Mono", monospace';
+    ctx.font      = '9px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.textMuted;
     ctx.textAlign = 'center';
     ctx.fillText(`${this.objDensity}`, bx, by + 3);
@@ -305,7 +308,7 @@ class DensitySimulation extends SimBase {
     }
 
     const objColor = sinks ? COLORS.red : floats ? COLORS.green : COLORS.cyan;
-    drawRect(ctx, containerX + containerW / 2, objY, objSize, objSize, '#0a1520', objColor);
+    drawRect(ctx, containerX + containerW / 2, objY, objSize, objSize, '#1c1a14', objColor);
 
     /* Submersion indicator */
     if (!sinks) {
@@ -319,7 +322,7 @@ class DensitySimulation extends SimBase {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      ctx.font      = '9px "JetBrains Mono", monospace';
+      ctx.font      = '9px "Share Tech Mono", monospace';
       ctx.fillStyle = COLORS.textMuted;
       ctx.textAlign = 'center';
       const subPct = (subFrac * 100).toFixed(0);
@@ -332,7 +335,7 @@ class DensitySimulation extends SimBase {
     const statusColor = sinks ? COLORS.red : neutral ? COLORS.cyan : COLORS.green;
 
     ctx.save();
-    ctx.font      = '13px "JetBrains Mono", monospace';
+    ctx.font      = '13px "Share Tech Mono", monospace';
     ctx.fillStyle = statusColor;
     ctx.textAlign = 'center';
     ctx.fillText(status, containerX + containerW / 2, containerY + containerH + 22);
@@ -414,7 +417,7 @@ class PressureSimulation extends SimBase {
 
     /* Depth markers on right side */
     ctx.save();
-    ctx.font      = '9px "JetBrains Mono", monospace';
+    ctx.font      = '9px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.textMuted;
     ctx.textAlign = 'left';
     const step = Math.ceil(this.fluidDepthM / 5);
@@ -449,7 +452,7 @@ class PressureSimulation extends SimBase {
     ctx.setLineDash([]);
 
     /* Probe label */
-    ctx.font      = '10px "JetBrains Mono", monospace';
+    ctx.font      = '10px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.amber;
     ctx.textAlign = 'center';
     ctx.fillText(`h = ${this.probeDepthM.toFixed(1)} m`, cx + cW / 2, probeY - 6);
@@ -460,7 +463,7 @@ class PressureSimulation extends SimBase {
     const P_atm = (P / 101325).toFixed(2);
 
     ctx.save();
-    ctx.font      = '11px "JetBrains Mono", monospace';
+    ctx.font      = '11px "Share Tech Mono", monospace';
     ctx.fillStyle = COLORS.cyan;
     ctx.textAlign = 'center';
     ctx.fillText(`P = ${(P / 1000).toFixed(2)} kPa`, cx + cW / 2, probeY + 16);
