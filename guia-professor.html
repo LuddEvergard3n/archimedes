@@ -17,10 +17,15 @@
   <link rel="stylesheet" href="css/mobile.css">
 
   <style>
-    body   { overflow-y: auto; }
-    #app   { height: auto; overflow: visible; }
+    body { overflow-y: auto; }
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: auto !important;
+      min-height: 100vh;
+      overflow: visible !important;
+    }
 
-    /* Header sticky — mesmo padrão do SPA */
     .app-header { position: sticky; top: 0; }
 
     .static-nav {
@@ -211,6 +216,8 @@
       border-radius: var(--radius-md);
       overflow: hidden;
       margin: var(--space-5) 0;
+      /* ativ-2..5 são divs linkadas pela sidebar — precisa de scroll-margin como os h2 */
+      scroll-margin-top: calc(var(--header-height) + var(--space-4));
     }
 
     .atividade__header {
@@ -376,6 +383,10 @@
       .guia-sidebar { width: 100%; position: static; }
       .guia-sidebar__panel { display: flex; flex-wrap: wrap; }
       .guia-sidebar__header { width: 100%; }
+      /* Sem width:100%, os links ficam inline dentro do flex-wrap */
+      .guia-sidebar a,
+      .sidebar-group { width: 100%; }
+      .guia-sidebar__footer { width: 100%; }
     }
 
     @media print {
@@ -386,9 +397,9 @@
   </style>
 </head>
 <body>
-<div id="app" style="display:flex; flex-direction:column; min-height:100vh;">
+<div id="app">
 
-  <header class="app-header" role="banner" style="position:sticky; top:0;">
+  <header class="app-header" role="banner">
     <a class="app-header__logo" href="index.html" aria-label="Archimedes — Início">
       <div class="logo-mark" aria-hidden="true"><span class="logo-ring"></span></div>
       <span class="logo-text">Archi<span>medes</span></span>

@@ -17,11 +17,18 @@
   <link rel="stylesheet" href="css/mobile.css">
 
   <style>
-    /* ── Página estática: body scrollável, sem SPA shell ── */
-    body   { overflow-y: auto; }
-    #app   { height: auto; overflow: visible; }
+    /* ── Página estática: body scrollável ── */
+    /* layout.css trava #app em height:100vh para o SPA — sobrescrever aqui. */
+    body { overflow-y: auto; }
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: auto !important;
+      min-height: 100vh;
+      overflow: visible !important;
+    }
 
-    /* Header: reutiliza .app-header mas é position:sticky */
+    /* position:sticky cria contexto posicionado — ::before position:absolute ancora nele. */
     .app-header { position: sticky; top: 0; }
 
     /* Nav de páginas estáticas — no lugar do breadcrumb/actions do SPA */
@@ -277,10 +284,10 @@
   </style>
 </head>
 <body>
-<div id="app" style="display:flex; flex-direction:column; min-height:100vh;">
+<div id="app">
 
   <!-- Header — mesmo DNA do SPA -->
-  <header class="app-header" role="banner" style="position:sticky; top:0;">
+  <header class="app-header" role="banner">
     <a class="app-header__logo" href="index.html" aria-label="Archimedes — Início">
       <div class="logo-mark" aria-hidden="true">
         <span class="logo-ring"></span>
@@ -419,27 +426,27 @@
           <span class="eco-card__nome">Archimedes</span>
           <span class="eco-card__area">Física</span>
         </div>
-        <a class="eco-card" href="https://luddevergard3n.github.io/euclides/">
+        <a class="eco-card" href="https://luddevergard3n.github.io/euclides/" target="_blank" rel="noopener noreferrer">
           <span class="eco-card__nome">Euclides</span>
           <span class="eco-card__area">Matemática</span>
         </a>
-        <a class="eco-card" href="https://luddevergard3n.github.io/lavoisier/">
+        <a class="eco-card" href="https://luddevergard3n.github.io/lavoisier/" target="_blank" rel="noopener noreferrer">
           <span class="eco-card__nome">Lavoisier</span>
           <span class="eco-card__area">Química</span>
         </a>
-        <a class="eco-card" href="https://luddevergard3n.github.io/Herodoto/">
+        <a class="eco-card" href="https://luddevergard3n.github.io/Herodoto/" target="_blank" rel="noopener noreferrer">
           <span class="eco-card__nome">Heródoto</span>
           <span class="eco-card__area">História</span>
         </a>
-        <a class="eco-card" href="https://luddevergard3n.github.io/humboldt/">
+        <a class="eco-card" href="https://luddevergard3n.github.io/humboldt/" target="_blank" rel="noopener noreferrer">
           <span class="eco-card__nome">Humboldt</span>
           <span class="eco-card__area">Geografia</span>
         </a>
-        <a class="eco-card" href="https://luddevergard3n.github.io/quintiliano/">
+        <a class="eco-card" href="https://luddevergard3n.github.io/quintiliano/" target="_blank" rel="noopener noreferrer">
           <span class="eco-card__nome">Quintiliano</span>
           <span class="eco-card__area">Português e Literatura</span>
         </a>
-        <a class="eco-card" href="https://luddevergard3n.github.io/johnson-english/">
+        <a class="eco-card" href="https://luddevergard3n.github.io/johnson-english/" target="_blank" rel="noopener noreferrer">
           <span class="eco-card__nome">Johnson</span>
           <span class="eco-card__area">Inglês</span>
         </a>

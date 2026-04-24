@@ -17,9 +17,15 @@
   <link rel="stylesheet" href="css/mobile.css">
 
   <style>
-    body   { overflow-y: auto; }
-    #app   { height: auto; overflow: visible; }
-    .app-header { position: sticky; top: 0; }
+    /* O plano usa layout de dois painéis confinados — body e #app devem travar overflow. */
+    body { overflow: hidden; }
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh !important;
+      overflow: hidden !important;
+    }
+    .app-header { position: sticky; top: 0; flex-shrink: 0; }
 
     .static-nav {
       display: flex; align-items: center; gap: var(--space-1); margin-left: auto;
@@ -44,6 +50,7 @@
       padding: var(--space-3) var(--space-6);
       background: var(--inst-bg-secondary);
       border-bottom: 1px solid var(--inst-border-base);
+      flex-shrink: 0; /* não encolhe — empurra .plano-body para ocupar o restante */
     }
 
     .plano-toolbar p {
@@ -54,12 +61,15 @@
     }
 
     /* ── Layout de dois painéis ──────────────────── */
+    /* flex:1 + overflow:hidden: ocupa o espaço restante após header e toolbar,
+       independente da altura real da toolbar. Remove o 48px hardcoded. */
     .plano-body {
       display: grid;
       grid-template-columns: 480px 1fr;
       gap: 0;
-      height: calc(100vh - var(--header-height) - 48px); /* 48px = toolbar */
+      flex: 1;
       overflow: hidden;
+      min-height: 0; /* necessário para flex-children com overflow */
     }
 
     /* Painel formulário — instrumento */
@@ -333,9 +343,12 @@
 
     /* ── Responsivo mobile ───────────────────────── */
     @media (max-width: 960px) {
+      /* Em mobile, desconfinamos o layout para coluna única scrollável */
+      body { overflow-y: auto !important; }
+      #app { height: auto !important; overflow: visible !important; }
       .plano-body {
         grid-template-columns: 1fr;
-        height: auto;
+        flex: none;
         overflow: visible;
       }
       .form-panel { overflow: visible; }
@@ -348,11 +361,12 @@
       .plano-toolbar,
       .form-panel { display: none !important; }
 
-      body { background: white !important; }
+      body { overflow: visible !important; background: white !important; }
+      #app { height: auto !important; overflow: visible !important; }
 
       .plano-body {
         display: block !important;
-        height: auto !important;
+        flex: none !important;
         overflow: visible !important;
       }
 
@@ -380,10 +394,10 @@
   </style>
 </head>
 <body>
-<div id="app" style="display:flex; flex-direction:column; height:100vh; overflow:hidden;">
+<div id="app">
 
   <!-- Header -->
-  <header class="app-header" role="banner" style="position:relative; flex-shrink:0;">
+  <header class="app-header" role="banner">
     <a class="app-header__logo" href="index.html" aria-label="Archimedes — Início">
       <div class="logo-mark" aria-hidden="true"><span class="logo-ring"></span></div>
       <span class="logo-text">Archi<span>medes</span></span>
