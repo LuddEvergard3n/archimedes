@@ -867,6 +867,459 @@
           "content": "T ≈ 2π·√(L/g) — mas você não precisava saber isso para observar o fenômeno. Galileu chegou à isocronia de amplitude décadas antes de Newton formalizar o que é força. O modelo matemático veio depois da observação, não antes. Esta é a sequência correta da Física: fenômeno → observação → padrão → modelo. Em todo experimento do Archimedes, você seguirá essa mesma sequência."
         }
       ]
+    },
+    {
+      "id": "em-coulomb-01",
+      "module": "eletromagnetismo",
+      "title": "A Força que Governa a Matéria",
+      "experiment_ids": [
+        "coulomb-01"
+      ],
+      "exercise_ids": [
+        "em-ex-01",
+        "em-ex-02"
+      ],
+      "concepts": [
+        "carga elétrica",
+        "força elétrica",
+        "lei de Coulomb",
+        "constante eletrostática"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O balão que gruda na parede",
+          "content": "Esfregue um balão de borracha no cabelo e aproxime-o de uma parede. Sem tocar, o balão é atraído. Agora esfregue dois balões e aproxime-os um do outro — se repelem. Uma força invisível age à distância. Essa força é da mesma natureza que mantém elétrons nos átomos, moléculas juntas e, em última análise, que faz a matéria sólida existir."
+        },
+        {
+          "id": "observation",
+          "title": "Coulomb e a balança de torção",
+          "content": "Em 1785, Charles-Augustin de Coulomb construiu uma balança de torção — um fio delgado suspenso com uma esfera condutora na ponta. Medindo o ângulo de torção do fio ao aproximar outra carga, ele determinou que a força variava com o inverso do quadrado da distância. A mesma dependência 1/r² que Newton havia encontrado para a gravidade aparecia no eletromagnetismo. Não foi coincidência: ambas são forças mediadas por campos que se espalham pelo espaço tridimensional."
+        },
+        {
+          "id": "experiment",
+          "title": "Explore os parâmetros",
+          "content": "Na simulação, varie q₁ e q₂ de positivo para negativo e observe a direção das setas de força. Varie a distância r e observe como a força muda — tente dobrar r e estimar o fator de redução da força. Tente encontrar a configuração onde a força elétrica se anula."
+        },
+        {
+          "id": "formalization",
+          "title": "F = kₑ·|q₁q₂| / r²",
+          "content": "A constante kₑ = 8,99 × 10⁹ N·m²/C² é enorme. Isso significa que cargas de 1 Coulomb separadas por 1 metro exerceriam uma força de quase 9 bilhões de Newtons. Na prática, cargas observáveis são da ordem de microcoulombs (10⁻⁶ C) porque qualquer excesso de carga acima disso gera forças que a matéria não suporta. O elétron tem carga −1,602 × 10⁻¹⁹ C — a menor carga livre conhecida na natureza. kₑ também pode ser escrito como 1/(4πε₀), onde ε₀ = 8,854 × 10⁻¹² C²/(N·m²) é a permissividade do vácuo, constante fundamental da eletrodinâmica quântica."
+        }
+      ]
+    },
+    {
+      "id": "em-campo-eletrico-01",
+      "module": "eletromagnetismo",
+      "title": "O Campo que Faraday Inventou",
+      "experiment_ids": [
+        "campo-eletrico-01"
+      ],
+      "exercise_ids": [
+        "em-ex-03",
+        "em-ex-04"
+      ],
+      "concepts": [
+        "campo elétrico",
+        "linhas de campo",
+        "princípio de superposição",
+        "dipolo elétrico"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Ação a distância — ou algo mais?",
+          "content": "Newton ficou desconfortável com a ideia de gravidade agindo instantaneamente à distância através do vácuo. 'Que mecanismo?' — ele nunca respondeu. Em 1820, Michael Faraday — um encadernador sem formação matemática formal que se tornou o maior experimentalista do século XIX — propôs uma resposta: o espaço entre cargas não é vazio. Está preenchido por linhas de força. A carga não age sobre a outra diretamente — ela modifica o espaço ao redor, e a outra carga reage a esse espaço modificado."
+        },
+        {
+          "id": "observation",
+          "title": "Linhas de campo: de Faraday a Maxwell",
+          "content": "James Clerk Maxwell formalizou matematicamente a intuição de Faraday. As linhas de campo elétrico partem de cargas positivas e chegam em cargas negativas. Nunca se cruzam. A densidade de linhas indica a intensidade do campo. O que Faraday chamava de 'linhas de força' Maxwell transformou em equações diferenciais — as Equações de Maxwell, que unificaram toda a eletrodinâmica clássica e previram a existência das ondas eletromagnéticas décadas antes de Hertz as detectar."
+        },
+        {
+          "id": "experiment",
+          "title": "Explore o dipolo",
+          "content": "Configure q₁ = +2 nC e q₂ = −2 nC (dipolo elétrico). Observe como as linhas partem da positiva e chegam na negativa. Agora configure q₁ = q₂ = +2 nC — as linhas se repelem e divergem para o infinito. Por que em cargas iguais não há linhas chegando? Porque toda linha de campo precisa terminar numa carga negativa ou no infinito."
+        },
+        {
+          "id": "formalization",
+          "title": "Superposição e o princípio de Faraday",
+          "content": "E = kₑ·|q|/r². O campo é um vetor — tem magnitude e direção. A direção aponta para longe de cargas positivas e em direção a negativas. Para sistemas com múltiplas cargas, o princípio de superposição garante que o campo total é a soma vetorial das contribuições individuais: E_total = E₁ + E₂ + … Isso parece óbvio mas não é: implica que campos elétricos não interagem entre si — passam uns através dos outros sem distorção, exceto quando há matéria intermediária (que polariza)."
+        }
+      ]
+    },
+    {
+      "id": "em-circuito-01",
+      "module": "eletromagnetismo",
+      "title": "Resistência, Corrente e a Lei de Ohm",
+      "experiment_ids": [
+        "circuito-01"
+      ],
+      "exercise_ids": [
+        "em-ex-05",
+        "em-ex-06"
+      ],
+      "concepts": [
+        "corrente elétrica",
+        "resistência",
+        "tensão",
+        "lei de Ohm",
+        "potência elétrica",
+        "circuitos série e paralelo"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Por que o filamento aquece e o fio não?",
+          "content": "Um fio de cobre conduz corrente da tomada até a lâmpada com praticamente zero resistência. O filamento de tungstênio — percorrido pela mesma corrente — aquece a 2500°C e emite luz. A diferença não é a corrente: é a resistência. P = I²·R: a mesma corrente, resistências radicalmente diferentes, produzem potências dissipadas radicalmente diferentes. Georg Ohm publicou essa relação em 1827 e foi ridicularizado pela comunidade científica alemã. Levou décadas para ser aceito."
+        },
+        {
+          "id": "observation",
+          "title": "Kirchhoff e as leis dos nós",
+          "content": "Em 1845, Gustav Kirchhoff generalizou a Lei de Ohm para circuitos complexos com duas leis: (1) A soma das correntes que entram num nó é igual à soma das que saem — conservação de carga. (2) A soma das tensões num laço fechado é zero — conservação de energia. Com essas duas leis, qualquer circuito linear pode ser resolvido. Elas são exatas enquanto os efeitos eletromagnéticos de indução são desprezíveis — ou seja, para frequências baixas."
+        },
+        {
+          "id": "experiment",
+          "title": "Série versus paralelo",
+          "content": "Configure R₁ = 4 Ω e R₂ = 8 Ω em série. A resistência total é 12 Ω. Agora mude para paralelo: calcule antes o que espera para R_total, depois confirme na simulação. Em paralelo, a resistência equivalente é sempre menor que o menor resistor. Por quê? Porque você abriu mais caminhos para a corrente fluir — como adicionar faixas numa rodovia."
+        },
+        {
+          "id": "formalization",
+          "title": "V = R·I — e suas consequências",
+          "content": "A lei de Ohm é uma aproximação excelente para metais em temperaturas moderadas. Em semicondutores, a relação V-I é não-linear (diodos, transistores). A resistência de um condutor é R = ρ·L/A, onde ρ é a resistividade do material, L o comprimento e A a seção transversal. Isso explica por que fios grossos e curtos conduzem melhor. A resistividade do cobre é 1,7 × 10⁻⁸ Ω·m — 60 vezes menor que a do ferro, 10¹⁶ vezes menor que a da borracha. Toda a eletrônica moderna existe por causa dessa variação de 24 ordens de grandeza na resistividade dos materiais."
+        }
+      ]
+    },
+    {
+      "id": "em-campo-magnetico-01",
+      "module": "eletromagnetismo",
+      "title": "Oersted, Ampère e o Campo Magnético",
+      "experiment_ids": [
+        "campo-magnetico-01"
+      ],
+      "exercise_ids": [
+        "em-ex-07",
+        "em-ex-08"
+      ],
+      "concepts": [
+        "campo magnético",
+        "lei de Ampère",
+        "regra da mão direita",
+        "solenoide",
+        "permeabilidade magnética"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "A descoberta que aconteceu durante uma aula",
+          "content": "Em abril de 1820, Hans Christian Oersted preparava uma demonstração para estudantes em Copenhague. Por acaso, um fio condutor estava próximo de uma bússola. Quando ligou a corrente, a agulha se desviou. Desligou: voltou. Ligou: desviou novamente. Oersted havia descoberto que eletricidade e magnetismo — tratados como fenômenos completamente distintos por dois milênios — eram faces da mesma moeda. A notícia chegou a Paris em semanas. André-Marie Ampère formulou a lei quantitativa em três meses."
+        },
+        {
+          "id": "observation",
+          "title": "Regra da mão direita e simetria cilíndrica",
+          "content": "Ao redor de um fio com corrente, as linhas de campo magnético são círculos concêntricos. A direção é dada pela regra da mão direita: aponte o polegar na direção da corrente, os outros dedos curvados indicam o sentido das linhas de campo. O campo diminui com 1/r — não com 1/r² como em cargas puntiformes. A diferença: uma carga é uma fonte puntiforme; um fio é uma fonte linear estendida. A simetria diferente gera a dependência radial diferente."
+        },
+        {
+          "id": "experiment",
+          "title": "Fio versus solenoide",
+          "content": "No modo fio, observe como os círculos de campo ficam mais esparsos com a distância. Calcule mentalmente: se I = 10 A e r = 5 cm, qual é B? Agora mude para solenoide. Note que o campo interno é uniforme (independe da posição dentro) enquanto o externo é quase zero. Isso é análogo a um capacitor: campo uniforme entre as placas, quase zero fora."
+        },
+        {
+          "id": "formalization",
+          "title": "B = μ₀I/(2πr) e B = μ₀nI",
+          "content": "μ₀ = 4π × 10⁻⁷ T·m/A é a permeabilidade magnética do vácuo. Ela está relacionada com ε₀ e c pela equação fundamental: c = 1/√(μ₀ε₀). Maxwell descobriu isso em 1864 — a velocidade da luz emergiu das equações do eletromagnetismo sem que ele tivesse colocado luz nas equações. Foi o momento em que ficou claro que luz é uma onda eletromagnética. O solenoide é a base de eletroímãs, motores elétricos, transformadores e ressonância magnética (MRI)."
+        }
+      ]
+    },
+    {
+      "id": "em-lorentz-01",
+      "module": "eletromagnetismo",
+      "title": "A Força que Curva Partículas",
+      "experiment_ids": [
+        "forca-lorentz-01"
+      ],
+      "exercise_ids": [
+        "em-ex-09",
+        "em-ex-10"
+      ],
+      "concepts": [
+        "força de Lorentz",
+        "produto vetorial",
+        "movimento circular",
+        "raio de ciclotron",
+        "aceleradores de partículas"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O CERN e o LHC",
+          "content": "O Large Hadron Collider, com 27 km de circunferência, acelera prótons a 99,9999991% da velocidade da luz. Nenhum fio toca os prótons: a força magnética de 1232 eletroímãs supercondutores, cada um com campo de 8,3 T, curva continuamente a trajetória dos feixes. O princípio é o mesmo de um televisor de tubo CRT dos anos 1990 — a força de Lorentz curva trajetórias de partículas carregadas sem realizar trabalho sobre elas."
+        },
+        {
+          "id": "observation",
+          "title": "Lorentz e a síntese do eletromagnetismo",
+          "content": "Hendrik Lorentz (1853–1928) formulou a força F = q(E + v×B) que unifica os efeitos de campos elétrico e magnético sobre uma carga. Ele também desenvolveu as transformações de Lorentz — que Einstein usaria para construir a relatividade especial. A força magnética v×B é um produto vetorial: perpendicular simultaneamente a v e a B. Por isso nunca tem componente na direção do movimento — nunca realiza trabalho, nunca muda a energia cinética. Apenas a direção."
+        },
+        {
+          "id": "experiment",
+          "title": "Raio proporcional à velocidade",
+          "content": "Configure B = 0,10 T e v = 5 Mm/s. Observe o raio da trajetória circular. Agora dobre v para 10 Mm/s — o raio dobra. Agora dobre B mantendo v = 5 Mm/s — o raio cai à metade. Verifique com r = mv/(|q|B). O período T = 2πm/(|q|B) não depende da velocidade — é o princípio do ciclotron: partículas de qualquer energia completam a volta no mesmo tempo."
+        },
+        {
+          "id": "formalization",
+          "title": "r = mv/(|q|B) — o ciclotron de Lawrence",
+          "content": "Ernest Lawrence construiu o primeiro ciclotron em 1930, com 11 cm de diâmetro. Ele explorava o fato de que T = 2πm/(|q|B) é independente de v: uma tensão alternada sincronizada com esse período acelera a partícula em cada meia-volta, aumentando sua velocidade — e portanto seu raio — em espiral crescente. Hoje ciclotrons produzem isótopos radiofármacos para PET scans em hospitais. O princípio físico é o mesmo de 1930: a independência do período em relação à velocidade, derivada diretamente de F_mag ⊥ v."
+        }
+      ]
+    },
+    {
+      "id": "em-inducao-01",
+      "module": "eletromagnetismo",
+      "title": "Faraday, Lenz e o Gerador Elétrico",
+      "experiment_ids": [
+        "inducao-01"
+      ],
+      "exercise_ids": [
+        "em-ex-11",
+        "em-ex-12"
+      ],
+      "concepts": [
+        "fluxo magnético",
+        "indução eletromagnética",
+        "lei de Faraday",
+        "lei de Lenz",
+        "gerador",
+        "transformador"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Itaipu: 700 espiras gigantes",
+          "content": "A Usina de Itaipu gera 14 GW com 20 unidades geradoras. Cada unidade é um conjunto de espiras condutoras girando em campos magnéticos criados por eletroímãs. Turbinas movidas pela água do Rio Paraná giram as espiras. O fluxo magnético através das espiras varia — e essa variação gera corrente elétrica. É a lei de Faraday em escala industrial. O princípio que Faraday descobriu em 1831 num laboratório em Londres alimenta hoje 75% do consumo de eletricidade do Brasil."
+        },
+        {
+          "id": "observation",
+          "title": "A descoberta de Faraday",
+          "content": "Michael Faraday enrolou dois circuitos em torno de um anel de ferro. Quando ligava a bateria num circuito, o galvanômetro do outro circuito piscava e voltava a zero. Quando desligava, piscava na direção oposta. A corrente contínua estática não induzia nada — era a variação que importava. Faraday entendeu: não é B que importa, mas dB/dt. Heinrich Lenz formalizou em 1834 a direção da corrente induzida: sempre oposta à variação que a criou. É a lei de Lenz — e é uma consequência direta da conservação de energia."
+        },
+        {
+          "id": "experiment",
+          "title": "Velocidade angular e fem máxima",
+          "content": "Configure B = 0,5 T, A = 10 cm² e ω = π rad/s. Observe o gráfico de ε(t) — é uma senoide. Agora dobre ω: a amplitude dobra, a frequência dobra. A equação ε_max = BAω mostra que aumentar qualquer dos três parâmetros aumenta a fem máxima linearmente. Observe também o ângulo θ da espira: quando θ = 0° (espira paralela a B), o fluxo é zero mas a taxa de variação é máxima — e a fem é máxima. Quando θ = 90° (espira perpendicular a B), o fluxo é máximo mas não está variando — fem = 0."
+        },
+        {
+          "id": "formalization",
+          "title": "ε = −dΦ/dt — e as ondas de Maxwell",
+          "content": "A lei de Faraday diz que campo elétrico é gerado por campo magnético variável. A lei de Ampère-Maxwell (forma generalizada) diz que campo magnético é gerado por campo elétrico variável. Juntas, as duas leis formam um par autossustentado: uma variação em E cria variação em B, que cria variação em E, que propaga no espaço — uma onda eletromagnética. Maxwell calculou a velocidade dessa onda: c = 1/√(μ₀ε₀) = 2,998 × 10⁸ m/s. Era a velocidade da luz. A luz é uma onda eletromagnética — e toda comunicação sem fio desde o rádio de Marconi até o Wi-Fi e o 5G é a lei de Faraday oscilando bilhões de vezes por segundo."
+        }
+      ]
+    },
+    {
+      "id": "mec-obliquo-01",
+      "module": "motion",
+      "title": "Galileu e a Parábola",
+      "experiment_ids": [
+        "obliquo-01"
+      ],
+      "exercise_ids": [
+        "mec-ex-01",
+        "mec-ex-02"
+      ],
+      "concepts": [
+        "lançamento oblíquo",
+        "decomposição de vetores",
+        "MRU",
+        "MRUV",
+        "alcance",
+        "altura máxima"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Por que uma bola de futebol descreve uma curva?",
+          "content": "Todo objeto lançado em qualquer ângulo que não seja 0° ou 90° descreve uma parábola. Uma bola de futebol, um jato d'água, uma pedra atirada, um foguete de modelo — mesma curva, mesma equação. Aristóteles acreditava que projéteis seguiam retas até perder 'força' e então caíam verticalmente. Galileu, sem câmera de vídeo ou equações diferenciais, descobriu a verdade com bolas rolando em rampas inclinadas."
+        },
+        {
+          "id": "observation",
+          "title": "A decomposição de Galileu",
+          "content": "Galileu (1564–1642) fez a observação crítica: o movimento horizontal e o vertical são independentes. Um projétil lançado horizontalmente cai no mesmo tempo que um solto em queda livre da mesma altura — a componente horizontal não afeta a vertical. Esse princípio de superposição é tão poderoso que Newton o generalizaria para três dimensões e para o movimento dos planetas."
+        },
+        {
+          "id": "experiment",
+          "title": "Explore o ângulo ótimo",
+          "content": "Configure v₀ = 20 m/s e varie o ângulo de 10° a 80° observando o alcance. Em que ângulo é máximo? Agora teste 30° e 60° — compare os alcances. Tente também mudar a gravidade: na Lua (g = 1,6 m/s²) um lançamento idêntico vai muito mais longe. Os astronautas da Apollo jogaram uma bola de golfe — ela rodou por centenas de metros."
+        },
+        {
+          "id": "formalization",
+          "title": "R = v₀²·sin(2θ)/g — e a identidade trigonométrica que explica tudo",
+          "content": "R = v₀²·sin(2θ)/g é máximo quando sin(2θ) = 1, ou seja, 2θ = 90°, θ = 45°. A equação também revela por que ângulos complementares (30° e 60°, por exemplo) dão o mesmo alcance: sin(2·30°) = sin(60°) = sin(120°) = sin(2·60°). O tempo de voo t = 2v₀·sin(θ)/g cresce com o ângulo. A altura máxima H = v₀²·sin²(θ)/(2g) também. Há um trade-off: quanto mais alto vai, mais tempo leva, mas ganha mais alcance — até 45°, depois não compensa mais."
+        }
+      ]
+    },
+    {
+      "id": "mec-circular-01",
+      "module": "motion",
+      "title": "A Força que Dobra Trajetórias",
+      "experiment_ids": [
+        "circular-01"
+      ],
+      "exercise_ids": [
+        "mec-ex-03",
+        "mec-ex-04"
+      ],
+      "concepts": [
+        "MCU",
+        "velocidade angular",
+        "velocidade tangencial",
+        "aceleração centrípeta",
+        "período",
+        "frequência"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "A Lua está em queda livre",
+          "content": "A Lua não está em repouso nem voando para o infinito — está caindo continuamente em direção à Terra. Mas como a Terra é esférica, enquanto a Lua cai, o solo curva para longe. Newton percebeu que a mesma força que faz uma maçã cair da árvore mantém a Lua em órbita. A diferença é que a Lua tem velocidade tangencial suficiente para que sua trajetória de queda siga a curvatura da Terra."
+        },
+        {
+          "id": "observation",
+          "title": "Centrípeta versus centrífuga",
+          "content": "A aceleração centrípeta sempre aponta para o centro do círculo — é a causa do movimento circular. A 'força centrífuga' que você sente num carro em curva não é uma força real: é a tendência do seu corpo de continuar em linha reta (inércia) enquanto o carro curva. No referencial inercial, só existe a força centrípeta. No referencial do carro (não inercial), aparece a pseudoforça centrífuga — útil para cálculos mas sem realidade física independente."
+        },
+        {
+          "id": "experiment",
+          "title": "ω, r e a aceleração",
+          "content": "Configure r = 1 m e ω = 2 rad/s. Note aₓ = ω²r = 4 m/s². Dobre ω para 4 rad/s — aₓ vai para 16 m/s² (quadruplica). Agora dobre r para 2 m com ω = 2 rad/s — aₓ vai para 8 m/s² (dobra). A aceleração centrípeta cresce com o quadrado da velocidade angular: mais rotações por segundo exigem forças muito maiores. Por isso centrífugas de alto desempenho são materialmente limitadas — a estrutura se rompe antes de atingir a aceleração máxima desejada."
+        },
+        {
+          "id": "formalization",
+          "title": "aₓ = ω²r = v²/r — e o satélite geoestacionário",
+          "content": "Para um satélite geoestacionário, T = 24 h e r deve satisfazer aₓ = g(R_Terra/r)². Resolvendo: r ≈ 42.000 km do centro da Terra (≈ 35.786 km de altitude). Nesse ponto, a aceleração centrípeta fornecida pela gravidade é exatamente a necessária para completar uma órbita em 24 horas. Todos os satélites de TV e telecomunicação operam nessa órbita. A equação é aₓ = v²/r = ω²r, com a força centrípeta fornecida por qualquer força central: gravidade (satélite), tensão (bola numa corda), normal (looping)."
+        }
+      ]
+    },
+    {
+      "id": "mec-newton3-01",
+      "module": "forces",
+      "title": "Nenhuma Força Age Sozinha",
+      "experiment_ids": [
+        "newton3-01"
+      ],
+      "exercise_ids": [
+        "mec-ex-05",
+        "mec-ex-06"
+      ],
+      "concepts": [
+        "3ª Lei de Newton",
+        "ação e reação",
+        "pares de interação",
+        "conservação de momento"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O foguete no vácuo",
+          "content": "Um foguete no vácuo não tem ar para empurrar. Como se propulsiona? Empurra seus próprios gases de exaustão para trás. Os gases empurram o foguete para frente com força igual. A massa do foguete diminui (combustível gasto), mas o princípio é o mesmo: qualquer sistema pode se autopropulsionar expelindo massa, sem depender de meio externo. É a 3ª Lei de Newton aplicada à propulsão."
+        },
+        {
+          "id": "observation",
+          "title": "Newton e os pares de interação",
+          "content": "A 3ª Lei de Newton (1687): 'Para toda ação há uma reação igual e contrária.' A formulação moderna é mais precisa: forças sempre ocorrem em pares, atuando em corpos DISTINTOS. Quando você aperta um prego com um martelo, o martelo desacelera porque o prego exerce força igual sobre o martelo. A confusão clássica: 'se as forças são iguais, por que algo se move?' — porque as forças atuam em corpos diferentes, com massas diferentes, gerando acelerações diferentes (a = F/m)."
+        },
+        {
+          "id": "experiment",
+          "title": "O impulso da mola",
+          "content": "Configure m₁ = 2 kg e m₂ = 4 kg. Após o impulso, observe v₁ e v₂. Note que m₁·v₁ + m₂·v₂ = 0 sempre — o momento total do sistema é zero porque ele partia do repouso. O momento de cada bloco é igual e oposto. Agora troque m₂ = 2 kg: as velocidades ficam iguais em módulo. Com m₂ = 8 kg: v₂ é 4× menor que v₁. A 3ª Lei garante impulsos iguais; as massas diferentes produzem velocidades diferentes."
+        },
+        {
+          "id": "formalization",
+          "title": "F₁₂ = −F₂₁ — e a conservação de momento",
+          "content": "A 3ª Lei é a origem da conservação de momento. Se F₁₂ = −F₂₁ para todo par interno de um sistema, então a força resultante interna é zero: Σ F_int = 0. Pelo 2ª Lei: d(p_total)/dt = F_ext. Se F_ext = 0, então p_total = constante. A conservação de momento é uma das leis mais universais da física — vale em mecânica clássica, relatividade e mecânica quântica."
+        }
+      ]
+    },
+    {
+      "id": "mec-colisao-01",
+      "module": "forces",
+      "title": "Colisões e a Fronteira do Mundo Atômico",
+      "experiment_ids": [
+        "colisao-01"
+      ],
+      "exercise_ids": [
+        "mec-ex-07",
+        "mec-ex-08"
+      ],
+      "concepts": [
+        "conservação de momento",
+        "colisão elástica",
+        "colisão inelástica",
+        "coeficiente de restituição",
+        "energia cinética"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "Rutherford e o núcleo atômico",
+          "content": "Em 1909, Ernest Rutherford atirou partículas alfa (núcleos de hélio) contra uma folha de ouro. Pela teoria vigente, os eléttons e prótons estariam uniformemente distribuídos (modelo do 'pudim de ameixa'). Mas algumas partículas ricocheteavam em ângulos impossíveis — como bolas de bilhar batendo numa outra bola de bilhar muito pesada. Pela análise das colisões elásticas, Rutherford deduziu que o átomo tem um núcleo minúsculo e denso. Toda a física nuclear nasceu da análise de colisões."
+        },
+        {
+          "id": "observation",
+          "title": "Elástica versus inelástica",
+          "content": "Em toda colisão, o momento linear é conservado (ausência de forças externas). A energia cinética pode ou não ser conservada. Colisão elástica: Ec conservada — bolas de bilhar, bolas de Newton, colisões de partículas subatômicas. Colisão inelástica: Ec não conservada — energia vai para deformação, calor, som. Colisão perfeitamente inelástica: caso extremo, os corpos se unem. Nenhuma colisão macroscópica real é perfeitamente elástica — sempre há alguma perda."
+        },
+        {
+          "id": "experiment",
+          "title": "O caso especial m₁ = m₂",
+          "content": "Configure m₁ = m₂ = 3 kg, tipo elástica. Após a colisão, o bloco 1 para completamente e o bloco 2 parte com a velocidade inicial do bloco 1. Isso é o que acontece nas bolas de Newton (pendulum de Newton): o impulso se propaga através dos corpos intermediários e só o último se move. Agora mude para inelástica com m₁ = m₂: os dois partem com metade da velocidade. A energia cinética cai à metade."
+        },
+        {
+          "id": "formalization",
+          "title": "As equações das colisões elásticas",
+          "content": "Para colisão elástica 1D com m₁ = m₂: v₁' = v₂ e v₂' = v₁ (troca completa). Para m₁ >> m₂ (bola de boliche contra de pingue-pongue): v₁' ≈ v₁ (mal para), v₂' ≈ 2v₁ (a menor vai para frente com o dobro). Para m₂ >> m₁ (igual mas invertido): v₁' ≈ −v₁ (ricocheia), v₂' ≈ 0 (quase não se move). O coeficiente de restituição e = |v₂'−v₁'|/|v₂−v₁| mede a elasticidade: e=1 elástica perfeita, e=0 inelástica perfeita."
+        }
+      ]
+    },
+    {
+      "id": "mec-potencia-01",
+      "module": "energy",
+      "title": "Potência — A Taxa do Trabalho",
+      "experiment_ids": [
+        "potencia-01"
+      ],
+      "exercise_ids": [
+        "mec-ex-09",
+        "mec-ex-10"
+      ],
+      "concepts": [
+        "potência",
+        "rendimento",
+        "trabalho",
+        "eficiência",
+        "watt",
+        "cavalo-vapor"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "James Watt e o cavalo-vapor",
+          "content": "James Watt precisava convencer mineiros de carvão a comprar suas máquinas a vapor. Para isso, definiu a unidade 'cavalo-vapor' (horsepower): a potência que um cavalo de trabalho conseguia sustentar continuamente (levantando aproximadamente 76 kgf a 1 m/s). Seu motor superava o cavalo. O watt (W), unidade SI de potência, foi nomeado em sua homenagem: 1 HP = 745,7 W. Uma pessoa em boa forma física sustenta cerca de 100–200 W continuamente."
+        },
+        {
+          "id": "observation",
+          "title": "Rendimento e a 2ª Lei",
+          "content": "Todo processo real tem rendimento η < 1. A energia total é conservada — o excesso vai para formas 'inúteis' (calor, som, luz). Um motor a gasolina tem η ≈ 25–35%: 65–75% da energia do combustível vira calor no motor e no escapamento. Motores elétricos chegam a η ≈ 90–98%. Uma lâmpada incandescente tem η ≈ 5% (95% do calor, 5% de luz visível). Uma LED chega a η ≈ 40–60%. A 2ª Lei da Termodinâmica prova que η = 100% é impossível em qualquer ciclo real."
+        },
+        {
+          "id": "experiment",
+          "title": "Massa, altura e tempo",
+          "content": "Configure m = 50 kg, h = 10 m, η = 80%. Observe P_útil = mgh/t e P_total = P_útil/η. Agora dobre a massa: P_útil dobra (levanta mais peso, mesma velocidade). Dobre a velocidade reduzindo o tempo: P_útil dobra (mesmo peso, mais rápido). Reduza η para 50%: P_total dobra (mesma tarefa, motor menos eficiente). O trabalho útil W = mgh é fixo; o tempo e o rendimento determinam qual potência o motor precisa entregar."
+        },
+        {
+          "id": "formalization",
+          "title": "P = W/t = F·v — e a usina de Itaipu",
+          "content": "Itaipu gera 14 GW. Isso equivale a 14 × 10⁹ W = 14 × 10⁹ J/s. Com rendimento de ~90%, a potência hidráulica das turbinas é ~15,5 GW. A queda d'água fornece P = ρQgh, onde Q é a vazão em m³/s e h é a altura da queda (~120 m). Isso implica uma vazão de ~13.000 m³/s — mais de 13 toneladas de água por metro por segundo. A equação P = F·v diz a mesma coisa: a força do peso da água (F = ρQg) vezes a velocidade de queda (v = √(2gh)) dá a potência mecânica disponível."
+        }
+      ]
     }
   ]
 }

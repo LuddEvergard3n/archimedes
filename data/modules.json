@@ -135,6 +135,31 @@
         "thermo-processos-01",
         "thermo-calor-01"
       ]
+    },
+    {
+      "id": "eletromagnetismo",
+      "title": "Eletromagnetismo",
+      "subtitle": "Cargas, campos e ondas",
+      "description": "Da força entre cargas à indução eletromagnética. O campo que unificou eletricidade, magnetismo e luz.",
+      "color": "#4ab0d8",
+      "icon": "zap",
+      "order": 7,
+      "experiments": [
+        "coulomb-01",
+        "campo-eletrico-01",
+        "circuito-01",
+        "campo-magnetico-01",
+        "forca-lorentz-01",
+        "inducao-01"
+      ],
+      "lessons": [
+        "em-coulomb-01",
+        "em-campo-eletrico-01",
+        "em-circuito-01",
+        "em-campo-magnetico-01",
+        "em-lorentz-01",
+        "em-inducao-01"
+      ]
     }
   ]
 }

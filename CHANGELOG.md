@@ -3,7 +3,43 @@
 Todas as alterações relevantes ao projeto são registradas aqui.  
 Formato: [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
-## [1.2.0] — 2026-03-11
+## [1.4.0] — 2026-04-26
+
+### Adicionado — Mecânica completa
+
+5 simulações novas distribuídas nos módulos existentes (Movimento, Forças, Energia).
+
+**Movimento:** Lançamento Oblíquo (parábola, alcance R = v₀²·sin2θ/g, ângulo ótimo 45°) · Movimento Circular Uniforme (ω, v=ωr, aₓ=ω²r, T, f).
+
+**Forças:** 3ª Lei de Newton (pares ação-reação, conservação de momento, impulso de mola) · Colisões Elástica e Inelástica (fórmulas analíticas exatas, ΔEc calculado).
+
+**Energia:** Potência e Rendimento (P = W/t = Fv, η = P_útil/P_total, barra de progresso animada).
+
+5 lições em 4 fases · 17 equações · 10 exercícios (básicos, intermediários, avançados, conceituais).
+
+Todos os 19 novos testes passam. Lacunas curriculares pendentes: Óptica, Física Moderna.
+
+## [1.3.0] — 2026-04-26
+
+### Adicionado — Módulo Eletromagnetismo
+
+Novo módulo completo com 6 simulações, 6 lições, 15 equações e 12 exercícios.
+Cobre o programa de Ciências da Natureza do EF9 e EM2 na BNCC.
+
+**Simulações:**
+
+- **Coulomb** — Lei de Coulomb F = kₑ|q₁q₂|/r². Dois corpos carregados com vetores de força em tempo real. Atração/repulsão por sinal de carga.
+- **Campo Elétrico** — Campo vetorial de dipolo ou cargas iguais. Linhas de campo calculadas por integração numérica de trajetórias a partir de cargas positivas.
+- **Circuito** — Lei de Ohm V = RI, potência P = VI. Resistores em série e paralelo com elétrons animados proporcionais à corrente.
+- **Campo Magnético** — Fio longo (B = μ₀I/2πr) e solenoide (B = μ₀nI). Animação das linhas de campo circulares com offset temporal.
+- **Força de Lorentz** — Partícula carregada em campo B uniforme. Integração Velocity Verlet. Trajetória circular com raio r = mv/(|q|B).
+- **Indução** — Espira girando em campo B. Gráfico de ε(t) = BAω·sin(θ) em tempo real. Demonstra o princípio do gerador elétrico.
+
+**Conteúdo pedagógico** (lições em 4 fases cada):
+Coulomb e a balança de torção · Faraday e as linhas de campo · Ohm, Kirchhoff e circuitos · Oersted e Ampère · Força de Lorentz e o ciclotron · Faraday, Lenz e Itaipu.
+
+**Suite de testes:** 21/21 PASS (16 novos + 5 de regressão).
+
 
 ### Corrigido — Auditoria completa de simulações
 

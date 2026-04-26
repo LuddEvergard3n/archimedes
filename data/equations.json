@@ -761,6 +761,757 @@
       },
       "when_to_use": "Estimar o período de qualquer pêndulo simples de comprimento L",
       "restriction": "Aproximação válida para ângulos < 15°. Para ângulos maiores, o período real é ligeiramente maior que a fórmula prevê."
+    },
+    {
+      "id": "coulomb-eq",
+      "module": "eletromagnetismo",
+      "display": "F = k·|q₁·q₂| / r²",
+      "latex": "F = k_e \\dfrac{|q_1 q_2|}{r^2}",
+      "variables": {
+        "F": {
+          "name": "força elétrica",
+          "unit": "N"
+        },
+        "kₑ": {
+          "name": "constante de Coulomb (8,99 × 10⁹)",
+          "unit": "N·m²/C²"
+        },
+        "q₁, q₂": {
+          "name": "cargas puntiformes",
+          "unit": "C"
+        },
+        "r": {
+          "name": "distância entre as cargas",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Força entre duas cargas puntiformes no vácuo",
+      "restriction": "Válida apenas para cargas puntiformes; kₑ = 1/(4πε₀)",
+      "experiment_ids": [
+        "coulomb-01"
+      ]
+    },
+    {
+      "id": "campo-eletrico-eq",
+      "module": "eletromagnetismo",
+      "display": "E = k·|q| / r²",
+      "latex": "E = k_e \\dfrac{|q|}{r^2}",
+      "variables": {
+        "E": {
+          "name": "campo elétrico",
+          "unit": "N/C = V/m"
+        },
+        "kₑ": {
+          "name": "constante de Coulomb",
+          "unit": "N·m²/C²"
+        },
+        "q": {
+          "name": "carga fonte",
+          "unit": "C"
+        },
+        "r": {
+          "name": "distância à carga",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Campo elétrico criado por uma carga puntiforme",
+      "restriction": "Superposição: E_total = ΣEᵢ (soma vetorial de contribuições individuais)",
+      "experiment_ids": [
+        "campo-eletrico-01"
+      ]
+    },
+    {
+      "id": "campo-dipolo-eq",
+      "module": "eletromagnetismo",
+      "display": "p = q·d  (momento de dipolo)",
+      "latex": "\\vec{p} = q \\cdot \\vec{d}",
+      "variables": {
+        "p": {
+          "name": "momento de dipolo elétrico",
+          "unit": "C·m"
+        },
+        "q": {
+          "name": "magnitude da carga",
+          "unit": "C"
+        },
+        "d": {
+          "name": "vetor da carga negativa para a positiva",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Par de cargas iguais e opostas separadas por distância d",
+      "restriction": "A moléculas polares como H₂O têm momento de dipolo permanente",
+      "experiment_ids": [
+        "campo-eletrico-01"
+      ]
+    },
+    {
+      "id": "ohm-eq",
+      "module": "eletromagnetismo",
+      "display": "V = R·I",
+      "latex": "V = R \\cdot I",
+      "variables": {
+        "V": {
+          "name": "tensão (ddp)",
+          "unit": "V"
+        },
+        "R": {
+          "name": "resistência",
+          "unit": "Ω"
+        },
+        "I": {
+          "name": "corrente elétrica",
+          "unit": "A"
+        }
+      },
+      "when_to_use": "Condutores ôhmicos em regime estacionário",
+      "restriction": "Não vale para semicondutores, diodos, ou resistores não-lineares",
+      "experiment_ids": [
+        "circuito-01"
+      ]
+    },
+    {
+      "id": "potencia-eq",
+      "module": "eletromagnetismo",
+      "display": "P = V·I = V²/R = I²·R",
+      "latex": "P = VI = \\dfrac{V^2}{R} = I^2 R",
+      "variables": {
+        "P": {
+          "name": "potência elétrica",
+          "unit": "W"
+        },
+        "V": {
+          "name": "tensão",
+          "unit": "V"
+        },
+        "I": {
+          "name": "corrente",
+          "unit": "A"
+        },
+        "R": {
+          "name": "resistência",
+          "unit": "Ω"
+        }
+      },
+      "when_to_use": "Potência dissipada ou consumida num elemento resistivo",
+      "restriction": "As três formas são equivalentes via Lei de Ohm",
+      "experiment_ids": [
+        "circuito-01"
+      ]
+    },
+    {
+      "id": "serie-eq",
+      "module": "eletromagnetismo",
+      "display": "R_série = R₁ + R₂ + … + Rₙ",
+      "latex": "R_{\\text{série}} = \\sum_{i=1}^{n} R_i",
+      "variables": {
+        "R_série": {
+          "name": "resistência equivalente em série",
+          "unit": "Ω"
+        }
+      },
+      "when_to_use": "Resistores em série — mesma corrente, tensões se somam",
+      "restriction": "A corrente é idêntica em todos os elementos da série",
+      "experiment_ids": [
+        "circuito-01"
+      ]
+    },
+    {
+      "id": "paralelo-eq",
+      "module": "eletromagnetismo",
+      "display": "1/R_par = 1/R₁ + 1/R₂ + … + 1/Rₙ",
+      "latex": "\\dfrac{1}{R_{\\text{par}}} = \\sum_{i=1}^{n} \\dfrac{1}{R_i}",
+      "variables": {
+        "R_par": {
+          "name": "resistência equivalente em paralelo",
+          "unit": "Ω"
+        }
+      },
+      "when_to_use": "Resistores em paralelo — mesma tensão, correntes se somam",
+      "restriction": "R_par é sempre menor que o menor resistor individual",
+      "experiment_ids": [
+        "circuito-01"
+      ]
+    },
+    {
+      "id": "biot-savart-fio-eq",
+      "module": "eletromagnetismo",
+      "display": "B = μ₀·I / (2π·r)",
+      "latex": "B = \\dfrac{\\mu_0 I}{2\\pi r}",
+      "variables": {
+        "B": {
+          "name": "campo magnético",
+          "unit": "T"
+        },
+        "μ₀": {
+          "name": "permeabilidade do vácuo (4π × 10⁻⁷)",
+          "unit": "T·m/A"
+        },
+        "I": {
+          "name": "corrente elétrica",
+          "unit": "A"
+        },
+        "r": {
+          "name": "distância ao fio",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Campo magnético de um fio infinito retilíneo",
+      "restriction": "Direção: circular ao redor do fio (regra da mão direita)",
+      "experiment_ids": [
+        "campo-magnetico-01"
+      ]
+    },
+    {
+      "id": "solenoide-eq",
+      "module": "eletromagnetismo",
+      "display": "B = μ₀·n·I",
+      "latex": "B = \\mu_0 n I",
+      "variables": {
+        "B": {
+          "name": "campo interno do solenoide",
+          "unit": "T"
+        },
+        "μ₀": {
+          "name": "permeabilidade do vácuo",
+          "unit": "T·m/A"
+        },
+        "n": {
+          "name": "número de espiras por metro",
+          "unit": "esp/m"
+        },
+        "I": {
+          "name": "corrente",
+          "unit": "A"
+        }
+      },
+      "when_to_use": "Interior de um solenoide ideal (comprimento >> diâmetro)",
+      "restriction": "Campo externo ≈ 0; campo interno é uniforme e paralelo ao eixo",
+      "experiment_ids": [
+        "campo-magnetico-01"
+      ]
+    },
+    {
+      "id": "lorentz-eq",
+      "module": "eletromagnetismo",
+      "display": "F = q·(E + v × B)",
+      "latex": "\\vec{F} = q(\\vec{E} + \\vec{v} \\times \\vec{B})",
+      "variables": {
+        "F": {
+          "name": "força de Lorentz",
+          "unit": "N"
+        },
+        "q": {
+          "name": "carga da partícula",
+          "unit": "C"
+        },
+        "E": {
+          "name": "campo elétrico local",
+          "unit": "N/C"
+        },
+        "v": {
+          "name": "velocidade da partícula",
+          "unit": "m/s"
+        },
+        "B": {
+          "name": "campo magnético local",
+          "unit": "T"
+        }
+      },
+      "when_to_use": "Força sobre carga em movimento em campos E e/ou B",
+      "restriction": "F_mag é sempre perpendicular a v → não realiza trabalho",
+      "experiment_ids": [
+        "forca-lorentz-01"
+      ]
+    },
+    {
+      "id": "raio-cicl-eq",
+      "module": "eletromagnetismo",
+      "display": "r = m·v / (|q|·B)",
+      "latex": "r = \\dfrac{mv}{|q|B}",
+      "variables": {
+        "r": {
+          "name": "raio de ciclotron",
+          "unit": "m"
+        },
+        "m": {
+          "name": "massa da partícula",
+          "unit": "kg"
+        },
+        "v": {
+          "name": "velocidade",
+          "unit": "m/s"
+        },
+        "q": {
+          "name": "carga",
+          "unit": "C"
+        },
+        "B": {
+          "name": "campo magnético",
+          "unit": "T"
+        }
+      },
+      "when_to_use": "Raio da trajetória circular de carga em campo B uniforme",
+      "restriction": "Válido quando E = 0 e v ⊥ B; resulta de |F_mag| = m·v²/r",
+      "experiment_ids": [
+        "forca-lorentz-01"
+      ]
+    },
+    {
+      "id": "periodo-cicl-eq",
+      "module": "eletromagnetismo",
+      "display": "T = 2π·m / (|q|·B)",
+      "latex": "T = \\dfrac{2\\pi m}{|q|B}",
+      "variables": {
+        "T": {
+          "name": "período de ciclotron",
+          "unit": "s"
+        },
+        "m": {
+          "name": "massa",
+          "unit": "kg"
+        },
+        "q": {
+          "name": "carga",
+          "unit": "C"
+        },
+        "B": {
+          "name": "campo magnético",
+          "unit": "T"
+        }
+      },
+      "when_to_use": "Período de revolução de carga em campo B uniforme",
+      "restriction": "Independe da velocidade — princípio do ciclotron",
+      "experiment_ids": [
+        "forca-lorentz-01"
+      ]
+    },
+    {
+      "id": "faraday-eq",
+      "module": "eletromagnetismo",
+      "display": "ε = −dΦ_B / dt",
+      "latex": "\\varepsilon = -\\dfrac{d\\Phi_B}{dt}",
+      "variables": {
+        "ε": {
+          "name": "força eletromotriz (fem) induzida",
+          "unit": "V"
+        },
+        "Φ_B": {
+          "name": "fluxo magnético",
+          "unit": "Wb = T·m²"
+        },
+        "t": {
+          "name": "tempo",
+          "unit": "s"
+        }
+      },
+      "when_to_use": "Qualquer variação de fluxo magnético através de uma espira",
+      "restriction": "O sinal negativo é a lei de Lenz: a corrente induzida opõe-se à variação de fluxo",
+      "experiment_ids": [
+        "inducao-01"
+      ]
+    },
+    {
+      "id": "fluxo-eq",
+      "module": "eletromagnetismo",
+      "display": "Φ_B = B·A·cos(θ)",
+      "latex": "\\Phi_B = B \\cdot A \\cdot \\cos\\theta",
+      "variables": {
+        "Φ_B": {
+          "name": "fluxo magnético",
+          "unit": "Wb"
+        },
+        "B": {
+          "name": "campo magnético",
+          "unit": "T"
+        },
+        "A": {
+          "name": "área da espira",
+          "unit": "m²"
+        },
+        "θ": {
+          "name": "ângulo entre B e a normal à espira",
+          "unit": "rad"
+        }
+      },
+      "when_to_use": "Fluxo de campo uniforme através de área plana",
+      "restriction": "Para B não-uniforme: Φ = ∫∫ B·dA",
+      "experiment_ids": [
+        "inducao-01"
+      ]
+    },
+    {
+      "id": "emf-max-eq",
+      "module": "eletromagnetismo",
+      "display": "ε_max = B·A·ω",
+      "latex": "\\varepsilon_{\\max} = B \\cdot A \\cdot \\omega",
+      "variables": {
+        "ε_max": {
+          "name": "fem máxima",
+          "unit": "V"
+        },
+        "B": {
+          "name": "campo magnético",
+          "unit": "T"
+        },
+        "A": {
+          "name": "área da espira",
+          "unit": "m²"
+        },
+        "ω": {
+          "name": "velocidade angular",
+          "unit": "rad/s"
+        }
+      },
+      "when_to_use": "Gerador: espira girando a velocidade angular ω constante em B",
+      "restriction": "ε(t) = ε_max · sin(ωt) — tensão CA senoidal",
+      "experiment_ids": [
+        "inducao-01"
+      ]
+    },
+    {
+      "id": "obliquo-x-eq",
+      "module": "motion",
+      "display": "x(t) = v₀·cos(θ)·t",
+      "latex": "x(t)=v_0\\cos\\theta\\cdot t",
+      "variables": {
+        "x": {
+          "name": "posição horizontal",
+          "unit": "m"
+        },
+        "v₀": {
+          "name": "velocidade inicial",
+          "unit": "m/s"
+        },
+        "θ": {
+          "name": "ângulo de lançamento",
+          "unit": "°"
+        },
+        "t": {
+          "name": "tempo",
+          "unit": "s"
+        }
+      },
+      "when_to_use": "Componente horizontal do lançamento oblíquo",
+      "restriction": "Válido sem resistência do ar",
+      "experiment_ids": [
+        "obliquo-01"
+      ]
+    },
+    {
+      "id": "obliquo-y-eq",
+      "module": "motion",
+      "display": "y(t) = v₀·sin(θ)·t − ½·g·t²",
+      "latex": "y(t)=v_0\\sin\\theta\\cdot t-\\tfrac{1}{2}gt^2",
+      "variables": {
+        "y": {
+          "name": "posição vertical",
+          "unit": "m"
+        },
+        "g": {
+          "name": "aceleração gravitacional",
+          "unit": "m/s²"
+        }
+      },
+      "when_to_use": "Componente vertical do lançamento oblíquo",
+      "restriction": "Origem no ponto de lançamento",
+      "experiment_ids": [
+        "obliquo-01"
+      ]
+    },
+    {
+      "id": "alcance-eq",
+      "module": "motion",
+      "display": "R = v₀²·sin(2θ) / g",
+      "latex": "R=\\dfrac{v_0^2\\sin 2\\theta}{g}",
+      "variables": {
+        "R": {
+          "name": "alcance horizontal",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Alcance quando ponto de pouso está na mesma altura do lançamento",
+      "restriction": "R é máximo quando θ = 45°",
+      "experiment_ids": [
+        "obliquo-01"
+      ]
+    },
+    {
+      "id": "altura-max-eq",
+      "module": "motion",
+      "display": "H = v₀²·sin²(θ) / (2g)",
+      "latex": "H=\\dfrac{v_0^2\\sin^2\\theta}{2g}",
+      "variables": {
+        "H": {
+          "name": "altura máxima",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Ponto mais alto da trajetória",
+      "restriction": "vy = 0 no ponto máximo",
+      "experiment_ids": [
+        "obliquo-01"
+      ]
+    },
+    {
+      "id": "vel-tang-eq",
+      "module": "motion",
+      "display": "v = ω·r",
+      "latex": "v=\\omega r",
+      "variables": {
+        "v": {
+          "name": "velocidade tangencial",
+          "unit": "m/s"
+        },
+        "ω": {
+          "name": "velocidade angular",
+          "unit": "rad/s"
+        },
+        "r": {
+          "name": "raio",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Módulo da velocidade em MCU",
+      "restriction": "Direção tangente à trajetória, sempre perpendicular a r",
+      "experiment_ids": [
+        "circular-01"
+      ]
+    },
+    {
+      "id": "acel-cent-eq",
+      "module": "motion",
+      "display": "aₓ = v²/r = ω²·r",
+      "latex": "a_c=\\dfrac{v^2}{r}=\\omega^2 r",
+      "variables": {
+        "aₓ": {
+          "name": "aceleração centrípeta",
+          "unit": "m/s²"
+        }
+      },
+      "when_to_use": "Aceleração em MCU — sempre aponta para o centro",
+      "restriction": "Não realiza trabalho (perpendicular a v)",
+      "experiment_ids": [
+        "circular-01"
+      ]
+    },
+    {
+      "id": "periodo-circ-eq",
+      "module": "motion",
+      "display": "T = 2π / ω",
+      "latex": "T=\\dfrac{2\\pi}{\\omega}",
+      "variables": {
+        "T": {
+          "name": "período",
+          "unit": "s"
+        }
+      },
+      "when_to_use": "Tempo de uma volta completa em MCU",
+      "restriction": "f = 1/T",
+      "experiment_ids": [
+        "circular-01"
+      ]
+    },
+    {
+      "id": "freq-eq",
+      "module": "motion",
+      "display": "f = ω / (2π)",
+      "latex": "f=\\dfrac{\\omega}{2\\pi}",
+      "variables": {
+        "f": {
+          "name": "frequência",
+          "unit": "Hz"
+        }
+      },
+      "when_to_use": "Número de voltas por segundo em MCU",
+      "restriction": "ω = 2πf",
+      "experiment_ids": [
+        "circular-01"
+      ]
+    },
+    {
+      "id": "newton3-eq",
+      "module": "forces",
+      "display": "F₁₂ = −F₂₁",
+      "latex": "\\vec{F}_{12}=-\\vec{F}_{21}",
+      "variables": {
+        "F₁₂": {
+          "name": "força do corpo 1 sobre o corpo 2",
+          "unit": "N"
+        },
+        "F₂₁": {
+          "name": "força do corpo 2 sobre o corpo 1",
+          "unit": "N"
+        }
+      },
+      "when_to_use": "Todo par de corpos em interação",
+      "restriction": "As forças atuam em corpos DISTINTOS — não se cancelam no mesmo corpo",
+      "experiment_ids": [
+        "newton3-01"
+      ]
+    },
+    {
+      "id": "momento-eq",
+      "module": "forces",
+      "display": "p = m·v  (conservado na ausência de forças externas)",
+      "latex": "\\vec{p}=m\\vec{v}",
+      "variables": {
+        "p": {
+          "name": "momento linear",
+          "unit": "kg·m/s"
+        },
+        "m": {
+          "name": "massa",
+          "unit": "kg"
+        },
+        "v": {
+          "name": "velocidade",
+          "unit": "m/s"
+        }
+      },
+      "when_to_use": "Quantidade de movimento de um corpo",
+      "restriction": "Σp_sistema = constante quando F_ext = 0",
+      "experiment_ids": [
+        "newton3-01",
+        "colisao-01"
+      ]
+    },
+    {
+      "id": "cons-momento-eq",
+      "module": "forces",
+      "display": "m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'",
+      "latex": "m_1v_1+m_2v_2=m_1v_1'+m_2v_2'",
+      "variables": {
+        "v₁,v₂": {
+          "name": "velocidades antes",
+          "unit": "m/s"
+        },
+        "v₁',v₂'": {
+          "name": "velocidades depois",
+          "unit": "m/s"
+        }
+      },
+      "when_to_use": "Qualquer colisão — momento sempre conservado",
+      "restriction": "Válido quando F_ext = 0 durante a colisão",
+      "experiment_ids": [
+        "colisao-01"
+      ]
+    },
+    {
+      "id": "colisao-elast-v1-eq",
+      "module": "forces",
+      "display": "v₁' = [(m₁−m₂)v₁ + 2m₂v₂] / (m₁+m₂)",
+      "latex": "v_1'=\\dfrac{(m_1-m_2)v_1+2m_2v_2}{m_1+m_2}",
+      "variables": {},
+      "when_to_use": "Velocidade pós-colisão elástica 1D",
+      "restriction": "Derivado de conservação de p e Ec simultaneamente",
+      "experiment_ids": [
+        "colisao-01"
+      ]
+    },
+    {
+      "id": "colisao-elast-v2-eq",
+      "module": "forces",
+      "display": "v₂' = [(m₂−m₁)v₂ + 2m₁v₁] / (m₁+m₂)",
+      "latex": "v_2'=\\dfrac{(m_2-m_1)v_2+2m_1v_1}{m_1+m_2}",
+      "variables": {},
+      "when_to_use": "Velocidade pós-colisão elástica 1D",
+      "restriction": "Se m₁=m₂: v₁'=v₂ e v₂'=v₁ (troca completa)",
+      "experiment_ids": [
+        "colisao-01"
+      ]
+    },
+    {
+      "id": "colisao-inelast-eq",
+      "module": "forces",
+      "display": "v' = (m₁v₁ + m₂v₂) / (m₁+m₂)",
+      "latex": "v'=\\dfrac{m_1v_1+m_2v_2}{m_1+m_2}",
+      "variables": {
+        "v'": {
+          "name": "velocidade comum pós-colisão",
+          "unit": "m/s"
+        }
+      },
+      "when_to_use": "Colisão perfeitamente inelástica — corpos se unem",
+      "restriction": "Perda de Ec = ½·μ·(v₁−v₂)² onde μ = m₁m₂/(m₁+m₂)",
+      "experiment_ids": [
+        "colisao-01"
+      ]
+    },
+    {
+      "id": "potencia-mec-eq",
+      "module": "energy",
+      "display": "P = W/t = F·v",
+      "latex": "P=\\dfrac{W}{t}=Fv",
+      "variables": {
+        "P": {
+          "name": "potência",
+          "unit": "W"
+        },
+        "W": {
+          "name": "trabalho",
+          "unit": "J"
+        },
+        "t": {
+          "name": "tempo",
+          "unit": "s"
+        },
+        "F": {
+          "name": "força",
+          "unit": "N"
+        },
+        "v": {
+          "name": "velocidade",
+          "unit": "m/s"
+        }
+      },
+      "when_to_use": "Potência de uma força constante",
+      "restriction": "1 CV = 745,7 W; 1 kW = 1000 W",
+      "experiment_ids": [
+        "potencia-01"
+      ]
+    },
+    {
+      "id": "rendimento-eq",
+      "module": "energy",
+      "display": "η = P_útil / P_total = W_útil / W_total",
+      "latex": "\\eta=\\dfrac{P_{\\text{útil}}}{P_{\\text{total}}}",
+      "variables": {
+        "η": {
+          "name": "rendimento (0 a 1)",
+          "unit": "adimensional"
+        }
+      },
+      "when_to_use": "Eficiência de qualquer máquina ou processo",
+      "restriction": "η = 1 é impossível em processos reais (2ª Lei da Termodinâmica)",
+      "experiment_ids": [
+        "potencia-01"
+      ]
+    },
+    {
+      "id": "trabalho-eq",
+      "module": "energy",
+      "display": "W = F·d·cos(θ)",
+      "latex": "W=Fd\\cos\\theta",
+      "variables": {
+        "W": {
+          "name": "trabalho",
+          "unit": "J"
+        },
+        "d": {
+          "name": "deslocamento",
+          "unit": "m"
+        },
+        "θ": {
+          "name": "ângulo entre F e d",
+          "unit": "°"
+        }
+      },
+      "when_to_use": "Trabalho de força constante",
+      "restriction": "W = 0 quando F ⊥ d (ex.: força centrípeta, normal em superfície horizontal)",
+      "experiment_ids": [
+        "potencia-01"
+      ]
     }
   ]
 }

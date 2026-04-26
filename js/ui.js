@@ -31,6 +31,7 @@ const MODULE_COLORS = {
   fluids:        '#2a6080',
   ondas:         '#5a7a40',
   termodinamica: '#8a4a1a',
+  eletromagnetismo: '#4ab0d8',
 };
 
 /* ─────────────────────────────────────────────────────────────────────────── *
@@ -324,7 +325,8 @@ async function _loadSimulation(simId, moduleId, canvas, chartCanvas) {
     fluids:         () => import('../modules/fluids/fluids.js').then(m => m.createFluidsSimulation(simId, canvas, chartCanvas)),
     intro:          () => import('../modules/intro/intro.js').then(m => m.createIntroSimulation(simId, canvas, chartCanvas)),
     ondas:          () => import('../modules/ondas/ondas.js').then(m => m.createOndasSimulation(simId, canvas)),
-    termodinamica:  () => import('../modules/termodinamica/termodinamica.js').then(m => m.createTermodinamicaSimulation(simId, canvas)),
+    termodinamica:      () => import('../modules/termodinamica/termodinamica.js').then(m => m.createTermodinamicaSimulation(simId, canvas)),
+    eletromagnetismo:   () => import('../modules/eletromagnetismo/eletromagnetismo.js').then(m => m.createEletromagnetismoSimulation(simId, canvas, chartCanvas)),
   };
 
   const loader = loaders[moduleId];

@@ -11,7 +11,7 @@
  * Versão do cache: incrementar CACHE_VERSION a cada deploy.
  */
 
-const CACHE_VERSION = 'v1.2.0';
+const CACHE_VERSION = 'v1.4.0';
 const CACHE_STATIC  = `archimedes-static-${CACHE_VERSION}`;
 const CACHE_DATA    = `archimedes-data-${CACHE_VERSION}`;
 

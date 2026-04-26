@@ -946,6 +946,552 @@
         "pendulum-intro-ex-03"
       ],
       "duration_min": 20
+    },
+    {
+      "id": "coulomb-01",
+      "module": "eletromagnetismo",
+      "simulation": "coulomb",
+      "title": "Lei de Coulomb",
+      "description": "A força elétrica entre cargas puntiformes depende do produto das cargas e do inverso do quadrado da distância.",
+      "phenomenon": "Esfregue um balão no cabelo e aproxime-o da parede. Sem tocar, o balão gruda. Esfregue dois balões e tente aproximá-los: se repelem. Uma força invisível age à distância. Coulomb mediu essa força em 1785 com precisão milimétrica usando uma balança de torção.",
+      "guidingQuestion": "Se você dobra a distância entre duas cargas, o que acontece com a força elétrica entre elas?",
+      "variables": [
+        {
+          "key": "q1",
+          "label": "Carga q₁",
+          "unit": "μC",
+          "min": -10,
+          "max": 10,
+          "step": 0.5,
+          "default": 1,
+          "transform": "x * 1e-6"
+        },
+        {
+          "key": "q2",
+          "label": "Carga q₂",
+          "unit": "μC",
+          "min": -10,
+          "max": 10,
+          "step": 0.5,
+          "default": 1,
+          "transform": "x * 1e-6"
+        },
+        {
+          "key": "r",
+          "label": "Separação r",
+          "unit": "m",
+          "min": 0.05,
+          "max": 1.0,
+          "step": 0.05,
+          "default": 0.3
+        }
+      ],
+      "equations": [
+        "coulomb-eq"
+      ],
+      "exercises": [
+        "em-ex-01",
+        "em-ex-02"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "campo-eletrico-01",
+      "module": "eletromagnetismo",
+      "simulation": "campo-eletrico",
+      "title": "Campo Elétrico e Linhas de Campo",
+      "description": "O campo elétrico é uma propriedade do espaço criada por cargas. Linhas de campo partem das positivas e chegam nas negativas.",
+      "phenomenon": "Uma bússola alinha com o campo magnético da Terra sem tocar nela. Da mesma forma, uma carga de teste no vácuo 'sente' o campo elétrico de outra carga antes de qualquer contato. Faraday inventou as linhas de campo para visualizar algo que não se vê: o estado do espaço entre cargas.",
+      "guidingQuestion": "O que acontece com as linhas de campo quando as duas cargas têm sinais iguais versus sinais opostos?",
+      "variables": [
+        {
+          "key": "q1",
+          "label": "Carga q₁",
+          "unit": "nC",
+          "min": -10,
+          "max": 10,
+          "step": 1,
+          "default": 2,
+          "transform": "x * 1e-9"
+        },
+        {
+          "key": "q2",
+          "label": "Carga q₂",
+          "unit": "nC",
+          "min": -10,
+          "max": 10,
+          "step": 1,
+          "default": -2,
+          "transform": "x * 1e-9"
+        }
+      ],
+      "equations": [
+        "campo-eletrico-eq",
+        "campo-dipolo-eq"
+      ],
+      "exercises": [
+        "em-ex-03",
+        "em-ex-04"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "circuito-01",
+      "module": "eletromagnetismo",
+      "simulation": "circuito",
+      "title": "Lei de Ohm e Circuitos",
+      "description": "Georg Ohm descobriu que a corrente num condutor é proporcional à tensão aplicada. A resistência é a constante de proporcionalidade.",
+      "phenomenon": "Por que o filamento de uma lâmpada incandescente aquece ao rubro mas o fio de cobre que a alimenta fica frio? Ambos conduzem a mesma corrente. A diferença é a resistência: R_fio ≈ 0,01 Ω; R_filamento ≈ 1000 Ω. A potência dissipada P = I²R faz todo o trabalho.",
+      "guidingQuestion": "Se você ligar dois resistores em paralelo, a resistência total aumenta ou diminui? Por quê?",
+      "variables": [
+        {
+          "key": "V",
+          "label": "Tensão (V)",
+          "unit": "V",
+          "min": 1,
+          "max": 24,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "key": "R1",
+          "label": "Resistor R₁",
+          "unit": "Ω",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 4
+        },
+        {
+          "key": "R2",
+          "label": "Resistor R₂",
+          "unit": "Ω",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 8
+        },
+        {
+          "key": "modo",
+          "label": "Ligação",
+          "unit": "",
+          "min": 0,
+          "max": 1,
+          "step": 1,
+          "default": 0,
+          "options": [
+            "serie",
+            "paralelo"
+          ]
+        }
+      ],
+      "equations": [
+        "ohm-eq",
+        "potencia-eq",
+        "serie-eq",
+        "paralelo-eq"
+      ],
+      "exercises": [
+        "em-ex-05",
+        "em-ex-06"
+      ],
+      "duration_min": 25
+    },
+    {
+      "id": "campo-magnetico-01",
+      "module": "eletromagnetismo",
+      "simulation": "campo-magnetico",
+      "title": "Campo Magnético",
+      "description": "Correntes elétricas criam campos magnéticos. Oersted descobriu isso em 1820 por acidente. Ampère formalizou a lei que leva seu nome.",
+      "phenomenon": "Em 1820, durante uma aula, Hans Christian Oersted percebeu que agulha de bússola próxima a um fio condutor desviava quando a corrente passava. Corrente elétrica cria campo magnético — e vice-versa. Em semanas, a notícia chegou a Paris e Ampère já tinha a lei quantitativa.",
+      "guidingQuestion": "Se você dobra a corrente num fio longo, o que acontece com o campo magnético a 5 cm do fio?",
+      "variables": [
+        {
+          "key": "I",
+          "label": "Corrente (I)",
+          "unit": "A",
+          "min": 0.5,
+          "max": 20,
+          "step": 0.5,
+          "default": 5
+        },
+        {
+          "key": "n",
+          "label": "Espiras/m",
+          "unit": "esp/m",
+          "min": 100,
+          "max": 2000,
+          "step": 100,
+          "default": 500
+        },
+        {
+          "key": "modo",
+          "label": "Tipo",
+          "unit": "",
+          "min": 0,
+          "max": 1,
+          "step": 1,
+          "default": 0,
+          "options": [
+            "fio",
+            "solenoide"
+          ]
+        }
+      ],
+      "equations": [
+        "biot-savart-fio-eq",
+        "solenoide-eq"
+      ],
+      "exercises": [
+        "em-ex-07",
+        "em-ex-08"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "forca-lorentz-01",
+      "module": "eletromagnetismo",
+      "simulation": "forca-lorentz",
+      "title": "Força de Lorentz",
+      "description": "Uma partícula carregada em movimento num campo magnético sofre uma força perpendicular à velocidade, descrevendo trajetória circular.",
+      "phenomenon": "O Large Hadron Collider do CERN guia prótons viajando a 0,9999c ao longo de 27 km usando apenas campos magnéticos. Nenhum fio toca os prótons — a força de Lorentz dobra a trajetória. Televisores de tubo CRT funcionavam pelo mesmo princípio: um feixe de elétrons desviado por eletroímãs.",
+      "guidingQuestion": "Se você dobra a intensidade do campo magnético, o que acontece com o raio da trajetória circular?",
+      "variables": [
+        {
+          "key": "v0",
+          "label": "Velocidade inicial",
+          "unit": "Mm/s",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 5,
+          "transform": "x * 1e6"
+        },
+        {
+          "key": "B",
+          "label": "Campo B",
+          "unit": "T",
+          "min": 0.02,
+          "max": 0.5,
+          "step": 0.02,
+          "default": 0.1
+        }
+      ],
+      "equations": [
+        "lorentz-eq",
+        "raio-cicl-eq",
+        "periodo-cicl-eq"
+      ],
+      "exercises": [
+        "em-ex-09",
+        "em-ex-10"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "inducao-01",
+      "module": "eletromagnetismo",
+      "simulation": "inducao",
+      "title": "Indução Eletromagnética",
+      "description": "Uma espira girando num campo magnético gera uma corrente variável. É o princípio de todo gerador elétrico do planeta.",
+      "phenomenon": "Em 1831, Faraday enrolou dois circuitos em torno de um anel de ferro. Quando ligava a corrente no primeiro, a agulha do galvanômetro do segundo piscava e voltava a zero. Não era a corrente estática que induzia — era a variação. A Hidrelétrica de Itaipu opera por esse princípio: turbinas giram espiras em campos magnéticos.",
+      "guidingQuestion": "O que acontece com a fem máxima induzida se você dobra a frequência de rotação da espira?",
+      "variables": [
+        {
+          "key": "B",
+          "label": "Campo B",
+          "unit": "T",
+          "min": 0.1,
+          "max": 2.0,
+          "step": 0.1,
+          "default": 0.5
+        },
+        {
+          "key": "A",
+          "label": "Área da espira",
+          "unit": "cm²",
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "default": 10,
+          "transform": "x * 1e-4"
+        },
+        {
+          "key": "omega",
+          "label": "Velocidade ang.",
+          "unit": "rad/s",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 3.14
+        }
+      ],
+      "equations": [
+        "faraday-eq",
+        "fluxo-eq",
+        "emf-max-eq"
+      ],
+      "exercises": [
+        "em-ex-11",
+        "em-ex-12"
+      ],
+      "duration_min": 25
+    },
+    {
+      "id": "obliquo-01",
+      "module": "motion",
+      "simulation": "obliquo",
+      "title": "Lançamento Oblíquo",
+      "description": "Composição de MRU horizontal e MRUV vertical. Alcance máximo em 45°.",
+      "phenomenon": "Uma bola de futebol chutada descreve uma parábola. Um projétil de artilharia, um basquete num arremesso de 3 pontos, a água de um chafariz — todos seguem a mesma curva. Galileu foi o primeiro a decompor esse movimento em dois independentes: horizontal sem aceleração, vertical com g.",
+      "guidingQuestion": "Em que ângulo o alcance horizontal é máximo? Por quê isso acontece?",
+      "variables": [
+        {
+          "key": "v0",
+          "label": "Velocidade inicial",
+          "unit": "m/s",
+          "min": 5,
+          "max": 50,
+          "step": 1,
+          "default": 20
+        },
+        {
+          "key": "angle",
+          "label": "Ângulo θ",
+          "unit": "°",
+          "min": 5,
+          "max": 85,
+          "step": 5,
+          "default": 45
+        },
+        {
+          "key": "g",
+          "label": "Gravidade",
+          "unit": "m/s²",
+          "min": 1.6,
+          "max": 25,
+          "step": 0.1,
+          "default": 9.8
+        }
+      ],
+      "equations": [
+        "obliquo-x-eq",
+        "obliquo-y-eq",
+        "alcance-eq",
+        "altura-max-eq"
+      ],
+      "exercises": [
+        "mec-ex-01",
+        "mec-ex-02"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "circular-01",
+      "module": "motion",
+      "simulation": "circular",
+      "title": "Movimento Circular Uniforme",
+      "description": "Velocidade constante em módulo, variável em direção. Aceleração centrípeta sempre aponta para o centro.",
+      "phenomenon": "A Lua orbita a Terra a velocidade quase constante mas muda de direção continuamente. Um carro numa curva, uma centrífuga de laboratório, o rotor de um motor — todos executam movimento circular. A força centrípeta não realiza trabalho: muda a direção sem alterar a rapidez.",
+      "guidingQuestion": "Se você dobra o raio mantendo a velocidade, o que acontece com a aceleração centrípeta?",
+      "variables": [
+        {
+          "key": "omega",
+          "label": "Vel. angular ω",
+          "unit": "rad/s",
+          "min": 0.5,
+          "max": 10,
+          "step": 0.5,
+          "default": 2.09
+        },
+        {
+          "key": "r",
+          "label": "Raio",
+          "unit": "m",
+          "min": 0.5,
+          "max": 3.0,
+          "step": 0.1,
+          "default": 1.0
+        }
+      ],
+      "equations": [
+        "vel-tang-eq",
+        "acel-cent-eq",
+        "periodo-circ-eq",
+        "freq-eq"
+      ],
+      "exercises": [
+        "mec-ex-03",
+        "mec-ex-04"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "newton3-01",
+      "module": "forces",
+      "simulation": "newton3",
+      "title": "3ª Lei de Newton — Ação e Reação",
+      "description": "Para todo par A-B: F_AB = −F_BA. As forças são iguais em módulo, opostas em direção, e atuam em corpos distintos.",
+      "phenomenon": "Um foguete não empurra o ar — empurra os gases de exaustão para trás, e os gases empurram o foguete para frente com força igual. No vácuo do espaço isso funciona ainda melhor. Quando você pula, você empurra a Terra para baixo — a Terra empurra você para cima com exatamente a mesma força. A Terra não se move porque tem massa 10²⁴ vezes maior.",
+      "guidingQuestion": "Se as forças de ação e reação são iguais e opostas, por que um sistema em queda livre não está em equilíbrio?",
+      "variables": [
+        {
+          "key": "m1",
+          "label": "Massa m₁",
+          "unit": "kg",
+          "min": 1,
+          "max": 10,
+          "step": 0.5,
+          "default": 2
+        },
+        {
+          "key": "m2",
+          "label": "Massa m₂",
+          "unit": "kg",
+          "min": 1,
+          "max": 10,
+          "step": 0.5,
+          "default": 4
+        },
+        {
+          "key": "F",
+          "label": "Força da mola",
+          "unit": "N",
+          "min": 5,
+          "max": 50,
+          "step": 5,
+          "default": 20
+        }
+      ],
+      "equations": [
+        "newton3-eq",
+        "momento-eq"
+      ],
+      "exercises": [
+        "mec-ex-05",
+        "mec-ex-06"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "colisao-01",
+      "module": "forces",
+      "simulation": "colisao",
+      "title": "Colisões Elástica e Inelástica",
+      "description": "Conservação de momento em qualquer colisão. Colisão elástica conserva também a energia cinética; inelástica não.",
+      "phenomenon": "Bolas de bilhar colidem quase elasticamente — energia cinética é preservada. Um carro que amassa na batida perde energia cinética em deformação plástica — colisão inelástica. O airbag alonga o tempo de colisão, reduzindo a força de impacto (J = F·Δt = Δp = constante). Em física nuclear, colisões elásticas entre prótons revelam a estrutura interna dos núcleos.",
+      "guidingQuestion": "O momento linear total é conservado em ambos os tipos de colisão. Por que a energia cinética não é?",
+      "variables": [
+        {
+          "key": "m1",
+          "label": "Massa m₁",
+          "unit": "kg",
+          "min": 1,
+          "max": 8,
+          "step": 0.5,
+          "default": 3
+        },
+        {
+          "key": "m2",
+          "label": "Massa m₂",
+          "unit": "kg",
+          "min": 1,
+          "max": 8,
+          "step": 0.5,
+          "default": 2
+        },
+        {
+          "key": "v1i",
+          "label": "v₁ inicial",
+          "unit": "m/s",
+          "min": -8,
+          "max": 8,
+          "step": 0.5,
+          "default": 4
+        },
+        {
+          "key": "v2i",
+          "label": "v₂ inicial",
+          "unit": "m/s",
+          "min": -8,
+          "max": 8,
+          "step": 0.5,
+          "default": -1
+        },
+        {
+          "key": "tipo",
+          "label": "Tipo",
+          "unit": "",
+          "min": 0,
+          "max": 1,
+          "step": 1,
+          "default": 0,
+          "options": [
+            "elastica",
+            "inelastica"
+          ]
+        }
+      ],
+      "equations": [
+        "cons-momento-eq",
+        "colisao-elast-v1-eq",
+        "colisao-elast-v2-eq",
+        "colisao-inelast-eq"
+      ],
+      "exercises": [
+        "mec-ex-07",
+        "mec-ex-08"
+      ],
+      "duration_min": 25
+    },
+    {
+      "id": "potencia-01",
+      "module": "energy",
+      "simulation": "potencia",
+      "title": "Potência e Rendimento",
+      "description": "P = W/t = F·v. O rendimento η mede quanto do trabalho fornecido é convertido em trabalho útil.",
+      "phenomenon": "Um elevador de 500 kg sobe 10 andares em 30 segundos. Qual é a potência do motor? Mas o motor consome mais energia que o trabalho útil realizado — o excesso vai para calor no freio, atrito nos trilhos, resistência do ar. O rendimento η = P_útil / P_total mede essa eficiência. Motores elétricos modernos chegam a η ≈ 95%; motores a combustão raramente passam de 40%.",
+      "guidingQuestion": "Um motor com 80% de rendimento levanta 100 kg a 5 m em 4 s. Qual é a potência total consumida?",
+      "variables": [
+        {
+          "key": "m",
+          "label": "Massa",
+          "unit": "kg",
+          "min": 10,
+          "max": 500,
+          "step": 10,
+          "default": 50
+        },
+        {
+          "key": "h",
+          "label": "Altura",
+          "unit": "m",
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "key": "eta",
+          "label": "Rendimento η",
+          "unit": "%",
+          "min": 20,
+          "max": 100,
+          "step": 5,
+          "default": 80,
+          "transform": "x/100"
+        }
+      ],
+      "equations": [
+        "potencia-mec-eq",
+        "rendimento-eq",
+        "trabalho-eq"
+      ],
+      "exercises": [
+        "mec-ex-09",
+        "mec-ex-10"
+      ],
+      "duration_min": 20
     }
   ]
 }

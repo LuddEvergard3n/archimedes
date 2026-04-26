@@ -485,10 +485,271 @@ function createForcesSimulation(simId, canvas, chartCanvas) {
     case 'newton2':   return new Newton2Simulation(canvas, chartCanvas);
     case 'friction':  return new FrictionSimulation(canvas, chartCanvas);
     case 'resultant': return new ResultantSimulation(canvas);
+    case 'newton3':   return new Newton3Simulation(canvas);
+    case 'colisao':   return new ColisaoSimulation(canvas, chartCanvas);
     default:
       console.warn(`[forces] Unknown simulation ID: ${simId}`);
       return new Newton2Simulation(canvas, chartCanvas);
   }
 }
 
-export { createForcesSimulation, InertiaSimulation, Newton2Simulation, FrictionSimulation, ResultantSimulation };
+export { createForcesSimulation, InertiaSimulation, Newton2Simulation, FrictionSimulation, ResultantSimulation, Newton3Simulation, ColisaoSimulation };
+
+/* ══════════════════════════════════════════════════════════════════════════ *
+ *  Newton3Simulation — 3ª Lei de Newton: ação e reação
+ *  Para todo par de corpos A e B: F_AB = −F_BA
+ *  Dois blocos ligados por mola comprimida: ao soltar, impulsionados em
+ *  direções opostas com momentos iguais e opostos.
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+class Newton3Simulation extends SimBase {
+  constructor(canvas) {
+    super(canvas);
+    this.m1    = 2;    /* kg */
+    this.m2    = 4;    /* kg */
+    this.F     = 20;   /* N — força da mola */
+    this._x1   = 0; this._x2 = 0;
+    this._v1   = 0; this._v2 = 0;
+    this._released = false;
+  }
+
+  _onReset() {
+    this.m1 = this.params.m1 ?? 2;
+    this.m2 = this.params.m2 ?? 4;
+    this.F  = this.params.F  ?? 20;
+    this._x1 = 0; this._x2 = 0;
+    this._v1 = 0; this._v2 = 0;
+    this._released = false;
+  }
+
+  _onParamChange(key, value) {
+    if (key === 'm1') this.m1 = value;
+    if (key === 'm2') this.m2 = value;
+    if (key === 'F')  this.F  = value;
+    this._x1 = 0; this._x2 = 0;
+    this._v1 = 0; this._v2 = 0;
+    this._released = false;
+  }
+
+  _update(dt) {
+    if (!this._released) {
+      /* Empurrão instantâneo: impulso J = F·Δt curto */
+      /* Por conservação de momento: m1·v1 + m2·v2 = 0 */
+      /* e ação-reação: |J1| = |J2| → v1 = F*dt/m1, v2 = -F*dt/m2 */
+      const impulse = this.F * 0.05; /* N·s — impulso fixo */
+      this._v1 =  impulse / this.m1;
+      this._v2 = -impulse / this.m2;
+      this._released = true;
+    }
+    this._x1 += this._v1 * dt;
+    this._x2 += this._v2 * dt;
+    this.time += dt;
+  }
+
+  _render() {
+    const { ctx, canvas } = this;
+    const cw = canvas.width, ch = canvas.height;
+    clearCanvas(ctx);
+    drawGrid(ctx);
+
+    const cy     = ch / 2;
+    const scale  = 60;   /* px/m */
+    const cx     = cw / 2;
+    const halfW  = 28;   /* meia largura dos blocos */
+
+    /* Superfície */
+    drawSurface(ctx, 0, cw, cy + 22);
+
+    /* Blocos */
+    const x1px = cx + this._x1 * scale - halfW;
+    const x2px = cx + this._x2 * scale + halfW;
+
+    drawRect(ctx, cx + this._x1 * scale, cy - 8, 56, 44);
+    drawRect(ctx, cx + this._x2 * scale, cy - 8, 56, 44);
+
+    /* Labels de massa */
+    drawLabel(ctx, `m₁=${this.m1} kg`, cx + this._x1 * scale, cy - 28, COLORS.textSecondary, 'center');
+    drawLabel(ctx, `m₂=${this.m2} kg`, cx + this._x2 * scale, cy - 28, COLORS.textSecondary, 'center');
+
+    /* Mola no centro (antes de soltar) */
+    if (!this._released || this.time < 0.12) {
+      ctx.save();
+      ctx.strokeStyle = COLORS.amber + 'aa';
+      ctx.lineWidth   = 2;
+      const springX1 = cx + this._x1 * scale + halfW;
+      const springX2 = cx + this._x2 * scale - halfW;
+      const mid = (springX1 + springX2) / 2;
+      const n   = 6;
+      ctx.beginPath();
+      ctx.moveTo(springX1, cy);
+      for (let i = 0; i < n; i++) {
+        const sx = springX1 + (i / n) * (springX2 - springX1);
+        ctx.lineTo(sx + (springX2 - springX1) / (2 * n), cy + (i % 2 === 0 ? -10 : 10));
+      }
+      ctx.lineTo(springX2, cy);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    /* Vetores de força (ação-reação) */
+    if (this._released) {
+      const fScale = 1.5;
+      drawArrow(ctx, cx + this._x1 * scale - halfW, cy, -this.F * fScale, 0, COLORS.force, 'F₂₁', 2);
+      drawArrow(ctx, cx + this._x2 * scale + halfW, cy,  this.F * fScale, 0, COLORS.force, 'F₁₂', 2);
+
+      /* Vetores de velocidade */
+      drawArrow(ctx, cx + this._x1 * scale, cy - 36, this._v1 * 8, 0, COLORS.velocity, 'v₁', 1.5);
+      drawArrow(ctx, cx + this._x2 * scale, cy - 36, this._v2 * 8, 0, COLORS.velocity, 'v₂', 1.5);
+    }
+
+    /* Readouts */
+    const p1 = this.m1 * this._v1, p2 = this.m2 * this._v2;
+    drawReadout(ctx, 'v₁',    this._v1.toFixed(3),   'm/s',   12, 12);
+    drawReadout(ctx, 'v₂',    this._v2.toFixed(3),   'm/s',   12, 36);
+    drawReadout(ctx, 'p₁=m₁v₁', p1.toFixed(3),      'kg·m/s',12, 60);
+    drawReadout(ctx, 'p₂=m₂v₂', p2.toFixed(3),      'kg·m/s',12, 84);
+    drawReadout(ctx, 'p_tot', (p1 + p2).toFixed(4),  'kg·m/s',12, 108);
+    drawLabel(ctx, 'F₁₂ = −F₂₁', cw - 8, ch - 10, COLORS.textMuted, 'right');
+    if (!this._released) {
+      drawLabel(ctx, 'Pressione Play para soltar a mola', cw / 2, cy + 60, COLORS.amber, 'center');
+    }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════ *
+ *  ColisaoSimulation — Colisões elástica e inelástica
+ *  Conservação de momento: m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'
+ *  Elástica: também conserva Ec → formulas analíticas exatas
+ *  Inelástica: corpos se unem → v' = (m₁v₁ + m₂v₂)/(m₁ + m₂)
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+class ColisaoSimulation extends SimBase {
+  constructor(canvas, chartCanvas) {
+    super(canvas);
+    this.m1    = 3;    /* kg */
+    this.m2    = 2;    /* kg */
+    this.v1i   = 4;    /* m/s */
+    this.v2i   = -1;   /* m/s */
+    this.tipo  = 'elastica'; /* 'elastica' | 'inelastica' */
+    this._x1   = 0; this._x2 = 0;
+    this._v1   = 0; this._v2 = 0;
+    this._collided = false;
+    this._Ec_before = 0; this._Ec_after = 0;
+  }
+
+  _onReset() {
+    this.m1   = this.params.m1   ?? 3;
+    this.m2   = this.params.m2   ?? 2;
+    this.v1i  = this.params.v1i  ?? 4;
+    this.v2i  = this.params.v2i  ?? -1;
+    this.tipo = this.params.tipo ?? 'elastica';
+    this._reset_state();
+  }
+
+  _onParamChange(key, value) {
+    if (key === 'm1')   this.m1   = value;
+    if (key === 'm2')   this.m2   = value;
+    if (key === 'v1i')  this.v1i  = value;
+    if (key === 'v2i')  this.v2i  = value;
+    if (key === 'tipo') this.tipo = value;
+    this._reset_state();
+  }
+
+  _reset_state() {
+    const scale  = 50;
+    this._x1 = -80 / scale; /* m — posição inicial */
+    this._x2 =  80 / scale;
+    this._v1 = this.v1i;
+    this._v2 = this.v2i;
+    this._collided   = false;
+    this._Ec_before  = 0.5 * this.m1 * this.v1i ** 2 + 0.5 * this.m2 * this.v2i ** 2;
+    this._Ec_after   = 0;
+  }
+
+  _update(dt) {
+    if (this._collided) {
+      this._x1 += this._v1 * dt;
+      this._x2 += this._v2 * dt;
+      this.time += dt;
+      return;
+    }
+
+    this._x1 += this._v1 * dt;
+    this._x2 += this._v2 * dt;
+
+    /* Detectar colisão (distância < tamanho dos blocos ≈ 0.6 m) */
+    if (Math.abs(this._x2 - this._x1) < 0.58) {
+      this._collide();
+    }
+    this.time += dt;
+  }
+
+  _collide() {
+    this._collided = true;
+    const m1 = this.m1, m2 = this.m2;
+    const v1 = this._v1,  v2 = this._v2;
+
+    if (this.tipo === 'elastica') {
+      /* Fórmulas analíticas para colisão elástica 1D */
+      this._v1 = ((m1 - m2) * v1 + 2 * m2 * v2) / (m1 + m2);
+      this._v2 = ((m2 - m1) * v2 + 2 * m1 * v1) / (m1 + m2);
+    } else {
+      /* Colisão perfeitamente inelástica — corpos se unem */
+      const vf = (m1 * v1 + m2 * v2) / (m1 + m2);
+      this._v1 = vf;
+      this._v2 = vf;
+    }
+
+    this._Ec_after = 0.5 * m1 * this._v1 ** 2 + 0.5 * m2 * this._v2 ** 2;
+  }
+
+  _render() {
+    const { ctx, canvas } = this;
+    const cw = canvas.width, ch = canvas.height;
+    clearCanvas(ctx);
+    drawGrid(ctx);
+
+    const cy    = ch / 2;
+    const scale = 50;  /* px/m */
+    const cx    = cw / 2;
+    const bw    = 56;
+
+    drawSurface(ctx, 0, cw, cy + 22);
+
+    const x1px = cx + this._x1 * scale;
+    const x2px = cx + this._x2 * scale;
+
+    /* Blocos — se unem após colisão inelástica */
+    if (this._collided && this.tipo === 'inelastica') {
+      const mid = (x1px + x2px) / 2;
+      drawRect(ctx, mid, cy - 8, bw * 2 + 4, 44, COLORS.bodyFill, COLORS.force);
+      drawLabel(ctx, `m₁+m₂=${this.m1+this.m2} kg`, mid, cy - 28, COLORS.textSecondary, 'center');
+    } else {
+      drawRect(ctx, x1px, cy - 8, bw, 44);
+      drawRect(ctx, x2px, cy - 8, bw, 44);
+      drawLabel(ctx, `m₁=${this.m1}`, x1px, cy - 28, COLORS.textSecondary, 'center');
+      drawLabel(ctx, `m₂=${this.m2}`, x2px, cy - 28, COLORS.textSecondary, 'center');
+    }
+
+    /* Vetores de velocidade */
+    const vs = 8;
+    drawArrow(ctx, x1px, cy - 40, this._v1 * vs, 0, COLORS.velocity, `v₁=${this._v1.toFixed(1)}`, 1.5);
+    if (!(this._collided && this.tipo === 'inelastica')) {
+      drawArrow(ctx, x2px, cy - 40, this._v2 * vs, 0, COLORS.velocity, `v₂=${this._v2.toFixed(1)}`, 1.5);
+    }
+
+    /* Readouts */
+    const ptot = this.m1 * this._v1 + this.m2 * this._v2;
+    const ptot_i = this.m1 * this.v1i + this.m2 * this.v2i;
+    drawReadout(ctx, 'p_total', ptot.toFixed(3),       'kg·m/s', 12, 12);
+    drawReadout(ctx, 'p_antes', ptot_i.toFixed(3),     'kg·m/s', 12, 36);
+    drawReadout(ctx, 'Ec_antes', this._Ec_before.toFixed(2), 'J', 12, 60);
+    if (this._collided) {
+      drawReadout(ctx, 'Ec_depois', this._Ec_after.toFixed(2), 'J', 12, 84);
+      const perdaEc = this._Ec_before - this._Ec_after;
+      drawReadout(ctx, 'ΔEc', perdaEc.toFixed(2), 'J', 12, 108);
+    }
+    const tipoLabel = this.tipo === 'elastica' ? 'Elástica (Ec conservada)' : 'Inelástica (Ec não conservada)';
+    drawLabel(ctx, tipoLabel, cw - 8, ch - 10, COLORS.textMuted, 'right');
+  }
+}

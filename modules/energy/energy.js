@@ -9,7 +9,7 @@
 
 import { Physics } from '../../js/wasm-loader.js';
 import {
-  clearCanvas, drawGrid, drawArrow, drawCircle,
+  clearCanvas, drawGrid, drawArrow, drawCircle, drawRect,
   drawRamp, drawSurface, drawLabel, drawReadout, COLORS
 } from '../../engine/renderer.js';
 import { ChartEngine } from '../../engine/chart-engine.js';
@@ -476,10 +476,134 @@ function createEnergySimulation(simId, canvas, chartCanvas) {
     case 'kinetic':      return new KineticSimulation(canvas);
     case 'ramp-energy':  return new RampEnergySimulation(canvas, chartCanvas);
     case 'conservation': return new ConservationSimulation(canvas);
+    case 'potencia':     return new PotenciaSimulation(canvas, chartCanvas);
     default:
       console.warn(`[energy] Unknown simulation ID: ${simId}`);
       return new RampEnergySimulation(canvas, chartCanvas);
   }
 }
 
-export { createEnergySimulation, KineticSimulation, RampEnergySimulation, ConservationSimulation };
+export { createEnergySimulation, KineticSimulation, RampEnergySimulation, ConservationSimulation, PotenciaSimulation };
+
+/* ══════════════════════════════════════════════════════════════════════════ *
+ *  PotenciaSimulation — Potência e Rendimento
+ *  P = W/t = F·v   η = P_útil / P_total
+ *  Um motor eleva um bloco a velocidade constante contra a gravidade.
+ *  O usuário controla massa, altura e tempo → vê potência e rendimento.
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+class PotenciaSimulation extends SimBase {
+  constructor(canvas, chartCanvas) {
+    super(canvas);
+    this.m    = 50;    /* kg */
+    this.h    = 10;    /* m — altura a elevar */
+    this.eta  = 0.80;  /* rendimento — 80% */
+    this.g    = 9.8;
+    this._y   = 0;     /* posição atual do bloco (m) */
+    this._speed = 0;   /* velocidade de subida */
+    this._P_util  = 0;
+    this._P_total = 0;
+    this._W_util  = 0;
+    this._chart = chartCanvas ? new ChartEngine(chartCanvas) : null;
+  }
+
+  _onReset() {
+    this.m   = this.params.m   ?? 50;
+    this.h   = this.params.h   ?? 10;
+    this.eta = this.params.eta ?? 0.80;
+    this._y  = 0;
+    this._speed = this.h / 5; /* sobe em ~5s */
+    this._P_util  = this.m * this.g * this._speed;
+    this._P_total = this._P_util / this.eta;
+    this._W_util  = 0;
+    if (this._chart) this._chart.clear();
+  }
+
+  _onParamChange(key, value) {
+    if (key === 'm')   this.m   = value;
+    if (key === 'h')   this.h   = value;
+    if (key === 'eta') this.eta = value;
+    this._y = 0;
+    this._speed   = this.h / 5;
+    this._P_util  = this.m * this.g * this._speed;
+    this._P_total = this._P_util / this.eta;
+    this._W_util  = 0;
+    if (this._chart) this._chart.clear();
+  }
+
+  _update(dt) {
+    if (this._y >= this.h) { this._y = this.h; this.time += dt; return; }
+    this._y = Math.min(this._y + this._speed * dt, this.h);
+    this._W_util = this.m * this.g * this._y;
+    if (this._chart) this._chart.addPoint(this.time, this._P_util);
+    this.time += dt;
+  }
+
+  _render() {
+    const { ctx, canvas } = this;
+    const cw = canvas.width, ch = canvas.height;
+    clearCanvas(ctx);
+    drawGrid(ctx);
+
+    const groundY = ch - 30;
+    const scale   = (groundY - 60) / Math.max(this.h, 1); /* px/m */
+    const cx      = cw / 2;
+
+    /* Trilho */
+    ctx.save();
+    ctx.strokeStyle = COLORS.surface;
+    ctx.lineWidth   = 3;
+    ctx.beginPath(); ctx.moveTo(cx, groundY); ctx.lineTo(cx, 40); ctx.stroke();
+    ctx.restore();
+
+    /* Solo */
+    drawSurface(ctx, 0, cw, groundY);
+
+    /* Bloco */
+    const blockY = groundY - this._y * scale;
+    drawRect(ctx, cx, blockY - 20, 50, 40);
+    drawLabel(ctx, `${this.m} kg`, cx, blockY - 36, COLORS.textSecondary, 'center');
+
+    /* Peso */
+    drawArrow(ctx, cx, blockY + 20, 0, 35, COLORS.weight, 'P=mg', 2);
+
+    /* Força do motor (igual e oposta ao peso em mov. uniforme) */
+    drawArrow(ctx, cx, blockY - 20, 0, -35, COLORS.force, 'F', 2);
+
+    /* Altura atual */
+    ctx.save();
+    ctx.strokeStyle = COLORS.amber + '80';
+    ctx.lineWidth   = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(cx + 35, blockY); ctx.lineTo(cx + 80, blockY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx + 35, groundY); ctx.lineTo(cx + 80, groundY); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(cx + 70, blockY); ctx.lineTo(cx + 70, groundY); ctx.stroke();
+    drawLabel(ctx, `h=${this._y.toFixed(1)}m`, cx + 78, (blockY + groundY) / 2, COLORS.amber, 'left');
+    ctx.restore();
+
+    /* Barra de progresso */
+    const barX = 12, barY = 50, barW = 14, barH = ch - 90;
+    ctx.save();
+    ctx.fillStyle   = COLORS.bodyFill;
+    ctx.strokeStyle = COLORS.textMuted + '60';
+    ctx.lineWidth   = 1;
+    ctx.fillRect(barX, barY, barW, barH);
+    ctx.strokeRect(barX, barY, barW, barH);
+    const prog = Math.min(this._y / this.h, 1);
+    ctx.fillStyle = COLORS.kinetic + 'aa';
+    ctx.fillRect(barX, barY + barH * (1 - prog), barW, barH * prog);
+    drawLabel(ctx, `${(prog * 100).toFixed(0)}%`, barX + barW / 2, barY + barH + 14, COLORS.textMuted, 'center');
+    ctx.restore();
+
+    /* Readouts */
+    const W_total = this._W_util / Math.max(this.eta, 0.01);
+    drawReadout(ctx, 'P_útil',  this._P_util.toFixed(1),   'W',  cw - 180, 12);
+    drawReadout(ctx, 'P_total', this._P_total.toFixed(1),   'W',  cw - 180, 36);
+    drawReadout(ctx, 'η',       (this.eta * 100).toFixed(0),'%',  cw - 180, 60);
+    drawReadout(ctx, 'W_útil',  this._W_util.toFixed(1),    'J',  cw - 180, 84);
+    drawReadout(ctx, 'W_total', W_total.toFixed(1),         'J',  cw - 180, 108);
+    drawReadout(ctx, 't',       this.time.toFixed(1),       's',  cw - 180, 132);
+    drawLabel(ctx, 'P = W/t = F·v   η = P_útil/P_total', cw - 8, ch - 10, COLORS.textMuted, 'right');
+  }
+}

@@ -542,6 +542,160 @@
       "hint": "Precisão = repetibilidade (os valores concordam entre si). Exatidão = proximidade do valor real.",
       "answer": "A: exata e precisa. B: precisa mas não exata. C: nem precisa nem exata.",
       "explanation": "Balança A: resultados consistentes e próximos de 100,00 g — precisa e exata. Balança B: resultados muito consistentes entre si (±0,01 g) mas sistematicamente deslocados (+0,45 g) — precisa mas com erro sistemático. Balança C: resultados inconsistentes e distantes — nem precisa nem exata. Em Física experimental, erros sistemáticos (B) são muitas vezes piores que erros aleatórios (C) porque são mais difíceis de detectar."
+    },
+    {
+      "id": "em-ex-01",
+      "experiment_id": "coulomb-01",
+      "question": "Duas cargas de +3 μC e +5 μC estão separadas por 0,20 m no vácuo. Calcule a força elétrica entre elas. A interação é atrativa ou repulsiva?",
+      "answer": "F = kₑ·|q₁q₂|/r² = 8,99×10⁹ × 3×10⁻⁶ × 5×10⁻⁶ / (0,20)² ≈ 3,37 N. Repulsiva — cargas de mesmo sinal.",
+      "level": "básico"
+    },
+    {
+      "id": "em-ex-02",
+      "experiment_id": "coulomb-01",
+      "question": "A força entre duas cargas iguais é de 0,50 N quando separadas por 0,15 m. Se a distância for triplicada, qual será a nova força?",
+      "answer": "F ∝ 1/r². Triplicar r → r² aumenta 9×. F_nova = 0,50 / 9 ≈ 0,056 N.",
+      "level": "intermediário"
+    },
+    {
+      "id": "em-ex-03",
+      "experiment_id": "campo-eletrico-01",
+      "question": "Uma carga de +4 nC cria um campo elétrico. Qual a intensidade do campo a 0,10 m dela?",
+      "answer": "E = kₑ·|q|/r² = 8,99×10⁹ × 4×10⁻⁹ / (0,10)² = 3596 N/C ≈ 3,6 kN/C.",
+      "level": "básico"
+    },
+    {
+      "id": "em-ex-04",
+      "experiment_id": "campo-eletrico-01",
+      "question": "Em que ponto sobre a reta que une duas cargas +2 nC e −8 nC (separadas por 0,30 m) o campo elétrico resultante é zero?",
+      "answer": "O ponto está na extensão da reta, do lado da carga menor (+2 nC). Seja d a distância de +2nC: k·2/(d²) = k·8/(0,30+d)². Resolvendo: d = 0,30 m do lado de fora da carga +2nC.",
+      "level": "avançado"
+    },
+    {
+      "id": "em-ex-05",
+      "experiment_id": "circuito-01",
+      "question": "Dois resistores, 6 Ω e 12 Ω, estão em paralelo com uma bateria de 9 V. Calcule: (a) resistência equivalente, (b) corrente total, (c) potência total.",
+      "answer": "(a) 1/R = 1/6 + 1/12 → R = 4 Ω. (b) I = 9/4 = 2,25 A. (c) P = V·I = 9 × 2,25 = 20,25 W.",
+      "level": "intermediário"
+    },
+    {
+      "id": "em-ex-06",
+      "experiment_id": "circuito-01",
+      "question": "Um chuveiro elétrico de 220 V e 6000 W. Qual a resistência do elemento aquecedor e a corrente de operação?",
+      "answer": "I = P/V = 6000/220 ≈ 27,3 A. R = V/I = 220/27,3 ≈ 8,1 Ω. (ou R = V²/P = 220²/6000 ≈ 8,07 Ω)",
+      "level": "intermediário"
+    },
+    {
+      "id": "em-ex-07",
+      "experiment_id": "campo-magnetico-01",
+      "question": "Qual a intensidade do campo magnético a 3 cm de um fio percorrido por 8 A?",
+      "answer": "B = μ₀I/(2πr) = (4π×10⁻⁷ × 8) / (2π × 0,03) = 53,3 μT.",
+      "level": "básico"
+    },
+    {
+      "id": "em-ex-08",
+      "experiment_id": "campo-magnetico-01",
+      "question": "Um solenoide tem 1000 espiras em 50 cm de comprimento e é percorrido por 2 A. Calcule o campo no interior.",
+      "answer": "n = 1000/0,5 = 2000 esp/m. B = μ₀nI = 4π×10⁻⁷ × 2000 × 2 ≈ 5,03 mT.",
+      "level": "intermediário"
+    },
+    {
+      "id": "em-ex-09",
+      "experiment_id": "forca-lorentz-01",
+      "question": "Um próton (m = 1,67×10⁻²⁷ kg, q = 1,6×10⁻¹⁹ C) entra perpendicularmente num campo B = 0,25 T com velocidade 4×10⁶ m/s. Calcule o raio da trajetória.",
+      "answer": "r = mv/(qB) = (1,67×10⁻²⁷ × 4×10⁶) / (1,6×10⁻¹⁹ × 0,25) ≈ 0,167 m = 16,7 cm.",
+      "level": "intermediário"
+    },
+    {
+      "id": "em-ex-10",
+      "experiment_id": "forca-lorentz-01",
+      "question": "Por que a força magnética sobre uma carga nunca realiza trabalho?",
+      "answer": "Porque F_mag = q·v×B é sempre perpendicular à velocidade v. Trabalho W = F·ds = F·v dt = 0 quando F ⊥ v. A força muda a direção mas não a rapidez — e portanto não a energia cinética.",
+      "level": "conceitual"
+    },
+    {
+      "id": "em-ex-11",
+      "experiment_id": "inducao-01",
+      "question": "Uma espira de área 80 cm² gira a 60 Hz num campo de 0,3 T. Calcule a fem máxima induzida.",
+      "answer": "ω = 2π × 60 ≈ 377 rad/s. ε_max = BAω = 0,3 × 80×10⁻⁴ × 377 ≈ 0,905 V.",
+      "level": "básico"
+    },
+    {
+      "id": "em-ex-12",
+      "experiment_id": "inducao-01",
+      "question": "Enunciue a Lei de Lenz e explique por que ela é uma consequência da conservação de energia.",
+      "answer": "Lei de Lenz: a corrente induzida tem sentido tal que seu campo magnético opõe-se à variação de fluxo que a gerou. Se fosse o contrário, a corrente induzida aumentaria o fluxo, induzindo mais corrente, num ciclo de energia ilimitada — violando a conservação. A lei de Lenz é, portanto, uma forma local de conservação de energia.",
+      "level": "conceitual"
+    },
+    {
+      "id": "mec-ex-01",
+      "experiment_id": "obliquo-01",
+      "level": "básico",
+      "question": "Um projétil é lançado com v₀ = 30 m/s a 60° da horizontal. Calcule: (a) alcance, (b) altura máxima, (c) tempo de voo. (g = 10 m/s²)",
+      "answer": "(a) R = 30²·sin120°/10 = 900·0,866/10 = 77,9 m. (b) H = 30²·sin²60°/(2·10) = 900·0,75/20 = 33,75 m. (c) t = 2v₀sinθ/g = 2·30·0,866/10 = 5,20 s."
+    },
+    {
+      "id": "mec-ex-02",
+      "experiment_id": "obliquo-01",
+      "level": "intermediário",
+      "question": "Por que os ângulos complementares (ex.: 30° e 60°) produzem o mesmo alcance? Demonstre algebricamente.",
+      "answer": "R = v₀²·sin(2θ)/g. Para θ e (90°−θ): sin(2(90°−θ)) = sin(180°−2θ) = sin(2θ). Portanto R é idêntico. Fisicamente: o ângulo complementar troca as componentes horizontal e vertical, mantendo sin(2θ) invariante."
+    },
+    {
+      "id": "mec-ex-03",
+      "experiment_id": "circular-01",
+      "level": "básico",
+      "question": "Uma centrífuga gira a 3000 rpm. Calcule: (a) frequência em Hz, (b) velocidade angular, (c) aceleração centrípeta a 5 cm do eixo.",
+      "answer": "(a) f = 3000/60 = 50 Hz. (b) ω = 2π·50 = 314,2 rad/s. (c) aₓ = ω²r = 314,2²·0,05 ≈ 4935 m/s² ≈ 503g."
+    },
+    {
+      "id": "mec-ex-04",
+      "experiment_id": "circular-01",
+      "level": "conceitual",
+      "question": "A força centrípeta não realiza trabalho. Explique por quê e qual a consequência para a velocidade escalar da partícula em MCU.",
+      "answer": "W = F·d·cos(θ). A força centrípeta é sempre perpendicular ao deslocamento (θ = 90°) → cos90° = 0 → W = 0. Pelo teorema trabalho-energia: ΔEc = W_total = 0 → Ec = constante → ½mv² = constante → v = constante. A rapidez não muda; só a direção."
+    },
+    {
+      "id": "mec-ex-05",
+      "experiment_id": "newton3-01",
+      "level": "básico",
+      "question": "Um bloco de 3 kg e outro de 6 kg estão separados por uma mola comprimida. Após a mola ser solta, o bloco de 3 kg parte a 4 m/s. Qual a velocidade do bloco de 6 kg?",
+      "answer": "Conservação de momento: 0 = 3·4 + 6·v₂ → v₂ = −2 m/s. O bloco de 6 kg vai a 2 m/s na direção oposta."
+    },
+    {
+      "id": "mec-ex-06",
+      "experiment_id": "newton3-01",
+      "level": "conceitual",
+      "question": "Um cavalo puxa uma carroça com força F. Pela 3ª Lei, a carroça puxa o cavalo com −F. Então por que o sistema se move?",
+      "answer": "As forças de ação e reação atuam em corpos DISTINTOS. Para o cavalo: F_chão − F_carroça = m_cavalo·a. Para a carroça: F_cavalo − F_atrito = m_carroça·a. O que importa é a resultante sobre CADA corpo. O cavalo avança porque o atrito do chão em seus cascos é maior que a força da carroça sobre ele."
+    },
+    {
+      "id": "mec-ex-07",
+      "experiment_id": "colisao-01",
+      "level": "intermediário",
+      "question": "Bola A (2 kg, 5 m/s) colide elasticamente com bola B (2 kg, em repouso). Calcule as velocidades finais.",
+      "answer": "m₁ = m₂ → troca completa de velocidades: v₁' = 0, v₂' = 5 m/s. Verifique: p = 2·5 = 10 kg·m/s (conservado). Ec = ½·2·25 = 25 J (conservada)."
+    },
+    {
+      "id": "mec-ex-08",
+      "experiment_id": "colisao-01",
+      "level": "avançado",
+      "question": "Um carro de 1000 kg a 20 m/s colide e se gruda a um caminhão de 4000 kg em repouso. Calcule: (a) velocidade final, (b) energia cinética perdida.",
+      "answer": "(a) v' = (1000·20)/(1000+4000) = 4 m/s. (b) Ec_antes = ½·1000·400 = 200 kJ. Ec_depois = ½·5000·16 = 40 kJ. ΔEc = 160 kJ perdidos (calor, deformação, som)."
+    },
+    {
+      "id": "mec-ex-09",
+      "experiment_id": "potencia-01",
+      "level": "básico",
+      "question": "Um motor eleva 200 kg a 15 m em 30 s com rendimento de 75%. Calcule: (a) trabalho útil, (b) potência útil, (c) potência total consumida.",
+      "answer": "(a) W_útil = mgh = 200·10·15 = 30000 J. (b) P_útil = 30000/30 = 1000 W = 1 kW. (c) P_total = P_útil/η = 1000/0,75 ≈ 1333 W."
+    },
+    {
+      "id": "mec-ex-10",
+      "experiment_id": "potencia-01",
+      "level": "conceitual",
+      "question": "Por que o rendimento de qualquer máquina real é sempre menor que 100%? Isso viola a conservação de energia?",
+      "answer": "Não viola. A energia total é conservada — parte da energia fornecida vai para formas não úteis: calor por atrito, deformação plástica, som, radiação. O rendimento η < 1 mede a fração que vai para o trabalho desejado. A 2ª Lei da Termodinâmica garante que η = 1 é impossível em ciclos reais: sempre há geração de entropia."
     }
   ]
 }

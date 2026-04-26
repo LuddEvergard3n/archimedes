@@ -65,6 +65,7 @@ const COLORS = {
   fluids: '#2a6080',
   ondas:  '#5a7a40',
   thermo: '#8a4a1a',
+  eletromagnetismo: '#4ab0d8',
 
   /* Fluido */
   fluid:       'rgba(42, 96, 128, 0.28)',

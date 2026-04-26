@@ -527,7 +527,7 @@ class FreeFallSimulation extends SimulationBase {
 
 /**
  * Create the correct motion simulation for a given experiment ID.
- * @param {string} simId — 'mru' | 'mruv' | 'free-fall'
+ * @param {string} simId — 'mru' | 'mruv' | 'free-fall' | 'obliquo' | 'circular'
  * @param {HTMLCanvasElement} canvas
  * @param {HTMLCanvasElement|null} chartCanvas
  * @returns {SimulationBase}
@@ -537,10 +537,274 @@ function createMotionSimulation(simId, canvas, chartCanvas) {
     case 'mru':       return new MRUSimulation(canvas, chartCanvas);
     case 'mruv':      return new MRUVSimulation(canvas, chartCanvas);
     case 'free-fall': return new FreeFallSimulation(canvas, chartCanvas);
+    case 'obliquo':   return new ObliquoSimulation(canvas, chartCanvas);
+    case 'circular':  return new CircularSimulation(canvas, chartCanvas);
     default:
       console.warn(`[motion] Unknown simulation ID: ${simId}`);
       return new MRUSimulation(canvas, chartCanvas);
   }
 }
 
-export { createMotionSimulation, MRUSimulation, MRUVSimulation, FreeFallSimulation };
+export { createMotionSimulation, MRUSimulation, MRUVSimulation, FreeFallSimulation, ObliquoSimulation, CircularSimulation };
+
+/* ══════════════════════════════════════════════════════════════════════════ *
+ *  ObliquoSimulation — Lançamento oblíquo
+ *  x(t) = v₀·cos(θ)·t
+ *  y(t) = v₀·sin(θ)·t − ½·g·t²
+ *  Alcance: R = v₀²·sin(2θ)/g   Altura max: H = v₀²·sin²(θ)/(2g)
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+class ObliquoSimulation extends SimulationBase {
+  constructor(canvas, chartCanvas) {
+    super(canvas);
+    this.v0    = 20;          /* m/s */
+    this.theta = Math.PI / 4; /* rad — 45° */
+    this.g     = 9.8;         /* m/s² */
+    this._x    = 0;
+    this._y    = 0;
+    this._trail = [];
+    this._landed = false;
+    this._chart  = chartCanvas ? new ChartEngine(chartCanvas) : null;
+  }
+
+  _onReset() {
+    this.v0    = this.params.v0    ?? 20;
+    this.theta = (this.params.angle ?? 45) * Math.PI / 180;
+    this.g     = this.params.g     ?? 9.8;
+    this._x    = 0;
+    this._y    = 0;
+    this._trail = [];
+    this._landed = false;
+    if (this._chart) this._chart.clear();
+  }
+
+  _onParamChange(key, value) {
+    if (key === 'v0')    this.v0    = value;
+    if (key === 'angle') this.theta = value * Math.PI / 180;
+    if (key === 'g')     this.g     = value;
+    this._x = 0; this._y = 0; this._trail = []; this._landed = false;
+    if (this._chart) this._chart.clear();
+  }
+
+  _update(dt) {
+    if (this._landed) return;
+
+    /* MRU horizontal + MRUV vertical */
+    this._x = this.v0 * Math.cos(this.theta) * this.time;
+    this._y = this.v0 * Math.sin(this.theta) * this.time
+              - 0.5 * this.g * this.time * this.time;
+
+    this._trail.push({ x: this._x, y: this._y });
+    if (this._trail.length > 500) this._trail.shift();
+
+    if (this._chart) this._chart.addPoint(this._x, this._y);
+
+    /* Aterrisou? */
+    if (this.time > 0.1 && this._y <= 0) {
+      this._y = 0;
+      this._landed = true;
+    }
+
+    if (!this._landed) this.time += dt;
+  }
+
+  _render() {
+    const { ctx, canvas } = this;
+    const cw = canvas.width, ch = canvas.height;
+    clearCanvas(ctx);
+    drawGrid(ctx);
+
+    /* Escala: alcance máximo cabe na tela */
+    const R    = this.v0 * this.v0 * Math.sin(2 * this.theta) / this.g;
+    const Hmax = this.v0 * this.v0 * Math.sin(this.theta) ** 2 / (2 * this.g);
+    const scale = Math.min((cw - 40) / Math.max(R, 1), (ch - 60) / Math.max(Hmax, 1));
+    const ox = 30, oy = ch - 30; /* origem em px */
+
+    /* Solo */
+    drawSurface(ctx, 0, cw, oy);
+
+    /* Trajetória ideal (pré-calculada) — linha pontilhada */
+    const tTotal = 2 * this.v0 * Math.sin(this.theta) / this.g;
+    ctx.save();
+    ctx.setLineDash([5, 4]);
+    ctx.strokeStyle = COLORS.textMuted + '55';
+    ctx.lineWidth   = 1;
+    ctx.beginPath();
+    for (let i = 0; i <= 80; i++) {
+      const t  = (i / 80) * tTotal;
+      const px = ox + this.v0 * Math.cos(this.theta) * t * scale;
+      const py = oy - (this.v0 * Math.sin(this.theta) * t - 0.5 * this.g * t * t) * scale;
+      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    /* Trilha real */
+    if (this._trail.length > 1) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(ox + this._trail[0].x * scale, oy - this._trail[0].y * scale);
+      for (const p of this._trail) ctx.lineTo(ox + p.x * scale, oy - p.y * scale);
+      ctx.strokeStyle = COLORS.velocity;
+      ctx.lineWidth   = 2;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    /* Projétil */
+    const px = ox + this._x * scale;
+    const py = oy - this._y * scale;
+    drawCircle(ctx, px, py, 7);
+
+    /* Vetor velocidade instantânea */
+    if (!this._landed) {
+      const vx = this.v0 * Math.cos(this.theta);
+      const vy = this.v0 * Math.sin(this.theta) - this.g * this.time;
+      const vs = 2.5;
+      drawArrow(ctx, px, py, vx * vs, -vy * vs, COLORS.velocity, 'v', 2);
+    }
+
+    /* Ângulo de lançamento no origem */
+    ctx.save();
+    ctx.strokeStyle = COLORS.amber + 'aa';
+    ctx.lineWidth = 1.5;
+    const aLen = 40;
+    ctx.beginPath();
+    ctx.moveTo(ox, oy);
+    ctx.lineTo(ox + aLen * Math.cos(this.theta), oy - aLen * Math.sin(this.theta));
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(ox, oy, 22, -this.theta, 0);
+    ctx.strokeStyle = COLORS.amber + '66';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    drawLabel(ctx, `${Math.round(this.theta * 180 / Math.PI)}°`, ox + 28, oy - 10, COLORS.amber, 'left');
+    ctx.restore();
+
+    /* Readouts */
+    drawReadout(ctx, 'v₀',  this.v0.toFixed(1),              'm/s',  12, 12);
+    drawReadout(ctx, 'θ',   (this.theta*180/Math.PI).toFixed(0), '°', 12, 36);
+    drawReadout(ctx, 'R',   R.toFixed(1),                    'm',    12, 60);
+    drawReadout(ctx, 'H',   Hmax.toFixed(1),                 'm',    12, 84);
+    drawReadout(ctx, 't',   this.time.toFixed(2),             's',    12, 108);
+
+    if (this._landed) {
+      drawLabel(ctx, `Alcance real: ${this._x.toFixed(1)} m`, cw / 2, oy - 18, COLORS.amber, 'center');
+    }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════ *
+ *  CircularSimulation — Movimento circular uniforme
+ *  v = ω·r   a_c = v²/r = ω²·r   T = 2π/ω   f = 1/T
+ *  Mostra: posição, velocidade tangencial, aceleração centrípeta
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+class CircularSimulation extends SimulationBase {
+  constructor(canvas, chartCanvas) {
+    super(canvas);
+    this.omega = 2 * Math.PI / 3; /* rad/s — 1 volta a cada 3s */
+    this.r     = 1.0;             /* m */
+    this._phi  = 0;               /* ângulo atual */
+    this._chart = chartCanvas ? new ChartEngine(chartCanvas) : null;
+  }
+
+  _onReset() {
+    this.omega = this.params.omega ?? (2 * Math.PI / 3);
+    this.r     = this.params.r    ?? 1.0;
+    this._phi  = 0;
+    if (this._chart) this._chart.clear();
+  }
+
+  _onParamChange(key, value) {
+    if (key === 'omega') this.omega = value;
+    if (key === 'r')     this.r     = value;
+  }
+
+  _update(dt) {
+    this._phi  = (this._phi + this.omega * dt) % (2 * Math.PI);
+    this.time += dt;
+    if (this._chart) {
+      /* Gráfico: posição x(t) = r·cos(ω·t) */
+      this._chart.addPoint(this.time, this.r * Math.cos(this._phi));
+    }
+  }
+
+  _render() {
+    const { ctx, canvas } = this;
+    const cw = canvas.width, ch = canvas.height;
+    clearCanvas(ctx);
+    drawGrid(ctx);
+
+    const cx = cw / 2, cy = ch / 2;
+    const scale = Math.min(cw, ch) * 0.35 / Math.max(this.r, 0.1); /* px/m */
+    const rPx   = this.r * scale;
+
+    /* Órbita */
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, rPx, 0, Math.PI * 2);
+    ctx.strokeStyle = COLORS.textMuted + '40';
+    ctx.lineWidth   = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    /* Centro */
+    ctx.save();
+    ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+    ctx.fillStyle = COLORS.amber + 'aa'; ctx.fill();
+    ctx.restore();
+
+    /* Raio */
+    const px = cx + rPx * Math.cos(this._phi);
+    const py = cy - rPx * Math.sin(this._phi);
+    ctx.save();
+    ctx.strokeStyle = COLORS.textMuted + '60';
+    ctx.lineWidth   = 1;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py);
+    ctx.stroke();
+    drawLabel(ctx, `r = ${this.r.toFixed(1)} m`, (cx + px) / 2 + 8, (cy + py) / 2 - 6, COLORS.textMuted, 'left');
+    ctx.restore();
+
+    /* Velocidade tangencial */
+    const v    = this.omega * this.r; /* m/s */
+    const vScale = Math.min(50 / Math.max(v, 0.1), 20);
+    const vtx  = -Math.sin(this._phi) * v * vScale;
+    const vty  =  Math.cos(this._phi) * v * vScale;
+    drawArrow(ctx, px, py, vtx, vty, COLORS.velocity, 'v', 2);
+
+    /* Aceleração centrípeta */
+    const ac    = this.omega * this.omega * this.r; /* m/s² */
+    const acScale = Math.min(40 / Math.max(ac, 0.1), 15);
+    const acx   = (cx - px) / rPx * ac * acScale;
+    const acy   = (cy - py) / rPx * ac * acScale;
+    drawArrow(ctx, px, py, acx, acy, COLORS.accel, 'aₓ', 2);
+
+    /* Corpo */
+    drawCircle(ctx, px, py, 10);
+
+    /* Ângulo */
+    ctx.save();
+    ctx.strokeStyle = COLORS.amber + '55';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 28, -this._phi, 0);
+    ctx.stroke();
+    drawLabel(ctx, `${(this._phi * 180 / Math.PI % 360).toFixed(0)}°`, cx + 36, cy + 6, COLORS.amber, 'left');
+    ctx.restore();
+
+    /* Readouts */
+    const T = Math.abs(this.omega) > 1e-6 ? (2 * Math.PI / Math.abs(this.omega)) : Infinity;
+    const f = 1 / T;
+    drawReadout(ctx, 'ω',   this.omega.toFixed(3),  'rad/s',  cw - 160, 12);
+    drawReadout(ctx, 'r',   this.r.toFixed(2),       'm',      cw - 160, 36);
+    drawReadout(ctx, 'v',   v.toFixed(3),            'm/s',    cw - 160, 60);
+    drawReadout(ctx, 'aₓ',  ac.toFixed(3),           'm/s²',   cw - 160, 84);
+    drawReadout(ctx, 'T',   T.toFixed(3),            's',      cw - 160, 108);
+    drawReadout(ctx, 'f',   f.toFixed(3),            'Hz',     cw - 160, 132);
+    drawLabel(ctx, 'aₓ = ω²·r = v²/r', cw - 8, ch - 10, COLORS.textMuted, 'right');
+  }
+}
