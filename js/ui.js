@@ -32,6 +32,8 @@ const MODULE_COLORS = {
   ondas:         '#5a7a40',
   termodinamica: '#8a4a1a',
   eletromagnetismo: '#4ab0d8',
+  optica:           '#e0c060',
+  'fisica-moderna': '#a060d0',
 };
 
 /* ─────────────────────────────────────────────────────────────────────────── *
@@ -327,6 +329,8 @@ async function _loadSimulation(simId, moduleId, canvas, chartCanvas) {
     ondas:          () => import('../modules/ondas/ondas.js').then(m => m.createOndasSimulation(simId, canvas)),
     termodinamica:      () => import('../modules/termodinamica/termodinamica.js').then(m => m.createTermodinamicaSimulation(simId, canvas)),
     eletromagnetismo:   () => import('../modules/eletromagnetismo/eletromagnetismo.js').then(m => m.createEletromagnetismoSimulation(simId, canvas, chartCanvas)),
+    optica:             () => import('../modules/optica/optica.js').then(m => m.createOpticaSimulation(simId, canvas, chartCanvas)),
+    'fisica-moderna':   () => import('../modules/fisica-moderna/fisica-moderna.js').then(m => m.createFisicaModernaSimulation(simId, canvas, chartCanvas)),
   };
 
   const loader = loaders[moduleId];

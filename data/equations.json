@@ -1512,6 +1512,426 @@
       "experiment_ids": [
         "potencia-01"
       ]
+    },
+    {
+      "id": "reflexao-eq",
+      "module": "optica",
+      "display": "θᵢ = θᵣ",
+      "latex": "\\theta_i = \\theta_r",
+      "variables": {
+        "θᵢ": {
+          "name": "ângulo de incidência",
+          "unit": "°"
+        },
+        "θᵣ": {
+          "name": "ângulo de reflexão",
+          "unit": "°"
+        }
+      },
+      "when_to_use": "Qualquer superfície refletora especular",
+      "restriction": "Ambos os ângulos medidos em relação à normal, não à superfície",
+      "experiment_ids": [
+        "reflexao-01"
+      ]
+    },
+    {
+      "id": "espelho-plano-eq",
+      "module": "optica",
+      "display": "Imagem virtual, direita, mesmo tamanho, simétrica",
+      "latex": "d_i = -d_o \\text{ (virtual)}",
+      "variables": {
+        "dᵢ": {
+          "name": "distância da imagem",
+          "unit": "m"
+        },
+        "do": {
+          "name": "distância do objeto",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Espelho plano",
+      "restriction": "Imagem sempre virtual e não pode ser projetada numa tela",
+      "experiment_ids": [
+        "reflexao-01"
+      ]
+    },
+    {
+      "id": "snell-eq",
+      "module": "optica",
+      "display": "n₁·sin(θ₁) = n₂·sin(θ₂)",
+      "latex": "n_1\\sin\\theta_1=n_2\\sin\\theta_2",
+      "variables": {
+        "n₁,n₂": {
+          "name": "índices de refração",
+          "unit": "adimensional"
+        },
+        "θ₁,θ₂": {
+          "name": "ângulos com a normal",
+          "unit": "°"
+        }
+      },
+      "when_to_use": "Qualquer interface entre dois meios ópticos",
+      "restriction": "n = c/v onde v é a velocidade da luz no meio",
+      "experiment_ids": [
+        "refracao-01"
+      ]
+    },
+    {
+      "id": "angulo-critico-eq",
+      "module": "optica",
+      "display": "θ_c = arcsin(n₂/n₁)",
+      "latex": "\\theta_c=\\arcsin\\!\\left(\\dfrac{n_2}{n_1}\\right)",
+      "variables": {
+        "θ_c": {
+          "name": "ângulo crítico",
+          "unit": "°"
+        }
+      },
+      "when_to_use": "Reflexão total interna — apenas quando n₁ > n₂",
+      "restriction": "Para θ ≥ θ_c toda a luz é refletida — base da fibra óptica",
+      "experiment_ids": [
+        "refracao-01"
+      ]
+    },
+    {
+      "id": "indice-refracao-eq",
+      "module": "optica",
+      "display": "n = c/v",
+      "latex": "n=\\dfrac{c}{v}",
+      "variables": {
+        "n": {
+          "name": "índice de refração",
+          "unit": "adimensional"
+        },
+        "c": {
+          "name": "velocidade da luz no vácuo",
+          "unit": "m/s"
+        },
+        "v": {
+          "name": "velocidade no meio",
+          "unit": "m/s"
+        }
+      },
+      "when_to_use": "Definição do índice de refração",
+      "restriction": "n ≥ 1 sempre; vácuo n=1; água n≈1,33; vidro n≈1,5; diamante n≈2,42",
+      "experiment_ids": [
+        "refracao-01"
+      ]
+    },
+    {
+      "id": "gauss-lentes-eq",
+      "module": "optica",
+      "display": "1/f = 1/do + 1/di",
+      "latex": "\\dfrac{1}{f}=\\dfrac{1}{d_o}+\\dfrac{1}{d_i}",
+      "variables": {
+        "f": {
+          "name": "distância focal",
+          "unit": "m"
+        },
+        "do": {
+          "name": "distância objeto",
+          "unit": "m"
+        },
+        "di": {
+          "name": "distância imagem",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Qualquer lente delgada ou espelho esférico",
+      "restriction": "f>0: convergente; f<0: divergente. di>0: imagem real; di<0: virtual",
+      "experiment_ids": [
+        "lentes-01"
+      ]
+    },
+    {
+      "id": "ampliacao-eq",
+      "module": "optica",
+      "display": "M = −dᵢ/do = hᵢ/ho",
+      "latex": "M=-\\dfrac{d_i}{d_o}=\\dfrac{h_i}{h_o}",
+      "variables": {
+        "M": {
+          "name": "ampliação transversal",
+          "unit": "adimensional"
+        }
+      },
+      "when_to_use": "Ampliação linear de lentes e espelhos",
+      "restriction": "|M|>1: ampliada; |M|<1: reduzida; M<0: invertida",
+      "experiment_ids": [
+        "lentes-01"
+      ]
+    },
+    {
+      "id": "diopter-eq",
+      "module": "optica",
+      "display": "P = 1/f  (dioptrias)",
+      "latex": "P=\\dfrac{1}{f}",
+      "variables": {
+        "P": {
+          "name": "potência óptica",
+          "unit": "dioptrias (m⁻¹)"
+        },
+        "f": {
+          "name": "focal em metros",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Prescrição de óculos e lentes de contato",
+      "restriction": "P>0: lente convergente (hipermetropia); P<0: divergente (miopia)",
+      "experiment_ids": [
+        "lentes-01"
+      ]
+    },
+    {
+      "id": "dispersao-eq",
+      "module": "optica",
+      "display": "n(λ) varia: violeta mais desviado que vermelho",
+      "latex": "n_{\\text{violeta}}>n_{\\text{vermelho}}",
+      "variables": {
+        "n": {
+          "name": "índice de refração",
+          "unit": ""
+        },
+        "λ": {
+          "name": "comprimento de onda",
+          "unit": "nm"
+        }
+      },
+      "when_to_use": "Qualquer meio dispersivo (vidro, água, cristal)",
+      "restriction": "A variação de n com λ se chama dispersão; responsável pelos arco-íris",
+      "experiment_ids": [
+        "dispersao-01"
+      ]
+    },
+    {
+      "id": "cauchy-eq",
+      "module": "optica",
+      "display": "n(λ) ≈ A + B/λ²  (Cauchy)",
+      "latex": "n(\\lambda)\\approx A+\\dfrac{B}{\\lambda^2}",
+      "variables": {
+        "A,B": {
+          "name": "constantes do material",
+          "unit": ""
+        }
+      },
+      "when_to_use": "Aproximação do índice em função do comprimento de onda",
+      "restriction": "Válida na região visível; λ em nm ou m (cuidado com as unidades de B)",
+      "experiment_ids": [
+        "dispersao-01"
+      ]
+    },
+    {
+      "id": "arco-iris-eq",
+      "module": "optica",
+      "display": "Arco-íris: reflexão interna + dispersão em gotículas",
+      "latex": "\\delta\\approx 4r-2i-\\pi",
+      "variables": {
+        "δ": {
+          "name": "ângulo de desvio",
+          "unit": "rad"
+        },
+        "r": {
+          "name": "ângulo de refração",
+          "unit": "rad"
+        },
+        "i": {
+          "name": "ângulo de incidência",
+          "unit": "rad"
+        }
+      },
+      "when_to_use": "Formação do arco-íris primário",
+      "restriction": "Aparece a ~42° para vermelho, ~40° para violeta — arco-íris secundário a ~51°",
+      "experiment_ids": [
+        "dispersao-01"
+      ]
+    },
+    {
+      "id": "foton-energia-eq",
+      "module": "fisica-moderna",
+      "display": "E = h·f = h·c/λ",
+      "latex": "E=hf=\\dfrac{hc}{\\lambda}",
+      "variables": {
+        "E": {
+          "name": "energia do fóton",
+          "unit": "eV ou J"
+        },
+        "h": {
+          "name": "constante de Planck (6,626×10⁻³⁴ J·s)",
+          "unit": "J·s"
+        },
+        "f": {
+          "name": "frequência",
+          "unit": "Hz"
+        },
+        "λ": {
+          "name": "comprimento de onda",
+          "unit": "m"
+        }
+      },
+      "when_to_use": "Energia de qualquer fóton",
+      "restriction": "Proposta por Planck (1900) para radiação de corpo negro; usada por Einstein para o efeito fotoelétrico",
+      "experiment_ids": [
+        "fotoeletrico-01"
+      ]
+    },
+    {
+      "id": "fotoeletrico-eq",
+      "module": "fisica-moderna",
+      "display": "E_cin = hf − φ",
+      "latex": "E_{\\text{cin}}=hf-\\varphi",
+      "variables": {
+        "E_cin": {
+          "name": "energia cinética máxima do elétron",
+          "unit": "eV"
+        },
+        "φ": {
+          "name": "função de trabalho do metal",
+          "unit": "eV"
+        }
+      },
+      "when_to_use": "Efeito fotoelétrico — energia do elétron ejetado",
+      "restriction": "E_cin ≥ 0 somente se hf ≥ φ. Intensidade maior → mais elétrons, não mais energia",
+      "experiment_ids": [
+        "fotoeletrico-01"
+      ]
+    },
+    {
+      "id": "freq-corte-eq",
+      "module": "fisica-moderna",
+      "display": "f_c = φ/h  (frequência de corte)",
+      "latex": "f_c=\\dfrac{\\varphi}{h}",
+      "variables": {
+        "f_c": {
+          "name": "frequência mínima para emissão",
+          "unit": "Hz"
+        }
+      },
+      "when_to_use": "Limiar do efeito fotoelétrico",
+      "restriction": "Para f < f_c, nenhum elétron é emitido independentemente da intensidade",
+      "experiment_ids": [
+        "fotoeletrico-01"
+      ]
+    },
+    {
+      "id": "decaimento-eq",
+      "module": "fisica-moderna",
+      "display": "N(t) = N₀·e^(−λ·t)",
+      "latex": "N(t)=N_0\\,e^{-\\lambda t}",
+      "variables": {
+        "N(t)": {
+          "name": "número de núcleos remanescentes",
+          "unit": ""
+        },
+        "N₀": {
+          "name": "número inicial",
+          "unit": ""
+        },
+        "λ": {
+          "name": "constante de decaimento",
+          "unit": "s⁻¹"
+        }
+      },
+      "when_to_use": "Decaimento radioativo de qualquer isótopo",
+      "restriction": "Lei estatística — válida para N grande; cada átomo decai aleatoriamente",
+      "experiment_ids": [
+        "radioatividade-01"
+      ]
+    },
+    {
+      "id": "meia-vida-eq",
+      "module": "fisica-moderna",
+      "display": "t½ = ln2/λ ≈ 0,693/λ",
+      "latex": "t_{1/2}=\\dfrac{\\ln 2}{\\lambda}\\approx\\dfrac{0{,}693}{\\lambda}",
+      "variables": {
+        "t½": {
+          "name": "meia-vida — tempo para N cair à metade",
+          "unit": "s"
+        }
+      },
+      "when_to_use": "Caracterização de qualquer isótopo radioativo",
+      "restriction": "Independe de N — é propriedade intrínseca do núcleo",
+      "experiment_ids": [
+        "radioatividade-01"
+      ]
+    },
+    {
+      "id": "atividade-eq",
+      "module": "fisica-moderna",
+      "display": "A(t) = λ·N(t)",
+      "latex": "A(t)=\\lambda N(t)",
+      "variables": {
+        "A": {
+          "name": "atividade (decaimentos por segundo)",
+          "unit": "Bq (becquerel)"
+        }
+      },
+      "when_to_use": "Taxa de decaimento de uma amostra radioativa",
+      "restriction": "1 Ci (curie) = 3,7×10¹⁰ Bq — atividade de 1g de rádio-226",
+      "experiment_ids": [
+        "radioatividade-01"
+      ]
+    },
+    {
+      "id": "bohr-energia-eq",
+      "module": "fisica-moderna",
+      "display": "Eₙ = −13,6/n² eV",
+      "latex": "E_n=-\\dfrac{13{,}6}{n^2}\\text{ eV}",
+      "variables": {
+        "Eₙ": {
+          "name": "energia do nível n do hidrogênio",
+          "unit": "eV"
+        },
+        "n": {
+          "name": "número quântico principal (1, 2, 3, …)",
+          "unit": ""
+        }
+      },
+      "when_to_use": "Níveis de energia do átomo de hidrogênio (modelo de Bohr)",
+      "restriction": "Válido apenas para H e íons H-like; não inclui efeitos relativísticos nem spin",
+      "experiment_ids": [
+        "modelo-atomico-01"
+      ]
+    },
+    {
+      "id": "rydberg-eq",
+      "module": "fisica-moderna",
+      "display": "1/λ = R_H·(1/n₁² − 1/n₂²)",
+      "latex": "\\dfrac{1}{\\lambda}=R_H\\!\\left(\\dfrac{1}{n_1^2}-\\dfrac{1}{n_2^2}\\right)",
+      "variables": {
+        "R_H": {
+          "name": "constante de Rydberg (1,097×10⁷ m⁻¹)",
+          "unit": "m⁻¹"
+        },
+        "n₁<n₂": {
+          "name": "números quânticos",
+          "unit": ""
+        }
+      },
+      "when_to_use": "Comprimento de onda de linhas espectrais do hidrogênio",
+      "restriction": "n₁=1: série Lyman (UV); n₁=2: Balmer (visível); n₁=3: Paschen (IV)",
+      "experiment_ids": [
+        "modelo-atomico-01"
+      ]
+    },
+    {
+      "id": "bohr-raio-eq",
+      "module": "fisica-moderna",
+      "display": "rₙ = n²·a₀  onde a₀ = 0,529 Å",
+      "latex": "r_n=n^2\\,a_0,\\quad a_0=0{,}529\\text{ Å}",
+      "variables": {
+        "rₙ": {
+          "name": "raio da órbita n",
+          "unit": "m"
+        },
+        "a₀": {
+          "name": "raio de Bohr",
+          "unit": "Å = 10⁻¹⁰ m"
+        }
+      },
+      "when_to_use": "Raio da órbita eletrônica no modelo de Bohr",
+      "restriction": "O elétron não está 'nessa órbita' na mecânica quântica — a₀ é o raio mais provável de r₁",
+      "experiment_ids": [
+        "modelo-atomico-01"
+      ]
     }
   ]
 }

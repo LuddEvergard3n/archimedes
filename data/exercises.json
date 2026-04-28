@@ -696,6 +696,104 @@
       "level": "conceitual",
       "question": "Por que o rendimento de qualquer máquina real é sempre menor que 100%? Isso viola a conservação de energia?",
       "answer": "Não viola. A energia total é conservada — parte da energia fornecida vai para formas não úteis: calor por atrito, deformação plástica, som, radiação. O rendimento η < 1 mede a fração que vai para o trabalho desejado. A 2ª Lei da Termodinâmica garante que η = 1 é impossível em ciclos reais: sempre há geração de entropia."
+    },
+    {
+      "id": "opt-ex-01",
+      "experiment_id": "reflexao-01",
+      "level": "básico",
+      "question": "Um feixe de luz incide num espelho com ângulo de 35° em relação à superfície. Qual é o ângulo de reflexão em relação à normal?",
+      "answer": "O ângulo com a superfície é 35°, portanto o ângulo de incidência com a normal é 90°−35° = 55°. Pelo lei da reflexão, θᵣ = θᵢ = 55°."
+    },
+    {
+      "id": "opt-ex-02",
+      "experiment_id": "reflexao-01",
+      "level": "intermediário",
+      "question": "Se você girar um espelho plano em 15°, de quanto gira o raio refletido?",
+      "answer": "O raio refletido gira o dobro do ângulo do espelho: 2×15° = 30°. Isso porque tanto o ângulo de incidência quanto o de reflexão aumentam em 15° cada."
+    },
+    {
+      "id": "opt-ex-03",
+      "experiment_id": "refracao-01",
+      "level": "básico",
+      "question": "Um raio de luz vai do ar (n=1) para o vidro (n=1,5) com θ₁ = 45°. Calcule θ₂.",
+      "answer": "n₁·sinθ₁ = n₂·sinθ₂ → 1·sin45° = 1,5·sinθ₂ → sinθ₂ = 0,707/1,5 = 0,471 → θ₂ = arcsin(0,471) ≈ 28,1°."
+    },
+    {
+      "id": "opt-ex-04",
+      "experiment_id": "refracao-01",
+      "level": "intermediário",
+      "question": "Calcule o ângulo crítico para a interface vidro-ar (n_vidro = 1,5). O que acontece para ângulos maiores?",
+      "answer": "θ_c = arcsin(n_ar/n_vidro) = arcsin(1/1,5) = arcsin(0,667) ≈ 41,8°. Para θ > 41,8°, ocorre reflexão total interna — a luz não consegue sair do vidro. Princípio da fibra óptica."
+    },
+    {
+      "id": "opt-ex-05",
+      "experiment_id": "lentes-01",
+      "level": "básico",
+      "question": "Uma lente convergente tem f = 20 cm. Um objeto está a 30 cm da lente. Determine: (a) posição da imagem, (b) ampliação, (c) natureza da imagem.",
+      "answer": "(a) 1/di = 1/20 − 1/30 = 1/60 → di = 60 cm. (b) M = −60/30 = −2 (ampliada 2×). (c) Real (di>0) e invertida (M<0)."
+    },
+    {
+      "id": "opt-ex-06",
+      "experiment_id": "lentes-01",
+      "level": "intermediário",
+      "question": "Qual a potência em dioptrias de uma lente com f = −25 cm? Para que defeito visual é indicada?",
+      "answer": "P = 1/f = 1/(−0,25) = −4 dioptrias. Lente divergente (P<0) corrige miopia — o olho míope forma a imagem à frente da retina; a lente divergente 'empurra' a imagem para trás."
+    },
+    {
+      "id": "opt-ex-07",
+      "experiment_id": "dispersao-01",
+      "level": "básico",
+      "question": "Por que a luz violeta é mais desviada que a vermelha ao atravessar um prisma?",
+      "answer": "O índice de refração do vidro é maior para comprimentos de onda menores (maior frequência). Violeta (λ≈400 nm) tem n maior que vermelho (λ≈700 nm). Pela Lei de Snell, maior n → maior refração → maior desvio."
+    },
+    {
+      "id": "opt-ex-08",
+      "experiment_id": "dispersao-01",
+      "level": "conceitual",
+      "question": "O arco-íris aparece no lado oposto ao Sol. Explique o mecanismo completo usando refração, reflexão interna e dispersão.",
+      "answer": "A luz solar entra na gotícula de chuva, refrata (dispersando as cores), reflete na parede interna, e refrata novamente ao sair. Cada cor sai em ângulo diferente (42° para vermelho, 40° para violeta). O observador vê vermelho na parte superior do arco (maior ângulo) e violeta na inferior."
+    },
+    {
+      "id": "fm-ex-01",
+      "experiment_id": "fotoeletrico-01",
+      "level": "básico",
+      "question": "A função de trabalho do sódio é 2,36 eV. Calcule: (a) a frequência de corte, (b) o comprimento de onda de corte, (c) a energia cinética máxima de elétrons ejetados por luz de 200 nm.",
+      "answer": "(a) f_c = φ/h = 2,36/(4,136×10⁻¹⁵) = 5,71×10¹⁴ Hz. (b) λ_c = c/f_c = 526 nm. (c) E_fot = hc/λ = 4,136×10⁻¹⁵×3×10⁸/(200×10⁻⁹) = 6,20 eV. Ec = 6,20−2,36 = 3,84 eV."
+    },
+    {
+      "id": "fm-ex-02",
+      "experiment_id": "fotoeletrico-01",
+      "level": "conceitual",
+      "question": "Por que a teoria ondulatória da luz não consegue explicar o efeito fotoelétrico? Quais as duas evidências experimentais que a contradizem?",
+      "answer": "(1) Ausência de retardo: pela teoria ondulatória, a luz precisaria de tempo para transferir energia suficiente ao elétron. Na prática, elétrons são ejetados instantaneamente. (2) Independência da intensidade: maior intensidade deveria dar mais energia a cada elétron — mas não dá. Só a frequência determina a energia. Einstein resolveu tratando a luz como fótons discretos de energia E=hf."
+    },
+    {
+      "id": "fm-ex-03",
+      "experiment_id": "radioatividade-01",
+      "level": "básico",
+      "question": "O carbono-14 tem meia-vida de 5730 anos. Uma amostra de material orgânico tem 25% da atividade de carbono vivo. Qual a idade da amostra?",
+      "answer": "25% = (1/2)² → 2 meias-vidas. Idade = 2 × 5730 = 11460 anos."
+    },
+    {
+      "id": "fm-ex-04",
+      "experiment_id": "radioatividade-01",
+      "level": "intermediário",
+      "question": "Por que o decaimento radioativo de um único átomo é imprevisível, mas uma grande população segue a lei exponencial com precisão perfeita?",
+      "answer": "O decaimento de cada núcleo é um evento quântico aleatório — sem causa determinística. Mas pela lei dos grandes números, médias estatísticas de N eventos independentes convergem para o valor esperado com desvio relativo ∝ 1/√N. Para 10²³ átomos, a flutuação relativa é ~10⁻¹¹ — indistinguível de uma curva perfeita."
+    },
+    {
+      "id": "fm-ex-05",
+      "experiment_id": "modelo-atomico-01",
+      "level": "básico",
+      "question": "Calcule o comprimento de onda da linha Hα (transição n=3→n=2 do hidrogênio).",
+      "answer": "1/λ = R_H(1/4 − 1/9) = 1,097×10⁷ × 5/36 = 1,524×10⁶ m⁻¹ → λ = 656,3 nm. Luz vermelha visível."
+    },
+    {
+      "id": "fm-ex-06",
+      "experiment_id": "modelo-atomico-01",
+      "level": "conceitual",
+      "question": "Qual a principal limitação do modelo de Bohr que a mecânica quântica (modelo de Schrödinger) superou?",
+      "answer": "O modelo de Bohr falha para: (1) átomos com mais de um elétron (sem interação elétron-elétron); (2) estrutura fina das linhas espectrais; (3) efeito Zeeman (desdobramento em campo magnético); (4) intensidades relativas das linhas. Além disso, 'órbitas' não existem na mecânica quântica — apenas distribuições de probabilidade (orbitais). Schrödinger substituiu trajetórias por funções de onda ψ, cujo módulo ao quadrado dá a probabilidade de encontrar o elétron."
     }
   ]
 }

@@ -1492,6 +1492,319 @@
         "mec-ex-10"
       ],
       "duration_min": 20
+    },
+    {
+      "id": "reflexao-01",
+      "module": "optica",
+      "simulation": "reflexao",
+      "title": "Lei da Reflexão",
+      "description": "O ângulo de incidência é igual ao ângulo de reflexão. Ambos medidos em relação à normal à superfície.",
+      "phenomenon": "Qualquer superfície polida reflete luz de forma previsível. Espelhos, lagos calmos, metais polidos — todos seguem a mesma lei simples descoberta pelos gregos antigos: θᵢ = θᵣ. O ângulo de incidência sempre iguala o de reflexão, medidos em relação à linha normal (perpendicular à superfície).",
+      "guidingQuestion": "Se você vira um espelho 10°, de quanto gira o raio refletido?",
+      "variables": [
+        {
+          "key": "theta",
+          "label": "Ângulo de incidência",
+          "unit": "°",
+          "min": 5,
+          "max": 85,
+          "step": 5,
+          "default": 40
+        }
+      ],
+      "equations": [
+        "reflexao-eq",
+        "espelho-plano-eq"
+      ],
+      "exercises": [
+        "opt-ex-01",
+        "opt-ex-02"
+      ],
+      "duration_min": 15
+    },
+    {
+      "id": "refracao-01",
+      "module": "optica",
+      "simulation": "refracao",
+      "title": "Refração e Lei de Snell",
+      "description": "A luz muda de direção ao mudar de meio. A Lei de Snell relaciona ângulos e índices de refração.",
+      "phenomenon": "Coloque um lápis num copo de água: ele parece dobrado. Uma piscina parece mais rasa do que é. Um peixe no aquário parece estar num lugar diferente. Em todos os casos, a luz muda de velocidade ao mudar de meio — e isso curva sua trajetória. Snell mediu essa relação em 1621; Descartes a publicou em 1637.",
+      "guidingQuestion": "O que acontece quando a luz vai de um meio mais denso para um menos denso em ângulo grande? Existe um ângulo além do qual ela não consegue sair?",
+      "variables": [
+        {
+          "key": "n1",
+          "label": "Índice n₁",
+          "unit": "",
+          "min": 1.0,
+          "max": 2.5,
+          "step": 0.05,
+          "default": 1.0
+        },
+        {
+          "key": "n2",
+          "label": "Índice n₂",
+          "unit": "",
+          "min": 1.0,
+          "max": 2.5,
+          "step": 0.05,
+          "default": 1.5
+        },
+        {
+          "key": "theta1",
+          "label": "Ângulo θ₁",
+          "unit": "°",
+          "min": 1,
+          "max": 89,
+          "step": 1,
+          "default": 35
+        }
+      ],
+      "equations": [
+        "snell-eq",
+        "angulo-critico-eq",
+        "indice-refracao-eq"
+      ],
+      "exercises": [
+        "opt-ex-03",
+        "opt-ex-04"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "lentes-01",
+      "module": "optica",
+      "simulation": "lentes",
+      "title": "Lentes e Equação de Gauss",
+      "description": "Lentes convergentes e divergentes formam imagens reais ou virtuais. A equação 1/f = 1/do + 1/di determina posição e ampliação.",
+      "phenomenon": "Óculos, lupas, microscópios, telescópios, câmeras fotográficas, olhos biológicos — todos usam lentes. O cristalino do olho humano é uma lente convergente cuja curvatura muda em tempo real (acomodação), ajustando o foco para objetos de diferentes distâncias. Miopia e hipermetropia são erros de refração corrigidos por lentes divergentes ou convergentes.",
+      "guidingQuestion": "Quando você passa o objeto para além do dobro do comprimento focal de uma lente convergente, o que acontece com a imagem — ela se aproxima ou se afasta da lente?",
+      "variables": [
+        {
+          "key": "f",
+          "label": "Focal f",
+          "unit": "px",
+          "min": -200,
+          "max": 200,
+          "step": 10,
+          "default": 80
+        },
+        {
+          "key": "do_",
+          "label": "Distância obj.",
+          "unit": "px",
+          "min": 20,
+          "max": 400,
+          "step": 10,
+          "default": 200
+        },
+        {
+          "key": "hObj",
+          "label": "Altura obj.",
+          "unit": "px",
+          "min": 10,
+          "max": 80,
+          "step": 5,
+          "default": 50
+        }
+      ],
+      "equations": [
+        "gauss-lentes-eq",
+        "ampliacao-eq",
+        "diopter-eq"
+      ],
+      "exercises": [
+        "opt-ex-05",
+        "opt-ex-06"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "dispersao-01",
+      "module": "optica",
+      "simulation": "dispersao",
+      "title": "Dispersão e o Prisma de Newton",
+      "description": "O índice de refração depende do comprimento de onda. Luz branca se decompõe em suas cores componentes ao atravessar um prisma.",
+      "phenomenon": "Newton comprou um prisma de vidro numa feira em 1666 e descobriu que a luz solar 'branca' é composta por todas as cores do espectro. Cada cor tem um comprimento de onda diferente — e cada comprimento de onda tem um índice de refração ligeiramente diferente no vidro. Violeta refrata mais que vermelho. O resultado: o arco-íris. O mesmo fenômeno acontece nas gotículas de chuva.",
+      "guidingQuestion": "Por que o violeta é mais desviado que o vermelho ao atravessar o prisma?",
+      "variables": [
+        {
+          "key": "angle",
+          "label": "Ângulo do prisma",
+          "unit": "°",
+          "min": 30,
+          "max": 75,
+          "step": 5,
+          "default": 60
+        },
+        {
+          "key": "theta1",
+          "label": "Ângulo incidência",
+          "unit": "°",
+          "min": 20,
+          "max": 70,
+          "step": 5,
+          "default": 45
+        }
+      ],
+      "equations": [
+        "dispersao-eq",
+        "cauchy-eq",
+        "arco-iris-eq"
+      ],
+      "exercises": [
+        "opt-ex-07",
+        "opt-ex-08"
+      ],
+      "duration_min": 15
+    },
+    {
+      "id": "fotoeletrico-01",
+      "module": "fisica-moderna",
+      "simulation": "fotoeletrico",
+      "title": "Efeito Fotoelétrico",
+      "description": "A luz ejecta elétrons de metais apenas se sua frequência superar um limiar. Einstein explicou isso com fótons em 1905 — seu Nobel de 1921.",
+      "phenomenon": "Em 1887, Hertz notou que a faísca elétrica era mais intensa quando iluminada por luz ultravioleta. Lenard mediu os elétrons ejetados — e descobriu algo impossível pela física clássica: aumentar a intensidade da luz aumentava o número de elétrons, mas NÃO a sua energia. Só aumentar a frequência aumentava a energia. Einstein explicou: a luz é composta por pacotes (fótons) de energia E = hf. Cada fóton ejecta um elétron ou não — não importa quantos fótons chegam.",
+      "guidingQuestion": "Se você dobra a intensidade de luz com frequência abaixo do limiar, algum elétron é ejetado? Por quê?",
+      "variables": [
+        {
+          "key": "metal",
+          "label": "Metal",
+          "unit": "",
+          "min": 0,
+          "max": 6,
+          "step": 1,
+          "default": 1,
+          "options": [
+            "Césio",
+            "Potássio",
+            "Sódio",
+            "Cálcio",
+            "Alumínio",
+            "Cobre",
+            "Ouro"
+          ]
+        },
+        {
+          "key": "lambda",
+          "label": "Comprimento de onda",
+          "unit": "nm",
+          "min": 200,
+          "max": 700,
+          "step": 10,
+          "default": 400
+        },
+        {
+          "key": "intensidade",
+          "label": "Intensidade",
+          "unit": "",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 3
+        }
+      ],
+      "equations": [
+        "foton-energia-eq",
+        "fotoeletrico-eq",
+        "freq-corte-eq"
+      ],
+      "exercises": [
+        "fm-ex-01",
+        "fm-ex-02"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "radioatividade-01",
+      "module": "fisica-moderna",
+      "simulation": "radioatividade",
+      "title": "Decaimento Radioativo",
+      "description": "Núcleos instáveis decaem aleatoriamente. O decaimento é exponencial: N(t) = N₀·e^(−λt). A meia-vida é t½ = ln2/λ.",
+      "phenomenon": "Marie Curie descobriu que certos elementos emitem radiação espontaneamente — sem qualquer causa externa. Cada átomo decai de forma completamente aleatória, sem memória do passado. Mas coletivamente, grandes populações seguem a lei exponencial com precisão matemática perfeita. É a lei dos grandes números aplicada ao mundo quântico. A meia-vida do carbono-14 (5730 anos) permite datar materiais orgânicos com precisão de décadas.",
+      "guidingQuestion": "Após 3 meias-vidas, quantos núcleos restam? Após 10 meias-vidas?",
+      "variables": [
+        {
+          "key": "N0",
+          "label": "N₀ (núcleos iniciais)",
+          "unit": "",
+          "min": 50,
+          "max": 400,
+          "step": 10,
+          "default": 200
+        },
+        {
+          "key": "lambda",
+          "label": "Constante λ",
+          "unit": "1/s",
+          "min": 0.1,
+          "max": 1.0,
+          "step": 0.05,
+          "default": 0.3
+        }
+      ],
+      "equations": [
+        "decaimento-eq",
+        "meia-vida-eq",
+        "atividade-eq"
+      ],
+      "exercises": [
+        "fm-ex-03",
+        "fm-ex-04"
+      ],
+      "duration_min": 20
+    },
+    {
+      "id": "modelo-atomico-01",
+      "module": "fisica-moderna",
+      "simulation": "modelo-atomico",
+      "title": "Modelos Atômicos e Espectros",
+      "description": "De Thomson a Bohr: a evolução do modelo atômico. O espectro de emissão do hidrogênio e a fórmula de Rydberg.",
+      "phenomenon": "Cada elemento químico emite luz em comprimentos de onda precisos e únicos — como uma impressão digital luminosa. O sódio emite amarelo intenso (589 nm), o néon emite vermelho-laranja, o mercúrio emite azul-verde. Em 1913, Niels Bohr explicou o espectro do hidrogênio: elétrons em órbitas quantizadas saltam entre níveis, emitindo fótons de energia exata. A fórmula de Rydberg prevê cada linha com precisão de 0,01%.",
+      "guidingQuestion": "Por que os átomos só emitem comprimentos de onda específicos, e não um espectro contínuo?",
+      "variables": [
+        {
+          "key": "modelo",
+          "label": "Modelo",
+          "unit": "",
+          "min": 0,
+          "max": 2,
+          "step": 1,
+          "default": 2,
+          "options": [
+            "thomson",
+            "rutherford",
+            "bohr"
+          ]
+        },
+        {
+          "key": "n_from",
+          "label": "Nível inicial n",
+          "unit": "",
+          "min": 2,
+          "max": 6,
+          "step": 1,
+          "default": 4
+        },
+        {
+          "key": "n_to",
+          "label": "Nível final n",
+          "unit": "",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 2
+        }
+      ],
+      "equations": [
+        "bohr-energia-eq",
+        "rydberg-eq",
+        "bohr-raio-eq"
+      ],
+      "exercises": [
+        "fm-ex-05",
+        "fm-ex-06"
+      ],
+      "duration_min": 25
     }
   ]
 }

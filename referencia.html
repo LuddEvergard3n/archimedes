@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Referência de Física — Archimedes. Termos, fórmulas, macetes e conceitos organizados por nível: EF1, EF2, EM e ES.">
+  <meta name="theme-color" content="#1c1a14">
+  <title>Referência de Física — Archimedes</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon-192.svg">
+
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/mobile.css">
+
+  <style>
+    body { overflow-y: auto; }
+    #app {
+      display: flex; flex-direction: column;
+      height: auto !important; min-height: 100vh; overflow: visible !important;
+    }
+    .app-header { position: sticky; top: 0; }
+
+    .static-nav {
+      display: flex; align-items: center; gap: var(--space-1); margin-left: auto;
+    }
+    .static-nav a {
+      font-size: var(--text-sm); letter-spacing: 0.04em;
+      color: var(--inst-text-muted);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-base);
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: all var(--transition-fast); white-space: nowrap;
+    }
+    .static-nav a:hover { color: var(--inst-text-primary); background: var(--inst-bg-hover); opacity: 1; }
+    .static-nav a.ativo { color: var(--amber); border-color: var(--inst-border-amber); background: var(--amber-dim); }
+
+    /* ── Layout ─────────────────────────────────── */
+    .ref-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-6) var(--space-16);
+      display: flex;
+      gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    /* Sidebar de navegação entre níveis */
+    .ref-sidebar {
+      width: 210px;
+      flex-shrink: 0;
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-4));
+    }
+
+    .ref-sidebar__panel {
+      background: var(--inst-bg-secondary);
+      border: 1px solid var(--inst-border-base);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .ref-sidebar__header {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--inst-border-base);
+      font-size: var(--text-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--inst-text-muted);
+    }
+
+    .ref-sidebar a {
+      display: block;
+      font-size: var(--text-sm);
+      color: var(--inst-text-secondary);
+      text-decoration: none;
+      padding: var(--space-2) var(--space-4);
+      border-left: 2px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .ref-sidebar a:hover {
+      color: var(--inst-text-primary);
+      border-left-color: var(--inst-border-mid);
+      background: var(--inst-bg-hover);
+      opacity: 1;
+    }
+
+    .ref-sidebar__group {
+      padding: var(--space-2) var(--space-3) var(--space-1);
+      font-size: var(--text-xs);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-weight: 500;
+      border-top: 1px solid var(--inst-border-base);
+      margin-top: var(--space-1);
+    }
+
+    .ref-sidebar__group:first-of-type { border-top: none; margin-top: 0; }
+
+    /* ── Conteúdo ────────────────────────────────── */
+    .ref-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    /* Cabeçalho de página */
+    .ref-page-header {
+      padding-bottom: var(--space-5);
+      border-bottom: 1px solid var(--inst-border-base);
+    }
+
+    .ref-page-header__eyebrow {
+      display: block;
+      font-size: var(--text-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: var(--space-2);
+    }
+
+    .ref-page-header h1 {
+      font-size: var(--text-2xl);
+      font-weight: 300;
+      color: var(--inst-text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .ref-page-header p {
+      margin-top: var(--space-2);
+      font-size: var(--text-md);
+      color: var(--inst-text-secondary);
+    }
+
+    /* Badge de nível */
+    .nivel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-base);
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: var(--space-3);
+    }
+
+    .nivel-badge--ef1 { background: rgba(61,122,85,0.12); border: 1px solid rgba(61,122,85,0.3); color: #3d7a55; }
+    .nivel-badge--ef2 { background: rgba(44,74,124,0.12); border: 1px solid rgba(44,74,124,0.3); color: var(--nb-blue); }
+    .nivel-badge--em  { background: rgba(200,146,10,0.12); border: 1px solid rgba(200,146,10,0.3); color: var(--amber); }
+    .nivel-badge--es  { background: rgba(160,96,208,0.12); border: 1px solid rgba(160,96,208,0.3); color: #a060d0; }
+
+    /* Seções dentro do notebook-panel */
+    .notebook-panel h2 {
+      font-size: 1.05rem;
+      font-weight: 500;
+      font-variant: small-caps;
+      letter-spacing: 0.08em;
+      color: var(--nb-blue);
+      border-bottom: 1px solid var(--nb-border);
+      padding-bottom: var(--space-2);
+      margin-bottom: var(--space-5);
+      scroll-margin-top: calc(var(--header-height) + var(--space-4));
+    }
+
+    .notebook-panel h3 {
+      font-size: var(--text-base);
+      font-weight: 500;
+      color: var(--nb-text-primary);
+      margin: var(--space-6) 0 var(--space-3);
+    }
+
+    .notebook-panel h3:first-of-type { margin-top: var(--space-2); }
+
+    .notebook-panel p { margin-bottom: var(--space-3); line-height: 1.75; }
+    .notebook-panel p:last-child { margin-bottom: 0; }
+    .notebook-panel strong { color: var(--nb-text-primary); font-weight: 600; }
+    .notebook-panel em { color: var(--nb-text-secondary); font-style: italic; }
+
+    /* Grade de fórmulas */
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--space-3);
+      margin: var(--space-4) 0;
+    }
+
+    .formula-card {
+      background: var(--nb-bg-inset);
+      border: 1px solid var(--nb-border);
+      border-radius: var(--radius-base);
+      padding: var(--space-4);
+    }
+
+    .formula-card__eq {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      color: var(--nb-blue);
+      margin-bottom: var(--space-2);
+      letter-spacing: 0.04em;
+    }
+
+    .formula-card__name {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--nb-text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .formula-card__vars {
+      font-size: var(--text-xs);
+      color: var(--nb-text-muted);
+      line-height: 1.55;
+    }
+
+    /* Macetes — bloco destacado */
+    .macete {
+      background: rgba(200,146,10,0.07);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-3) var(--space-5);
+      margin: var(--space-4) 0;
+      font-size: 0.95rem;
+      color: var(--nb-text-secondary);
+      line-height: 1.70;
+    }
+
+    .macete::before {
+      content: '💡 Macete:';
+      display: block;
+      font-size: var(--text-xs);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+
+    /* Nota azul */
+    .nota-info {
+      background: var(--nb-blue-dim);
+      border-left: 3px solid var(--nb-blue);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-3) var(--space-5);
+      margin: var(--space-4) 0;
+      font-size: 0.95rem;
+      color: var(--nb-text-secondary);
+      line-height: 1.65;
+    }
+
+    /* Tabela de grandezas */
+    .grandezas-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+      margin: var(--space-4) 0;
+    }
+
+    .grandezas-table th {
+      text-align: left;
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--nb-text-muted);
+      border-bottom: 1px solid var(--nb-border);
+      padding: var(--space-2) var(--space-3) var(--space-2) 0;
+      font-weight: 500;
+    }
+
+    .grandezas-table td {
+      padding: var(--space-2) var(--space-3) var(--space-2) 0;
+      color: var(--nb-text-secondary);
+      border-bottom: 1px solid var(--nb-border-dim);
+      vertical-align: top;
+    }
+
+    .grandezas-table td:first-child { color: var(--nb-text-primary); font-weight: 500; }
+    .grandezas-table td code { font-family: var(--font-mono); font-size: 0.88rem; color: var(--nb-blue); }
+
+    /* Lista de itens */
+    .ref-list {
+      padding-left: var(--space-5);
+      margin: var(--space-3) 0;
+    }
+
+    .ref-list li {
+      color: var(--nb-text-secondary);
+      font-size: var(--text-sm);
+      line-height: 1.70;
+      margin-bottom: var(--space-2);
+    }
+
+    .ref-list li strong { color: var(--nb-text-primary); }
+
+    /* Divisor de nível */
+    .nivel-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin: var(--space-2) 0 var(--space-1);
+    }
+
+    .nivel-divider__line { flex: 1; height: 1px; background: var(--nb-border); }
+
+    @media (max-width: 900px) {
+      .ref-body { flex-direction: column; }
+      .ref-sidebar { width: 100%; position: static; }
+    }
+
+    @media print {
+      .app-header, .ref-sidebar { display: none; }
+      .ref-body { display: block; padding: 0; }
+      .notebook-panel { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <header class="app-header" role="banner">
+    <a class="app-header__logo" href="index.html" aria-label="Archimedes — Início">
+      <div class="logo-mark" aria-hidden="true"><span class="logo-ring"></span></div>
+      <span class="logo-text">Archi<span>medes</span></span>
+    </a>
+    <div class="header-divider" aria-hidden="true"></div>
+    <nav class="static-nav" aria-label="Páginas">
+      <a href="index.html">Laboratório</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="referencia.html" class="ativo" aria-current="page">Referência</a>
+      <a href="guia-professor.html">Guia</a>
+      <a href="plano-de-aula.html">Plano</a>
+    </nav>
+  </header>
+
+  <div class="ref-body">
+
+    <!-- Sidebar -->
+    <aside class="ref-sidebar" aria-label="Índice por nível">
+      <div class="ref-sidebar__panel">
+        <div class="ref-sidebar__header">Níveis</div>
+
+        <div class="ref-sidebar__group">EF1 · 1º–5º ano</div>
+        <a href="#ef1-conceitos">Conceitos básicos</a>
+        <a href="#ef1-grandezas">Grandezas e unidades</a>
+        <a href="#ef1-macetes">Macetes EF1</a>
+
+        <div class="ref-sidebar__group">EF2 · 6º–9º ano</div>
+        <a href="#ef2-movimento">Movimento</a>
+        <a href="#ef2-forcas">Forças</a>
+        <a href="#ef2-energia">Energia</a>
+        <a href="#ef2-ondas">Ondas e Som</a>
+        <a href="#ef2-eletricidade">Eletricidade</a>
+        <a href="#ef2-optica">Óptica básica</a>
+        <a href="#ef2-macetes">Macetes EF2</a>
+
+        <div class="ref-sidebar__group">EM · 1ª–3ª série</div>
+        <a href="#em-cinematica">Cinemática</a>
+        <a href="#em-dinamica">Dinâmica</a>
+        <a href="#em-energia-em">Energia e Trabalho</a>
+        <a href="#em-fluidos">Fluidos</a>
+        <a href="#em-termologia">Termologia</a>
+        <a href="#em-ondas-em">Ondas e Óptica</a>
+        <a href="#em-eletromag">Eletromagnetismo</a>
+        <a href="#em-moderna">Física Moderna</a>
+        <a href="#em-macetes">Macetes EM</a>
+
+        <div class="ref-sidebar__group">ES · Superior</div>
+        <a href="#es-calculo">Cálculo e Vetores</a>
+        <a href="#es-mecanica">Mecânica Clássica</a>
+        <a href="#es-maxwell">Equações de Maxwell</a>
+        <a href="#es-quantica">Mecânica Quântica</a>
+        <a href="#es-relativ">Relatividade</a>
+      </div>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="ref-content" role="main">
+
+      <div class="ref-page-header">
+        <span class="ref-page-header__eyebrow">Archimedes · Material de Referência</span>
+        <h1>Física — Guia de Referência</h1>
+        <p>Termos, fórmulas, siglas e macetes organizados por nível educacional.
+           Do conceito de força no Fundamental I às equações de Maxwell no Superior.</p>
+      </div>
+
+      <!-- ══════════════════════════════════════════
+           EF1 — ENSINO FUNDAMENTAL I
+      ══════════════════════════════════════════ -->
+
+      <div class="notebook-panel">
+        <div class="nivel-badge nivel-badge--ef1">EF1 · 1º ao 5º ano</div>
+
+        <h2 id="ef1-conceitos">Conceitos básicos</h2>
+
+        <h3>O que é Física?</h3>
+        <p>
+          Física é o estudo de como as coisas se movem, o que as faz parar, por que algumas flutuam
+          e outras afundam, por que o céu é azul, por que sentimos calor e frio.
+          É a ciência que pergunta <em>"por quê?"</em> sobre tudo que acontece na natureza.
+        </p>
+
+        <h3>Matéria e energia</h3>
+        <p>
+          <strong>Matéria</strong> é tudo que tem massa e ocupa espaço — uma pedra, o ar, a água.
+          <strong>Energia</strong> é a capacidade de realizar trabalho ou causar mudança —
+          mover uma pedra, aquecer a água, acender uma lâmpada.
+          A regra mais importante da física: energia não se cria nem se destrói, só muda de forma.
+        </p>
+
+        <h3>Estados da matéria</h3>
+        <ul class="ref-list">
+          <li><strong>Sólido</strong> — forma própria, volume fixo. Partículas muito unidas. Ex.: gelo, pedra.</li>
+          <li><strong>Líquido</strong> — forma do recipiente, volume fixo. Ex.: água, suco.</li>
+          <li><strong>Gasoso</strong> — ocupa todo o espaço disponível, volume variável. Ex.: vapor, ar.</li>
+          <li><strong>Plasma</strong> — gás muito quente com partículas carregadas. Ex.: Sol, relâmpago, chama.</li>
+        </ul>
+
+        <h3>Forças no cotidiano</h3>
+        <ul class="ref-list">
+          <li><strong>Gravidade</strong> — puxa tudo para o centro da Terra. Por isso objetos caem.</li>
+          <li><strong>Atrito</strong> — força que resiste ao movimento. Bom para frear, ruim para deslizar.</li>
+          <li><strong>Empuxo</strong> — força da água (ou do ar) que empurra objetos para cima. Faz barcos flutuar.</li>
+          <li><strong>Força elástica</strong> — molas e elásticos puxam de volta quando esticados.</li>
+          <li><strong>Força magnética</strong> — ímãs atraem ferro e se atraem ou repelem entre si.</li>
+        </ul>
+
+        <h2 id="ef1-grandezas">Grandezas e unidades</h2>
+
+        <p>
+          Uma <strong>grandeza</strong> é algo que podemos medir.
+          Uma <strong>unidade</strong> é o padrão que usamos para medir.
+          O Brasil usa o Sistema Internacional (SI) — o mesmo da ciência mundial.
+        </p>
+
+        <table class="grandezas-table">
+          <thead>
+            <tr><th>Grandeza</th><th>O que mede</th><th>Unidade SI</th><th>Símbolo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Comprimento</td><td>Tamanho, distância</td><td>Metro</td><td><code>m</code></td></tr>
+            <tr><td>Massa</td><td>Quantidade de matéria</td><td>Quilograma</td><td><code>kg</code></td></tr>
+            <tr><td>Tempo</td><td>Duração de eventos</td><td>Segundo</td><td><code>s</code></td></tr>
+            <tr><td>Temperatura</td><td>Grau de agitação das partículas</td><td>Kelvin</td><td><code>K</code></td></tr>
+            <tr><td>Volume</td><td>Espaço ocupado</td><td>Metro cúbico</td><td><code>m³</code></td></tr>
+          </tbody>
+        </table>
+
+        <div class="nota-info">
+          <strong>Massa ≠ Peso.</strong> Massa é a quantidade de matéria — não muda onde quer que você esteja.
+          Peso é a força gravitacional sobre a massa — na Lua, seu peso é 6× menor, mas sua massa é a mesma.
+        </div>
+
+        <h3>Prefixos úteis</h3>
+        <table class="grandezas-table">
+          <thead><tr><th>Prefixo</th><th>Símbolo</th><th>Valor</th><th>Exemplo</th></tr></thead>
+          <tbody>
+            <tr><td>Quilo</td><td><code>k</code></td><td>× 1 000</td><td>1 km = 1 000 m</td></tr>
+            <tr><td>Centi</td><td><code>c</code></td><td>÷ 100</td><td>1 cm = 0,01 m</td></tr>
+            <tr><td>Mili</td><td><code>m</code></td><td>÷ 1 000</td><td>1 mm = 0,001 m</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="ef1-macetes">Macetes EF1</h2>
+
+        <div class="macete">
+          Para lembrar os estados da matéria em ordem de temperatura crescente:
+          <strong>Sólido → Líquido → Gás → Plasma</strong>.
+          Pense no gelo: gelo (sólido) → água (líquido) → vapor (gás) → relâmpago (plasma).
+        </div>
+
+        <div class="macete">
+          Massa e peso: "Na balança do mercado medimos a <strong>massa</strong> em kg.
+          Na academia sentimos o <strong>peso</strong> quando levantamos halteres —
+          quanto maior a massa, maior o peso (na mesma gravidade)."
+        </div>
+
+        <div class="macete">
+          Flutuação: um objeto flutua se a sua <strong>densidade</strong> for menor que a do líquido.
+          Densidade = massa ÷ volume. Um navio de aço flutua porque tem muito espaço vazio dentro —
+          a densidade <em>média</em> do navio (aço + ar + carga) é menor que a da água.
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════
+           EF2 — ENSINO FUNDAMENTAL II
+      ══════════════════════════════════════════ -->
+
+      <div class="notebook-panel">
+        <div class="nivel-badge nivel-badge--ef2">EF2 · 6º ao 9º ano</div>
+
+        <h2 id="ef2-movimento">Movimento</h2>
+
+        <h3>Conceitos fundamentais</h3>
+        <ul class="ref-list">
+          <li><strong>Posição (s)</strong> — onde o objeto está em relação a um ponto de referência. Unidade: <code>m</code>.</li>
+          <li><strong>Deslocamento (Δs)</strong> — variação da posição: Δs = s_final − s_inicial. Pode ser negativo.</li>
+          <li><strong>Velocidade média (v̄)</strong> — deslocamento dividido pelo tempo. Unidade: <code>m/s</code>.</li>
+          <li><strong>Aceleração (a)</strong> — variação da velocidade no tempo. Unidade: <code>m/s²</code>.</li>
+          <li><strong>Trajetória</strong> — o caminho percorrido (não confundir com deslocamento).</li>
+        </ul>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">v̄ = Δs / Δt</span>
+            <span class="formula-card__name">Velocidade média</span>
+            <span class="formula-card__vars">Δs em m · Δt em s · v̄ em m/s</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">v = v₀ + a·t</span>
+            <span class="formula-card__name">Velocidade no MRUV</span>
+            <span class="formula-card__vars">v₀ = vel. inicial · a = aceleração · t = tempo</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">s = s₀ + v₀·t + ½a·t²</span>
+            <span class="formula-card__name">Posição no MRUV</span>
+            <span class="formula-card__vars">s₀ = posição inicial</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">v² = v₀² + 2a·Δs</span>
+            <span class="formula-card__name">Equação de Torricelli</span>
+            <span class="formula-card__vars">Independe do tempo</span>
+          </div>
+        </div>
+
+        <div class="nota-info">
+          <strong>MRU</strong> = Movimento Retilíneo Uniforme (velocidade constante, a = 0).
+          <strong>MRUV</strong> = Movimento Retilíneo Uniformemente Variado (aceleração constante).
+          Queda livre é MRUV com a = g ≈ 9,8 m/s² (para baixo).
+        </div>
+
+        <h2 id="ef2-forcas">Forças</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">F = m · a</span>
+            <span class="formula-card__name">2ª Lei de Newton</span>
+            <span class="formula-card__vars">F em N · m em kg · a em m/s²</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">P = m · g</span>
+            <span class="formula-card__name">Peso</span>
+            <span class="formula-card__vars">g ≈ 9,8 m/s² (Terra) · 1,6 m/s² (Lua)</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">Fat = μ · N</span>
+            <span class="formula-card__name">Força de atrito</span>
+            <span class="formula-card__vars">μ = coeficiente de atrito · N = força normal</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">F₁₂ = −F₂₁</span>
+            <span class="formula-card__name">3ª Lei de Newton</span>
+            <span class="formula-card__vars">Ação e reação — sempre em corpos distintos</span>
+          </div>
+        </div>
+
+        <h3>As 3 Leis de Newton em linguagem direta</h3>
+        <ul class="ref-list">
+          <li><strong>1ª Lei (Inércia)</strong> — Um objeto em repouso fica em repouso, e em movimento fica em movimento, a menos que uma força atue sobre ele. Objetos são "preguiçosos" — resistem a mudar de estado.</li>
+          <li><strong>2ª Lei (F = ma)</strong> — Quanto maior a força, maior a aceleração. Quanto maior a massa, menor a aceleração para a mesma força. A força resultante é o que causa a mudança.</li>
+          <li><strong>3ª Lei (Ação e reação)</strong> — Para toda força existe uma força de reação igual e oposta, atuando no outro corpo. Você empurra o chão → o chão te empurra para cima.</li>
+        </ul>
+
+        <h2 id="ef2-energia">Energia</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">Ec = ½ · m · v²</span>
+            <span class="formula-card__name">Energia cinética</span>
+            <span class="formula-card__vars">Energia do movimento · m em kg · v em m/s</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">Ep = m · g · h</span>
+            <span class="formula-card__name">Energia potencial gravitacional</span>
+            <span class="formula-card__vars">h = altura acima da referência</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">W = F · d · cos(θ)</span>
+            <span class="formula-card__name">Trabalho</span>
+            <span class="formula-card__vars">θ = ângulo entre F e deslocamento · W em J</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">E_mec = Ec + Ep = const.</span>
+            <span class="formula-card__name">Conservação de energia mecânica</span>
+            <span class="formula-card__vars">Sem atrito — energia total não muda</span>
+          </div>
+        </div>
+
+        <h3>Formas de energia</h3>
+        <ul class="ref-list">
+          <li><strong>Cinética</strong> — energia do movimento</li>
+          <li><strong>Potencial gravitacional</strong> — energia da altura</li>
+          <li><strong>Potencial elástica</strong> — energia de molas e elásticos</li>
+          <li><strong>Térmica</strong> — energia do calor (agitação das partículas)</li>
+          <li><strong>Química</strong> — energia armazenada em ligações moleculares (bateria, combustível, alimento)</li>
+          <li><strong>Elétrica</strong> — energia de cargas em movimento</li>
+          <li><strong>Nuclear</strong> — energia do núcleo atômico (sol, usinas nucleares)</li>
+          <li><strong>Radiante</strong> — energia de ondas eletromagnéticas (luz, raios X)</li>
+        </ul>
+
+        <h2 id="ef2-ondas">Ondas e Som</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">v = λ · f</span>
+            <span class="formula-card__name">Velocidade de onda</span>
+            <span class="formula-card__vars">λ = comprimento de onda (m) · f = frequência (Hz)</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">T = 1 / f</span>
+            <span class="formula-card__name">Período</span>
+            <span class="formula-card__vars">T = tempo de uma oscilação completa (s)</span>
+          </div>
+        </div>
+
+        <ul class="ref-list">
+          <li><strong>Onda mecânica</strong> — precisa de meio para se propagar (som, ondas do mar, sísmica).</li>
+          <li><strong>Onda eletromagnética</strong> — propaga-se no vácuo (luz, rádio, micro-ondas, raios X).</li>
+          <li><strong>Som</strong> — onda mecânica longitudinal. Velocidade no ar: ≈ 340 m/s. Na água: ≈ 1500 m/s. No aço: ≈ 5000 m/s.</li>
+          <li><strong>Frequência e altura do som</strong> — frequência alta = som agudo (soprano). Frequência baixa = som grave (baixo).</li>
+          <li><strong>Amplitude e volume</strong> — amplitude grande = som forte. Amplitude pequena = som fraco.</li>
+          <li><strong>Ultrassom</strong> — frequência > 20 000 Hz (acima do limite humano). Usado em ecografias.</li>
+          <li><strong>Infrassom</strong> — frequência < 20 Hz. Produzido por terremotos, elefantes, baleias.</li>
+        </ul>
+
+        <h2 id="ef2-eletricidade">Eletricidade básica</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">V = R · I</span>
+            <span class="formula-card__name">Lei de Ohm</span>
+            <span class="formula-card__vars">V em V · R em Ω · I em A</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">P = V · I</span>
+            <span class="formula-card__name">Potência elétrica</span>
+            <span class="formula-card__vars">P em W · V em V · I em A</span>
+          </div>
+        </div>
+
+        <ul class="ref-list">
+          <li><strong>Corrente elétrica (I)</strong> — fluxo de cargas elétricas. Unidade: Ampere (A).</li>
+          <li><strong>Tensão / Voltagem (V)</strong> — "pressão" que impulsiona as cargas. Unidade: Volt (V). Brasil: 127 V ou 220 V.</li>
+          <li><strong>Resistência (R)</strong> — oposição ao fluxo de corrente. Unidade: Ohm (Ω).</li>
+          <li><strong>Corrente contínua (CC/DC)</strong> — fluxo numa só direção. Baterias, pilhas.</li>
+          <li><strong>Corrente alternada (CA/AC)</strong> — inverte direção periodicamente. Tomadas domésticas (60 Hz no Brasil).</li>
+        </ul>
+
+        <h2 id="ef2-optica">Óptica básica</h2>
+
+        <ul class="ref-list">
+          <li><strong>Luz visível</strong> — faixa do espectro eletromagnético entre 380 nm (violeta) e 700 nm (vermelho).</li>
+          <li><strong>Reflexão</strong> — ângulo de incidência = ângulo de reflexão (em relação à normal).</li>
+          <li><strong>Refração</strong> — mudança de direção da luz ao mudar de meio. Ex.: lápis num copo d'água parece quebrado.</li>
+          <li><strong>Cor dos objetos</strong> — objetos têm a cor da luz que refletem. Uma banana é amarela porque absorve todas as outras cores e reflete o amarelo.</li>
+          <li><strong>Luz branca</strong> — é a superposição de todas as cores. Comprovado por Newton com o prisma em 1666.</li>
+          <li><strong>Sombra</strong> — formada quando um objeto opaco bloqueia a luz. Eclipse solar: a Lua projeta sombra na Terra.</li>
+        </ul>
+
+        <h2 id="ef2-macetes">Macetes EF2</h2>
+
+        <div class="macete">
+          <strong>Torricelli sem tempo:</strong> v² = v₀² + 2aΔs. Quando a questão não dá o tempo e não pede o tempo, use Torricelli. É a equação que elimina t das equações de cinemática.
+        </div>
+
+        <div class="macete">
+          <strong>Unidades de força:</strong> 1 Newton ≈ o peso de uma maçã de 100g na Terra.
+          F = ma → [N] = [kg][m/s²]. Se a unidade não "fechar" dimensionalmente, a fórmula está errada.
+        </div>
+
+        <div class="macete">
+          <strong>Série vs. Paralelo:</strong> Em série, a corrente é igual em todos; as tensões se somam. Em paralelo, a tensão é igual em todos; as correntes se somam. Lâmpadas de casa são em paralelo — se uma queima, as outras continuam acesas.
+        </div>
+
+        <div class="macete">
+          <strong>Conversão km/h ↔ m/s:</strong> divida por 3,6 para ir de km/h para m/s. Multiplique por 3,6 para o sentido contrário. "72 km/h = 72 ÷ 3,6 = 20 m/s."
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════
+           EM — ENSINO MÉDIO
+      ══════════════════════════════════════════ -->
+
+      <div class="notebook-panel">
+        <div class="nivel-badge nivel-badge--em">EM · 1ª à 3ª série</div>
+
+        <h2 id="em-cinematica">Cinemática</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">s = s₀ + v₀t + ½at²</span>
+            <span class="formula-card__name">Posição — MRUV</span>
+            <span class="formula-card__vars">Equação horária da posição</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">v² = v₀² + 2aΔs</span>
+            <span class="formula-card__name">Torricelli</span>
+            <span class="formula-card__vars">Independe do tempo</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">x(t) = v₀cosθ · t</span>
+            <span class="formula-card__name">Oblíquo — horizontal</span>
+            <span class="formula-card__vars">MRU na componente x</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">y(t) = v₀sinθ·t − ½gt²</span>
+            <span class="formula-card__name">Oblíquo — vertical</span>
+            <span class="formula-card__vars">MRUV na componente y</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">R = v₀²·sin2θ / g</span>
+            <span class="formula-card__name">Alcance do lançamento oblíquo</span>
+            <span class="formula-card__vars">Máximo em θ = 45°</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">aₓ = v² / r = ω²r</span>
+            <span class="formula-card__name">Aceleração centrípeta</span>
+            <span class="formula-card__vars">Aponta para o centro · v = ωr</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">T = 2π / ω = 2πr / v</span>
+            <span class="formula-card__name">Período (MCU)</span>
+            <span class="formula-card__vars">ω = velocidade angular (rad/s)</span>
+          </div>
+        </div>
+
+        <h2 id="em-dinamica">Dinâmica e Conservação</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">F = m · a</span>
+            <span class="formula-card__name">2ª Lei de Newton</span>
+            <span class="formula-card__vars">Força resultante = massa × aceleração</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">F = k · |q₁q₂| / r²</span>
+            <span class="formula-card__name">Lei de Coulomb</span>
+            <span class="formula-card__vars">k = 8,99×10⁹ N·m²/C²</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">p = m · v</span>
+            <span class="formula-card__name">Momento linear</span>
+            <span class="formula-card__vars">Conservado quando F_ext = 0</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">J = F · Δt = Δp</span>
+            <span class="formula-card__name">Impulso</span>
+            <span class="formula-card__vars">J em N·s = kg·m/s</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">v₁' = [(m₁−m₂)v₁ + 2m₂v₂] / (m₁+m₂)</span>
+            <span class="formula-card__name">Colisão elástica</span>
+            <span class="formula-card__vars">Conserva p e Ec</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">v' = (m₁v₁ + m₂v₂) / (m₁+m₂)</span>
+            <span class="formula-card__name">Colisão inelástica</span>
+            <span class="formula-card__vars">Conserva p; perde Ec</span>
+          </div>
+        </div>
+
+        <h2 id="em-energia-em">Energia, Trabalho e Potência</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">Ec = ½mv²</span>
+            <span class="formula-card__name">Energia cinética</span>
+            <span class="formula-card__vars">J = kg·m²/s²</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">Ep = mgh</span>
+            <span class="formula-card__name">Energia potencial gravitacional</span>
+            <span class="formula-card__vars">h = altura em relação à referência</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">Eel = ½kx²</span>
+            <span class="formula-card__name">Energia potencial elástica</span>
+            <span class="formula-card__vars">k = constante da mola · x = deformação</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">P = W/t = F·v</span>
+            <span class="formula-card__name">Potência</span>
+            <span class="formula-card__vars">W em watts · 1 CV = 745,7 W</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">η = P_útil / P_total</span>
+            <span class="formula-card__name">Rendimento</span>
+            <span class="formula-card__vars">η ∈ [0, 1] · η = 1 é impossível</span>
+          </div>
+        </div>
+
+        <h2 id="em-fluidos">Fluidos</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">ρ = m / V</span>
+            <span class="formula-card__name">Densidade</span>
+            <span class="formula-card__vars">ρ em kg/m³ · água: 1000 kg/m³</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">P = F / A</span>
+            <span class="formula-card__name">Pressão</span>
+            <span class="formula-card__vars">Pa = N/m² · P_atm = 101 325 Pa</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">P = P₀ + ρgh</span>
+            <span class="formula-card__name">Pressão hidrostática</span>
+            <span class="formula-card__vars">h = profundidade · aumenta com a profundidade</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">E = ρ_fluido · g · V_submerso</span>
+            <span class="formula-card__name">Empuxo (Arquimedes)</span>
+            <span class="formula-card__vars">Flutua se E ≥ P_objeto</span>
+          </div>
+        </div>
+
+        <h2 id="em-termologia">Termologia e Termodinâmica</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">ΔQ = m · c · ΔT</span>
+            <span class="formula-card__name">Calor sensível</span>
+            <span class="formula-card__vars">c = calor específico (J/kg·°C) · água: 4186</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">PV = nRT</span>
+            <span class="formula-card__name">Gás ideal</span>
+            <span class="formula-card__vars">R = 8,314 J/(mol·K) · T em Kelvin!</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">T(K) = T(°C) + 273</span>
+            <span class="formula-card__name">Conversão de temperatura</span>
+            <span class="formula-card__vars">0°C = 273 K · −273°C = 0 K (zero absoluto)</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">ΔU = Q − W</span>
+            <span class="formula-card__name">1ª Lei da Termodinâmica</span>
+            <span class="formula-card__vars">Conservação de energia para sistemas termodinâmicos</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">η_Carnot = 1 − T_fria / T_quente</span>
+            <span class="formula-card__name">Eficiência de Carnot</span>
+            <span class="formula-card__vars">Máximo teórico possível · T em Kelvin</span>
+          </div>
+        </div>
+
+        <h3>Processos termodinâmicos</h3>
+        <table class="grandezas-table">
+          <thead><tr><th>Processo</th><th>Constante</th><th>Consequência</th></tr></thead>
+          <tbody>
+            <tr><td>Isotérmico</td><td>T</td><td>PV = constante (Boyle). Ex.: compressor lento.</td></tr>
+            <tr><td>Isobárico</td><td>P</td><td>V/T = constante (Charles). Ex.: balão aquecido.</td></tr>
+            <tr><td>Isocórico</td><td>V</td><td>P/T = constante (Gay-Lussac). Ex.: panela fechada.</td></tr>
+            <tr><td>Adiabático</td><td>Q = 0</td><td>Sem troca de calor. Ex.: compressão rápida.</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="em-ondas-em">Ondas e Óptica</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">n₁·sinθ₁ = n₂·sinθ₂</span>
+            <span class="formula-card__name">Lei de Snell</span>
+            <span class="formula-card__vars">n = c/v · maior n → menor velocidade</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">θ_c = arcsin(n₂/n₁)</span>
+            <span class="formula-card__name">Ângulo crítico (TIR)</span>
+            <span class="formula-card__vars">Só quando n₁ > n₂ · base da fibra óptica</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">1/f = 1/do + 1/di</span>
+            <span class="formula-card__name">Equação de Gauss (lentes)</span>
+            <span class="formula-card__vars">f > 0: convergente · f < 0: divergente</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">M = −di / do</span>
+            <span class="formula-card__name">Ampliação lateral</span>
+            <span class="formula-card__vars">M > 0: direita · M < 0: invertida</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">T = 2π√(L/g)</span>
+            <span class="formula-card__name">Período do pêndulo</span>
+            <span class="formula-card__vars">L = comprimento · independe da massa!</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">f_bat = |f₁ − f₂|</span>
+            <span class="formula-card__name">Batimento de frequências</span>
+            <span class="formula-card__vars">Pulsação audível quando duas frequências são próximas</span>
+          </div>
+        </div>
+
+        <h2 id="em-eletromag">Eletromagnetismo</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">V = R · I</span>
+            <span class="formula-card__name">Lei de Ohm</span>
+            <span class="formula-card__vars">V em V · R em Ω · I em A</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">B = μ₀I / (2πr)</span>
+            <span class="formula-card__name">Campo do fio longo</span>
+            <span class="formula-card__vars">μ₀ = 4π×10⁻⁷ T·m/A</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">B = μ₀ · n · I</span>
+            <span class="formula-card__name">Campo do solenoide</span>
+            <span class="formula-card__vars">n = espiras por metro</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">F = q·(E + v×B)</span>
+            <span class="formula-card__name">Força de Lorentz</span>
+            <span class="formula-card__vars">F_mag ⊥ v → não realiza trabalho</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">ε = −dΦ/dt</span>
+            <span class="formula-card__name">Lei de Faraday</span>
+            <span class="formula-card__vars">Φ = B·A·cosθ · sinal = Lei de Lenz</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">r = mv / (|q|B)</span>
+            <span class="formula-card__name">Raio de ciclotron</span>
+            <span class="formula-card__vars">Trajetória circular em campo B uniforme</span>
+          </div>
+        </div>
+
+        <h3>Resistores: série e paralelo</h3>
+        <table class="grandezas-table">
+          <thead><tr><th>Ligação</th><th>R equivalente</th><th>Corrente</th><th>Tensão</th></tr></thead>
+          <tbody>
+            <tr><td>Série</td><td>R = R₁ + R₂ + …</td><td>Igual em todos</td><td>Soma-se</td></tr>
+            <tr><td>Paralelo</td><td>1/R = 1/R₁ + 1/R₂ + …</td><td>Soma-se</td><td>Igual em todos</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="em-moderna">Física Moderna</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">E = h · f = hc / λ</span>
+            <span class="formula-card__name">Energia do fóton</span>
+            <span class="formula-card__vars">h = 6,626×10⁻³⁴ J·s = 4,136×10⁻¹⁵ eV·s</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">Ec = hf − φ</span>
+            <span class="formula-card__name">Efeito fotoelétrico</span>
+            <span class="formula-card__vars">φ = função de trabalho do metal</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">N(t) = N₀ · e^(−λt)</span>
+            <span class="formula-card__name">Decaimento radioativo</span>
+            <span class="formula-card__vars">t½ = ln2/λ ≈ 0,693/λ</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">Eₙ = −13,6 / n² eV</span>
+            <span class="formula-card__name">Níveis de energia do H</span>
+            <span class="formula-card__vars">n = 1, 2, 3, … · ionização em n→∞</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">1/λ = R_H(1/n₁² − 1/n₂²)</span>
+            <span class="formula-card__name">Fórmula de Rydberg</span>
+            <span class="formula-card__vars">R_H = 1,097×10⁷ m⁻¹</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">E = mc²</span>
+            <span class="formula-card__name">Equivalência massa-energia</span>
+            <span class="formula-card__vars">c = 2,998×10⁸ m/s · Einstein, 1905</span>
+          </div>
+        </div>
+
+        <h3>Constantes fundamentais</h3>
+        <table class="grandezas-table">
+          <thead><tr><th>Constante</th><th>Símbolo</th><th>Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Velocidade da luz (vácuo)</td><td><code>c</code></td><td>2,998 × 10⁸ m/s</td></tr>
+            <tr><td>Constante de Planck</td><td><code>h</code></td><td>6,626 × 10⁻³⁴ J·s</td></tr>
+            <tr><td>Carga do elétron</td><td><code>e</code></td><td>1,602 × 10⁻¹⁹ C</td></tr>
+            <tr><td>Massa do elétron</td><td><code>mₑ</code></td><td>9,109 × 10⁻³¹ kg</td></tr>
+            <tr><td>Massa do próton</td><td><code>mₚ</code></td><td>1,673 × 10⁻²⁷ kg</td></tr>
+            <tr><td>Constante gravitacional</td><td><code>G</code></td><td>6,674 × 10⁻¹¹ N·m²/kg²</td></tr>
+            <tr><td>Constante de Boltzmann</td><td><code>k_B</code></td><td>1,381 × 10⁻²³ J/K</td></tr>
+            <tr><td>Constante de Coulomb</td><td><code>k_e</code></td><td>8,988 × 10⁹ N·m²/C²</td></tr>
+            <tr><td>Permissividade do vácuo</td><td><code>ε₀</code></td><td>8,854 × 10⁻¹² C²/(N·m²)</td></tr>
+            <tr><td>Permeabilidade do vácuo</td><td><code>μ₀</code></td><td>4π × 10⁻⁷ T·m/A</td></tr>
+            <tr><td>Número de Avogadro</td><td><code>Nₐ</code></td><td>6,022 × 10²³ mol⁻¹</td></tr>
+            <tr><td>Constante dos gases</td><td><code>R</code></td><td>8,314 J/(mol·K)</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="em-macetes">Macetes do Ensino Médio</h2>
+
+        <div class="macete">
+          <strong>Oblíquo em 45°:</strong> sin(2×45°) = sin(90°) = 1 → alcance máximo. Ângulos complementares (30° e 60°, 20° e 70°) dão o mesmo alcance — sin(2θ) = sin(180°−2θ).
+        </div>
+
+        <div class="macete">
+          <strong>PV = nRT: T em Kelvin sempre.</strong> Se você usar °C na equação dos gases ideais, o resultado estará errado por um fator de ≈ 1,37. "P, V e R não mudam de jeito; T tem que ser Kelvin, não Celsius aí."
+        </div>
+
+        <div class="macete">
+          <strong>Lei de Lenz em uma frase:</strong> a corrente induzida sempre tenta <em>impedir</em> a variação do fluxo que a gerou. Se o fluxo aumenta, a corrente cria um campo oposto. Se diminui, cria um campo no mesmo sentido. É a conservação de energia em ação.
+        </div>
+
+        <div class="macete">
+          <strong>Colisão elástica com massas iguais:</strong> os objetos trocam de velocidade. Bola A bate em B parado → A para, B vai com a velocidade de A. Isso explica a bola de Newton e a transmissão de impulso em bolas de bilhar.
+        </div>
+
+        <div class="macete">
+          <strong>F_mag não realiza trabalho:</strong> a força magnética sobre uma carga é sempre perpendicular à velocidade (F ⊥ v). W = F·d·cosθ → θ = 90° → W = 0. Por isso ela muda a direção, nunca a rapidez.
+        </div>
+
+        <div class="macete">
+          <strong>Efeito fotoelétrico: intensidade vs. frequência.</strong>
+          Intensidade → quantidade de elétrons.
+          Frequência → energia de cada elétron.
+          Abaixo da frequência de corte: zero elétrons, independente da intensidade.
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════
+           ES — ENSINO SUPERIOR
+      ══════════════════════════════════════════ -->
+
+      <div class="notebook-panel">
+        <div class="nivel-badge nivel-badge--es">ES · Ensino Superior</div>
+
+        <h2 id="es-calculo">Cálculo e Ferramentas Matemáticas</h2>
+
+        <p>
+          No Ensino Superior, a física para de usar letras para grandezas médias e passa a trabalhar com
+          <strong>derivadas e integrais</strong>. A física clássica é escrita em linguagem de cálculo diferencial.
+        </p>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">v(t) = ds/dt</span>
+            <span class="formula-card__name">Velocidade instantânea</span>
+            <span class="formula-card__vars">Derivada da posição em relação ao tempo</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">a(t) = dv/dt = d²s/dt²</span>
+            <span class="formula-card__name">Aceleração instantânea</span>
+            <span class="formula-card__vars">Derivada segunda da posição</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">W = ∫F·ds</span>
+            <span class="formula-card__name">Trabalho (forma integral)</span>
+            <span class="formula-card__vars">Generaliza W = F·d para força variável</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">∇ = (∂/∂x, ∂/∂y, ∂/∂z)</span>
+            <span class="formula-card__name">Operador nabla</span>
+            <span class="formula-card__vars">Gradiente, divergência, rotacional</span>
+          </div>
+        </div>
+
+        <h2 id="es-mecanica">Mecânica Clássica Avançada</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">L = r × p</span>
+            <span class="formula-card__name">Momento angular</span>
+            <span class="formula-card__vars">Conservado quando τ_ext = 0</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">τ = r × F = dL/dt</span>
+            <span class="formula-card__name">Torque</span>
+            <span class="formula-card__vars">Análogo rotacional da força</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">I = Σmᵢrᵢ²</span>
+            <span class="formula-card__name">Momento de inércia</span>
+            <span class="formula-card__vars">Análogo rotacional da massa</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">L = {q, p} (H) — Poisson</span>
+            <span class="formula-card__name">Formalismo de Hamilton</span>
+            <span class="formula-card__vars">Alternativa a F = ma — mais poderoso</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">d/dt(∂L/∂q̇) = ∂L/∂q</span>
+            <span class="formula-card__name">Equação de Euler-Lagrange</span>
+            <span class="formula-card__vars">L = T − V · base da mecânica analítica</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">F = −G·m₁m₂/r² r̂</span>
+            <span class="formula-card__name">Lei da gravitação universal</span>
+            <span class="formula-card__vars">G = 6,674×10⁻¹¹ N·m²/kg²</span>
+          </div>
+        </div>
+
+        <h2 id="es-maxwell">Equações de Maxwell</h2>
+
+        <p>
+          As quatro equações de Maxwell unificam toda a eletrodinâmica clássica e preveem a existência
+          de ondas eletromagnéticas que se propagam a c = 1/√(ε₀μ₀) — a velocidade da luz.
+        </p>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">∇·E = ρ/ε₀</span>
+            <span class="formula-card__name">Lei de Gauss (campo elétrico)</span>
+            <span class="formula-card__vars">Cargas são fontes de campo elétrico</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">∇·B = 0</span>
+            <span class="formula-card__name">Lei de Gauss (campo magnético)</span>
+            <span class="formula-card__vars">Não existem monopolos magnéticos</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">∇×E = −∂B/∂t</span>
+            <span class="formula-card__name">Lei de Faraday</span>
+            <span class="formula-card__vars">B variável cria campo elétrico rotacional</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">∇×B = μ₀J + μ₀ε₀·∂E/∂t</span>
+            <span class="formula-card__name">Lei de Ampère-Maxwell</span>
+            <span class="formula-card__vars">E variável cria campo magnético — fecha o ciclo</span>
+          </div>
+        </div>
+
+        <div class="nota-info">
+          A 3ª e 4ª equações juntas mostram que E variável cria B, que variável cria E — uma onda que se autopropaga.
+          Maxwell calculou c = 1/√(ε₀μ₀) ≈ 3×10⁸ m/s e reconheceu: a luz é uma onda eletromagnética.
+        </div>
+
+        <h2 id="es-quantica">Mecânica Quântica</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">iℏ ∂ψ/∂t = Ĥψ</span>
+            <span class="formula-card__name">Equação de Schrödinger</span>
+            <span class="formula-card__vars">ψ = função de onda · Ĥ = hamiltoniano</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">Δx·Δp ≥ ℏ/2</span>
+            <span class="formula-card__name">Princípio de Heisenberg</span>
+            <span class="formula-card__vars">ℏ = h/2π = 1,055×10⁻³⁴ J·s</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">|ψ|² = probabilidade</span>
+            <span class="formula-card__name">Interpretação de Born</span>
+            <span class="formula-card__vars">|ψ(r,t)|² dV = prob. de encontrar em dV</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">λ = h / p = h / (mv)</span>
+            <span class="formula-card__name">Comprimento de onda de De Broglie</span>
+            <span class="formula-card__vars">Dualidade onda-partícula — toda matéria tem λ</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">[x̂, p̂] = iℏ</span>
+            <span class="formula-card__name">Relação de comutação</span>
+            <span class="formula-card__vars">Origem formal do princípio de Heisenberg</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">ΔE·Δt ≥ ℏ/2</span>
+            <span class="formula-card__name">Incerteza energia-tempo</span>
+            <span class="formula-card__vars">Permite flutuações de energia no vácuo</span>
+          </div>
+        </div>
+
+        <h2 id="es-relativ">Relatividade Especial</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <span class="formula-card__eq">E = mc² = γm₀c²</span>
+            <span class="formula-card__name">Energia relativística</span>
+            <span class="formula-card__vars">m₀ = massa de repouso · γ = fator de Lorentz</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">γ = 1/√(1 − v²/c²)</span>
+            <span class="formula-card__name">Fator de Lorentz</span>
+            <span class="formula-card__vars">γ → ∞ quando v → c</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">Δt' = γ · Δt₀</span>
+            <span class="formula-card__name">Dilatação temporal</span>
+            <span class="formula-card__vars">Clocks em movimento marcam mais devagar</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">L' = L₀ / γ</span>
+            <span class="formula-card__name">Contração de Lorentz</span>
+            <span class="formula-card__vars">Objetos em movimento parecem mais curtos</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">p = γm₀v</span>
+            <span class="formula-card__name">Momento relativístico</span>
+            <span class="formula-card__vars">p → ∞ quando v → c</span>
+          </div>
+          <div class="formula-card">
+            <span class="formula-card__eq">E² = (pc)² + (m₀c²)²</span>
+            <span class="formula-card__name">Relação energia-momento</span>
+            <span class="formula-card__vars">Para fóton (m₀=0): E = pc</span>
+          </div>
+        </div>
+
+        <div class="macete">
+          <strong>Referenciais:</strong> a velocidade da luz c é a mesma para todos os observadores, independentemente do movimento deles. Isso é o postulado central de Einstein — e implica que tempo e espaço são relativos, mas a física (as leis) é a mesma em todo referencial inercial.
+        </div>
+
+        <div class="macete">
+          <strong>Schrödinger vs. Newton:</strong> a equação de Schrödinger para o elétron do hidrogênio
+          dá os mesmos níveis de energia de Bohr — mas também dá os orbitais, a estrutura fina, o spin,
+          e funciona para átomos multieletrônicos. A mecânica quântica contém a mecânica clássica
+          como caso limite (princípio de correspondência de Bohr): para n grande, os resultados quânticos
+          convergem para os clássicos.
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>

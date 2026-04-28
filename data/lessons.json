@@ -1320,6 +1320,294 @@
           "content": "Itaipu gera 14 GW. Isso equivale a 14 × 10⁹ W = 14 × 10⁹ J/s. Com rendimento de ~90%, a potência hidráulica das turbinas é ~15,5 GW. A queda d'água fornece P = ρQgh, onde Q é a vazão em m³/s e h é a altura da queda (~120 m). Isso implica uma vazão de ~13.000 m³/s — mais de 13 toneladas de água por metro por segundo. A equação P = F·v diz a mesma coisa: a força do peso da água (F = ρQg) vezes a velocidade de queda (v = √(2gh)) dá a potência mecânica disponível."
         }
       ]
+    },
+    {
+      "id": "opt-reflexao-01",
+      "module": "optica",
+      "title": "A Lei que os Gregos Conheciam",
+      "experiment_ids": [
+        "reflexao-01"
+      ],
+      "exercise_ids": [
+        "opt-ex-01",
+        "opt-ex-02"
+      ],
+      "concepts": [
+        "reflexão especular",
+        "normal à superfície",
+        "lei da reflexão",
+        "espelho plano"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O espelho e a imagem",
+          "content": "Você se vê no espelho há tanto tempo que parece óbvio. Mas considere: por que a imagem está invertida esquerda-direita mas não de cabeça para baixo? Por que parece estar 'dentro' do espelho, atrás da superfície? Essas perguntas têm respostas precisas que os gregos antigos — Euclides, no século III a.C. — já conheciam parcialmente."
+        },
+        {
+          "id": "observation",
+          "title": "A lei mais simples da óptica",
+          "content": "Euclides formulou a lei da reflexão em 'Catóptrica' (século III a.C.): o ângulo de incidência é igual ao ângulo de reflexão. Ambos medidos em relação à normal — a linha perpendicular à superfície no ponto de incidência. Um detalhe crítico: mede-se em relação à normal, não à superfície. Um raio rasante (89° com a superfície = 1° com a normal) reflete com 1°, quase paralelo à superfície."
+        },
+        {
+          "id": "experiment",
+          "title": "Gire o ângulo",
+          "content": "Varie o ângulo de incidência de 5° a 85° observando θᵢ = θᵣ em tempo real. Note que em θ = 0° (raio perpendicular à superfície), o raio retorna sobre si mesmo. Em θ = 45°, o raio refletido é perpendicular ao incidente. Pense: como seria possível ver seu rosto num espelho esférico côncavo de um banheiro?"
+        },
+        {
+          "id": "formalization",
+          "title": "θᵢ = θᵣ — e a inversão do espelho",
+          "content": "O espelho plano cria uma imagem virtual à mesma distância atrás da superfície. A imagem parece 'invertida esquerda-direita' porque você se compara com sua própria face virada — mas o espelho não inverte esquerda-direita: inverte frente-trás. Se você erguer a mão direita, a imagem ergue a mão do seu lado direito — não esquerda. A 'inversão' é uma ilusão de interpretação."
+        }
+      ]
+    },
+    {
+      "id": "opt-refracao-01",
+      "module": "optica",
+      "title": "Por que o Lápis Parece Dobrado",
+      "experiment_ids": [
+        "refracao-01"
+      ],
+      "exercise_ids": [
+        "opt-ex-03",
+        "opt-ex-04"
+      ],
+      "concepts": [
+        "refração",
+        "Lei de Snell",
+        "índice de refração",
+        "reflexão total interna",
+        "fibra óptica"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "A piscina que mente",
+          "content": "Uma piscina parece ter 1 metro de profundidade mas tem 1,33 metro. Um peixe num aquário parece estar onde não está. Um lápis num copo d'água parece quebrado. Em todos os casos, a luz muda de direção ao passar entre meios — e nosso cérebro, acostumado com raios retos, é enganado. A refração é a óptica nos iludindo."
+        },
+        {
+          "id": "observation",
+          "title": "Snell, Descartes e a velocidade da luz",
+          "content": "Willebrord Snell mediu a lei em 1621 mas não publicou. Descartes a publicou em 1637 sem citar Snell. A lei n₁·sin(θ₁) = n₂·sin(θ₂) tem uma interpretação profunda: a luz 'escolhe' o caminho que minimiza o tempo de trajeto (Princípio de Fermat). A mudança de velocidade ao mudar de meio é a causa física — o índice n = c/v mede o quanto a luz desacelera."
+        },
+        {
+          "id": "experiment",
+          "title": "Encontre o ângulo crítico",
+          "content": "Configure n₁ = 1,5 (vidro) e n₂ = 1,0 (ar). Aumente θ₁ lentamente. Observe θ₂ aumentando mais rápido. Em ~41,8°, θ₂ atinge 90° — o raio refratado rasa a interface. Para θ₁ > 41,8°, não há raio refratado: toda a luz é refletida internamente. É a Reflexão Total Interna — a base de cada fibra óptica no planeta."
+        },
+        {
+          "id": "formalization",
+          "title": "n₁sinθ₁ = n₂sinθ₂ — e a fibra óptica",
+          "content": "Uma fibra óptica é um fio de vidro (~50 μm de diâmetro) com n_núcleo > n_revestimento. Qualquer raio que entre em ângulo acima do crítico propaga-se por reflexão total interna ao longo de kilômetros, sem perda significativa. A internet global — toda ela — trafega em pulsos de luz em fibras ópticas. O princípio físico é a lei de Snell do século XVII aplicada ao vidro do século XXI."
+        }
+      ]
+    },
+    {
+      "id": "opt-lentes-01",
+      "module": "optica",
+      "title": "A Lente que Forma o Mundo",
+      "experiment_ids": [
+        "lentes-01"
+      ],
+      "exercise_ids": [
+        "opt-ex-05",
+        "opt-ex-06"
+      ],
+      "concepts": [
+        "lentes convergentes",
+        "lentes divergentes",
+        "equação de Gauss",
+        "ampliação",
+        "dioptria"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O olho como câmera",
+          "content": "O olho humano tem dois sistemas de lentes: a córnea (fixa, maior potência ~43 D) e o cristalino (variável, 13–26 D). Para focar objetos próximos, músculos ciliares curvam o cristalino, aumentando sua potência. Com a idade, o cristalino perde elasticidade (presbiopia). A câmera fotográfica funciona pelo mesmo princípio — mas com lentes de vidro que se movem mecanicamente em vez de mudar de forma."
+        },
+        {
+          "id": "observation",
+          "title": "Distância focal e tipos de imagem",
+          "content": "Uma lente convergente (f > 0) pode formar imagens reais (projetáveis numa tela, do = di > 0) ou virtuais (do < f → lupa). Uma divergente (f < 0) sempre forma imagem virtual, reduzida e direita. A equação de Gauss 1/f = 1/do + 1/di conecta as três grandezas. A ampliação M = −di/do: sinal negativo indica inversão."
+        },
+        {
+          "id": "experiment",
+          "title": "Explore as regiões focais",
+          "content": "Configure f = 80 e varie do de 20 a 400. Observe: para do > 2f (acima de 160): imagem real, invertida, reduzida. Para do = 2f: imagem real, tamanho natural. Entre f e 2f: imagem real, invertida, ampliada. Para do = f: imagem no infinito. Para do < f: imagem virtual, direita, ampliada (lupa). Agora mude f para negativo e observe — sempre imagem virtual."
+        },
+        {
+          "id": "formalization",
+          "title": "1/f = 1/do + 1/di — e a correção visual",
+          "content": "Miopia: olho muito longo, imagem à frente da retina. Corrige-se com lente divergente (f < 0, potência negativa). Hipermetropia: olho curto, imagem atrás da retina. Corrige-se com lente convergente. A potência em dioptrias P = 1/f (f em metros). Uma prescrição de '−3,5 D' é uma lente com f = −28,6 cm. A combinação de lentes tem potência total P = P₁ + P₂ (quando em contato)."
+        }
+      ]
+    },
+    {
+      "id": "opt-dispersao-01",
+      "module": "optica",
+      "title": "Newton e as Cores do Sol",
+      "experiment_ids": [
+        "dispersao-01"
+      ],
+      "exercise_ids": [
+        "opt-ex-07",
+        "opt-ex-08"
+      ],
+      "concepts": [
+        "dispersão",
+        "prisma",
+        "comprimento de onda",
+        "cor",
+        "arco-íris",
+        "equação de Cauchy"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O experimento do quarto escuro",
+          "content": "Em 1666, Newton fechou as janelas de seu quarto em Cambridge e fez um pequeno furo para deixar entrar um feixe de luz solar. Ao interpor um prisma, viu o feixe se separar em todas as cores do espectro. Então interpôs um segundo prisma invertido: as cores recombinavam em luz branca. Conclusão: a luz 'branca' não é simples — é a superposição de todas as cores. O prisma não cria as cores; revela-as."
+        },
+        {
+          "id": "observation",
+          "title": "n depende de λ",
+          "content": "A razão da dispersão é que o índice de refração do vidro é maior para comprimentos de onda menores. Violeta (400 nm) tem n ≈ 1,53; vermelho (700 nm) tem n ≈ 1,51 no borosilicato. Pequena diferença — mas multiplicada pela geometria do prisma, produz separação angular visível. A relação n(λ) se chama dispersão do material; a equação de Cauchy n ≈ A + B/λ² é uma boa aproximação na região visível."
+        },
+        {
+          "id": "experiment",
+          "title": "Explore o ângulo de dispersão",
+          "content": "Varie o ângulo do prisma de 30° a 75°. A dispersão aumenta — mais ângulo, mais desvio total e mais separação entre cores. Varie o ângulo de incidência — a posição do espectro muda mas as cores mantêm sua ordem. Violeta sempre mais próximo da base do prisma, vermelho mais afastado. O ângulo de desvio mínimo (máximo de luz transmitida) ocorre quando o raio passa simetricamente pelo prisma."
+        },
+        {
+          "id": "formalization",
+          "title": "n(λ) = A + B/λ² — e o arco-íris duplo",
+          "content": "O arco-íris primário forma-se por refração (entrada) + reflexão interna + refração (saída) nas gotículas. Vermelho a ~42°, violeta a ~40°. O arco-íris secundário forma-se por duas reflexões internas — mais fraco, cores invertidas (vermelho interno, violeta externo), a ~51°. O espaço escuro entre eles é a banda de Alexandre, onde nenhuma reflexão geométrica contribui para o ângulo do observador."
+        }
+      ]
+    },
+    {
+      "id": "fm-fotoeletrico-01",
+      "module": "fisica-moderna",
+      "title": "Einstein e os Pacotes de Luz",
+      "experiment_ids": [
+        "fotoeletrico-01"
+      ],
+      "exercise_ids": [
+        "fm-ex-01",
+        "fm-ex-02"
+      ],
+      "concepts": [
+        "fóton",
+        "efeito fotoelétrico",
+        "função de trabalho",
+        "frequência de corte",
+        "dualidade onda-partícula"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "A luz que ejeta elétrons",
+          "content": "Ilumine uma placa de zinco com luz UV e ela perde carga negativa — elétrons escapam. Ilumine com luz vermelha, por mais intensa que seja, e nada acontece. Esse resultado era completamente inexplicável pela física clássica de 1887, quando Hertz observou o fenômeno. A luz é uma onda — como uma onda poderia ser 'fraca' demais para arrancar elétrons se pudéssemos aumentar sua intensidade indefinidamente?"
+        },
+        {
+          "id": "observation",
+          "title": "O Nobel de Einstein — não pela relatividade",
+          "content": "Em 1905 — o mesmo ano da relatividade especial — Einstein publicou sua explicação do efeito fotoelétrico, propondo que a luz se comporta como partículas (fótons) de energia E = hf. Cada fóton interage com um elétron ou não — como bilhas discretas. Se E < φ (função de trabalho), nenhum elétron é arrancado, independentemente do número de fótons. Foi esse artigo — não a relatividade — que lhe valeu o Nobel de Física de 1921."
+        },
+        {
+          "id": "experiment",
+          "title": "Explore metais e comprimentos de onda",
+          "content": "Configure Potássio (φ = 2,29 eV) e λ = 400 nm. Observe elétrons sendo ejetados. Aumente λ para 600 nm — emissão para. O λ de corte é ~540 nm. Agora mude para Ouro (φ = 5,10 eV) — somente UV extremo (λ < 243 nm) arranca elétrons. Aumente a intensidade com λ abaixo do corte: mais elétrons, mas com a mesma energia cinética cada um. A intensidade controla o número, a frequência controla a energia."
+        },
+        {
+          "id": "formalization",
+          "title": "Ec = hf − φ — e o início da era quântica",
+          "content": "O efeito fotoelétrico foi a primeira evidência experimental de que a energia é quantizada — que a luz não é uma onda contínua mas vem em pacotes discretos. Essa ideia, proposta por Planck para a radiação de corpo negro em 1900 como 'truque matemático', Einstein levou a sério como realidade física. A equação Ec = hf − φ é linear em f — e Millikan verificou experimentalmente essa linearidade em 1916, medindo h com precisão de 0,5%. A física quântica havia começado."
+        }
+      ]
+    },
+    {
+      "id": "fm-radioatividade-01",
+      "module": "fisica-moderna",
+      "title": "Marie Curie e o Átomo Instável",
+      "experiment_ids": [
+        "radioatividade-01"
+      ],
+      "exercise_ids": [
+        "fm-ex-03",
+        "fm-ex-04"
+      ],
+      "concepts": [
+        "decaimento radioativo",
+        "meia-vida",
+        "constante de decaimento",
+        "atividade",
+        "datação radiométrica"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "A radiação que vem de dentro",
+          "content": "Em 1896, Henri Becquerel deixou sais de urânio sobre uma chapa fotográfica embrulhada em papel preto. Sem luz, sem calor — a chapa foi impressionada. Urânio emitia algo invisível, espontaneamente. Marie Curie chamou isso de 'radioatividade' — e descobriu que era uma propriedade do átomo, não da molécula. Mesmo purificado, o urânio continuava emitindo. Ela descobriu dois novos elementos: polônio e rádio."
+        },
+        {
+          "id": "observation",
+          "title": "A aleatoriedade perfeita",
+          "content": "O decaimento radioativo é o processo mais aleatório conhecido na natureza. Não há absolutamente nada que determine quando um átomo específico vai decair — nem pressão, temperatura, campo elétrico, nem a história passada do átomo. Cada decaimento é um evento quântico independente. Mas coletivamente, N(t) = N₀·e^(−λt) com precisão extraordinária. A exponencial emerge da média estatística de eventos aleatórios."
+        },
+        {
+          "id": "experiment",
+          "title": "Observe as meias-vidas",
+          "content": "Configure N₀ = 200 e λ = 0,3. Observe os núcleos decaindo aleatoriamente (vermelho). Após ~2,3 s (1 meia-vida ≈ 2,31 s), metade deve ter decaído. Após 2 meias-vidas: 25%. Cada geração perde metade — independentemente do total atual. Agora mude λ para 1,0: decaimento muito mais rápido. A curva no gráfico cai mais abrupta. O parâmetro λ caracteriza cada isótopo único na natureza."
+        },
+        {
+          "id": "formalization",
+          "title": "t½ = ln2/λ — e o carbono-14",
+          "content": "A datação por carbono-14 usa t½ = 5730 anos. Organismos vivos mantêm ¹⁴C em equilíbrio com a atmosfera. Após a morte, o ¹⁴C decai sem ser reposto. Medindo a fração restante, calculamos o tempo decorrido. A precisão é de ±30–40 anos para amostras de 1000–50000 anos. O método revolucionou a arqueologia — foi desenvolvido por Willard Libby em 1949, Nobel de Química 1960. A lei N(t) = N₀·e^(−λt) é o relógio do passado."
+        }
+      ]
+    },
+    {
+      "id": "fm-modelo-atomico-01",
+      "module": "fisica-moderna",
+      "title": "Rutherford, Bohr e a Estrutura Atômica",
+      "experiment_ids": [
+        "modelo-atomico-01"
+      ],
+      "exercise_ids": [
+        "fm-ex-05",
+        "fm-ex-06"
+      ],
+      "concepts": [
+        "modelos atômicos",
+        "Thomson",
+        "Rutherford",
+        "Bohr",
+        "espectros de emissão",
+        "mecânica quântica"
+      ],
+      "phases": [
+        {
+          "id": "phenomenon",
+          "title": "O átomo invisível",
+          "content": "Nenhum ser humano jamais viu um átomo diretamente. Toda a estrutura atômica foi inferida a partir de experimentos indiretos: espalhamento de partículas, espectros de luz, campos magnéticos. É um dos maiores feitos da inteligência humana: deduzir a estrutura interna de objetos menores que um décimo de nanômetro usando apenas radiação e colisões. E os modelos foram progressivamente mais corretos — e progressivamente mais estranhos."
+        },
+        {
+          "id": "observation",
+          "title": "A evolução dos modelos",
+          "content": "Thomson (1904): átomo como esfera positiva com elétrons embutidos ('pudim'). Rutherford (1911): núcleo denso e positivo com elétrons em órbita — mas elétrons acelerados irrадiam energia e deveriam colapsar em 10⁻¹¹ s. Bohr (1913): órbitas quantizadas — elétrons só em certas distâncias, sem irradiar. Funciona para o hidrogênio. Schrödinger (1926): elétrons como funções de onda — probabilidades, não trajetórias. A mecânica quântica completa."
+        },
+        {
+          "id": "experiment",
+          "title": "Explore os três modelos e as transições de Bohr",
+          "content": "No modelo de Bohr, configure n_from = 3, n_to = 2: observe a linha Hα (656 nm, vermelha). Configure n_from = 4, n_to = 2: linha Hβ (486 nm, azul). Cada transição emite um fóton de comprimento de onda preciso — visível no espectro de Balmer. Configure n_to = 1: série de Lyman (UV invisível). n_to = 3: série de Paschen (infravermelho). O modelo de Bohr prevê cada linha com precisão de 0,01%."
+        },
+        {
+          "id": "formalization",
+          "title": "Eₙ = −13,6/n² eV — e a mecânica quântica",
+          "content": "A fórmula de Bohr Eₙ = −13,6/n² eV é exata para o hidrogênio e derivável rigorosamente da mecânica quântica. Mas o modelo de Bohr falha para átomos multieletrônicos — não inclui repulsão entre elétrons. Schrödinger resolveu isso com a equação de onda: ψ(r,t). O quadrado |ψ|² dá a probabilidade de encontrar o elétron. Não existem 'órbitas' — existem 'orbitais', nuvens de probabilidade. O átomo é, na sua essência, incerteza matematicamente perfeita."
+        }
+      ]
     }
   ]
 }

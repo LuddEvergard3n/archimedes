@@ -3,7 +3,29 @@
 Todas as alterações relevantes ao projeto são registradas aqui.  
 Formato: [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
-## [1.4.0] — 2026-04-26
+## [1.5.0] — 2026-04-27
+
+### Adicionado — Óptica e Física Moderna
+
+Dois novos módulos completam o currículo do Ensino Médio de Física.
+22/22 testes passam.
+
+**Óptica** — 4 simulações, 4 lições, 11 equações, 8 exercícios:
+
+- **Reflexão** — Lei θᵢ = θᵣ. Raio incidente, refletido e virtual (tracejado). Arcos de ângulo interativos. Discussão sobre inversão do espelho.
+- **Refração** — Lei de Snell n₁sinθ₁ = n₂sinθ₂. Reflexão total interna com destaque visual. Ângulo crítico calculado em tempo real. 11 meios pré-definidos por n.
+- **Lentes** — Equação de Gauss 1/f = 1/do + 1/di. Convergente e divergente. Três raios principais desenhados. Imagem real ou virtual, ampliação M. Objeto no foco → imagem no infinito.
+- **Dispersão** — Prisma com equação de Cauchy n(λ) = A + B/λ². Raios de 9 cores (380–700 nm) computados individualmente. Violeta mais desviado que vermelho.
+
+**Física Moderna** — 3 simulações, 3 lições, 9 equações, 6 exercícios:
+
+- **Efeito Fotoelétrico** — Ec = hf − φ. 7 metais com funções de trabalho reais. Fótons animados, elétrons ejetados proporcionais à intensidade. Gráfico Ec×λ com λ de corte. Sem emissão abaixo do limiar — independente da intensidade.
+- **Decaimento Radioativo** — N(t) = N₀·e^(−λt). 200 núcleos individuais com decaimento estocástico real (tempo aleatório por distribuição exponencial). Gráfico de decaimento com linhas de meia-vida. Atividade A(t) = λN(t) em tempo real.
+- **Modelos Atômicos** — Três modelos interativos: Thomson (pudim), Rutherford (núcleo denso), Bohr (órbitas quantizadas). Espectro de Balmer do hidrogênio com linhas Hα–Hδ. Diagrama de níveis de energia. Transições com fóton emitido animado. Fórmula de Rydberg com λ calculado.
+
+**Currículo concluído:** todas as lacunas identificadas em 2026-04-25 foram preenchidas.
+10 módulos · 41 experimentos · 80 equações · 81 exercícios · 40 lições.
+
 
 ### Adicionado — Mecânica completa
 

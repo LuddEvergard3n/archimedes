@@ -160,6 +160,46 @@
         "em-lorentz-01",
         "em-inducao-01"
       ]
+    },
+    {
+      "id": "optica",
+      "title": "Óptica",
+      "subtitle": "Luz, reflexão e refração",
+      "description": "Da lei da reflexão ao prisma de Newton. Como a luz muda de direção, forma imagens e revela suas cores.",
+      "color": "#e0c060",
+      "icon": "eye",
+      "order": 8,
+      "experiments": [
+        "reflexao-01",
+        "refracao-01",
+        "lentes-01",
+        "dispersao-01"
+      ],
+      "lessons": [
+        "opt-reflexao-01",
+        "opt-refracao-01",
+        "opt-lentes-01",
+        "opt-dispersao-01"
+      ]
+    },
+    {
+      "id": "fisica-moderna",
+      "title": "Física Moderna",
+      "subtitle": "Quântica, atômica e nuclear",
+      "description": "O século XX reescreveu a física. Efeito fotoelétrico, decaimento radioativo e o átomo de Bohr.",
+      "color": "#a060d0",
+      "icon": "atom",
+      "order": 9,
+      "experiments": [
+        "fotoeletrico-01",
+        "radioatividade-01",
+        "modelo-atomico-01"
+      ],
+      "lessons": [
+        "fm-fotoeletrico-01",
+        "fm-radioatividade-01",
+        "fm-modelo-atomico-01"
+      ]
     }
   ]
 }
