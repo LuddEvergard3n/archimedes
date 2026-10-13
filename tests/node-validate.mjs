@@ -48,5 +48,10 @@ for (const page of ['index.html', 'referencia.html', 'guia-professor.html', 'pla
   assert.ok(html.includes('data-theme-toggle'), `${page} must expose a dark-mode control`);
   assert.ok(html.includes('js/theme-mode.js'), `${page} must load the shared dark-mode controller`);
 }
+for (const [page, header] of [['referencia.html', 'ref-page-header'], ['guia-professor.html', 'guia-page-header'], ['sobre.html', 'sobre-header']]) {
+  const html = await readFile(new URL(`../${page}`, import.meta.url), 'utf8');
+  const section = html.slice(html.indexOf(`.${header}`), html.indexOf(`.${header}`) + 800);
+  assert.ok(section.includes('var(--nb-text-primary)'), `${page} must use dark text on its light page header`);
+}
 
 console.log(`Validated ${modules.length} modules, ${experiments.length} experiences, ${lessons.length} lessons, and ${exercises.length} exercises.`);
