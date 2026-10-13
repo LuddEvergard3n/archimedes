@@ -127,9 +127,9 @@ function _buildSidebar() {
     item.className        = 'sidebar-item';
     item.href             = `#/module/${mod.id}`;
     item.dataset.moduleId = mod.id;
-    item.style.setProperty('--item-color', mod.color ?? '#c8920a');
+    item.style.setProperty('--item-color', mod.color ?? '#4da3ff');
     item.innerHTML = `
-      <span class="sidebar-item__dot" style="border-color:${mod.color ?? '#c8920a'}"></span>
+      <span class="sidebar-item__dot" style="border-color:${mod.color ?? '#4da3ff'}"></span>
       <span class="sidebar-item__label">${mod.title}</span>
       <span class="sidebar-item__badge">${mod.experiments.length}</span>
     `;

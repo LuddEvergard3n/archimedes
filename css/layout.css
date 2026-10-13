@@ -30,7 +30,7 @@
   z-index: 100;
 }
 
-/* Linha de âmbar decorativa no topo */
+/* Linha espectral que identifica o laboratório */
 .app-header::before {
   content: '';
   position: absolute;
@@ -39,8 +39,8 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--amber) 20%,
-    var(--amber) 80%,
+    var(--electric-blue) 20%,
+    var(--cyan) 80%,
     transparent 100%
   );
   opacity: 0.45;
@@ -59,7 +59,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1.5px solid var(--amber);
+  border: 1.5px solid var(--electric-blue);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +72,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1px solid var(--amber);
+  border: 1px solid var(--cyan);
   opacity: 0.50;
 }
 
@@ -86,7 +86,7 @@
 }
 
 .logo-text span {
-  color: var(--amber);
+  color: var(--electric-blue);
 }
 
 .header-divider {
@@ -149,9 +149,9 @@
 }
 
 .header-btn--teacher:hover {
-  color: var(--amber);
-  border-color: var(--inst-border-amber);
-  background: var(--amber-dim);
+  color: var(--electric-blue-bright);
+  border-color: var(--electric-blue);
+  background: var(--electric-blue-dim);
 }
 
 .header-menu-btn {

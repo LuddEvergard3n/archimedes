@@ -24,20 +24,20 @@ import {
 
 /* ── Module color mapping (matches theme.css --color-* vars) ────── */
 const MODULE_COLORS = {
-  intro:         '#4472b0',
-  motion:        '#3d7a55',
-  forces:        '#b54a28',
-  energy:        '#7a4a96',
-  fluids:        '#2a6080',
-  ondas:         '#5a7a40',
-  termodinamica: '#8a4a1a',
-  eletromagnetismo: '#4ab0d8',
-  optica:           '#e0c060',
-  'fisica-moderna': '#a060d0',
-  gravitation: '#5877b8',
-  tecnologia: '#2f8b8c',
-  nuclear: '#bd5757',
-  ambiente: '#6b8d4b',
+  intro:         '#4da3ff',
+  motion:        '#42d8d0',
+  forces:        '#ff6b6b',
+  energy:        '#a78bfa',
+  fluids:        '#38bdf8',
+  ondas:         '#7dd3fc',
+  termodinamica: '#fb923c',
+  eletromagnetismo: '#22d3ee',
+  optica:           '#fde047',
+  'fisica-moderna': '#c084fc',
+  gravitation: '#60a5fa',
+  tecnologia: '#2dd4bf',
+  nuclear: '#fb7185',
+  ambiente: '#84cc16',
 };
 
 /* ─────────────────────────────────────────────────────────────────────────── *
@@ -68,7 +68,7 @@ function renderHome(container) {
   const grid = container.querySelector('#module-grid');
 
   for (const mod of modules) {
-  const color = MODULE_COLORS[mod.id] ?? '#c8920a';
+  const color = MODULE_COLORS[mod.id] ?? '#4da3ff';
     const card  = document.createElement('a');
     card.className        = 'module-card';
     card.href             = `#/module/${mod.id}`;
@@ -131,7 +131,7 @@ function renderModule(container, moduleId) {
     return () => {};
   }
 
-  const color = MODULE_COLORS[moduleId] ?? '#c8920a';
+  const color = MODULE_COLORS[moduleId] ?? '#4da3ff';
 
   container.innerHTML = `
     <div class="module-header">
@@ -200,7 +200,7 @@ async function renderExperiment(container, moduleId, experimentId) {
     return () => {};
   }
 
-  const color     = MODULE_COLORS[moduleId] ?? '#c8920a';
+  const color     = MODULE_COLORS[moduleId] ?? '#4da3ff';
   const equations = getEquationsByExperiment(experimentId);
   const exercises = getExercisesByExperiment(experimentId);
   const lesson = getState('lessons').find(item => item.experiment_ids?.includes(experimentId));
