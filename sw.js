@@ -11,7 +11,7 @@
  * Versão do cache: incrementar CACHE_VERSION a cada deploy.
  */
 
-const CACHE_VERSION = 'v2.0.0';
+const CACHE_VERSION = 'v2.0.1';
 const CACHE_STATIC  = `archimedes-static-${CACHE_VERSION}`;
 const CACHE_DATA    = `archimedes-data-${CACHE_VERSION}`;
 
@@ -39,6 +39,8 @@ const APP_SHELL = [
   './js/wasm-loader.js',
   './js/ui.js',
   './js/accessibility.js',
+  './js/progress.js',
+  './js/eq-renderer.js',
 
   /* Engine */
   './engine/renderer.js',

@@ -32,5 +32,9 @@ assert.ok(exercises.every(exercise => exercise.module && exercise.answer !== und
 assert.ok(expanded.every(experiment => experiment.sources?.length && experiment.lastReviewed), 'added experiences need sources and review dates');
 assert.equal(PhysicsFallback.energy_kinetic(2, 3), 9, 'kinetic-energy fallback must remain correct');
 assert.equal(PhysicsFallback.fluids_buoyancy(1000, 9.8, 0.001), 9.8, 'buoyancy fallback must remain correct');
+const serviceWorker = await readFile(new URL('../sw.js', import.meta.url), 'utf8');
+for (const asset of ['./js/progress.js', './js/eq-renderer.js', './modules/contemporary/contemporary.js', './data/v5-content.json']) {
+  assert.ok(serviceWorker.includes(asset), `offline shell must include ${asset}`);
+}
 
 console.log(`Validated ${modules.length} modules, ${experiments.length} experiences, ${lessons.length} lessons, and ${exercises.length} exercises.`);
