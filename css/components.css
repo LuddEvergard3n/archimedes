@@ -400,6 +400,18 @@ input[type="range"]::-moz-range-thumb {
   color: var(--nb-text-secondary);
   line-height: 1.65;
 }
+.exercise-explanation--wrong { border-color: #b54a28; background: rgba(181,74,40,.08); }
+.exercise-answer { display:flex; flex-direction:column; gap:var(--space-2); color:var(--nb-text-secondary); font-size:var(--text-sm); }
+.exercise-answer input { max-width:12rem; padding:var(--space-2); border:1px solid var(--nb-border); border-radius:var(--radius-sm); background:#fff; color:var(--nb-text-primary); }
+.exercise-sequence { display:grid; gap:var(--space-4); grid-column:1 / -1; }
+.exercise-sequence > h2 { color:var(--inst-text-primary); font-size:var(--text-lg); }
+.lesson-panel, .sources-panel { background:var(--nb-bg); border:1px solid var(--nb-border); border-radius:var(--radius-md); box-shadow:var(--shadow-nb-card); padding:var(--space-4); }
+.lesson-panel__header { display:flex; flex-direction:column; gap:var(--space-1); color:var(--nb-text-primary); margin-bottom:var(--space-2); }
+.lesson-panel__header span, .sources-panel summary { color:var(--nb-text-muted); font-size:var(--text-xs); letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+.lesson-phase { border-top:1px solid var(--nb-border); padding:var(--space-2) 0; }
+.lesson-phase summary { color:var(--nb-text-primary); cursor:pointer; }
+.lesson-phase p, .sources-panel p, .sources-panel li { color:var(--nb-text-secondary); font-size:var(--text-sm); margin:var(--space-2) 0; }
+.sources-panel small { color:var(--nb-text-muted); }
 
 /* ═══════════════════════════════════════════════ *
  * Modo professor — caderno

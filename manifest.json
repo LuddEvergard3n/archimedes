@@ -4,7 +4,6 @@
   "description": "Laboratório interativo de física para o ensino médio. Simulações em Canvas + WebAssembly.",
   "start_url": "./",
   "display": "standalone",
-  "orientation": "landscape-primary",
   "background_color": "#1c1a14",
   "theme_color": "#1c1a14",
   "lang": "pt-BR",

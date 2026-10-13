@@ -40,6 +40,8 @@
   --amber-bright: #e0a80e;
   --amber-dim:    rgba(200, 146, 10, 0.14);
   --amber-glow:   rgba(200, 146, 10, 0.25);
+  --accent-green: #78b86f;
+  --text-muted: var(--inst-text-muted);
 
   /* ── Caderno: fundos papel ─────────────────────── */
   --nb-bg:        #f5f0e8;
@@ -130,6 +132,26 @@
     --nb-text-primary:   #0a0806;
     --nb-border:         #9a8a78;
   }
+}
+
+html.high-contrast {
+  --inst-bg-deep: #000;
+  --inst-bg-primary: #000;
+  --inst-bg-secondary: #080808;
+  --inst-bg-panel: #111;
+  --inst-bg-card: #171717;
+  --inst-border-base: #d9d9d9;
+  --inst-border-mid: #fff;
+  --inst-text-primary: #fff;
+  --inst-text-secondary: #f0f0f0;
+  --inst-text-muted: #d0d0d0;
+  --nb-bg: #fff;
+  --nb-bg-card: #fff;
+  --nb-bg-inset: #f4f4f4;
+  --nb-border: #111;
+  --nb-text-primary: #000;
+  --nb-text-secondary: #111;
+  --nb-text-muted: #333;
 }
 
 /* Scrollbar — Firefox */

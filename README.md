@@ -5,11 +5,11 @@
 ![Canvas](https://img.shields.io/badge/Canvas-2D-0F766E)
 ![PWA](https://img.shields.io/badge/PWA-Offline-5A0FC8?logo=pwa&logoColor=white)
 
-Interactive physics laboratory that introduces equations through observable phenomena and manipulable simulations.
+Interactive physics laboratory for Brazilian secondary education. It introduces equations through observable phenomena, guided reading, practice, and manipulable simulations.
 
 ## Scope
 
-Version 1.2 contains 23 interactive experiments across seven modules:
+Version 5.0 contains 57 interactive experiences across fourteen modules. The primary path is secondary education; foundational and advanced content remains available as enrichment.
 
 - Measurement and units.
 - Motion.
@@ -18,6 +18,11 @@ Version 1.2 contains 23 interactive experiments across seven modules:
 - Fluids.
 - Waves.
 - Thermodynamics.
+- Electromagnetism, optics, and modern physics.
+- Gravitation and astronomy.
+- Electricity and technology.
+- Nuclear physics and radiation.
+- Energy, environment, and climate.
 
 Lessons begin with real situations, let the learner manipulate a model, and then connect the observed pattern to its mathematical representation.
 
@@ -37,14 +42,14 @@ There are no required runtime dependencies or backend services.
 ## Run locally
 
 ```bash
-python3 -m http.server 8080
+node -e "const http=require('http'),fs=require('fs'),path=require('path');const root=process.cwd();http.createServer((req,res)=>{let file=path.join(root,decodeURIComponent(req.url.split('?')[0]||'/index.html'));if(file.endsWith(path.sep))file+= 'index.html';fs.readFile(file,(error,data)=>{res.writeHead(error?404:200);res.end(error?'Not found':data)})}).listen(8080)"
 ```
 
 Open `http://localhost:8080`. Direct `file://` access is unsupported because the application loads ES modules and JSON resources.
 
 ## Tests
 
-Open `http://localhost:8080/tests/test-runner.html` for browser checks. The suite covers numerical physics functions, state behavior, data integrity, cross-references, and selected conservation properties.
+Open `http://localhost:8080/tests/test-runner.html` for browser checks. The suite covers numerical physics functions, state behavior, data integrity, cross-references, and selected conservation properties. The project deliberately has no `npm test` script because its integration suite exercises browser APIs directly.
 
 ## Optional WebAssembly build
 
@@ -77,6 +82,11 @@ docs/         Architecture, pedagogy, simulation, and development notes
 - High-contrast and adjustable-font modes.
 - ARIA annotations, a live region, and a skip link.
 - Mobile touch targets of at least 44 pixels.
+- A mobile bottom navigation and responsive Canvas panels.
+
+## Editorial limits
+
+Each new experience includes a source, a revision date, and a statement of the model's limitation. Simulations are learning models: they do not replace laboratory measurement, engineering design, medical advice, or radiation-safety guidance.
 
 ## Live version
 

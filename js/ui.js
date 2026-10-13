@@ -19,7 +19,7 @@ import { navigate } from './router.js';
 import { renderLatex } from './eq-renderer.js';
 import {
   markExperimentVisited, markExerciseSolved,
-  isExperimentVisited, moduleProgress, experimentExerciseProgress,
+  isExperimentVisited, moduleProgress, experimentExerciseProgress, getProgress,
 } from './progress.js';
 
 /* ── Module color mapping (matches theme.css --color-* vars) ────── */
@@ -34,6 +34,10 @@ const MODULE_COLORS = {
   eletromagnetismo: '#4ab0d8',
   optica:           '#e0c060',
   'fisica-moderna': '#a060d0',
+  gravitation: '#5877b8',
+  tecnologia: '#2f8b8c',
+  nuclear: '#bd5757',
+  ambiente: '#6b8d4b',
 };
 
 /* ─────────────────────────────────────────────────────────────────────────── *
@@ -42,17 +46,22 @@ const MODULE_COLORS = {
 
 function renderHome(container) {
   const modules = getState('modules');
+  const progress = modules.reduce((acc, mod) => {
+    const item = moduleProgress(mod.experiments);
+    return { visited: acc.visited + item.visited, total: acc.total + item.total };
+  }, { visited: 0, total: 0 });
+  const lastExperiment = getProgress().lastExperiment;
+  const resume = lastExperiment ? getExperiment(lastExperiment) : null;
 
   container.innerHTML = `
     <div class="page-header">
       <span class="page-header__eyebrow">Laboratório de Física</span>
       <h1 class="page-header__title">Archimedes</h1>
-      <p class="page-header__subtitle">
-        Física aprendida através do fenômeno, não da fórmula.
-        Escolha um módulo para começar.
-      </p>
+      <p class="page-header__subtitle">Física aprendida através do fenômeno, não da fórmula.</p>
+      <div class="home-actions"><a class="btn btn--primary" href="#/catalog">Explorar experiências</a><span>${progress.visited}/${progress.total} experiências abertas</span></div>
     </div>
-
+    <section class="home-note"><strong>Comece pelo fenômeno.</strong> Ajuste uma variável, observe o resultado e só então formalize o modelo.</section>
+    ${resume ? `<a class="resume-card" href="#/module/${resume.module}/${resume.id}"><span>Continuar estudando</span><strong>${resume.title}</strong><small>Retome a última experiência aberta.</small></a>` : ''}
     <div class="home-grid" id="module-grid"></div>
   `;
 
@@ -86,6 +95,27 @@ function renderHome(container) {
   }
 
   return () => {}; /* No cleanup needed for static view */
+}
+
+function renderCatalog(container) {
+  const experiments = getState('experiments');
+  container.innerHTML = `<div class="page-header"><span class="page-header__eyebrow">Catálogo</span><h1 class="page-header__title">Explorar Física</h1><p class="page-header__subtitle">Busque por conceito, fenômeno ou aplicação.</p><label class="catalog-search">Buscar <input type="search" id="catalog-search" placeholder="Ex.: órbita, energia, refração"></label></div><div class="experiment-grid" id="catalog-grid"></div>`;
+  const grid = container.querySelector('#catalog-grid');
+  const draw = query => {
+    const value = query.trim().toLocaleLowerCase('pt-BR');
+    const matched = experiments.filter(exp => !value || `${exp.title} ${exp.description} ${exp.phenomenon}`.toLocaleLowerCase('pt-BR').includes(value));
+    grid.innerHTML = matched.length ? matched.map(exp => `<a class="exp-card" href="#/module/${exp.module}/${exp.id}"><span class="exp-card__tag">${getModule(exp.module)?.title ?? exp.module}</span><h2 class="exp-card__title">${exp.title}</h2><p class="exp-card__desc">${exp.description}</p></a>`).join('') : '<p class="empty-state">Nenhuma experiência encontrada. Tente outro conceito.</p>';
+  };
+  container.querySelector('#catalog-search').addEventListener('input', event => draw(event.target.value));
+  draw('');
+  return () => {};
+}
+
+function renderProgress(container) {
+  const modules = getState('modules');
+  const rows = modules.map(mod => ({ mod, progress: moduleProgress(mod.experiments) }));
+  container.innerHTML = `<div class="page-header"><span class="page-header__eyebrow">Jornada</span><h1 class="page-header__title">Seu progresso</h1><p class="page-header__subtitle">Acompanhe as experiências que você já explorou.</p></div><section class="progress-list">${rows.map(({ mod, progress }) => `<a href="#/module/${mod.id}" class="progress-row"><span>${mod.title}</span><strong>${progress.visited}/${progress.total}</strong></a>`).join('')}</section>`;
+  return () => {};
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── *
@@ -173,6 +203,7 @@ async function renderExperiment(container, moduleId, experimentId) {
   const color     = MODULE_COLORS[moduleId] ?? '#c8920a';
   const equations = getEquationsByExperiment(experimentId);
   const exercises = getExercisesByExperiment(experimentId);
+  const lesson = getState('lessons').find(item => item.experiment_ids?.includes(experimentId));
 
   /* Record visit immediately — before async sim load */
   markExperimentVisited(experimentId);
@@ -246,8 +277,10 @@ async function renderExperiment(container, moduleId, experimentId) {
       <!-- Info panel -->
       <div class="lab-view__info">
         ${_buildQuestionHTML(exp)}
+        ${_buildLessonHTML(lesson)}
         ${_buildEquationsHTML(equations)}
-        ${exercises.length > 0 ? `<div id="exercise-container">${_buildExerciseHTML(exercises[0])}</div>` : ''}
+        ${exercises.length > 0 ? `<section class="exercise-sequence" aria-label="Prática guiada"><h2>Prática guiada</h2>${exercises.map(_buildExerciseHTML).join('')}</section>` : ''}
+        ${_buildSourcesHTML(exp)}
         ${getState('teacherMode') ? _buildTeacherHTML(exp) : ''}
       </div>
     </div>
@@ -305,7 +338,7 @@ async function renderExperiment(container, moduleId, experimentId) {
 
   /* ── Exercise interaction ───────────────────────── */
   if (exercises.length > 0) {
-    cleanups.push(_attachExerciseHandlers(container, exercises[0]));
+    exercises.forEach(ex => cleanups.push(_attachExerciseHandlers(container, ex)));
   }
 
   return () => {
@@ -331,6 +364,10 @@ async function _loadSimulation(simId, moduleId, canvas, chartCanvas) {
     eletromagnetismo:   () => import('../modules/eletromagnetismo/eletromagnetismo.js').then(m => m.createEletromagnetismoSimulation(simId, canvas, chartCanvas)),
     optica:             () => import('../modules/optica/optica.js').then(m => m.createOpticaSimulation(simId, canvas, chartCanvas)),
     'fisica-moderna':   () => import('../modules/fisica-moderna/fisica-moderna.js').then(m => m.createFisicaModernaSimulation(simId, canvas, chartCanvas)),
+    gravitation:         () => import('../modules/contemporary/contemporary.js').then(m => m.createContemporarySimulation(simId, canvas)),
+    tecnologia:          () => import('../modules/contemporary/contemporary.js').then(m => m.createContemporarySimulation(simId, canvas)),
+    nuclear:             () => import('../modules/contemporary/contemporary.js').then(m => m.createContemporarySimulation(simId, canvas)),
+    ambiente:            () => import('../modules/contemporary/contemporary.js').then(m => m.createContemporarySimulation(simId, canvas)),
   };
 
   const loader = loaders[moduleId];
@@ -451,7 +488,16 @@ function _buildControls(container, exp, simulation) {
     'units-demo': [],
   };
 
-  const defs = controlDefs[exp.simulation] ?? [];
+  const defs = controlDefs[exp.simulation] ?? (exp.variables ?? []).map(variable => ({
+    key: variable.key,
+    label: variable.label ?? variable.key,
+    unit: variable.unit ?? '',
+    min: variable.min ?? 0,
+    max: variable.max ?? 100,
+    step: variable.step ?? 1,
+    default: variable.default ?? variable.min ?? 0,
+    type: variable.type,
+  }));
   if (defs.length === 0) {
     container.innerHTML = '<p class="text-muted" style="font-size:0.8rem">Observe a simulação.</p>';
     return;
@@ -545,6 +591,30 @@ function _buildQuestionHTML(exp) {
   `;
 }
 
+function _buildLessonHTML(lesson) {
+  if (!lesson?.phases?.length) return '';
+  return `
+    <section class="lesson-panel" aria-label="Leitura guiada">
+      <div class="lesson-panel__header"><span>Leitura guiada</span><strong>${lesson.title}</strong></div>
+      ${lesson.phases.map(phase => `
+        <details class="lesson-phase" ${phase.id === 'phenomenon' ? 'open' : ''}>
+          <summary>${phase.title}</summary><p>${phase.content}</p>
+        </details>`).join('')}
+    </section>`;
+}
+
+function _buildSourcesHTML(exp) {
+  const sources = exp.sources ?? [
+    { title: 'OpenStax, College Physics 2e', url: 'https://openstax.org/details/books/college-physics-2e' },
+    { title: 'NIST — Reference on Constants, Units and Uncertainty', url: 'https://physics.nist.gov/cuu/' },
+  ];
+  return `<details class="sources-panel"><summary>Fontes e limites do modelo</summary>
+    <p>${exp.modelLimitations ?? 'A visualização é um modelo didático: isola variáveis e não substitui uma medição experimental.'}</p>
+    <ul>${sources.map(source => `<li><a href="${source.url}" target="_blank" rel="noreferrer">${source.title}</a></li>`).join('')}</ul>
+    <small>Revisado em ${exp.lastReviewed ?? '13/10/2026'}.</small>
+  </details>`;
+}
+
 function _buildEquationsHTML(equations) {
   if (!equations || equations.length === 0) return '';
 
@@ -590,6 +660,8 @@ function _buildEquationsHTML(equations) {
 
 function _buildExerciseHTML(ex) {
   if (!ex) return '';
+  const answerValue = typeof ex.answer === 'object' ? ex.answer.value : ex.answer;
+  const requiresInput = !ex.options && typeof answerValue === 'number';
   const optionsHtml = ex.options
     ? ex.options.map((opt, i) => `
         <button class="exercise-option" data-index="${i}" data-value="${opt}">
@@ -599,7 +671,7 @@ function _buildExerciseHTML(ex) {
     : '';
 
   return `
-    <div class="exercise-block">
+    <div class="exercise-block" data-exercise-id="${ex.id}">
       <div class="exercise-block__header">
         <span class="exercise-block__num">Exercício</span>
         <span class="exercise-block__type">${ex.type ?? 'aplicação'}</span>
@@ -607,9 +679,12 @@ function _buildExerciseHTML(ex) {
       <div class="exercise-block__body">
         <p class="exercise-block__question">${ex.question}</p>
         ${optionsHtml ? `<div class="exercise-options">${optionsHtml}</div>` : ''}
+        ${requiresInput ? `<label class="exercise-answer">Sua resposta
+          <span><input type="number" inputmode="decimal" step="any" data-answer-input aria-label="Resposta para ${ex.title}"> ${typeof ex.answer === 'object' ? ex.answer.unit ?? '' : ''}</span>
+        </label>` : ''}
         <div class="btn-group" style="flex-wrap:wrap;gap:8px">
-          <button class="exercise-hint-btn" id="ex-hint-btn">Ver dica</button>
-          ${!ex.options ? `<button class="btn btn--primary btn--sm" id="ex-check-btn">Ver resposta</button>` : ''}
+          <button class="exercise-hint-btn" data-ex-hint>Ver dica</button>
+          ${!ex.options ? `<button class="btn btn--primary btn--sm" data-ex-check>${requiresInput ? 'Conferir resposta' : 'Ver solução comentada'}</button>` : ''}
         </div>
         <div id="ex-hint" class="exercise-hint hidden">${ex.hint ?? ''}</div>
         <div id="ex-explanation" class="exercise-explanation hidden"></div>
@@ -648,11 +723,13 @@ function _buildTeacherHTML(exp) {
  * ─────────────────────────────────────────────────────────────────────────── */
 
 function _attachExerciseHandlers(container, ex) {
-  const hintBtn  = container.querySelector('#ex-hint-btn');
-  const checkBtn = container.querySelector('#ex-check-btn');
-  const hintEl   = container.querySelector('#ex-hint');
-  const explEl   = container.querySelector('#ex-explanation');
-  const options  = container.querySelectorAll('.exercise-option');
+  const block = container.querySelector(`[data-exercise-id="${ex.id}"]`);
+  if (!block) return () => {};
+  const hintBtn  = block.querySelector('[data-ex-hint]');
+  const checkBtn = block.querySelector('[data-ex-check]');
+  const hintEl   = block.querySelector('#ex-hint');
+  const explEl   = block.querySelector('#ex-explanation');
+  const options  = block.querySelectorAll('.exercise-option');
 
   const listeners = [];
 
@@ -664,9 +741,15 @@ function _attachExerciseHandlers(container, ex) {
 
   if (checkBtn && explEl) {
     const fn = () => {
-      explEl.textContent = ex.explanation ?? 'Ver resolução no material.';
+      const input = block.querySelector('[data-answer-input]');
+      const expected = typeof ex.answer === 'object' ? ex.answer.value : ex.answer;
+      const received = input ? Number(String(input.value).replace(',', '.')) : null;
+      const validNumber = typeof expected === 'number' && Number.isFinite(received);
+      const correct = !input || (validNumber && Math.abs(received - expected) <= Math.max(0.01, Math.abs(expected) * 0.02));
+      explEl.textContent = `${correct ? 'Resposta conferida. ' : 'Revise a unidade e o cálculo. '}${ex.explanation ?? 'Ver resolução no material.'}`;
+      explEl.classList.toggle('exercise-explanation--wrong', !correct);
       explEl.classList.remove('hidden');
-      markExerciseSolved(ex.id);
+      if (correct && ex.answer !== undefined) markExerciseSolved(ex.id);
     };
     checkBtn.addEventListener('click', fn);
     listeners.push(() => checkBtn.removeEventListener('click', fn));
@@ -707,7 +790,7 @@ function _svgReset() { return `<svg width="12" height="12" viewBox="0 0 12 12" f
  * ─────────────────────────────────────────────────────────────────────────── */
 
 function _difficultyLabel(d) {
-  return d === 1 ? 'Introdutório' : d === 2 ? 'Intermediário' : 'Avançado';
+  return d === 1 ? 'Introdutório' : d === 3 ? 'Avançado' : 'Intermediário';
 }
 
-export { renderHome, renderModule, renderExperiment };
+export { renderHome, renderModule, renderExperiment, renderCatalog, renderProgress };

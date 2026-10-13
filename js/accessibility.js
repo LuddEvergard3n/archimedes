@@ -18,6 +18,7 @@ function initHighContrast() {
 
   const apply = (active) => {
     document.documentElement.classList.toggle('high-contrast', active);
+    setState('highContrast', active);
     btn.setAttribute('aria-pressed', String(active));
     btn.textContent = active ? 'Contraste padrão' : 'Alto contraste';
     try { localStorage.setItem('archimedes-high-contrast', active ? '1' : '0'); }

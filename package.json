@@ -1,4 +1,8 @@
 {
+  "type": "module",
+  "scripts": {
+    "test": "node tests/node-validate.mjs"
+  },
   "devDependencies": {
     "node-html-parser": "^7.1.0"
   }

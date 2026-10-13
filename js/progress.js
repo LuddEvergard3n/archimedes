@@ -8,6 +8,7 @@
  * Storage key: "archimedes_progress"
  * Schema:
  *   {
+ *     version: 2,
  *     visitedExperiments: string[],   -- experiment IDs
  *     solvedExercises:    string[],   -- exercise IDs
  *   }
@@ -23,7 +24,7 @@ const STORAGE_KEY = 'archimedes_progress';
 /**
  * Read the full progress object from localStorage.
  * Always returns a valid object — never throws.
- * @returns {{ visitedExperiments: string[], solvedExercises: string[] }}
+ * @returns {{ version: number, visitedExperiments: string[], solvedExercises: string[], favorites: string[], lastExperiment: string|null }}
  */
 function _load() {
   try {
@@ -32,8 +33,11 @@ function _load() {
     const parsed = JSON.parse(raw);
     /* Defensive: ensure expected arrays exist */
     return {
+      version: 2,
       visitedExperiments: Array.isArray(parsed.visitedExperiments) ? parsed.visitedExperiments : [],
       solvedExercises:    Array.isArray(parsed.solvedExercises)    ? parsed.solvedExercises    : [],
+      favorites:          Array.isArray(parsed.favorites)          ? parsed.favorites          : [],
+      lastExperiment:     typeof parsed.lastExperiment === 'string' ? parsed.lastExperiment : null,
     };
   } catch {
     return _empty();
@@ -41,7 +45,7 @@ function _load() {
 }
 
 function _empty() {
-  return { visitedExperiments: [], solvedExercises: [] };
+  return { version: 2, visitedExperiments: [], solvedExercises: [], favorites: [], lastExperiment: null };
 }
 
 /**
@@ -66,8 +70,9 @@ function markExperimentVisited(experimentId) {
   const data = _load();
   if (!data.visitedExperiments.includes(experimentId)) {
     data.visitedExperiments.push(experimentId);
-    _save(data);
   }
+  data.lastExperiment = experimentId;
+  _save(data);
 }
 
 /**
@@ -139,6 +144,15 @@ function resetProgress() {
   } catch { /* ignore */ }
 }
 
+function toggleFavorite(experimentId) {
+  const data = _load();
+  data.favorites = data.favorites.includes(experimentId)
+    ? data.favorites.filter(id => id !== experimentId)
+    : [...data.favorites, experimentId];
+  _save(data);
+  return data.favorites.includes(experimentId);
+}
+
 export {
   markExperimentVisited,
   markExerciseSolved,
@@ -148,4 +162,5 @@ export {
   experimentExerciseProgress,
   getProgress,
   resetProgress,
+  toggleFavorite,
 };

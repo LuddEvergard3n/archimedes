@@ -123,6 +123,23 @@
 
   </div><!-- .app-body -->
 
+  <nav class="mobile-nav" aria-label="Navegação principal">
+    <a href="#/" data-mobile-route="home">Início</a>
+    <a href="#/catalog" data-mobile-route="catalog">Explorar</a>
+    <a href="#/catalog" data-mobile-route="lab">Laboratório</a>
+    <a href="#/progress" data-mobile-route="progress">Progresso</a>
+    <button type="button" id="btn-mobile-more" aria-expanded="false" aria-controls="mobile-more">Mais</button>
+  </nav>
+  <div class="mobile-more" id="mobile-more" hidden>
+    <a href="referencia.html">Referência</a><a href="guia-professor.html">Guia do Professor</a>
+    <a href="plano-de-aula.html">Plano de Aula</a><a href="sobre.html">Sobre</a>
+    <div class="mobile-accessibility" aria-label="Acessibilidade">
+      <button type="button" id="btn-high-contrast" aria-pressed="false">Alto contraste</button>
+      <button type="button" id="btn-font-decrease" aria-label="Diminuir texto">A−</button>
+      <button type="button" id="btn-font-increase" aria-label="Aumentar texto">A+</button>
+    </div>
+  </div>
+
 </div><!-- #app -->
 
 <!-- Toast container (for notifications) -->

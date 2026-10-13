@@ -145,11 +145,11 @@ function _notify(path, newValue, prevValue) {
  */
 async function loadData() {
   const files = [
-    ['modules',     'data/modules.json'],
-    ['experiments', 'data/experiments.json'],
-    ['lessons',     'data/lessons.json'],
-    ['exercises',   'data/exercises.json'],
-    ['equations',   'data/equations.json'],
+    ['modules',     new URL('../data/modules.json', import.meta.url)],
+    ['experiments', new URL('../data/experiments.json', import.meta.url)],
+    ['lessons',     new URL('../data/lessons.json', import.meta.url)],
+    ['exercises',   new URL('../data/exercises.json', import.meta.url)],
+    ['equations',   new URL('../data/equations.json', import.meta.url)],
   ];
 
   const results = await Promise.allSettled(
@@ -171,6 +171,42 @@ async function loadData() {
       console.error(`[state] Failed to load ${files[i][1]}:`, result.reason);
       setState(key, []);
     }
+  }
+
+  /* Alguns exercícios legados não repetem o módulo; derive-o da experiência. */
+  const experimentModule = new Map(_state.experiments.map(exp => [exp.id, exp.module]));
+  setState('exercises', _state.exercises.map(exercise => ({
+    ...exercise,
+    module: exercise.module ?? experimentModule.get(exercise.experiment_id) ?? null,
+  })));
+
+  /* Conteúdo novo é separado para não reescrever os datasets legados. */
+  try {
+    const response = await fetch(new URL('../data/v5-content.json', import.meta.url));
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const extra = await response.json();
+    for (const key of ['modules', 'experiments', 'lessons', 'exercises']) {
+      if (Array.isArray(extra[key])) setState(key, [..._state[key], ...extra[key]]);
+    }
+    const generatedLessons = extra.experiments.map(exp => ({
+      id: `${exp.id}-lesson`, module: exp.module, title: exp.title, experiment_ids: [exp.id],
+      phases: [
+        { id: 'phenomenon', title: 'Fenômeno', content: exp.phenomenon },
+        { id: 'model', title: 'Modelo essencial', content: 'A visualização isola algumas grandezas para tornar suas relações observáveis. Compare cenários antes de generalizar.' },
+        { id: 'application', title: 'Aplicação e limite', content: exp.modelLimitations ?? 'Use o modelo para explicar uma relação, não como substituto de uma medição ou decisão técnica.' },
+      ],
+    }));
+    const generatedExercises = extra.experiments.map(exp => ({
+      id: `${exp.id}-observe`, module: exp.module, experiment_id: exp.id, type: 'observação guiada',
+      title: `Explique ${exp.title}`, question: exp.guidingQuestion,
+      hint: 'Altere apenas uma variável por vez e registre o que permaneceu constante.',
+      explanation: 'Compare sua observação com o modelo apresentado e indique uma limitação da visualização.',
+      answer: null,
+    }));
+    setState('lessons', [..._state.lessons, ...generatedLessons]);
+    setState('exercises', [..._state.exercises, ...generatedExercises]);
+  } catch (err) {
+    console.warn('[state] Conteúdo complementar indisponível:', err.message);
   }
 }
 
