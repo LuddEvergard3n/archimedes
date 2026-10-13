@@ -10,9 +10,10 @@
  */
 
 import { initPhysics }            from './wasm-loader.js';
-import { loadData, getState, setState, subscribe, getModule } from './state.js';
+import { loadData, getState, setState, subscribe, getModule, getExperimentsByModule } from './state.js';
 import { register, onNotFound, start as startRouter, navigate } from './router.js';
-import { renderHome, renderModule, renderExperiment }            from './ui.js';
+import { renderHome, renderModule, renderExperiment, renderCatalog, renderProgress } from './ui.js';
+import { initAccessibility }                                      from './accessibility.js';
 
 /* ── Active view disposer ────────────────────────── */
 let _disposeCurrentView = null;
@@ -51,6 +52,18 @@ function _registerRoutes() {
     _mountView(c => renderHome(c));
     _setBreadcrumb(['Início']);
     _setActiveSidebarItem('home');
+  });
+
+  register('/catalog', () => {
+    _mountView(c => renderCatalog(c));
+    _setBreadcrumb(['Explorar']);
+    _setActiveSidebarItem('');
+  });
+
+  register('/progress', () => {
+    _mountView(c => renderProgress(c));
+    _setBreadcrumb(['Progresso']);
+    _setActiveSidebarItem('');
   });
 
   /* Module overview */
@@ -114,9 +127,9 @@ function _buildSidebar() {
     item.className        = 'sidebar-item';
     item.href             = `#/module/${mod.id}`;
     item.dataset.moduleId = mod.id;
-    item.style.setProperty('--item-color', mod.color ?? '#c8920a');
+    item.style.setProperty('--item-color', mod.color ?? '#4da3ff');
     item.innerHTML = `
-      <span class="sidebar-item__dot" style="border-color:${mod.color ?? '#c8920a'}"></span>
+      <span class="sidebar-item__dot" style="border-color:${mod.color ?? '#4da3ff'}"></span>
       <span class="sidebar-item__label">${mod.title}</span>
       <span class="sidebar-item__badge">${mod.experiments.length}</span>
     `;
@@ -179,8 +192,8 @@ function _initMobileSidebar() {
 
   if (!menuBtn || !sidebar) return;
 
-  const open  = () => { sidebar.classList.add('open');    overlay?.classList.add('visible'); };
-  const close = () => { sidebar.classList.remove('open'); overlay?.classList.remove('visible'); };
+  const open  = () => { sidebar.classList.add('open'); overlay?.classList.add('visible'); menuBtn.setAttribute('aria-expanded', 'true'); };
+  const close = () => { sidebar.classList.remove('open'); overlay?.classList.remove('visible'); menuBtn.setAttribute('aria-expanded', 'false'); };
 
   menuBtn.addEventListener('click', () => sidebar.classList.contains('open') ? close() : open());
   overlay?.addEventListener('click', close);
@@ -189,16 +202,33 @@ function _initMobileSidebar() {
   window.addEventListener('hashchange', close);
 }
 
+function _initMobileNavigation() {
+  const moreButton = document.getElementById('btn-mobile-more');
+  const more = document.getElementById('mobile-more');
+  if (!moreButton || !more) return;
+  const close = () => { more.hidden = true; moreButton.setAttribute('aria-expanded', 'false'); };
+  moreButton.addEventListener('click', () => {
+    more.hidden = !more.hidden;
+    moreButton.setAttribute('aria-expanded', String(!more.hidden));
+  });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
+  window.addEventListener('hashchange', close);
+}
+
 /* ── WASM status display ─────────────────────────── */
 
 function _initWasmStatus() {
-  subscribe('wasmLoaded', (loaded) => {
+  const update = (loaded) => {
     const el = document.getElementById('wasm-status');
     if (!el) return;
     el.textContent = loaded ? 'WASM' : 'JS';
     el.title       = loaded ? 'Motor físico em WebAssembly' : 'Motor físico em JavaScript (fallback)';
     el.style.color = loaded ? 'var(--accent-green)' : 'var(--text-muted)';
-  });
+    const full = document.querySelector('#wasm-status-full span');
+    if (full) full.textContent = loaded ? 'WASM' : 'JS';
+  };
+  update(getState('wasmLoaded'));
+  subscribe('wasmLoaded', update);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── *
@@ -206,6 +236,9 @@ function _initWasmStatus() {
  * ─────────────────────────────────────────────────────────────────────────── */
 
 async function init() {
+  /* Acessibilidade deve existir antes da primeira rota renderizada. */
+  initAccessibility();
+
   /* 1. Start physics engine */
   await initPhysics();
 
@@ -216,9 +249,10 @@ async function init() {
   _buildSidebar();
 
   /* 4. Wire UI interactions */
+  _initWasmStatus();
   _initTeacherMode();
   _initMobileSidebar();
-  _initWasmStatus();
+  _initMobileNavigation();
 
   /* 5. Register routes and start router */
   _registerRoutes();

@@ -32,7 +32,7 @@ class ChartEngine {
     this.label    = opts.label   ?? '';
     this.xUnit    = opts.xUnit   ?? '';
     this.yUnit    = opts.yUnit   ?? '';
-    this.color    = opts.color   ?? '#c8920a';
+    this.color    = opts.color   ?? '#3269bd';
     this.fillArea = opts.fillArea ?? false;
     this.yMinFixed = opts.yMin;
     this.yMaxFixed = opts.yMax;
@@ -110,7 +110,7 @@ class ChartEngine {
     const ch   = this.canvas.height;
 
     /* Background */
-    ctx.fillStyle = '#161410';
+    ctx.fillStyle = '#111923';
     ctx.fillRect(0, 0, cw, ch);
 
     const bounds = this._bounds();
@@ -119,7 +119,7 @@ class ChartEngine {
 
     /* Grid */
     ctx.save();
-    ctx.strokeStyle = 'rgba(180, 140, 60, 0.09)';
+    ctx.strokeStyle = 'rgba(101, 140, 183, 0.12)';
     ctx.lineWidth   = 0.5;
     const xTicks = 5;
     const yTicks = 4;
@@ -306,7 +306,7 @@ class DualChartEngine {
     const cw  = this.canvas.width;
     const ch  = this.canvas.height;
 
-    ctx.fillStyle = '#161410';
+    ctx.fillStyle = '#111923';
     ctx.fillRect(0, 0, cw, ch);
 
     /* Split canvas vertically: top half = series[0], bottom half = series[1] */
@@ -358,7 +358,7 @@ class DualChartEngine {
         if (first) { ctx.moveTo(px, py); first = false; }
         else        { ctx.lineTo(px, py); }
       }
-      ctx.strokeStyle = s.color ?? '#c8920a';
+      ctx.strokeStyle = s.color ?? '#3269bd';
       ctx.lineWidth   = 1.5;
       ctx.stroke();
     }

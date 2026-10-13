@@ -244,6 +244,15 @@ function testDataIntegrity() {
     assertTrue(`equation ${eq.id}: has display`, !!eq.display);
     assertTrue(`equation ${eq.id}: has experiment_ids`, Array.isArray(eq.experiment_ids));
   }
+
+  const ids = experiments.map(exp => exp.id);
+  assertEqual('experiment IDs are unique', new Set(ids).size, ids.length);
+  const expanded = experiments.filter(exp => ['gravitation', 'tecnologia', 'nuclear', 'ambiente'].includes(exp.module));
+  assertEqual('expanded catalogue has 16 experiences', expanded.length, 16);
+  for (const exp of expanded) {
+    assertTrue(`exp ${exp.id}: has source`, Array.isArray(exp.sources) && exp.sources.length > 0);
+    assertTrue(`exp ${exp.id}: has review date`, /^\d{4}-\d{2}-\d{2}$/.test(exp.lastReviewed ?? ''));
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── *

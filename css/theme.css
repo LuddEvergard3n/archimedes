@@ -10,72 +10,81 @@
 
 :root {
   /* ── Instrumento: fundos ───────────────────────── */
-  --inst-bg-deep:      #161410;
-  --inst-bg-primary:   #1c1a14;
-  --inst-bg-secondary: #232018;
-  --inst-bg-panel:     #2a2720;
-  --inst-bg-card:      #2d2a1e;
-  --inst-bg-hover:     #333020;
-  --inst-bg-active:    #3a3624;
+  --inst-bg-deep:      #111923;
+  --inst-bg-primary:   #f6f8fb;
+  --inst-bg-secondary: #18304f;
+  --inst-bg-panel:     #172333;
+  --inst-bg-card:      #1e2d3e;
+  --inst-bg-hover:     #29415d;
+  --inst-bg-active:    #31557d;
 
   /* ── Instrumento: bordas ───────────────────────── */
-  --inst-border-dim:   rgba(180, 140, 60, 0.05);
-  --inst-border-base:  #3d3828;
-  --inst-border-mid:   #4a4530;
-  --inst-border-amber: rgba(200, 146, 10, 0.30);
+  --inst-border-dim:   rgba(29, 78, 158, 0.12);
+  --inst-border-base:  #3d5874;
+  --inst-border-mid:   #66809c;
+  --inst-border-amber: rgba(196, 122, 34, 0.38);
 
   /* ── Instrumento: grid do canvas ───────────────── */
-  --inst-grid-fine:  rgba(180, 140, 60, 0.06);
-  --inst-grid-major: rgba(180, 140, 60, 0.13);
-  --inst-axis:       rgba(200, 146, 10, 0.30);
+  --inst-grid-fine:  rgba(101, 140, 183, 0.10);
+  --inst-grid-major: rgba(29, 78, 158, 0.24);
+  --inst-axis:       rgba(130, 174, 221, 0.50);
 
   /* ── Instrumento: texto ────────────────────────── */
-  --inst-text-primary:   #e8e0c8;
-  --inst-text-secondary: #b0a888;
-  --inst-text-muted:     #7a7060;
-  --inst-text-disabled:  #4a4535;
+  --inst-text-primary:   #e6edf4;
+  --inst-text-secondary: #b7c6d6;
+  --inst-text-muted:     #8295a8;
+  --inst-text-disabled:  #516274;
 
-  /* ── Âmbar — cor do instrumento ────────────────── */
-  --amber:        #c8920a;
-  --amber-bright: #e0a80e;
-  --amber-dim:    rgba(200, 146, 10, 0.14);
-  --amber-glow:   rgba(200, 146, 10, 0.25);
+  /* ── Caderno de campo: navegação, vetor e medição ─ */
+  --electric-blue:        #1d4e9e;
+  --electric-blue-bright: #3269bd;
+  --electric-blue-dim:    rgba(29, 78, 158, 0.12);
+  --signal-red:           #c43d4b;
+  --signal-red-dim:       rgba(196, 61, 75, 0.12);
+  --cyan:                 #5f8fb8;
+  --cyan-dim:             rgba(95, 143, 184, 0.14);
+  --amber:        #c47a22;
+  --amber-bright: #dc953d;
+  --amber-dim:    rgba(196, 122, 34, 0.12);
+  --amber-glow:   rgba(196, 122, 34, 0.16);
+  --accent-green: #4f8a63;
+  --text-muted: var(--inst-text-muted);
 
   /* ── Caderno: fundos papel ─────────────────────── */
-  --nb-bg:        #f5f0e8;
-  --nb-bg-card:   #ede8df;
-  --nb-bg-inset:  #e8e2d6;
+  --nb-bg:        #fbfcfe;
+  --nb-bg-card:   #f2f5f9;
+  --nb-bg-inset:  #e8edf3;
 
   /* ── Caderno: bordas ───────────────────────────── */
-  --nb-border:     #c8bfad;
-  --nb-border-dim: rgba(100, 80, 50, 0.18);
+  --nb-border:     #c8d3df;
+  --nb-border-dim: rgba(29, 57, 86, 0.18);
 
   /* ── Caderno: texto ────────────────────────────── */
-  --nb-text-primary:   #1a1612;
-  --nb-text-secondary: #4a4035;
-  --nb-text-muted:     #8a7a68;
+  --nb-text-primary:   #14283d;
+  --nb-text-secondary: #3e5870;
+  --nb-text-muted:     #6e8193;
 
   /* ── Azul acadêmico ─────────────────────────────── */
-  --nb-blue:     #2c4a7c;
-  --nb-blue-dim: rgba(44, 74, 124, 0.10);
+  --nb-blue:     #1d4e9e;
+  --nb-blue-dim: rgba(29, 78, 158, 0.10);
 
   /* ── Cores dos módulos ─────────────────────────── */
-  --color-intro:  #4472b0;
-  --color-motion: #3d7a55;
-  --color-forces: #b54a28;
-  --color-energy: #7a4a96;
-  --color-fluids: #2a6080;
+  --color-intro:  #1d4e9e;
+  --color-motion: #497ca8;
+  --color-forces: #ff6b6b;
+  --color-energy: #a78bfa;
+  --color-fluids: #3e7da8;
 
   /* ── Cores de vetores — convenção de livros ─────── */
-  --vec-velocity:  #4472b0;
-  --vec-accel:     #c07828;
-  --vec-force:     #c44040;
-  --vec-normal:    #6a7a6a;
-  --vec-weight:    #4a4040;
-  --vec-friction:  #8a4040;
-  --vec-buoyancy:  #2a6080;
-  --vec-kinetic:   #3d7a55;
-  --vec-potential: #c07828;
+  --vec-velocity:  #3269bd;
+  --vec-accel:     #f59e0b;
+  --vec-force:     #c43d4b;
+  --vec-normal:    #94a3b8;
+  --vec-weight:    #64748b;
+  --vec-friction:  #f97316;
+  --vec-buoyancy:  #3e7da8;
+  --vec-kinetic:   #78d68a;
+  --vec-potential: #a78bfa;
 
   /* ── Tipografia ────────────────────────────────── */
   --font-body: 'EB Garamond', 'Garamond', Georgia, serif;
@@ -115,7 +124,7 @@
   --shadow-panel:      0 2px 20px rgba(0, 0, 0, 0.50);
   --shadow-card:       0 1px 8px  rgba(0, 0, 0, 0.35);
   --shadow-nb-card:    0 1px 6px  rgba(0, 0, 0, 0.12);
-  --shadow-amber-glow: 0 0 18px   rgba(200, 146, 10, 0.18);
+  --shadow-amber-glow: 0 0 18px   rgba(196, 122, 34, 0.14);
 
   /* ── Transições ────────────────────────────────── */
   --transition-fast: 120ms ease;
@@ -125,11 +134,54 @@
 
 @media (prefers-contrast: more) {
   :root {
-    --inst-border-base:  #5a5440;
-    --inst-text-primary: #f5f0e0;
-    --nb-text-primary:   #0a0806;
-    --nb-border:         #9a8a78;
+    --inst-border-base:  #6d859b;
+    --inst-text-primary: #f8fbff;
+    --nb-text-primary:   #06111d;
+    --nb-border:         #6d859b;
   }
+}
+
+html.high-contrast {
+  --inst-bg-deep: #000;
+  --inst-bg-primary: #000;
+  --inst-bg-secondary: #080808;
+  --inst-bg-panel: #111;
+  --inst-bg-card: #171717;
+  --inst-border-base: #d9d9d9;
+  --inst-border-mid: #fff;
+  --inst-text-primary: #fff;
+  --inst-text-secondary: #f0f0f0;
+  --inst-text-muted: #d0d0d0;
+  --nb-bg: #fff;
+  --nb-bg-card: #fff;
+  --nb-bg-inset: #f4f4f4;
+  --nb-border: #111;
+  --nb-text-primary: #000;
+  --nb-text-secondary: #111;
+  --nb-text-muted: #333;
+}
+
+/* A leitura continua em papel técnico; apenas as superfícies são invertidas. */
+html.dark-mode:not(.high-contrast) {
+  --inst-bg-primary: #0b121b;
+  --inst-bg-secondary: #132c4b;
+  --inst-bg-panel: #172333;
+  --inst-bg-card: #1e2d3e;
+  --inst-bg-hover: #29415d;
+  --inst-bg-active: #31557d;
+  --inst-border-base: #3d5874;
+  --inst-border-mid: #66809c;
+  --nb-bg: #0e1722;
+  --nb-bg-card: #172333;
+  --nb-bg-inset: #1e2d3e;
+  --nb-border: #3d5874;
+  --nb-border-dim: rgba(152, 181, 210, 0.24);
+  --nb-text-primary: #e6edf4;
+  --nb-text-secondary: #b7c6d6;
+  --nb-text-muted: #90a4b8;
+  --nb-blue: #82a9db;
+  --nb-blue-dim: rgba(130, 169, 219, 0.16);
+  --shadow-nb-card: 0 1px 8px rgba(0, 0, 0, 0.28);
 }
 
 /* Scrollbar — Firefox */

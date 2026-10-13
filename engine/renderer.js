@@ -18,7 +18,7 @@
 /*
  * Paleta de renderização — espelha theme.css
  *
- * INSTRUMENTO: fundo escuro quente, grid âmbar, leituras âmbar
+ * INSTRUMENTO: grafite frio, grade azul/ciano, leituras âmbar
  * VETORES: convenção estabelecida em livros de Física
  *   velocidade = azul, força = vermelho, normal = cinza,
  *   peso = cinza escuro, atrito = vermelho escuro,
@@ -26,56 +26,56 @@
  */
 const COLORS = {
   /* Grid e fundo */
-  bg:          '#161410',
-  grid:        'rgba(180, 140, 60, 0.06)',
-  gridMajor:   'rgba(180, 140, 60, 0.13)',
-  axis:        'rgba(200, 146, 10, 0.30)',
+  bg:          '#111923',
+  grid:        'rgba(101, 140, 183, 0.10)',
+  gridMajor:   'rgba(29, 78, 158, 0.24)',
+  axis:        'rgba(130, 174, 221, 0.50)',
 
   /* Instrumento */
-  amber:       '#c8920a',
-  amberBright: '#e0a80e',
-  amberDim:    'rgba(200, 146, 10, 0.14)',
+  amber:       '#ffbf47',
+  amberBright: '#ffd166',
+  amberDim:    'rgba(255, 191, 71, 0.14)',
 
   /* Texto */
-  textPrimary:   '#e8e0c8',
-  textSecondary: '#b0a888',
-  textMuted:     '#7a7060',
+  textPrimary:   '#e6edf4',
+  textSecondary: '#b7c6d6',
+  textMuted:     '#8295a8',
 
   /* Corpos físicos */
-  bodyFill:    '#2a2720',
-  bodyStroke:  '#c8920a',
-  surface:     '#3d3828',
+  bodyFill:    '#1e2d3e',
+  bodyStroke:  '#3269bd',
+  surface:     '#3d5874',
 
   /* Vetores — convenção de livro */
-  velocity:   '#4472b0',   /* azul */
-  accel:      '#c07828',   /* laranja */
-  force:      '#c44040',   /* vermelho */
-  normal:     '#6a7a6a',   /* cinza médio */
-  weight:     '#4a4040',   /* cinza escuro */
-  friction:   '#8a4040',   /* vermelho escuro */
-  buoyancy:   '#2a6080',   /* azul oceano */
-  kinetic:    '#3d7a55',   /* verde */
-  potential:  '#c07828',   /* laranja */
+  velocity:   '#3269bd',   /* azul */
+  accel:      '#f59e0b',   /* laranja */
+  force:      '#c43d4b',   /* vermelho */
+  normal:     '#94a3b8',   /* cinza médio */
+  weight:     '#64748b',   /* cinza escuro */
+  friction:   '#f97316',   /* vermelho escuro */
+  buoyancy:   '#3e7da8',   /* azul oceano */
+  kinetic:    '#78d68a',   /* verde */
+  potential:  '#a78bfa',   /* roxo */
 
   /* Módulos */
-  intro:  '#4472b0',
-  motion: '#3d7a55',
-  forces: '#b54a28',
-  energy: '#7a4a96',
-  fluids: '#2a6080',
-  ondas:  '#5a7a40',
-  thermo: '#8a4a1a',
-  eletromagnetismo: '#4ab0d8',
+  intro:  '#1d4e9e',
+  motion: '#497ca8',
+  forces: '#ff6b6b',
+  energy: '#a78bfa',
+  fluids: '#3e7da8',
+  ondas:  '#7dd3fc',
+  thermo: '#fb923c',
+  eletromagnetismo: '#22d3ee',
 
   /* Fluido */
   fluid:       'rgba(42, 96, 128, 0.28)',
   fluidStroke: 'rgba(42, 96, 128, 0.55)',
 
   /* Aliases mantidos por compatibilidade com módulos existentes */
-  cyan:   '#4472b0',
-  green:  '#3d7a55',
-  red:    '#c44040',
-  purple: '#7a4a96',
+  cyan:   '#5f8fb8',
+  green:  '#78d68a',
+  red:    '#c43d4b',
+  purple: '#c084fc',
 };
 
 /* ── Background and grid ─────────────────────────── */

@@ -30,7 +30,7 @@
   z-index: 100;
 }
 
-/* Linha de âmbar decorativa no topo */
+/* Linha de campo: coordenadas e vetor, não bancada química */
 .app-header::before {
   content: '';
   position: absolute;
@@ -39,8 +39,8 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--amber) 20%,
-    var(--amber) 80%,
+    var(--electric-blue) 20%,
+    var(--signal-red) 80%,
     transparent 100%
   );
   opacity: 0.45;
@@ -58,8 +58,8 @@
 .logo-mark {
   width: 28px;
   height: 28px;
-  border-radius: 50%;
-  border: 1.5px solid var(--amber);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--electric-blue);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,13 +67,39 @@
   position: relative;
 }
 
-/* Anel concêntrico — marca de instrumento óptico */
+/* Eixos e vetor — marca de caderno físico */
 .logo-ring {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid var(--amber);
-  opacity: 0.50;
+  width: 16px;
+  height: 1px;
+  background: var(--electric-blue);
+  opacity: 0.85;
+  position: relative;
+  transform: rotate(-35deg);
+}
+
+.logo-ring::before,
+.logo-ring::after {
+  content: '';
+  position: absolute;
+}
+
+.logo-ring::before {
+  width: 1px;
+  height: 16px;
+  left: 6px;
+  top: -8px;
+  background: var(--electric-blue);
+  transform: rotate(35deg);
+}
+
+.logo-ring::after {
+  width: 5px;
+  height: 5px;
+  right: -1px;
+  top: -2px;
+  border-top: 1px solid var(--signal-red);
+  border-right: 1px solid var(--signal-red);
+  transform: rotate(10deg);
 }
 
 .logo-text {
@@ -83,10 +109,6 @@
   letter-spacing: 0.06em;
   color: var(--inst-text-primary);
   text-transform: uppercase;
-}
-
-.logo-text span {
-  color: var(--amber);
 }
 
 .header-divider {
@@ -149,9 +171,9 @@
 }
 
 .header-btn--teacher:hover {
-  color: var(--amber);
-  border-color: var(--inst-border-amber);
-  background: var(--amber-dim);
+  color: var(--electric-blue-bright);
+  border-color: var(--electric-blue);
+  background: var(--electric-blue-dim);
 }
 
 .header-menu-btn {
@@ -289,7 +311,7 @@
   flex: 1;
   overflow-y: auto;
   padding: var(--space-8) var(--space-8);
-  background: var(--inst-bg-primary);
+  background: var(--nb-bg);
 }
 
 /* ── Page header — instrumento ─────────────────── */
@@ -304,7 +326,7 @@
   font-size: var(--text-sm);
   letter-spacing: 0.10em;
   text-transform: uppercase;
-  color: var(--amber);
+  color: var(--nb-blue);
   margin-bottom: var(--space-2);
   opacity: 0.80;
 }
@@ -313,7 +335,7 @@
   font-family: var(--font-body);
   font-size: var(--text-3xl);
   font-weight: 300;
-  color: var(--inst-text-primary);
+  color: var(--nb-text-primary);
   letter-spacing: -0.02em;
   margin-bottom: var(--space-3);
 }
@@ -321,7 +343,7 @@
 .page-header__subtitle {
   font-family: var(--font-body);
   font-size: var(--text-md);
-  color: var(--inst-text-secondary);
+  color: var(--nb-text-secondary);
   max-width: 56ch;
   line-height: 1.70;
   margin-bottom: 0;
@@ -334,9 +356,22 @@
   margin-top: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  color: var(--inst-text-muted);
+  color: var(--nb-text-muted);
   letter-spacing: 0.05em;
 }
+
+.home-actions { display:flex; align-items:center; gap:var(--space-4); flex-wrap:wrap; margin-top:var(--space-5); color:var(--nb-text-muted); font-family:var(--font-mono); font-size:var(--text-xs); }
+.home-note { background:var(--nb-bg); color:var(--nb-text-secondary); border-left:3px solid var(--signal-red); padding:var(--space-4) var(--space-5); border-radius:0 var(--radius-md) var(--radius-md) 0; margin-bottom:var(--space-6); box-shadow:var(--shadow-nb-card); }
+.home-note strong { color:var(--nb-text-primary); }
+.resume-card { display:flex; flex-direction:column; gap:var(--space-1); max-width:48rem; margin-bottom:var(--space-6); padding:var(--space-4) var(--space-5); color:var(--nb-text-primary); background:var(--nb-bg-card); border:1px solid var(--nb-border); border-radius:var(--radius-md); }
+.resume-card span { color:var(--nb-blue); font-family:var(--font-mono); font-size:var(--text-xs); text-transform:uppercase; letter-spacing:.08em; }
+.resume-card small { color:var(--nb-text-muted); }
+.catalog-search { display:flex; flex-direction:column; gap:var(--space-2); margin-top:var(--space-5); max-width:34rem; color:var(--nb-text-secondary); }
+.catalog-search input { min-height:44px; padding:var(--space-2) var(--space-3); border:1px solid var(--nb-border); border-radius:var(--radius-base); background:var(--nb-bg); color:var(--nb-text-primary); }
+.empty-state { grid-column:1 / -1; color:var(--nb-text-muted); }
+.progress-list { display:grid; gap:var(--space-3); max-width:48rem; }
+.progress-row { display:flex; justify-content:space-between; gap:var(--space-4); padding:var(--space-4); background:var(--nb-bg-card); border:1px solid var(--nb-border); border-radius:var(--radius-base); color:var(--nb-text-primary); }
+.progress-row strong { color:var(--nb-blue); font-family:var(--font-mono); }
 
 /* ── Module header ─────────────────────────────── */
 
@@ -346,7 +381,7 @@
   align-items: flex-start;
   margin-bottom: var(--space-8);
   padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--inst-border-base);
+  border-bottom: 1px solid var(--nb-border);
 }
 
 .module-header__color-bar {
@@ -362,20 +397,20 @@
   font-size: var(--text-xs);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--inst-text-muted);
+  color: var(--nb-text-muted);
   margin-bottom: var(--space-1);
 }
 
 .module-header__title {
   font-size: var(--text-2xl);
   font-weight: 400;
-  color: var(--inst-text-primary);
+  color: var(--nb-text-primary);
   margin-bottom: var(--space-2);
 }
 
 .module-header__desc {
   font-size: var(--text-md);
-  color: var(--inst-text-secondary);
+  color: var(--nb-text-secondary);
   max-width: 60ch;
   margin-bottom: 0;
   line-height: 1.70;
@@ -393,8 +428,8 @@
 
 .module-card {
   display: block;
-  background: var(--inst-bg-panel);
-  border: 1px solid var(--inst-border-base);
+  background: var(--nb-bg-card);
+  border: 1px solid var(--nb-border);
   border-radius: var(--radius-md);
   padding: var(--space-6);
   text-decoration: none;
@@ -415,8 +450,8 @@
 }
 
 .module-card:hover {
-  border-color: var(--inst-border-mid);
-  background: var(--inst-bg-card);
+  border-color: var(--nb-blue);
+  background: var(--nb-bg);
   transform: translateY(-1px);
   box-shadow: var(--shadow-card);
 }
@@ -430,7 +465,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.10em;
-  color: var(--inst-text-muted);
+  color: var(--nb-text-muted);
   margin-bottom: var(--space-3);
   text-transform: uppercase;
 }
@@ -438,14 +473,14 @@
 .module-card__title {
   font-size: var(--text-xl);
   font-weight: 400;
-  color: var(--inst-text-primary);
+  color: var(--nb-text-primary);
   margin-bottom: var(--space-3);
   line-height: 1.25;
 }
 
 .module-card__desc {
   font-size: var(--text-base);
-  color: var(--inst-text-secondary);
+  color: var(--nb-text-secondary);
   line-height: 1.65;
   margin-bottom: var(--space-4);
 }
@@ -461,7 +496,7 @@
 /* Barra de progresso do módulo */
 .module-card__progress {
   height: 2px;
-  background: var(--inst-border-base);
+  background: var(--nb-border);
   border-radius: 1px;
   margin-bottom: var(--space-3);
   overflow: hidden;
@@ -487,8 +522,8 @@
 
 .exp-card {
   display: block;
-  background: var(--inst-bg-panel);
-  border: 1px solid var(--inst-border-base);
+  background: var(--nb-bg-card);
+  border: 1px solid var(--nb-border);
   border-radius: var(--radius-md);
   padding: var(--space-5) var(--space-6);
   text-decoration: none;
@@ -497,13 +532,13 @@
 
 /* Estado visitado — borda levemente iluminada */
 .exp-card--visited {
-  border-color: var(--inst-border-mid);
+  border-color: var(--nb-blue);
 }
 
 .exp-card:hover {
-  border-color: var(--inst-border-amber);
-  background: var(--inst-bg-card);
-  box-shadow: 0 0 0 1px var(--amber-dim);
+  border-color: var(--nb-blue);
+  background: var(--nb-bg);
+  box-shadow: 0 0 0 1px var(--nb-blue-dim);
 }
 
 /* Header da exp-card: tag + badge lado a lado */
@@ -542,7 +577,7 @@
 .exp-card__exer {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--inst-text-muted);
+  color: var(--nb-text-muted);
   margin-left: auto;
   letter-spacing: 0.04em;
 }
@@ -551,7 +586,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
-  color: var(--inst-text-muted);
+  color: var(--nb-text-muted);
   text-transform: uppercase;
 }
 
@@ -559,14 +594,14 @@
   font-family: var(--font-body);
   font-size: var(--text-lg);
   font-weight: 400;
-  color: var(--inst-text-primary);
+  color: var(--nb-text-primary);
   margin-bottom: var(--space-2);
   line-height: 1.30;
 }
 
 .exp-card__desc {
   font-size: var(--text-base);
-  color: var(--inst-text-secondary);
+  color: var(--nb-text-secondary);
   line-height: 1.65;
   margin-bottom: var(--space-4);
 }
@@ -583,7 +618,7 @@
   font-size: var(--text-xs);
   color: var(--amber);
   background: var(--amber-dim);
-  border: 1px solid rgba(200, 146, 10, 0.20);
+  border: 1px solid rgba(196, 122, 34, 0.24);
   border-radius: var(--radius-sm);
   padding: 1px 6px;
   letter-spacing: 0.04em;

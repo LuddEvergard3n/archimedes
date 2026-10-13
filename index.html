@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Archimedes — Laboratório interativo de Física. Aprenda Física através do fenômeno.">
-  <meta name="theme-color" content="#1c1a14">
+  <meta name="theme-color" content="#18304f">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -57,7 +57,7 @@
       <div class="logo-mark" aria-hidden="true">
         <span class="logo-ring"></span>
       </div>
-      <span class="logo-text">Archi<span>medes</span></span>
+      <span class="logo-text">Archimedes</span>
     </a>
 
     <div class="header-divider" aria-hidden="true"></div>
@@ -82,6 +82,11 @@
         id="btn-teacher-mode"
         aria-pressed="false">
         Modo Professor
+      </button>
+      <button class="header-btn"
+        id="btn-dark-mode"
+        aria-pressed="false">
+        Modo escuro
       </button>
     </div>
   </header>
@@ -122,6 +127,24 @@
     </main>
 
   </div><!-- .app-body -->
+
+  <nav class="mobile-nav" aria-label="Navegação principal">
+    <a href="#/" data-mobile-route="home">Início</a>
+    <a href="#/catalog" data-mobile-route="catalog">Explorar</a>
+    <a href="#/catalog" data-mobile-route="lab">Laboratório</a>
+    <a href="#/progress" data-mobile-route="progress">Progresso</a>
+    <button type="button" id="btn-mobile-more" aria-expanded="false" aria-controls="mobile-more">Mais</button>
+  </nav>
+  <div class="mobile-more" id="mobile-more" hidden>
+    <a href="referencia.html">Referência</a><a href="guia-professor.html">Guia do Professor</a>
+    <a href="plano-de-aula.html">Plano de Aula</a><a href="sobre.html">Sobre</a>
+    <div class="mobile-accessibility" aria-label="Acessibilidade">
+      <button type="button" id="btn-dark-mode-mobile" aria-pressed="false">Modo escuro</button>
+      <button type="button" id="btn-high-contrast" aria-pressed="false">Alto contraste</button>
+      <button type="button" id="btn-font-decrease" aria-label="Diminuir texto">A−</button>
+      <button type="button" id="btn-font-increase" aria-label="Aumentar texto">A+</button>
+    </div>
+  </div>
 
 </div><!-- #app -->
 

@@ -11,7 +11,7 @@
  * Versão do cache: incrementar CACHE_VERSION a cada deploy.
  */
 
-const CACHE_VERSION = 'v1.6.0';
+const CACHE_VERSION = 'v2.0.4';
 const CACHE_STATIC  = `archimedes-static-${CACHE_VERSION}`;
 const CACHE_DATA    = `archimedes-data-${CACHE_VERSION}`;
 
@@ -39,6 +39,8 @@ const APP_SHELL = [
   './js/wasm-loader.js',
   './js/ui.js',
   './js/accessibility.js',
+  './js/progress.js',
+  './js/eq-renderer.js',
 
   /* Engine */
   './engine/renderer.js',
@@ -52,6 +54,10 @@ const APP_SHELL = [
   './modules/fluids/fluids.js',
   './modules/ondas/ondas.js',
   './modules/termodinamica/termodinamica.js',
+  './modules/eletromagnetismo/eletromagnetismo.js',
+  './modules/optica/optica.js',
+  './modules/fisica-moderna/fisica-moderna.js',
+  './modules/contemporary/contemporary.js',
 
   /* Dados */
   './data/modules.json',
@@ -59,6 +65,7 @@ const APP_SHELL = [
   './data/lessons.json',
   './data/exercises.json',
   './data/equations.json',
+  './data/v5-content.json',
 
   /* WASM */
   './wasm/physics_engine.wasm',
