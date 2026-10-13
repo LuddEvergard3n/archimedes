@@ -26,10 +26,10 @@
  */
 const COLORS = {
   /* Grid e fundo */
-  bg:          '#070b12',
-  grid:        'rgba(77, 163, 255, 0.07)',
-  gridMajor:   'rgba(66, 216, 208, 0.14)',
-  axis:        'rgba(77, 163, 255, 0.44)',
+  bg:          '#111923',
+  grid:        'rgba(101, 140, 183, 0.10)',
+  gridMajor:   'rgba(29, 78, 158, 0.24)',
+  axis:        'rgba(130, 174, 221, 0.50)',
 
   /* Instrumento */
   amber:       '#ffbf47',
@@ -42,27 +42,27 @@ const COLORS = {
   textMuted:     '#8295a8',
 
   /* Corpos físicos */
-  bodyFill:    '#162437',
-  bodyStroke:  '#4da3ff',
-  surface:     '#29435d',
+  bodyFill:    '#1e2d3e',
+  bodyStroke:  '#3269bd',
+  surface:     '#3d5874',
 
   /* Vetores — convenção de livro */
-  velocity:   '#4da3ff',   /* azul */
+  velocity:   '#3269bd',   /* azul */
   accel:      '#f59e0b',   /* laranja */
-  force:      '#ff6b6b',   /* vermelho */
+  force:      '#c43d4b',   /* vermelho */
   normal:     '#94a3b8',   /* cinza médio */
   weight:     '#64748b',   /* cinza escuro */
   friction:   '#f97316',   /* vermelho escuro */
-  buoyancy:   '#38bdf8',   /* azul oceano */
+  buoyancy:   '#3e7da8',   /* azul oceano */
   kinetic:    '#78d68a',   /* verde */
   potential:  '#a78bfa',   /* roxo */
 
   /* Módulos */
-  intro:  '#4da3ff',
-  motion: '#42d8d0',
+  intro:  '#1d4e9e',
+  motion: '#497ca8',
   forces: '#ff6b6b',
   energy: '#a78bfa',
-  fluids: '#38bdf8',
+  fluids: '#3e7da8',
   ondas:  '#7dd3fc',
   thermo: '#fb923c',
   eletromagnetismo: '#22d3ee',
@@ -72,9 +72,9 @@ const COLORS = {
   fluidStroke: 'rgba(42, 96, 128, 0.55)',
 
   /* Aliases mantidos por compatibilidade com módulos existentes */
-  cyan:   '#42d8d0',
+  cyan:   '#5f8fb8',
   green:  '#78d68a',
-  red:    '#ff6b6b',
+  red:    '#c43d4b',
   purple: '#c084fc',
 };
 

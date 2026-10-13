@@ -37,8 +37,8 @@ for (const asset of ['./js/progress.js', './js/eq-renderer.js', './modules/conte
   assert.ok(serviceWorker.includes(asset), `offline shell must include ${asset}`);
 }
 const theme = await readFile(new URL('../css/theme.css', import.meta.url), 'utf8');
-assert.ok(theme.includes('--electric-blue:        #4da3ff'), 'theme must retain the optical laboratory palette');
+assert.ok(theme.includes('--electric-blue:        #1d4e9e'), 'theme must retain the field-notebook palette');
 const manifest = JSON.parse(await readFile(new URL('../manifest.json', import.meta.url), 'utf8'));
-assert.equal(manifest.theme_color, '#0b1018', 'PWA must use the laboratory background color');
+assert.equal(manifest.theme_color, '#18304f', 'PWA must use the field-notebook theme color');
 
 console.log(`Validated ${modules.length} modules, ${experiments.length} experiences, ${lessons.length} lessons, and ${exercises.length} exercises.`);

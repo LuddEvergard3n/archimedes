@@ -26,14 +26,14 @@
 }
 
 .btn--primary {
-  background: var(--amber-dim);
-  color: var(--amber-bright);
-  border-color: var(--inst-border-amber);
+  background: var(--electric-blue-dim);
+  color: var(--electric-blue-bright);
+  border-color: var(--electric-blue);
 }
 
 .btn--primary:hover {
-  background: var(--amber-glow);
-  border-color: var(--amber);
+  background: rgba(29, 78, 158, 0.20);
+  border-color: var(--electric-blue-bright);
 }
 
 .btn--secondary {
@@ -76,16 +76,16 @@
 }
 
 .sim-btn:hover {
-  color: var(--amber);
-  border-color: var(--inst-border-amber);
-  background: var(--amber-dim);
+  color: var(--electric-blue-bright);
+  border-color: var(--electric-blue);
+  background: var(--electric-blue-dim);
 }
 
 .sim-btn.active {
-  color: var(--amber-bright);
-  border-color: var(--amber);
-  background: var(--amber-dim);
-  box-shadow: var(--shadow-amber-glow);
+  color: var(--electric-blue-bright);
+  border-color: var(--electric-blue);
+  background: var(--electric-blue-dim);
+  box-shadow: 0 0 0 1px var(--electric-blue-dim);
 }
 
 /* ═══════════════════════════════════════════════ *
@@ -151,9 +151,9 @@ input[type="range"]::-webkit-slider-thumb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--amber);
+  background: var(--electric-blue);
   border: 2px solid var(--inst-bg-primary);
-  box-shadow: 0 0 0 1px var(--amber), var(--shadow-amber-glow);
+  box-shadow: 0 0 0 1px var(--electric-blue);
   transition: transform var(--transition-fast);
 }
 
@@ -166,9 +166,9 @@ input[type="range"]::-moz-range-thumb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--amber);
+  background: var(--electric-blue);
   border: 2px solid var(--inst-bg-primary);
-  box-shadow: 0 0 0 1px var(--amber);
+  box-shadow: 0 0 0 1px var(--electric-blue);
   cursor: pointer;
 }
 

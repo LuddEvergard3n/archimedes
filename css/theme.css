@@ -10,24 +10,24 @@
 
 :root {
   /* ── Instrumento: fundos ───────────────────────── */
-  --inst-bg-deep:      #070b12;
-  --inst-bg-primary:   #0b1018;
-  --inst-bg-secondary: #111c2b;
-  --inst-bg-panel:     #162437;
-  --inst-bg-card:      #1b2c42;
-  --inst-bg-hover:     #223852;
-  --inst-bg-active:    #294563;
+  --inst-bg-deep:      #111923;
+  --inst-bg-primary:   #f6f8fb;
+  --inst-bg-secondary: #18304f;
+  --inst-bg-panel:     #172333;
+  --inst-bg-card:      #1e2d3e;
+  --inst-bg-hover:     #29415d;
+  --inst-bg-active:    #31557d;
 
   /* ── Instrumento: bordas ───────────────────────── */
-  --inst-border-dim:   rgba(77, 163, 255, 0.08);
-  --inst-border-base:  #29435d;
-  --inst-border-mid:   #3c5e7c;
-  --inst-border-amber: rgba(255, 191, 71, 0.38);
+  --inst-border-dim:   rgba(29, 78, 158, 0.12);
+  --inst-border-base:  #3d5874;
+  --inst-border-mid:   #66809c;
+  --inst-border-amber: rgba(196, 122, 34, 0.38);
 
   /* ── Instrumento: grid do canvas ───────────────── */
-  --inst-grid-fine:  rgba(77, 163, 255, 0.07);
-  --inst-grid-major: rgba(66, 216, 208, 0.14);
-  --inst-axis:       rgba(77, 163, 255, 0.44);
+  --inst-grid-fine:  rgba(101, 140, 183, 0.10);
+  --inst-grid-major: rgba(29, 78, 158, 0.24);
+  --inst-axis:       rgba(130, 174, 221, 0.50);
 
   /* ── Instrumento: texto ────────────────────────── */
   --inst-text-primary:   #e6edf4;
@@ -35,52 +35,54 @@
   --inst-text-muted:     #8295a8;
   --inst-text-disabled:  #516274;
 
-  /* ── Sinais ópticos e leituras ──────────────────── */
-  --electric-blue:        #4da3ff;
-  --electric-blue-bright: #79b8ff;
-  --electric-blue-dim:    rgba(77, 163, 255, 0.16);
-  --cyan:                 #42d8d0;
-  --cyan-dim:             rgba(66, 216, 208, 0.14);
-  --amber:        #ffbf47;
-  --amber-bright: #ffd166;
-  --amber-dim:    rgba(255, 191, 71, 0.14);
-  --amber-glow:   rgba(255, 191, 71, 0.22);
-  --accent-green: #78d68a;
+  /* ── Caderno de campo: navegação, vetor e medição ─ */
+  --electric-blue:        #1d4e9e;
+  --electric-blue-bright: #3269bd;
+  --electric-blue-dim:    rgba(29, 78, 158, 0.12);
+  --signal-red:           #c43d4b;
+  --signal-red-dim:       rgba(196, 61, 75, 0.12);
+  --cyan:                 #5f8fb8;
+  --cyan-dim:             rgba(95, 143, 184, 0.14);
+  --amber:        #c47a22;
+  --amber-bright: #dc953d;
+  --amber-dim:    rgba(196, 122, 34, 0.12);
+  --amber-glow:   rgba(196, 122, 34, 0.16);
+  --accent-green: #4f8a63;
   --text-muted: var(--inst-text-muted);
 
   /* ── Caderno: fundos papel ─────────────────────── */
-  --nb-bg:        #f2f6fa;
-  --nb-bg-card:   #e8eff6;
-  --nb-bg-inset:  #dfe9f3;
+  --nb-bg:        #fbfcfe;
+  --nb-bg-card:   #f2f5f9;
+  --nb-bg-inset:  #e8edf3;
 
   /* ── Caderno: bordas ───────────────────────────── */
-  --nb-border:     #b9c9d8;
-  --nb-border-dim: rgba(38, 65, 90, 0.18);
+  --nb-border:     #c8d3df;
+  --nb-border-dim: rgba(29, 57, 86, 0.18);
 
   /* ── Caderno: texto ────────────────────────────── */
-  --nb-text-primary:   #102235;
-  --nb-text-secondary: #314a61;
-  --nb-text-muted:     #61778b;
+  --nb-text-primary:   #14283d;
+  --nb-text-secondary: #3e5870;
+  --nb-text-muted:     #6e8193;
 
   /* ── Azul acadêmico ─────────────────────────────── */
-  --nb-blue:     #1d5fa7;
-  --nb-blue-dim: rgba(29, 95, 167, 0.10);
+  --nb-blue:     #1d4e9e;
+  --nb-blue-dim: rgba(29, 78, 158, 0.10);
 
   /* ── Cores dos módulos ─────────────────────────── */
-  --color-intro:  #4da3ff;
-  --color-motion: #42d8d0;
+  --color-intro:  #1d4e9e;
+  --color-motion: #497ca8;
   --color-forces: #ff6b6b;
   --color-energy: #a78bfa;
-  --color-fluids: #38bdf8;
+  --color-fluids: #3e7da8;
 
   /* ── Cores de vetores — convenção de livros ─────── */
-  --vec-velocity:  #4da3ff;
+  --vec-velocity:  #3269bd;
   --vec-accel:     #f59e0b;
-  --vec-force:     #ff6b6b;
+  --vec-force:     #c43d4b;
   --vec-normal:    #94a3b8;
   --vec-weight:    #64748b;
   --vec-friction:  #f97316;
-  --vec-buoyancy:  #38bdf8;
+  --vec-buoyancy:  #3e7da8;
   --vec-kinetic:   #78d68a;
   --vec-potential: #a78bfa;
 
@@ -122,7 +124,7 @@
   --shadow-panel:      0 2px 20px rgba(0, 0, 0, 0.50);
   --shadow-card:       0 1px 8px  rgba(0, 0, 0, 0.35);
   --shadow-nb-card:    0 1px 6px  rgba(0, 0, 0, 0.12);
-  --shadow-amber-glow: 0 0 18px   rgba(255, 191, 71, 0.16);
+  --shadow-amber-glow: 0 0 18px   rgba(196, 122, 34, 0.14);
 
   /* ── Transições ────────────────────────────────── */
   --transition-fast: 120ms ease;
