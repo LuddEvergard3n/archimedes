@@ -40,5 +40,8 @@ const theme = await readFile(new URL('../css/theme.css', import.meta.url), 'utf8
 assert.ok(theme.includes('--electric-blue:        #1d4e9e'), 'theme must retain the field-notebook palette');
 const manifest = JSON.parse(await readFile(new URL('../manifest.json', import.meta.url), 'utf8'));
 assert.equal(manifest.theme_color, '#18304f', 'PWA must use the field-notebook theme color');
+const accessibility = await readFile(new URL('../js/accessibility.js', import.meta.url), 'utf8');
+assert.ok(accessibility.includes("archimedes-dark-mode"), 'dark-mode preference must be persisted locally');
+assert.ok(accessibility.includes('initDarkMode();'), 'dark-mode controls must initialize with accessibility controls');
 
 console.log(`Validated ${modules.length} modules, ${experiments.length} experiences, ${lessons.length} lessons, and ${exercises.length} exercises.`);

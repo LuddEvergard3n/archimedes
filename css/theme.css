@@ -161,6 +161,29 @@ html.high-contrast {
   --nb-text-muted: #333;
 }
 
+/* A leitura continua em papel técnico; apenas as superfícies são invertidas. */
+html.dark-mode:not(.high-contrast) {
+  --inst-bg-primary: #0b121b;
+  --inst-bg-secondary: #132c4b;
+  --inst-bg-panel: #172333;
+  --inst-bg-card: #1e2d3e;
+  --inst-bg-hover: #29415d;
+  --inst-bg-active: #31557d;
+  --inst-border-base: #3d5874;
+  --inst-border-mid: #66809c;
+  --nb-bg: #0e1722;
+  --nb-bg-card: #172333;
+  --nb-bg-inset: #1e2d3e;
+  --nb-border: #3d5874;
+  --nb-border-dim: rgba(152, 181, 210, 0.24);
+  --nb-text-primary: #e6edf4;
+  --nb-text-secondary: #b7c6d6;
+  --nb-text-muted: #90a4b8;
+  --nb-blue: #82a9db;
+  --nb-blue-dim: rgba(130, 169, 219, 0.16);
+  --shadow-nb-card: 0 1px 8px rgba(0, 0, 0, 0.28);
+}
+
 /* Scrollbar — Firefox */
 * {
   scrollbar-width: thin;

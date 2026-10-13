@@ -111,10 +111,6 @@
   text-transform: uppercase;
 }
 
-.logo-text span {
-  color: var(--electric-blue);
-}
-
 .header-divider {
   width: 1px;
   height: 24px;
