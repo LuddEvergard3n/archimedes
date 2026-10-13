@@ -34,30 +34,6 @@ function initHighContrast() {
   btn.addEventListener('click', () => apply(!getState('highContrast') ));
 }
 
-/* ── Dark mode ───────────────────────────────────── */
-
-function initDarkMode() {
-  const buttons = [...document.querySelectorAll('#btn-dark-mode, #btn-dark-mode-mobile')];
-  if (buttons.length === 0) return;
-
-  const apply = (active) => {
-    document.documentElement.classList.toggle('dark-mode', active);
-    buttons.forEach(button => {
-      button.setAttribute('aria-pressed', String(active));
-      button.textContent = active ? 'Modo claro' : 'Modo escuro';
-    });
-    try { localStorage.setItem('archimedes-dark-mode', active ? '1' : '0'); }
-    catch (_) {}
-  };
-
-  try { apply(localStorage.getItem('archimedes-dark-mode') === '1'); }
-  catch (_) { apply(false); }
-
-  buttons.forEach(button => button.addEventListener('click', () => {
-    apply(!document.documentElement.classList.contains('dark-mode'));
-  }));
-}
-
 /* ── Font size ───────────────────────────────────── */
 
 function initFontSize() {
@@ -204,7 +180,6 @@ function initFocusTrap() {
 
 function initAccessibility() {
   initHighContrast();
-  initDarkMode();
   initFontSize();
   initKeyboardShortcuts();
   initAriaLive();

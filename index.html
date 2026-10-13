@@ -84,7 +84,7 @@
         Modo Professor
       </button>
       <button class="header-btn"
-        id="btn-dark-mode"
+        data-theme-toggle
         aria-pressed="false">
         Modo escuro
       </button>
@@ -139,7 +139,7 @@
     <a href="referencia.html">Referência</a><a href="guia-professor.html">Guia do Professor</a>
     <a href="plano-de-aula.html">Plano de Aula</a><a href="sobre.html">Sobre</a>
     <div class="mobile-accessibility" aria-label="Acessibilidade">
-      <button type="button" id="btn-dark-mode-mobile" aria-pressed="false">Modo escuro</button>
+      <button type="button" data-theme-toggle aria-pressed="false">Modo escuro</button>
       <button type="button" id="btn-high-contrast" aria-pressed="false">Alto contraste</button>
       <button type="button" id="btn-font-decrease" aria-label="Diminuir texto">A−</button>
       <button type="button" id="btn-font-increase" aria-label="Aumentar texto">A+</button>
@@ -150,6 +150,8 @@
 
 <!-- Toast container (for notifications) -->
 <div class="toast-container" id="toast-container" aria-live="assertive" role="alert"></div>
+
+<script src="js/theme-mode.js"></script>
 
 <!-- Script — ES module entry -->
 <script type="module" src="js/main.js"></script>

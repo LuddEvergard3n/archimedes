@@ -153,6 +153,24 @@
   flex-shrink: 0;
 }
 
+.static-nav .theme-toggle {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  color: var(--inst-text-secondary);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-base);
+  border: 1px solid var(--inst-border-base);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.static-nav .theme-toggle:hover {
+  color: var(--inst-text-primary);
+  border-color: var(--electric-blue);
+  background: var(--electric-blue-dim);
+}
+
 .header-btn {
   font-family: var(--font-body);
   font-size: var(--text-sm);

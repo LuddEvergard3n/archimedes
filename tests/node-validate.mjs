@@ -33,15 +33,20 @@ assert.ok(expanded.every(experiment => experiment.sources?.length && experiment.
 assert.equal(PhysicsFallback.energy_kinetic(2, 3), 9, 'kinetic-energy fallback must remain correct');
 assert.equal(PhysicsFallback.fluids_buoyancy(1000, 9.8, 0.001), 9.8, 'buoyancy fallback must remain correct');
 const serviceWorker = await readFile(new URL('../sw.js', import.meta.url), 'utf8');
-for (const asset of ['./js/progress.js', './js/eq-renderer.js', './modules/contemporary/contemporary.js', './data/v5-content.json']) {
+for (const asset of ['./js/progress.js', './js/theme-mode.js', './js/eq-renderer.js', './modules/contemporary/contemporary.js', './data/v5-content.json']) {
   assert.ok(serviceWorker.includes(asset), `offline shell must include ${asset}`);
 }
 const theme = await readFile(new URL('../css/theme.css', import.meta.url), 'utf8');
 assert.ok(theme.includes('--electric-blue:        #1d4e9e'), 'theme must retain the field-notebook palette');
 const manifest = JSON.parse(await readFile(new URL('../manifest.json', import.meta.url), 'utf8'));
 assert.equal(manifest.theme_color, '#18304f', 'PWA must use the field-notebook theme color');
-const accessibility = await readFile(new URL('../js/accessibility.js', import.meta.url), 'utf8');
-assert.ok(accessibility.includes("archimedes-dark-mode"), 'dark-mode preference must be persisted locally');
-assert.ok(accessibility.includes('initDarkMode();'), 'dark-mode controls must initialize with accessibility controls');
+const themeMode = await readFile(new URL('../js/theme-mode.js', import.meta.url), 'utf8');
+assert.ok(themeMode.includes("archimedes-dark-mode"), 'dark-mode preference must be persisted locally');
+assert.ok(themeMode.includes('[data-theme-toggle]'), 'shared dark-mode controls must initialize by data attribute');
+for (const page of ['index.html', 'referencia.html', 'guia-professor.html', 'plano-de-aula.html', 'sobre.html']) {
+  const html = await readFile(new URL(`../${page}`, import.meta.url), 'utf8');
+  assert.ok(html.includes('data-theme-toggle'), `${page} must expose a dark-mode control`);
+  assert.ok(html.includes('js/theme-mode.js'), `${page} must load the shared dark-mode controller`);
+}
 
 console.log(`Validated ${modules.length} modules, ${experiments.length} experiences, ${lessons.length} lessons, and ${exercises.length} exercises.`);

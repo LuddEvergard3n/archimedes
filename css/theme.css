@@ -60,9 +60,9 @@
   --nb-border-dim: rgba(29, 57, 86, 0.18);
 
   /* ── Caderno: texto ────────────────────────────── */
-  --nb-text-primary:   #14283d;
-  --nb-text-secondary: #3e5870;
-  --nb-text-muted:     #6e8193;
+  --nb-text-primary:   #0e2439;
+  --nb-text-secondary: #294962;
+  --nb-text-muted:     #526d83;
 
   /* ── Azul acadêmico ─────────────────────────────── */
   --nb-blue:     #1d4e9e;
